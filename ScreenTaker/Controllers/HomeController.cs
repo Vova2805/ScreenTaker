@@ -27,6 +27,7 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
+#region Library
         public ActionResult Library()
         {
             ViewBag.Message = "Library page";
@@ -63,13 +64,42 @@ namespace ScreenTaker.Controllers
                 new Folder(7, "Encapsulation", true)
             };
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult ChangeFoldersAttr(Folder folder)
         {
             // modify dbc
             folders[folder.BookId] = folder;
 
             return RedirectToAction("Library");
+        }
+        #endregion
+
+        List<string> list = new List<string>
+            {
+                "image0",
+                "image1",
+                "image2",
+                "image3",
+                "image4",
+                "image5",
+                "image6",
+                "image7",
+                "image8",
+                "image9"
+            };
+
+        public ActionResult Images()
+        {
+            ViewBag.Images = list;
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult SingleImage(int id)
+        {
+            ViewBag.Image = list[id];
+            return View();
         }
     }
 }
