@@ -22,3 +22,22 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.library-menu {
+    background-color: #686868;
+    min-height: 100px;
+    border-radius: 10px;
+}
+
+.library-folder {
+    background-color: #E0E0E0;
+    border-radius: 30px;
+}
+
+.library-folder:hover {
+    background-color: #686868;
+}
+
+.library-folder:active {
+    background-color: #F0F0F0;
+}
