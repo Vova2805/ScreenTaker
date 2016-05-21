@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Library";
+    int counter = 0;
+}
+
+<div class="library-menu">
+    <div class="col-md-6 text-center">
+        <h3 style="color: #F0F0F0">Create folder</h3>
+        <form class="form-inline" method="POST" action="">
+            <div class="form-group">
+                <input type="text" id="ctitle" class="form-control" placeholder="New folder">
+            </div>
+            <div class="checkbox" style="margin-left: 20px">
+                <label style="color: #F0F0F0; font-size: 16px">
+                    <input type="checkbox"/>
+                    Private
+                </label>
+            </div>
+            <button type="submit" class="btn btn-default" style="margin-left: 20px">Create</button>
+        </form>
+    </div>
+    <div class="col-md-6 text-center">
+        <h3 style="color: #F0F0F0">Edit folder</h3>
+        <form class="form-inline" method="POST" action="">
+            <div class="form-group">
+                <input type="text" id="etitle" class="form-control" placeholder="@ViewBag.Folders[1].Title">
+            </div>
+            <div class="checkbox" style="margin-left: 20px">
+                <label style="color: #F0F0F0; font-size: 16px">
+                    @if (ViewBag.Folders[1].IsPrivate)
+                    {
+                        <input type="checkbox"checked="checked">
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                    Private
+                </label>
+            </div>
+            <button type="submit" class="btn btn-default" style="margin-left: 20px">Apply changes</button>
+        </form>
+    </div>
+</div>
+<br/>
+<div class="row">
+    @for (int i = 0; i < ViewBag.Folders.Count; i++)
+    {
+        <div class="col-md-2 library-folder text-center" id="@counter" onclick="SelectFolder(this.id)">
+            @if (ViewBag.Folders[i].IsPrivate)
+            {
+                <img src="~/fonts/private.png"/>
+            }
+            else
+            {
+                <img src="~/fonts/public.png"/>
+            }
+            <label class="text-center" id="label-@counter" style="padding-left: 10px">@ViewBag.Folders[i].Title</label>
+        </div>
+        counter++;
+    }
+</div>
+
+<script>
+    function SelectFolder(folderId) {
+        var label = document.getElementById('label-' + folderId);
+        document.getElementById('etitle').value = label.innerHTML;
+        // todo: make possible check privacy of the selected folder
+    }
+</script>
