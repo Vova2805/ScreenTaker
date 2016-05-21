@@ -15,18 +15,22 @@ namespace ScreenTaker.Models
     public class LocalizationInside
     {
         private static ENGLocalization instance = null;
-        public static Languages selectedLanguage = Languages.ENG;
+        private static Languages _selectedLanguage = Languages.ENG;
+        public static Languages SelectedLanguage{
+            get { return _selectedLanguage; }
+            set { _selectedLanguage = value; }
+            }
         private LocalizationInside()
         { }
         public static ENGLocalization getInstance()
         {
             if (instance == null)
-                instance = new getLocalization();
+                instance = getLocalization();
             return instance;
         }
-        private ILocalization getLocalization()
+        private static ENGLocalization getLocalization()
         {
-            switch(selectedLanguage)
+            switch(_selectedLanguage)
             {
                 case Languages.ENG: return new ENGLocalization();
                 case Languages.UKR: return new UKRLocalization();
@@ -35,8 +39,7 @@ namespace ScreenTaker.Models
                 default: return new ENGLocalization();
             }
         }
-    }
-   
+    }   
     public class ENGLocalization 
     {
         public  string APP_TITLE = "Screen Taker";
