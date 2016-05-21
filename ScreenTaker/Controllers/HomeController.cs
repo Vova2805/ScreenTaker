@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ScreenTaker.Models;
 
 namespace ScreenTaker.Controllers
 {
     public class HomeController : Controller
     {
+        private RandomStringGenerator _stringGenerator = new RandomStringGenerator()
+        {
+            Chars = "123abcABC",
+            Length = 10
+        };
+    
         public ActionResult Index()
         {
             return View();

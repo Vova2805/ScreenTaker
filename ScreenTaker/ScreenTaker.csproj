@@ -188,6 +188,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RandomStringGenerator.cs" />
     <Compile Include="person.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
