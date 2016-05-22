@@ -1,0 +1,9 @@
+DROP TABLE  Person 
+DROP TABLE  PersonGroup
+DROP TABLE  GroupShare 
+DROP TABLE  Tag 
+DROP TABLE  Folder 
+DROP TABLE  Image 
+DROP TABLE  UserShare 
+DROP TABLE  ImageTag
+DROP TABLE  GroupMember

@@ -12,16 +12,13 @@ namespace ScreenTaker
     using System;
     using System.Collections.Generic;
     
-    public partial class UserShare
+    public partial class database_firewall_rules
     {
-        public Nullable<int> personId { get; set; }
-        public Nullable<int> imageId { get; set; }
-        public Nullable<int> folderId { get; set; }
-        public string email { get; set; }
         public int id { get; set; }
-    
-        public virtual Folder Folder { get; set; }
-        public virtual Image Image { get; set; }
-        public virtual Person Person { get; set; }
+        public string name { get; set; }
+        public string start_ip_address { get; set; }
+        public string end_ip_address { get; set; }
+        public System.DateTime create_date { get; set; }
+        public System.DateTime modify_date { get; set; }
     }
 }

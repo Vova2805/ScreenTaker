@@ -5,38 +5,46 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="ScreenTakerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="folder">
+        <EntityType Name="Folder">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ownerId" Type="int" Nullable="false" />
           <Property Name="isPublic" Type="bit" Nullable="false" />
-          <Property Name="sharedCode" Type="varchar(max)" />
+          <Property Name="sharedCode" Type="varchar(max)" Nullable="false" />
           <Property Name="publicationDate" Type="datetime" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="groupShare">
+        <EntityType Name="GroupMember">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="groupId" Type="int" />
+          <Property Name="groupId" Type="int" Nullable="false" />
+          <Property Name="personMemberId" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroupShare">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="groupId" Type="int" Nullable="false" />
           <Property Name="folderId" Type="int" />
           <Property Name="imageId" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="image">
+        <EntityType Name="Image">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="folderId" Type="int" />
-          <Property Name="isPublic" Type="bit" />
-          <Property Name="sharedCode" Type="varchar(max)" />
-          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="folderId" Type="int" Nullable="false" />
+          <Property Name="isPublic" Type="bit" Nullable="false" />
+          <Property Name="sharedCode" Type="varchar(max)" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="publicationDate" Type="datetime" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="imageTag">
+        <EntityType Name="ImageTag">
           <Key>
             <PropertyRef Name="imageId" />
             <PropertyRef Name="tagId" />
@@ -44,243 +52,305 @@
           <Property Name="imageId" Type="int" Nullable="false" />
           <Property Name="tagId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="person">
+        <EntityType Name="Person">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="email" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="imagePath" Type="char" MaxLength="18" />
+          <Property Name="email" Type="varchar(max)" Nullable="false" />
+          <Property Name="personImageName" Type="varchar" MaxLength="15" />
           <Property Name="isActive" Type="bit" Nullable="false" />
-          <Property Name="passwordHash" Type="varbinary" MaxLength="128" />
-          <Property Name="salt" Type="varchar" MaxLength="20" />
+          <Property Name="passwordHash" Type="varbinary" MaxLength="128" Nullable="false" />
+          <Property Name="salt" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="registartionDate" Type="datetime" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="personGroup">
+        <EntityType Name="PersonGroup">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="personId" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="tag">
+        <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="20" />
-          <Property Name="personId" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="personId" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="userShare">
+        <EntityType Name="UserShare">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="personId" Type="int" />
           <Property Name="imageId" Type="int" />
           <Property Name="folderId" Type="int" />
-          <Property Name="email" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar(max)" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ScreenTakerDB.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="R_16">
-          <End Role="person" Type="Self.person" Multiplicity="1" />
-          <End Role="folder" Type="Self.folder" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="Person">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="folder">
+            <Dependent Role="Folder">
               <PropertyRef Name="ownerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_19">
-          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
-          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="folder">
+            <Principal Role="Folder">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="image">
+            <Dependent Role="Image">
               <PropertyRef Name="folderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_20">
-          <End Role="person" Type="Self.person" Multiplicity="0..1" />
-          <End Role="personGroup" Type="Self.personGroup" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="Person">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="personGroup">
+            <Dependent Role="PersonGroup">
               <PropertyRef Name="personId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_22">
-          <End Role="personGroup" Type="Self.personGroup" Multiplicity="0..1" />
-          <End Role="groupShare" Type="Self.groupShare" Multiplicity="*" />
+          <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="1" />
+          <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="personGroup">
+            <Principal Role="PersonGroup">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="groupShare">
+            <Dependent Role="GroupShare">
               <PropertyRef Name="groupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_23">
-          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
-          <End Role="groupShare" Type="Self.groupShare" Multiplicity="*" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="folder">
+            <Principal Role="Folder">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="groupShare">
+            <Dependent Role="GroupShare">
               <PropertyRef Name="folderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_24">
-          <End Role="image" Type="Self.image" Multiplicity="0..1" />
-          <End Role="groupShare" Type="Self.groupShare" Multiplicity="*" />
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="image">
+            <Principal Role="Image">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="groupShare">
+            <Dependent Role="GroupShare">
               <PropertyRef Name="imageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_25">
-          <End Role="person" Type="Self.person" Multiplicity="0..1" />
-          <End Role="userShare" Type="Self.userShare" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="Person">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="userShare">
+            <Dependent Role="UserShare">
               <PropertyRef Name="personId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_26">
-          <End Role="image" Type="Self.image" Multiplicity="0..1" />
-          <End Role="userShare" Type="Self.userShare" Multiplicity="*" />
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="image">
+            <Principal Role="Image">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="userShare">
+            <Dependent Role="UserShare">
               <PropertyRef Name="imageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_27">
-          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
-          <End Role="userShare" Type="Self.userShare" Multiplicity="*" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="folder">
+            <Principal Role="Folder">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="userShare">
+            <Dependent Role="UserShare">
               <PropertyRef Name="folderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_33">
-          <End Role="image" Type="Self.image" Multiplicity="1" />
-          <End Role="imageTag" Type="Self.imageTag" Multiplicity="*" />
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="ImageTag" Type="Self.ImageTag" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="image">
+            <Principal Role="Image">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="imageTag">
+            <Dependent Role="ImageTag">
               <PropertyRef Name="imageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_34">
-          <End Role="tag" Type="Self.tag" Multiplicity="1" />
-          <End Role="imageTag" Type="Self.imageTag" Multiplicity="*" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="ImageTag" Type="Self.ImageTag" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tag">
+            <Principal Role="Tag">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="imageTag">
+            <Dependent Role="ImageTag">
               <PropertyRef Name="tagId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_35">
-          <End Role="person" Type="Self.person" Multiplicity="0..1" />
-          <End Role="tag" Type="Self.tag" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="Person">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="tag">
+            <Dependent Role="Tag">
               <PropertyRef Name="personId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="R_36">
+          <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="1" />
+          <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonGroup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="groupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_37">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="personMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ScreenTakerDBModelStoreContainer">
-          <EntitySet Name="folder" EntityType="Self.folder" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="groupShare" EntityType="Self.groupShare" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="image" EntityType="Self.image" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="imageTag" EntityType="Self.imageTag" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="personGroup" EntityType="Self.personGroup" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tag" EntityType="Self.tag" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="userShare" EntityType="Self.userShare" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupMember" EntityType="Self.GroupMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupShare" EntityType="Self.GroupShare" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageTag" EntityType="Self.ImageTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonGroup" EntityType="Self.PersonGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserShare" EntityType="Self.UserShare" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="R_16" Association="Self.R_16">
-            <End Role="person" EntitySet="person" />
-            <End Role="folder" EntitySet="folder" />
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Folder" EntitySet="Folder" />
           </AssociationSet>
           <AssociationSet Name="R_19" Association="Self.R_19">
-            <End Role="folder" EntitySet="folder" />
-            <End Role="image" EntitySet="image" />
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="Image" EntitySet="Image" />
           </AssociationSet>
           <AssociationSet Name="R_20" Association="Self.R_20">
-            <End Role="person" EntitySet="person" />
-            <End Role="personGroup" EntitySet="personGroup" />
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonGroup" EntitySet="PersonGroup" />
           </AssociationSet>
           <AssociationSet Name="R_22" Association="Self.R_22">
-            <End Role="personGroup" EntitySet="personGroup" />
-            <End Role="groupShare" EntitySet="groupShare" />
+            <End Role="PersonGroup" EntitySet="PersonGroup" />
+            <End Role="GroupShare" EntitySet="GroupShare" />
           </AssociationSet>
           <AssociationSet Name="R_23" Association="Self.R_23">
-            <End Role="folder" EntitySet="folder" />
-            <End Role="groupShare" EntitySet="groupShare" />
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="GroupShare" EntitySet="GroupShare" />
           </AssociationSet>
           <AssociationSet Name="R_24" Association="Self.R_24">
-            <End Role="image" EntitySet="image" />
-            <End Role="groupShare" EntitySet="groupShare" />
+            <End Role="Image" EntitySet="Image" />
+            <End Role="GroupShare" EntitySet="GroupShare" />
           </AssociationSet>
           <AssociationSet Name="R_25" Association="Self.R_25">
-            <End Role="person" EntitySet="person" />
-            <End Role="userShare" EntitySet="userShare" />
+            <End Role="Person" EntitySet="Person" />
+            <End Role="UserShare" EntitySet="UserShare" />
           </AssociationSet>
           <AssociationSet Name="R_26" Association="Self.R_26">
-            <End Role="image" EntitySet="image" />
-            <End Role="userShare" EntitySet="userShare" />
+            <End Role="Image" EntitySet="Image" />
+            <End Role="UserShare" EntitySet="UserShare" />
           </AssociationSet>
           <AssociationSet Name="R_27" Association="Self.R_27">
-            <End Role="folder" EntitySet="folder" />
-            <End Role="userShare" EntitySet="userShare" />
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="UserShare" EntitySet="UserShare" />
           </AssociationSet>
           <AssociationSet Name="R_33" Association="Self.R_33">
-            <End Role="image" EntitySet="image" />
-            <End Role="imageTag" EntitySet="imageTag" />
+            <End Role="Image" EntitySet="Image" />
+            <End Role="ImageTag" EntitySet="ImageTag" />
           </AssociationSet>
           <AssociationSet Name="R_34" Association="Self.R_34">
-            <End Role="tag" EntitySet="tag" />
-            <End Role="imageTag" EntitySet="imageTag" />
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="ImageTag" EntitySet="ImageTag" />
           </AssociationSet>
           <AssociationSet Name="R_35" Association="Self.R_35">
-            <End Role="person" EntitySet="person" />
-            <End Role="tag" EntitySet="tag" />
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Tag" EntitySet="Tag" />
+          </AssociationSet>
+          <AssociationSet Name="R_36" Association="Self.R_36">
+            <End Role="PersonGroup" EntitySet="PersonGroup" />
+            <End Role="GroupMember" EntitySet="GroupMember" />
+          </AssociationSet>
+          <AssociationSet Name="R_37" Association="Self.R_37">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="GroupMember" EntitySet="GroupMember" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -288,271 +358,334 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ScreenTakerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="folder">
+        <EntityType Name="Folder">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ownerId" Type="Int32" Nullable="false" />
           <Property Name="isPublic" Type="Boolean" Nullable="false" />
-          <Property Name="sharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="publicationDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="person" Relationship="Self.R_16" FromRole="folder" ToRole="person" />
-          <NavigationProperty Name="image" Relationship="Self.R_19" FromRole="folder" ToRole="image" />
-          <NavigationProperty Name="groupShare" Relationship="Self.R_23" FromRole="folder" ToRole="groupShare" />
-          <NavigationProperty Name="userShare" Relationship="Self.R_27" FromRole="folder" ToRole="userShare" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Person" Relationship="Self.R_16" FromRole="Folder" ToRole="Person" />
+          <NavigationProperty Name="Image" Relationship="Self.R_19" FromRole="Folder" ToRole="Image" />
+          <NavigationProperty Name="GroupShare" Relationship="Self.R_23" FromRole="Folder" ToRole="GroupShare" />
+          <NavigationProperty Name="UserShare" Relationship="Self.R_27" FromRole="Folder" ToRole="UserShare" />
         </EntityType>
-        <EntityType Name="groupShare">
+        <EntityType Name="GroupMember">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="groupId" Type="Int32" />
+          <Property Name="groupId" Type="Int32" Nullable="false" />
+          <Property Name="personMemberId" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="PersonGroup" Relationship="Self.R_36" FromRole="GroupMember" ToRole="PersonGroup" />
+          <NavigationProperty Name="Person" Relationship="Self.R_37" FromRole="GroupMember" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="GroupShare">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="groupId" Type="Int32" Nullable="false" />
           <Property Name="folderId" Type="Int32" />
           <Property Name="imageId" Type="Int32" />
-          <NavigationProperty Name="folder" Relationship="Self.R_23" FromRole="groupShare" ToRole="folder" />
-          <NavigationProperty Name="personGroup" Relationship="Self.R_22" FromRole="groupShare" ToRole="personGroup" />
-          <NavigationProperty Name="image" Relationship="Self.R_24" FromRole="groupShare" ToRole="image" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Folder" Relationship="Self.R_23" FromRole="GroupShare" ToRole="Folder" />
+          <NavigationProperty Name="PersonGroup" Relationship="Self.R_22" FromRole="GroupShare" ToRole="PersonGroup" />
+          <NavigationProperty Name="Image" Relationship="Self.R_24" FromRole="GroupShare" ToRole="Image" />
         </EntityType>
-        <EntityType Name="image">
+        <EntityType Name="Image">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="folderId" Type="Int32" />
-          <Property Name="isPublic" Type="Boolean" />
-          <Property Name="sharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="folderId" Type="Int32" Nullable="false" />
+          <Property Name="isPublic" Type="Boolean" Nullable="false" />
+          <Property Name="sharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="publicationDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="folder" Relationship="Self.R_19" FromRole="image" ToRole="folder" />
-          <NavigationProperty Name="groupShare" Relationship="Self.R_24" FromRole="image" ToRole="groupShare" />
-          <NavigationProperty Name="userShare" Relationship="Self.R_26" FromRole="image" ToRole="userShare" />
-          <NavigationProperty Name="tag" Relationship="Self.imageTag" FromRole="image" ToRole="tag" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Folder" Relationship="Self.R_19" FromRole="Image" ToRole="Folder" />
+          <NavigationProperty Name="GroupShare" Relationship="Self.R_24" FromRole="Image" ToRole="GroupShare" />
+          <NavigationProperty Name="UserShare" Relationship="Self.R_26" FromRole="Image" ToRole="UserShare" />
+          <NavigationProperty Name="Tag" Relationship="Self.ImageTag" FromRole="Image" ToRole="Tag" />
         </EntityType>
-        <EntityType Name="person">
+        <EntityType Name="Person">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="imagePath" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="personImageName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
-          <Property Name="passwordHash" Type="Binary" MaxLength="128" FixedLength="false" />
-          <Property Name="salt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="folder" Relationship="Self.R_16" FromRole="person" ToRole="folder" />
-          <NavigationProperty Name="personGroup" Relationship="Self.R_20" FromRole="person" ToRole="personGroup" />
-          <NavigationProperty Name="userShare" Relationship="Self.R_25" FromRole="person" ToRole="userShare" />
-          <NavigationProperty Name="tag" Relationship="Self.R_35" FromRole="person" ToRole="tag" />
+          <Property Name="passwordHash" Type="Binary" MaxLength="128" FixedLength="false" Nullable="false" />
+          <Property Name="salt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="registartionDate" Type="DateTime" Precision="3" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Folder" Relationship="Self.R_16" FromRole="Person" ToRole="Folder" />
+          <NavigationProperty Name="GroupMember" Relationship="Self.R_37" FromRole="Person" ToRole="GroupMember" />
+          <NavigationProperty Name="PersonGroup" Relationship="Self.R_20" FromRole="Person" ToRole="PersonGroup" />
+          <NavigationProperty Name="UserShare" Relationship="Self.R_25" FromRole="Person" ToRole="UserShare" />
+          <NavigationProperty Name="Tag" Relationship="Self.R_35" FromRole="Person" ToRole="Tag" />
         </EntityType>
-        <EntityType Name="personGroup">
+        <EntityType Name="PersonGroup">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="personId" Type="Int32" />
-          <NavigationProperty Name="groupShare" Relationship="Self.R_22" FromRole="personGroup" ToRole="groupShare" />
-          <NavigationProperty Name="person" Relationship="Self.R_20" FromRole="personGroup" ToRole="person" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="GroupMember" Relationship="Self.R_36" FromRole="PersonGroup" ToRole="GroupMember" />
+          <NavigationProperty Name="GroupShare" Relationship="Self.R_22" FromRole="PersonGroup" ToRole="GroupShare" />
+          <NavigationProperty Name="Person" Relationship="Self.R_20" FromRole="PersonGroup" ToRole="Person" />
         </EntityType>
-        <EntityType Name="tag">
+        <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="personId" Type="Int32" />
-          <NavigationProperty Name="person" Relationship="Self.R_35" FromRole="tag" ToRole="person" />
-          <NavigationProperty Name="image" Relationship="Self.imageTag" FromRole="tag" ToRole="image" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="personId" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Person" Relationship="Self.R_35" FromRole="Tag" ToRole="Person" />
+          <NavigationProperty Name="Image" Relationship="Self.ImageTag" FromRole="Tag" ToRole="Image" />
         </EntityType>
-        <EntityType Name="userShare">
+        <EntityType Name="UserShare">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="personId" Type="Int32" />
           <Property Name="imageId" Type="Int32" />
           <Property Name="folderId" Type="Int32" />
-          <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="folder" Relationship="Self.R_27" FromRole="userShare" ToRole="folder" />
-          <NavigationProperty Name="image" Relationship="Self.R_26" FromRole="userShare" ToRole="image" />
-          <NavigationProperty Name="person" Relationship="Self.R_25" FromRole="userShare" ToRole="person" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Folder" Relationship="Self.R_27" FromRole="UserShare" ToRole="Folder" />
+          <NavigationProperty Name="Image" Relationship="Self.R_26" FromRole="UserShare" ToRole="Image" />
+          <NavigationProperty Name="Person" Relationship="Self.R_25" FromRole="UserShare" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="R_16">
-          <End Role="person" Type="Self.person" Multiplicity="1" />
-          <End Role="folder" Type="Self.folder" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="Person">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="folder">
+            <Dependent Role="Folder">
               <PropertyRef Name="ownerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_19">
-          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
-          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="folder">
+            <Principal Role="Folder">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="image">
+            <Dependent Role="Image">
               <PropertyRef Name="folderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_23">
-          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
-          <End Role="groupShare" Type="Self.groupShare" Multiplicity="*" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="folder">
+            <Principal Role="Folder">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="groupShare">
+            <Dependent Role="GroupShare">
               <PropertyRef Name="folderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_27">
-          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
-          <End Role="userShare" Type="Self.userShare" Multiplicity="*" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="folder">
+            <Principal Role="Folder">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="userShare">
+            <Dependent Role="UserShare">
               <PropertyRef Name="folderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_22">
-          <End Role="personGroup" Type="Self.personGroup" Multiplicity="0..1" />
-          <End Role="groupShare" Type="Self.groupShare" Multiplicity="*" />
+        <Association Name="R_36">
+          <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="1" />
+          <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="personGroup">
+            <Principal Role="PersonGroup">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="groupShare">
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="groupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_37">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GroupMember">
+              <PropertyRef Name="personMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_22">
+          <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="1" />
+          <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonGroup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GroupShare">
               <PropertyRef Name="groupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_24">
-          <End Role="image" Type="Self.image" Multiplicity="0..1" />
-          <End Role="groupShare" Type="Self.groupShare" Multiplicity="*" />
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="image">
+            <Principal Role="Image">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="groupShare">
+            <Dependent Role="GroupShare">
               <PropertyRef Name="imageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_26">
-          <End Role="image" Type="Self.image" Multiplicity="0..1" />
-          <End Role="userShare" Type="Self.userShare" Multiplicity="*" />
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="image">
+            <Principal Role="Image">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="userShare">
+            <Dependent Role="UserShare">
               <PropertyRef Name="imageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_20">
-          <End Role="person" Type="Self.person" Multiplicity="0..1" />
-          <End Role="personGroup" Type="Self.personGroup" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="Person">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="personGroup">
+            <Dependent Role="PersonGroup">
               <PropertyRef Name="personId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_25">
-          <End Role="person" Type="Self.person" Multiplicity="0..1" />
-          <End Role="userShare" Type="Self.userShare" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="Person">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="userShare">
+            <Dependent Role="UserShare">
               <PropertyRef Name="personId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="R_35">
-          <End Role="person" Type="Self.person" Multiplicity="0..1" />
-          <End Role="tag" Type="Self.tag" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="Person">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="tag">
+            <Dependent Role="Tag">
               <PropertyRef Name="personId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="imageTag">
-          <End Role="image" Type="Self.image" Multiplicity="*" />
-          <End Role="tag" Type="Self.tag" Multiplicity="*" />
+        <Association Name="ImageTag">
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
         </Association>
         <EntityContainer Name="ScreenTakerDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="folder" EntityType="Self.folder" />
-          <EntitySet Name="groupShare" EntityType="Self.groupShare" />
-          <EntitySet Name="image" EntityType="Self.image" />
-          <EntitySet Name="person" EntityType="Self.person" />
-          <EntitySet Name="personGroup" EntityType="Self.personGroup" />
-          <EntitySet Name="tag" EntityType="Self.tag" />
-          <EntitySet Name="userShare" EntityType="Self.userShare" />
+          <EntitySet Name="Folder" EntityType="Self.Folder" />
+          <EntitySet Name="GroupMember" EntityType="Self.GroupMember" />
+          <EntitySet Name="GroupShare" EntityType="Self.GroupShare" />
+          <EntitySet Name="Image" EntityType="Self.Image" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="PersonGroup" EntityType="Self.PersonGroup" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" />
+          <EntitySet Name="UserShare" EntityType="Self.UserShare" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
           <AssociationSet Name="R_16" Association="Self.R_16">
-            <End Role="person" EntitySet="person" />
-            <End Role="folder" EntitySet="folder" />
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Folder" EntitySet="Folder" />
           </AssociationSet>
           <AssociationSet Name="R_19" Association="Self.R_19">
-            <End Role="folder" EntitySet="folder" />
-            <End Role="image" EntitySet="image" />
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="Image" EntitySet="Image" />
           </AssociationSet>
           <AssociationSet Name="R_23" Association="Self.R_23">
-            <End Role="folder" EntitySet="folder" />
-            <End Role="groupShare" EntitySet="groupShare" />
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="GroupShare" EntitySet="GroupShare" />
           </AssociationSet>
           <AssociationSet Name="R_27" Association="Self.R_27">
-            <End Role="folder" EntitySet="folder" />
-            <End Role="userShare" EntitySet="userShare" />
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="UserShare" EntitySet="UserShare" />
+          </AssociationSet>
+          <AssociationSet Name="R_36" Association="Self.R_36">
+            <End Role="PersonGroup" EntitySet="PersonGroup" />
+            <End Role="GroupMember" EntitySet="GroupMember" />
+          </AssociationSet>
+          <AssociationSet Name="R_37" Association="Self.R_37">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="GroupMember" EntitySet="GroupMember" />
           </AssociationSet>
           <AssociationSet Name="R_22" Association="Self.R_22">
-            <End Role="personGroup" EntitySet="personGroup" />
-            <End Role="groupShare" EntitySet="groupShare" />
+            <End Role="PersonGroup" EntitySet="PersonGroup" />
+            <End Role="GroupShare" EntitySet="GroupShare" />
           </AssociationSet>
           <AssociationSet Name="R_24" Association="Self.R_24">
-            <End Role="image" EntitySet="image" />
-            <End Role="groupShare" EntitySet="groupShare" />
+            <End Role="Image" EntitySet="Image" />
+            <End Role="GroupShare" EntitySet="GroupShare" />
           </AssociationSet>
           <AssociationSet Name="R_26" Association="Self.R_26">
-            <End Role="image" EntitySet="image" />
-            <End Role="userShare" EntitySet="userShare" />
+            <End Role="Image" EntitySet="Image" />
+            <End Role="UserShare" EntitySet="UserShare" />
           </AssociationSet>
           <AssociationSet Name="R_20" Association="Self.R_20">
-            <End Role="person" EntitySet="person" />
-            <End Role="personGroup" EntitySet="personGroup" />
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonGroup" EntitySet="PersonGroup" />
           </AssociationSet>
           <AssociationSet Name="R_25" Association="Self.R_25">
-            <End Role="person" EntitySet="person" />
-            <End Role="userShare" EntitySet="userShare" />
+            <End Role="Person" EntitySet="Person" />
+            <End Role="UserShare" EntitySet="UserShare" />
           </AssociationSet>
           <AssociationSet Name="R_35" Association="Self.R_35">
-            <End Role="person" EntitySet="person" />
-            <End Role="tag" EntitySet="tag" />
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Tag" EntitySet="Tag" />
           </AssociationSet>
-          <AssociationSet Name="imageTag" Association="Self.imageTag">
-            <End Role="image" EntitySet="image" />
-            <End Role="tag" EntitySet="tag" />
+          <AssociationSet Name="ImageTag" Association="Self.ImageTag">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Tag" EntitySet="Tag" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -561,86 +694,108 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ScreenTakerDBModelStoreContainer" CdmEntityContainer="ScreenTakerDBEntities">
-          <EntitySetMapping Name="folder">
-            <EntityTypeMapping TypeName="ScreenTakerDBModel.folder">
-              <MappingFragment StoreEntitySet="folder">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="Folder">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.Folder">
+              <MappingFragment StoreEntitySet="Folder">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="ownerId" ColumnName="ownerId" />
                 <ScalarProperty Name="isPublic" ColumnName="isPublic" />
                 <ScalarProperty Name="sharedCode" ColumnName="sharedCode" />
                 <ScalarProperty Name="publicationDate" ColumnName="publicationDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="groupShare">
-            <EntityTypeMapping TypeName="ScreenTakerDBModel.groupShare">
-              <MappingFragment StoreEntitySet="groupShare">
+          <EntitySetMapping Name="GroupMember">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.GroupMember">
+              <MappingFragment StoreEntitySet="GroupMember">
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="personMemberId" ColumnName="personMemberId" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupShare">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.GroupShare">
+              <MappingFragment StoreEntitySet="GroupShare">
                 <ScalarProperty Name="groupId" ColumnName="groupId" />
                 <ScalarProperty Name="folderId" ColumnName="folderId" />
                 <ScalarProperty Name="imageId" ColumnName="imageId" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="image">
-            <EntityTypeMapping TypeName="ScreenTakerDBModel.image">
-              <MappingFragment StoreEntitySet="image">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="Image">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.Image">
+              <MappingFragment StoreEntitySet="Image">
                 <ScalarProperty Name="folderId" ColumnName="folderId" />
                 <ScalarProperty Name="isPublic" ColumnName="isPublic" />
                 <ScalarProperty Name="sharedCode" ColumnName="sharedCode" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="publicationDate" ColumnName="publicationDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="person">
-            <EntityTypeMapping TypeName="ScreenTakerDBModel.person">
-              <MappingFragment StoreEntitySet="person">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.Person">
+              <MappingFragment StoreEntitySet="Person">
                 <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="imagePath" ColumnName="imagePath" />
+                <ScalarProperty Name="personImageName" ColumnName="personImageName" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="passwordHash" ColumnName="passwordHash" />
                 <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="registartionDate" ColumnName="registartionDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="personGroup">
-            <EntityTypeMapping TypeName="ScreenTakerDBModel.personGroup">
-              <MappingFragment StoreEntitySet="personGroup">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="PersonGroup">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.PersonGroup">
+              <MappingFragment StoreEntitySet="PersonGroup">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="personId" ColumnName="personId" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tag">
-            <EntityTypeMapping TypeName="ScreenTakerDBModel.tag">
-              <MappingFragment StoreEntitySet="tag">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="Tag">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="personId" ColumnName="personId" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="userShare">
-            <EntityTypeMapping TypeName="ScreenTakerDBModel.userShare">
-              <MappingFragment StoreEntitySet="userShare">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="UserShare">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.UserShare">
+              <MappingFragment StoreEntitySet="UserShare">
                 <ScalarProperty Name="personId" ColumnName="personId" />
                 <ScalarProperty Name="imageId" ColumnName="imageId" />
                 <ScalarProperty Name="folderId" ColumnName="folderId" />
                 <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="imageTag" TypeName="ScreenTakerDBModel.imageTag" StoreEntitySet="imageTag">
-            <EndProperty Name="image">
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ImageTag" TypeName="ScreenTakerDBModel.ImageTag" StoreEntitySet="ImageTag">
+            <EndProperty Name="Image">
               <ScalarProperty Name="id" ColumnName="imageId" />
             </EndProperty>
-            <EndProperty Name="tag">
+            <EndProperty Name="Tag">
               <ScalarProperty Name="id" ColumnName="tagId" />
             </EndProperty>
           </AssociationSetMapping>

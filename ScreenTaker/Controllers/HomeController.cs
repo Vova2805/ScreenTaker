@@ -34,16 +34,16 @@ namespace ScreenTaker.Controllers
         {
             ViewBag.Message = "Library page";
 
-            ViewBag.Folders = _entities.folder.ToList(); ;
+            ViewBag.Folders = _entities.Folder.ToList(); ;
 
             return View();
         }
 
         [HttpGet]
-        public ActionResult ChangeFoldersAttr(folder folder)
+        public ActionResult ChangeFoldersAttr(Folder folder)
         {
             //folders[folder.BookId] = folder;
-            ViewBag.Folders = _entities.folder.ToList();
+            ViewBag.Folders = _entities.Folder.ToList();
 
             return RedirectToAction("Library");
         }
@@ -58,7 +58,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult Images()
         {
-            ViewBag.ImagePath = _entities.image.ToList().Select(im=>GetBaseUrl()+"img/"+im.name+".png").ToList();
+            ViewBag.ImagePath = _entities.Image.ToList().Select(im=>GetBaseUrl()+"img/"+im.name+".png").ToList();
 
             return View();
         }

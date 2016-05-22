@@ -12,20 +12,23 @@ namespace ScreenTaker
     using System;
     using System.Collections.Generic;
     
-    public partial class personGroup
+    public partial class PersonGroup
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public personGroup()
+        public PersonGroup()
         {
-            this.groupShare = new HashSet<groupShare>();
+            this.GroupMember = new HashSet<GroupMember>();
+            this.GroupShare = new HashSet<GroupShare>();
         }
     
-        public int id { get; set; }
         public string name { get; set; }
         public Nullable<int> personId { get; set; }
+        public int id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<groupShare> groupShare { get; set; }
-        public virtual person person { get; set; }
+        public virtual ICollection<GroupMember> GroupMember { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GroupShare> GroupShare { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

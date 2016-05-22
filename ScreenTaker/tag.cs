@@ -12,20 +12,20 @@ namespace ScreenTaker
     using System;
     using System.Collections.Generic;
     
-    public partial class tag
+    public partial class Tag
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tag()
+        public Tag()
         {
-            this.image = new HashSet<image>();
+            this.Image = new HashSet<Image>();
         }
     
-        public int id { get; set; }
         public string name { get; set; }
-        public Nullable<int> personId { get; set; }
+        public int personId { get; set; }
+        public int id { get; set; }
     
-        public virtual person person { get; set; }
+        public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<image> image { get; set; }
+        public virtual ICollection<Image> Image { get; set; }
     }
 }

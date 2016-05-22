@@ -177,26 +177,32 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="folder.cs">
+    <Compile Include="database_firewall_rules.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Folder.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="groupShare.cs">
+    <Compile Include="GroupMember.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="image.cs">
+    <Compile Include="GroupShare.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Image.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocalizationInside.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="person.cs">
+    <Compile Include="Person.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="personGroup.cs">
+    <Compile Include="PersonGroup.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,10 +222,10 @@
       <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="tag.cs">
+    <Compile Include="Tag.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="userShare.cs">
+    <Compile Include="UserShare.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -229,12 +235,31 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\private.png" />
     <Content Include="fonts\public.png" />
+    <Content Include="For Database\SQLQuery_CreateDB.sql" />
+    <Content Include="For Database\SQLQuery_CreateUSER.sql" />
+    <Content Include="For Database\SQLQuery_DropAllTables.sql" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\printscreen.png" />
     <Content Include="img\private.png" />
     <Content Include="img\public.png" />
     <Content Include="img\user.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="For Database\screenTakerDB.erwin" />
+    <EntityDeploy Include="ScreenTakerDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ScreenTakerDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ScreenTakerDM.edmx.diagram">
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="ScreenTakerDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
@@ -245,21 +270,6 @@
       <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
       <LastGenOutput>ScreenTakerDM.cs</LastGenOutput>
     </Content>
-    <EntityDeploy Include="ScreenTakerDM.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ScreenTakerDM.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="ScreenTakerDM.edmx.diagram">
-      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
-    </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
     <Content Include="Scripts\bootstrap.js" />

@@ -12,29 +12,29 @@ namespace ScreenTaker
     using System;
     using System.Collections.Generic;
     
-    public partial class image
+    public partial class Image
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public image()
+        public Image()
         {
-            this.groupShare = new HashSet<groupShare>();
-            this.userShare = new HashSet<userShare>();
-            this.tag = new HashSet<tag>();
+            this.GroupShare = new HashSet<GroupShare>();
+            this.UserShare = new HashSet<UserShare>();
+            this.Tag = new HashSet<Tag>();
         }
     
-        public int id { get; set; }
-        public Nullable<int> folderId { get; set; }
-        public Nullable<bool> isPublic { get; set; }
+        public int folderId { get; set; }
+        public bool isPublic { get; set; }
         public string sharedCode { get; set; }
         public string name { get; set; }
         public Nullable<System.DateTime> publicationDate { get; set; }
+        public int id { get; set; }
     
-        public virtual folder folder { get; set; }
+        public virtual Folder Folder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<groupShare> groupShare { get; set; }
+        public virtual ICollection<GroupShare> GroupShare { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userShare> userShare { get; set; }
+        public virtual ICollection<UserShare> UserShare { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tag> tag { get; set; }
+        public virtual ICollection<Tag> Tag { get; set; }
     }
 }

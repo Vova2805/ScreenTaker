@@ -12,31 +12,35 @@ namespace ScreenTaker
     using System;
     using System.Collections.Generic;
     
-    public partial class person
+    public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public person()
+        public Person()
         {
-            this.folder = new HashSet<folder>();
-            this.personGroup = new HashSet<personGroup>();
-            this.userShare = new HashSet<userShare>();
-            this.tag = new HashSet<tag>();
+            this.Folder = new HashSet<Folder>();
+            this.GroupMember = new HashSet<GroupMember>();
+            this.PersonGroup = new HashSet<PersonGroup>();
+            this.UserShare = new HashSet<UserShare>();
+            this.Tag = new HashSet<Tag>();
         }
     
-        public int id { get; set; }
         public string email { get; set; }
-        public string imagePath { get; set; }
+        public string personImageName { get; set; }
         public bool isActive { get; set; }
         public byte[] passwordHash { get; set; }
         public string salt { get; set; }
+        public Nullable<System.DateTime> registartionDate { get; set; }
+        public int id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<folder> folder { get; set; }
+        public virtual ICollection<Folder> Folder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<personGroup> personGroup { get; set; }
+        public virtual ICollection<GroupMember> GroupMember { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userShare> userShare { get; set; }
+        public virtual ICollection<PersonGroup> PersonGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tag> tag { get; set; }
+        public virtual ICollection<UserShare> UserShare { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tag> Tag { get; set; }
     }
 }
