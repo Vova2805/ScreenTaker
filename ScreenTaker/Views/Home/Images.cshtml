@@ -7,9 +7,11 @@
 <div class="row">
     @foreach (var i in ViewBag.ImagePath)
     {
+        <a href="/Home/SingleImage?image=@i">
             <div class="col-md-2 text-center" style="margin-bottom: 60px">
-                <img src="@Url.Content(i)" alt="@i" style="width: 128px; height: 128px"/>
+                <img src="@Url.Content(i)" alt="@i" style="width: 128px; height: 128px" />
                 <label class="text-center">@Path.GetFileName(i)</label>
             </div>
+        </a>
     }
 </div>

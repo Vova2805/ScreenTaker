@@ -114,9 +114,9 @@ namespace ScreenTaker.Controllers
         }
 
         [HttpGet]
-        public ActionResult SingleImage()
+        public ActionResult SingleImage(string image)
         {
-            ViewBag.Image = GetBaseUrl();
+            ViewBag.Image = image;
             return View();
         }
     }
