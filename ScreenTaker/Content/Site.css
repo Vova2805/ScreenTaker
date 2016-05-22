@@ -41,3 +41,65 @@ textarea {
 .library-folder:active {
     background-color: #F0F0F0;
 }
+
+.background-color-welcome{
+    color: dimgrey;
+}
+
+.welcome-image{
+}
+
+.header-p{
+    font-size:100px;
+}
+
+.text-color{
+    color:dimgray;
+}
+
+.lead-site{
+    margin-bottom:20px;
+    font-size:18px;
+    font-weight:300;
+    line-height:1.4;
+}
+/*======================///////////////
+			START RESPONSIVE STYLE
+=====================///////////////////////*/
+
+
+@media(max-width:1199px ){
+
+	
+}
+
+
+@media(max-width:991px ){
+    .welcome-image{
+        width:100px;
+        height:100px;
+    }
+}
+
+
+@media(max-width:767px ){
+
+}
+
+@media(max-width:480px ){
+
+ 
+}
+
+
+@media(max-width:360px ){	
+
+	
+}
+
+
+@media(max-width:320px ){
+
+}
+
+	
