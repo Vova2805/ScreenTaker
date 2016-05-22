@@ -1,4 +1,10 @@
-﻿@using (Html.BeginForm("", "Home/Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
+﻿
+@{
+    ViewBag.Title = "Welcome to ScreenTaker";
+    int counter = 0;
+}
+
+@using (Html.BeginForm("", "Home/Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="file" name="file" />
     <input type="submit" />
