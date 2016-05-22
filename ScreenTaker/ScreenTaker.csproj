@@ -231,21 +231,9 @@
     <Content Include="fonts\public.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="img\1.png" />
-    <Content Include="img\10.png" />
-    <Content Include="img\2.png" />
-    <Content Include="img\3.png" />
-    <Content Include="img\4.png" />
-    <Content Include="img\486293.png" />
-    <Content Include="img\5.png" />
-    <Content Include="img\6.png" />
-    <Content Include="img\7.png" />
-    <Content Include="img\8.png" />
-    <Content Include="img\9.png" />
     <Content Include="img\printscreen.png" />
     <Content Include="img\private.png" />
     <Content Include="img\public.png" />
-    <Content Include="img\SimpleTower.png" />
     <Content Include="img\user.png" />
     <Content Include="ScreenTakerDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
