@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -74,23 +75,32 @@ namespace ScreenTaker.Controllers
         }
         #endregion
 
-        List<string> list = new List<string>
+        public class MyImage
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Source { get; set; }
+
+            public MyImage(int id, string name, string source)
             {
-                "image0",
-                "image1",
-                "image2",
-                "image3",
-                "image4",
-                "image5",
-                "image6",
-                "image7",
-                "image8",
-                "image9"
-            };
+                Id = id;
+                Name = name;
+                Source = source;
+            }
+        }
+
+        public static List<string> GetImageList()
+        {
+            var l = Directory.GetFiles(System.Web.HttpContext.Current.Server.MapPath("~/img/")).ToList<string>();
+            l = l.Select(s => "~/img/" + Path.GetFileName(s)).ToList<string>();
+            return l;
+        }
+
+        private List<string> images = GetImageList(); 
 
         public ActionResult Images()
         {
-            ViewBag.Images = list;
+            ViewBag.ImagePath = images;
 
             return View();
         }
@@ -98,7 +108,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(int id)
         {
-            ViewBag.Image = list[id];
+            ViewBag.Image = images[id];
             return View();
         }
     }
