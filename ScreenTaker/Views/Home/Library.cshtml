@@ -3,7 +3,7 @@
 }
 
 <div class="container">
-    <div class="col-md-9">
+    <div class="col-md-10">
         @for (int i = 0; i < ViewBag.Folders.Count; i++)
         {
             <figure class="col-md-3 library-folder text-center">
@@ -12,21 +12,29 @@
             </figure>
         }
     </div>
-    <div class="col-md-3" style="background-color: #686868; height: 90vh">
+    <div class="col-md-2" style="background-color: #686868; height: 90vh">
         <div style="margin-left: 10px">
             <img src="~/fonts/private.png" />
-            <p>Folder`s name</p>
+            <p style="color: #E0E0E0">Folder`s name</p>
             <hr/>
             <div>
-                <button type="button" class="btn btn-default">Open</button>
-                <button type="button" class="btn btn-default">Rename</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-default" style="width: 100%">Open</button>
             </div>
             <br/>
-            <button class="btn btn-warning">Make folder public</button>
-            <hr/>
-            <p>Share folder</p>
-            <input class="form-control" type="text" placeholder="Sharing link"/>
+            <div>
+                <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
+            </div>
+            <br />
+            <div>
+                <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
+            </div>
+            <br />
+            <div>
+                <button class="btn btn-warning" style="width: 100%">Make folder public</button>
+            </div>
+            <hr />
+            <p style="color: #E0E0E0">Share folder</p>
+            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" />
             <hr/>
         </div>
     </div>
