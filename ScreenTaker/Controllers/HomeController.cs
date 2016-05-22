@@ -4,12 +4,19 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ScreenTaker.Models;
 
 namespace ScreenTaker.Controllers
 {
     public class HomeController : Controller
     {
-        public ScreenTakerDBEntities connection = new ScreenTakerDBEntities();
+        private ScreenTakerDBEntities _entities = new ScreenTakerDBEntities();
+
+        private RandomStringGenerator _stringGenerator = new RandomStringGenerator()
+        {
+            Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
+            Length = 10
+        };
         public ActionResult Index()
         {
             return View();
@@ -45,9 +52,7 @@ namespace ScreenTaker.Controllers
         public ActionResult Library()
         {
             ViewBag.Message = "Library page";
-
-            ViewBag.Folders = connection.folder.ToList();
-
+            ViewBag.Folders = _entities.folder.ToList();
             return View();
         }
        
@@ -60,7 +65,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult Images()
         {
-            var list = connection.image.ToList().Select(i=>i.name).ToList();
+            var list = _entities.image.ToList().Select(i=>i.name).ToList();
             ViewBag.Images = list;
 
             return View();
@@ -69,9 +74,9 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(int id)
         {
-            string path = GetBaseUrl() + "img/" + connection.image.ToList().ElementAt(id).name;
+            string path = GetBaseUrl() + "img/" + _entities.image.ToList().ElementAt(id).name;
             ViewBag.CurrentImagePath = path;
-            ViewBag.CurrentImageTitle = connection.image.ToList().ElementAt(id).name;
+            ViewBag.CurrentImageTitle = _entities.image.ToList().ElementAt(id).name;
             return View();
         }
 

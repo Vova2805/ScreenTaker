@@ -17,11 +17,10 @@
                 </div>
                 <div class="col-md-4">
                     @using (Html.BeginForm("", "Home/Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        @*<input type="file" name="file" />*@
-
-                        @*@TODO Треба щоб назва цієї кнопки була контрольована! Типу щоб ми її могли міняти! Бо тут по дефолту стоїть*@ 
-                        <input class="btn btn-primary btn-lg center-block" type="submit" />
+                    { 
+                        <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                        <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
+                        <input type="button" class="btn btn-primary btn-lg center-block" value="Upload" onclick="document.getElementById('fileInput').click();" />
                     }
                 </div>
                 <div class="col-md-4">
