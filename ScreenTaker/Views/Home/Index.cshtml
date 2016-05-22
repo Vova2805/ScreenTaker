@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-4">
                     @using (Html.BeginForm("", "Home/Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
+                    { 
                         <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
                         <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
                         <input type="button" class="btn btn-primary btn-lg center-block" value="Upload" onclick="document.getElementById('fileInput').click();" />
