@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ScreenTaker.Models;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ScreenTaker.Controllers
 {
@@ -28,9 +30,20 @@ namespace ScreenTaker.Controllers
         {
             if (file != null)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/img/"), fileName);
-                file.SaveAs(path);
+                var sharedCode = _stringGenerator.Next();
+                var bitmap = new Bitmap(file.InputStream);
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
+                bitmap.Save(path, ImageFormat.Png);
+                var image = new image();
+                image.id = _entities.image.Max(s => s.id)+1;
+                image.folderId = 0;
+                image.isPublic = false;
+                image.sharedCode = sharedCode;
+                image.name = fileName;                
+                image.publicationDate = new DateTime(2016, 1, 1);
+                _entities.image.Add(image);
+                _entities.SaveChanges();
             }
             return View();
         }
@@ -77,7 +90,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(int id)
         {
-            string path = GetBaseUrl() + "img/" + _entities.image.ToList().ElementAt(id).name;
+            string path = GetBaseUrl() + "img/" + _entities.image.ToList().ElementAt(id).sharedCode+".png";
             ViewBag.CurrentImagePath = path;
             ViewBag.CurrentImageTitle = _entities.image.ToList().ElementAt(id).name;
             return View();
