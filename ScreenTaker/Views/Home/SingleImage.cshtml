@@ -3,10 +3,11 @@
 }
 
 <div class="col-md-12 text-left">
-    <h2><a href="/Home/Images">User</a>->@Path.GetFileName(ViewBag.Image)</h2>
+    <h2><a href="/Home/Images">User</a>->@ViewBag.CurrentImageTitle</h2>
 </div>
 
 <div class="row text-center">
-    <img src="@Url.Content(ViewBag.Image)"/>
+    <img src="@ViewBag.CurrentImagePath"/>
+    <label class="text-center" style="padding-left: 10px">@ViewBag.CurrentImageTitle</label>
 </div>
 
