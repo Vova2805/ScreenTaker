@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9cc240c50d6c406a8b73571613e99d90" Name="Diagram1">
+      <Diagram DiagramId="d859be8bc2e24b229d7a00e30b6b2da3" Name="Diagram1">
         <EntityTypeShape EntityType="ScreenTakerDBModel.Folder" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ScreenTakerDBModel.GroupMember" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ScreenTakerDBModel.GroupShare" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
