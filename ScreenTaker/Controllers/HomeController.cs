@@ -105,10 +105,18 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult SingleImage(int id)
+        public string GetBaseUrl()
         {
-            ViewBag.Image = images[id];
+            var request = HttpContext.Request;
+            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
+            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
+            return baseUrl;
+        }
+
+        [HttpGet]
+        public ActionResult SingleImage()
+        {
+            ViewBag.Image = GetBaseUrl();
             return View();
         }
     }
