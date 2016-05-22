@@ -19,7 +19,6 @@ namespace ScreenTaker.Controllers
             Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
             Length = 10
         };
-    
         public ActionResult Index()
         {
             return View();
@@ -66,9 +65,7 @@ namespace ScreenTaker.Controllers
         public ActionResult Library()
         {
             ViewBag.Message = "Library page";
-
             ViewBag.Folders = _entities.folder.ToList();
-
             return View();
         }
        
