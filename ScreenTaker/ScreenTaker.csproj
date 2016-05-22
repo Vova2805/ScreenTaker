@@ -239,6 +239,7 @@
     <Content Include="img\7.png" />
     <Content Include="img\8.png" />
     <Content Include="img\9.png" />
+    <Content Include="img\printscreen.png" />
     <Content Include="img\private.png" />
     <Content Include="img\public.png" />
     <Content Include="img\SimpleTower.png" />
