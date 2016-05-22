@@ -19,6 +19,8 @@
                     @using (Html.BeginForm("", "Home/Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @*<input type="file" name="file" />*@
+
+                        @*@TODO Треба щоб назва цієї кнопки була контрольована! Типу щоб ми її могли міняти! Бо тут по дефолту стоїть*@ 
                         <input class="btn btn-primary btn-lg center-block" type="submit" />
                     }
                 </div>
