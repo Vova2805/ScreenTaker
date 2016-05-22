@@ -9,6 +9,7 @@ namespace ScreenTaker.Controllers
 {
     public class HomeController : Controller
     {
+        public ScreenTakerDBEntities connection = new ScreenTakerDBEntities();
         public ActionResult Index()
         {
             return View();
@@ -45,64 +46,21 @@ namespace ScreenTaker.Controllers
         {
             ViewBag.Message = "Library page";
 
-            ViewBag.Folders = folders;
+            ViewBag.Folders = connection.folder.ToList();
 
             return View();
         }
-
-        // todo: database context
-        public struct Folder
-        {
-            public int BookId { get; set; }
-            public string Title { get; set; }
-            public bool IsPrivate { get; set; }
-
-            public Folder(int bookId, string title, bool isPrivate)
-            {
-                BookId = bookId;
-                Title = title;
-                IsPrivate = isPrivate;
-            }
-        }
-        // represent db context
-        List<Folder> folders = new List<Folder>()
-            {
-                new Folder(0, "My Photo", false),
-                new Folder(1, "Fishing", true),
-                new Folder(2, "Job", false),
-                new Folder(3, "Friends", false),
-                new Folder(4, "Kids", true),
-                new Folder(5, "Summer-2015", false),
-                new Folder(6, "Africa", true),
-                new Folder(7, "Encapsulation", true)
-            };
-
+       
         [HttpGet]
-        public ActionResult ChangeFoldersAttr(Folder folder)
+        public ActionResult ChangeFoldersAttr(folder folder)
         {
-            // modify dbc
-            folders[folder.BookId] = folder;
-
             return RedirectToAction("Library");
         }
         #endregion
 
-        List<string> list = new List<string>
-            {
-                "image0",
-                "image1",
-                "image2",
-                "image3",
-                "image4",
-                "image5",
-                "image6",
-                "image7",
-                "image8",
-                "image9"
-            };
-
         public ActionResult Images()
         {
+            var list = connection.image.ToList().Select(i=>i.name).ToList();
             ViewBag.Images = list;
 
             return View();
@@ -111,8 +69,18 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(int id)
         {
-            ViewBag.Image = list[id];
+            string path = GetBaseUrl() + "img/" + connection.image.ToList().ElementAt(id).name;
+            ViewBag.CurrentImagePath = path;
+            ViewBag.CurrentImageTitle = connection.image.ToList().ElementAt(id).name;
             return View();
+        }
+
+        public string GetBaseUrl()
+        {
+            var request = HttpContext.Request;
+            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
+                       var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
+            return baseUrl;
         }
     }
 }
