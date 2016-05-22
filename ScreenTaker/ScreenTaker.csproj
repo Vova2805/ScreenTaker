@@ -236,11 +236,19 @@
     <Content Include="img\2.png" />
     <Content Include="img\3.png" />
     <Content Include="img\4.png" />
+   <Content Include="img\486293.png" />
     <Content Include="img\5.png" />
     <Content Include="img\6.png" />
     <Content Include="img\7.png" />
     <Content Include="img\8.png" />
     <Content Include="img\9.png" />
+    <Content Include="img\printscreen.png" />
+    <Content Include="img\private.png" />
+    <Content Include="img\public.png" />
+    <Content Include="img\SimpleTower.png" />
+    <Content Include="img\user.png" />
+
+
     <Content Include="ScreenTakerDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
@@ -258,6 +266,11 @@
     <Content Include="ScreenTakerDM.edmx.diagram">
       <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
     </Content>
+
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
