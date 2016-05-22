@@ -199,6 +199,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocalizationInside.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RandomStringGenerator.cs" />
     <Compile Include="Person.cs">
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>

@@ -4,14 +4,46 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ScreenTaker.Models;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ScreenTaker.Controllers
 {
     public class HomeController : Controller
     {
-        ScreenTakerDBEntities _entities = new ScreenTakerDBEntities();
+        private ScreenTakerDBEntities _entities = new ScreenTakerDBEntities();
+
+        private RandomStringGenerator _stringGenerator = new RandomStringGenerator()
+        {
+            Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
+            Length = 10
+        };
         public ActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                var sharedCode = _stringGenerator.Next();
+                var bitmap = new Bitmap(file.InputStream);
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
+                bitmap.Save(path, ImageFormat.Png);
+                var image = new Image();
+//                image.id = _entities.Image.Max(s => s.id)+1;
+                image.folderId = 1;
+                image.isPublic = false;
+                image.sharedCode = sharedCode;
+                image.name = fileName;                
+                image.publicationDate = new DateTime(2016, 1, 1);
+                _entities.Image.Add(image);
+                _entities.SaveChanges();
+            }
             return View();
         }
 
@@ -33,7 +65,6 @@ namespace ScreenTaker.Controllers
         public ActionResult Library()
         {
             ViewBag.Message = "Library page";
-
             ViewBag.Folders = _entities.Folder.ToList(); ;
 
             return View();
@@ -49,17 +80,24 @@ namespace ScreenTaker.Controllers
         }
         #endregion
 
-        public static List<string> GetImageList()
-        {
-            var l = Directory.GetFiles(System.Web.HttpContext.Current.Server.MapPath("~/img/")).ToList<string>();
-            l = l.Select(s => "~/img/" + Path.GetFileName(s)).ToList<string>();
-            return l;
-        }
+//        public static List<string> GetImageList()
+//        {
+//<<<<<<< HEAD
+//            var l = Directory.GetFiles(System.Web.HttpContext.Current.Server.MapPath("~/img/")).ToList<string>();
+//            l = l.Select(s => "~/img/" + Path.GetFileName(s)).ToList<string>();
+//            return l;
+//=======
+//            var pathsList = _entities.image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode + "_compressed.png").ToList();
+//            ViewBag.Paths = pathsList;
+//
+//        }
 
         public ActionResult Images()
         {
-            ViewBag.ImagePath = _entities.Image.ToList().Select(im=>GetBaseUrl()+"img/"+im.name+".png").ToList();
-
+            var list = _entities.Image.ToList().Select(i => i.name).ToList();
+            ViewBag.Images = list;
+            var pathsList = _entities.Image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode + "_compressed.png").ToList();
+            ViewBag.Paths = pathsList;
             return View();
         }
 
