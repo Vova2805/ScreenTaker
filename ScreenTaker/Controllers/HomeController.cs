@@ -9,21 +9,8 @@ namespace ScreenTaker.Controllers
 {
     public class HomeController : Controller
     {
-        public ScreenTakerDBEntities connection = new ScreenTakerDBEntities();
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Index(HttpPostedFileBase file)
-        {
-            if (file != null)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/img/"), fileName);
-                file.SaveAs(path);
-            }
             return View();
         }
 
@@ -41,37 +28,80 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
-#region Library
+        #region Library
         public ActionResult Library()
         {
             ViewBag.Message = "Library page";
 
-            ViewBag.Folders = connection.folder.ToList();
+            ViewBag.Folders = folders;
 
             return View();
         }
-       
-        [HttpGet]
-        public ActionResult ChangeFoldersAttr(folder folder)
+
+        // todo: database context
+        public struct Folder
         {
+            public int BookId { get; set; }
+            public string Title { get; set; }
+            public bool IsPrivate { get; set; }
+
+            public Folder(int bookId, string title, bool isPrivate)
+            {
+                BookId = bookId;
+                Title = title;
+                IsPrivate = isPrivate;
+            }
+        }
+        // represent db context
+        List<Folder> folders = new List<Folder>()
+            {
+                new Folder(0, "My Photo", false),
+                new Folder(1, "Fishing", true),
+                new Folder(2, "Job", false),
+                new Folder(3, "Friends", false),
+                new Folder(4, "Kids", true),
+                new Folder(5, "Summer-2015", false),
+                new Folder(6, "Africa", true),
+                new Folder(7, "Encapsulation", true)
+            };
+
+        [HttpGet]
+        public ActionResult ChangeFoldersAttr(Folder folder)
+        {
+            // modify dbc
+            folders[folder.BookId] = folder;
+
             return RedirectToAction("Library");
         }
         #endregion
 
-        public ActionResult Images()
+        public class MyImage
         {
-            var list = connection.image.ToList().Select(i=>i.name).ToList();
-            ViewBag.Images = list;
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Source { get; set; }
 
-            return View();
+            public MyImage(int id, string name, string source)
+            {
+                Id = id;
+                Name = name;
+                Source = source;
+            }
         }
 
-        [HttpGet]
-        public ActionResult SingleImage(int id)
+        public static List<string> GetImageList()
         {
-            string path = GetBaseUrl() + "img/" + connection.image.ToList().ElementAt(id).name;
-            ViewBag.CurrentImagePath = path;
-            ViewBag.CurrentImageTitle = connection.image.ToList().ElementAt(id).name;
+            var l = Directory.GetFiles(System.Web.HttpContext.Current.Server.MapPath("~/img/")).ToList<string>();
+            l = l.Select(s => "~/img/" + Path.GetFileName(s)).ToList<string>();
+            return l;
+        }
+
+        private List<string> images = GetImageList();
+
+        public ActionResult Images()
+        {
+            ViewBag.ImagePath = images;
+
             return View();
         }
 
@@ -81,6 +111,13 @@ namespace ScreenTaker.Controllers
             var appUrl = HttpRuntime.AppDomainAppVirtualPath;
             var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
             return baseUrl;
+        }
+
+        [HttpGet]
+        public ActionResult SingleImage(string image)
+        {
+            ViewBag.Image = image;
+            return View();
         }
     }
 }

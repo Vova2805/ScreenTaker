@@ -1,19 +1,17 @@
 ﻿@{
     ViewBag.Title = "Images";
-    int id = 0;
 }
 
 <h2>Images</h2>
 
 <div class="row">
-    @for (int i = 0; i < ViewBag.Images.Count; i++)
+    @foreach (var i in ViewBag.ImagePath)
     {
-        <a href="/Home/SingleImage/@id" id="@id">
-            <div class="col-md-2 text-center">
-                <img src="~/fonts/private.png"/>
-                <label class="text-center" style="padding-left: 10px">@ViewBag.Images[i]</label>
+        <a href="/Home/SingleImage?image=@i">
+            <div class="col-md-2 text-center" style="margin-bottom: 60px">
+                <img src="@Url.Content(i)" alt="@i" style="width: 128px; height: 128px" />
+                <label class="text-center">@Path.GetFileName(i)</label>
             </div>
         </a>
-        id++;
     }
 </div>
