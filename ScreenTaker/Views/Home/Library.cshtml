@@ -1,70 +1,33 @@
 ﻿@{
     ViewBag.Title = "Library";
-    int counter = 0;
 }
 
-<div class="library-menu">
-    <div class="col-md-6 text-center">
-        <h3 style="color: #F0F0F0">Create folder</h3>
-        <form class="form-inline" method="POST" action="">
-            <div class="form-group">
-                <input type="text" id="ctitle" class="form-control" placeholder="New folder">
-            </div>
-            <div class="checkbox" style="margin-left: 20px">
-                <label style="color: #F0F0F0; font-size: 16px">
-                    <input type="checkbox"/>
-                    Private
-                </label>
-            </div>
-            <button type="submit" class="btn btn-default" style="margin-left: 20px">Create</button>
-        </form>
+<div class="container">
+    <div class="col-md-9">
+        @for (int i = 0; i < ViewBag.Folders.Count; i++)
+        {
+            <figure class="col-md-3 library-folder text-center">
+                <img src="~/fonts/private.png" />
+                <figcaption class="text-center">@ViewBag.Folders[i].Title</figcaption>
+            </figure>
+        }
     </div>
-    <div class="col-md-6 text-center">
-        <h3 style="color: #F0F0F0">Edit folder</h3>
-        <form class="form-inline" method="POST" action="">
-            <div class="form-group">
-                <input type="text" id="etitle" class="form-control" placeholder="@ViewBag.Folders[1].Title">
+    <div class="col-md-3" style="background-color: #686868; height: 90vh">
+        <div style="margin-left: 10px">
+            <img src="~/fonts/private.png" />
+            <p>Folder`s name</p>
+            <hr/>
+            <div>
+                <button type="button" class="btn btn-default">Open</button>
+                <button type="button" class="btn btn-default">Rename</button>
+                <button type="button" class="btn btn-danger">Delete</button>
             </div>
-            <div class="checkbox" style="margin-left: 20px">
-                <label style="color: #F0F0F0; font-size: 16px">
-                    @if (ViewBag.Folders[1].IsPrivate)
-                    {
-                        <input type="checkbox"checked="checked">
-                    }
-                    else
-                    {
-                        <input type="checkbox"/>
-                    }
-                    Private
-                </label>
-            </div>
-            <button type="submit" class="btn btn-default" style="margin-left: 20px">Apply changes</button>
-        </form>
-    </div>
-</div>
-<br/>
-<div class="row">
-    @for (int i = 0; i < ViewBag.Folders.Count; i++)
-    {
-        <div class="col-md-2 library-folder text-center" id="@counter" onclick="SelectFolder(this.id)">
-            @if (ViewBag.Folders[i].IsPrivate)
-            {
-                <img src="~/fonts/private.png"/>
-            }
-            else
-            {
-                <img src="~/fonts/public.png"/>
-            }
-            <label class="text-center" id="label-@counter" style="padding-left: 10px">@ViewBag.Folders[i].Title</label>
+            <br/>
+            <button class="btn btn-warning">Make folder public</button>
+            <hr/>
+            <p>Share folder</p>
+            <input class="form-control" type="text" placeholder="Sharing link"/>
+            <hr/>
         </div>
-        counter++;
-    }
+    </div>
 </div>
-
-<script>
-    function SelectFolder(folderId) {
-        var label = document.getElementById('label-' + folderId);
-        document.getElementById('etitle').value = label.innerHTML;
-        // todo: make possible check privacy of the selected folder
-    }
-</script>
