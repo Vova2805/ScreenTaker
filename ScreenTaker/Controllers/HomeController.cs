@@ -69,18 +69,10 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(int id)
         {
-            string path = GetBaseUrl() + "img/" + connection.image.ToList().ElementAt(id).name;
+            string path = API.GetBaseUrl() + "img/" + connection.image.ToList().ElementAt(id).name;
             ViewBag.CurrentImagePath = path;
             ViewBag.CurrentImageTitle = connection.image.ToList().ElementAt(id).name;
             return View();
-        }
-
-        public string GetBaseUrl()
-        {
-            var request = HttpContext.Request;
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-                       var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
-            return baseUrl;
         }
     }
 }
