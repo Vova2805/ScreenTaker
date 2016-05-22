@@ -171,7 +171,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\API.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="folder.cs">
@@ -235,7 +234,6 @@
     <Content Include="img\2.png" />
     <Content Include="img\3.png" />
     <Content Include="img\4.png" />
-    <Content Include="img\486293.png" />
     <Content Include="img\5.png" />
     <Content Include="img\6.png" />
     <Content Include="img\7.png" />
