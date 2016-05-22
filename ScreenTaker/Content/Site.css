@@ -62,9 +62,9 @@ textarea {
 }
 
 .vert_menu{   overflow: hidden;  width: 100%; }
-.vert_menu li{  float: left; margin-right:10px; margin-left:10px; }
+.vert_menu li{  float: left; margin-right:55px; margin-left:-40px; }
 .vert_menu a{
-  padding: 8px 20px 8px 40px;
+  padding: 8px 0px 8px 40px;
   float: left; text-align:center;
   text-decoration: none; font: normal 16px Myriad Pro, Helvetica, Arial, sans-serif;  text-shadow:0px 1px 0px #000;
   color: #e6e2cf;
@@ -72,8 +72,7 @@ textarea {
   background: #525252;  min-width:181px; width:auto
 }
 
-.vert_menu a::after,
-.vert_menu a::before{
+.vert_menu a::after{
   content: "";
   position: absolute;
   top: 50%;
@@ -83,8 +82,19 @@ textarea {
   border-left: 1em solid;
   right: -1em;
 }
+.vert_menu a::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -19px;   
+  border-top: 19px solid transparent;
+  border-bottom: 19px solid transparent;
+  border-left: 1em solid;
+  right: 10.5em;
+}
 
-.vert_menu a::after{   z-index: 2;  border-left-color: #525252;   }
+.vert_menu a::after{   z-index: 3;  border-left-color: #525252;   }
+.vert_menu a::before{   z-index: 2;  }
 /*======================///////////////
 			START RESPONSIVE STYLE
 =====================///////////////////////*/

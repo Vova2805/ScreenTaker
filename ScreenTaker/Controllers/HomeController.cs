@@ -43,6 +43,7 @@ namespace ScreenTaker.Controllers
         public ActionResult ChangeFoldersAttr(folder folder)
         {
             //folders[folder.BookId] = folder;
+            ViewBag.Folders = _entities.folder.ToList();
 
             return RedirectToAction("Library");
         }

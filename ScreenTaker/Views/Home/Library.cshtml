@@ -3,16 +3,18 @@
 }
 
 <div class="container">
-    <div class="col-md-10">
+    <div class="col-md-9">
         @for (int i = 0; i < ViewBag.Folders.Count; i++)
         {
-            <figure class="col-md-3 library-folder text-center">
-                <img src="~/fonts/private.png" />
-                <figcaption class="text-center">@ViewBag.Folders[i].Title</figcaption>
-            </figure>
+            <a href="/Home/Images">
+                <figure class="col-md-3 text-center">
+                    <img src="~/fonts/private.png" />
+                    <figcaption class="text-center">@ViewBag.Folders[i].name</figcaption>
+                </figure>
+            </a>
         }
     </div>
-    <div class="col-md-2" style="background-color: #686868; height: 90vh">
+    <div class="col-md-3" style="background-color: #686868; height: 90vh">
         <div style="margin-left: 10px">
             <img src="~/fonts/private.png" />
             <p style="color: #E0E0E0">Folder`s name</p>
@@ -30,7 +32,7 @@
             </div>
             <br />
             <div>
-                <button class="btn btn-warning" style="width: 100%">Make folder public</button>
+                <button class="btn btn-warning" style="width: 100%">Make public</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">Share folder</p>
