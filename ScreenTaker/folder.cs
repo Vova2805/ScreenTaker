@@ -26,7 +26,7 @@ namespace ScreenTaker
         public int ownerId { get; set; }
         public bool isPublic { get; set; }
         public string sharedCode { get; set; }
-        public Nullable<System.DateTime> publicationDate { get; set; }
+        public System.DateTime publicationDate { get; set; }
         public int id { get; set; }
     
         public virtual Person Person { get; set; }

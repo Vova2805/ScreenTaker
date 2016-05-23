@@ -1,5 +1,21 @@
 ﻿@{
     ViewBag.Title = "SingleImage";
+    ViewBag.OriginalPath = "";
+    if (ViewBag.Image != null)
+    {
+        ViewBag.OriginalPath = ViewBag.Image.sharedCode + ".png";
+    }
+    ViewBag.OriginalName = "";
+    if (ViewBag.Image != null)
+    {
+        ViewBag.OriginalName = ViewBag.Image.name + ".png";
+    }
+
+    ViewBag.Date = "";
+    if (ViewBag.Image != null)
+    {
+        ViewBag.OriginalName = ViewBag.Image.publicationDate;
+    }
 }
 
 
@@ -9,7 +25,7 @@
             <ul class="vert_menu">
                 <li><a href="/Home/Library" class="current">User</a></li>
                 <li><a href="/Home/Images" class="current">Shared folder</a></li>
-                <li><a href="#" class="current">@Path.GetFileName(ViewBag.Image)</a></li>
+                <li><a href="#" class="current">@ViewBag.OriginalName</a></li>
             </ul>
         </div>
     </div>
@@ -17,18 +33,18 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="row text-center">
-                    <img src="@Url.Content(ViewBag.Image)" style="width:800px;height:450px" />
+                    <img src="@ViewBag.OriginalPath" style="width:800px;height:450px" />
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="text-md-center">
-                                <h3 class="text-center">@Path.GetFileName(ViewBag.Image)</h3>
+                                <h3 class="text-center">@ViewBag.OriginalName</h3>
                             </div>
                         </div>
                         <div class="row">
                             <div class="text-md-center">
-                                <h5 class="text-center">Uploaded 22.05.2016</h5>
+                                <h5 class="text-center">Uploaded @ViewBag.Date</h5>
                             </div>
                         </div>
                         <div class="row">
@@ -57,7 +73,7 @@
 
             <div class="col-md-3" style="background-color: #686868;">
                 <div style="margin-left: 5px;height:600px;">
-                    <p style="color: white;font-size:25px">@Path.GetFileName(ViewBag.Image)</p>
+                    <p style="color: white;font-size:25px">@ViewBag.OriginalName</p>
                     <hr />
                     <div>
                         <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
@@ -72,7 +88,7 @@
                     </div>
                     <hr />
                     <p style="color: #E0E0E0">Share image</p>
-                    <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@Url.Content(ViewBag.Image)">
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@Url.Content(ViewBag.OriginalName)">
                     <hr />
                 </div>
             </div>

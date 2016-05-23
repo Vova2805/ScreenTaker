@@ -13,7 +13,7 @@ namespace ScreenTaker.Controllers
     public class HomeController : Controller
     {
         private ScreenTakerDBEntities _entities = new ScreenTakerDBEntities();
-
+        private ImageCompressor _imageCompressor = new ImageCompressor();
         private RandomStringGenerator _stringGenerator = new RandomStringGenerator()
         {
             Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
@@ -29,20 +29,41 @@ namespace ScreenTaker.Controllers
         {
             if (file != null)
             {
-                var sharedCode = _stringGenerator.Next();
-                var bitmap = new Bitmap(file.InputStream);
-                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
-                bitmap.Save(path, ImageFormat.Png);
-                var image = new Image();
-//                image.id = _entities.Image.Max(s => s.id)+1;
-                image.folderId = 1;
-                image.isPublic = false;
-                image.sharedCode = sharedCode;
-                image.name = fileName;                
-                image.publicationDate = new DateTime(2016, 1, 1);
-                _entities.Image.Add(image);
-                _entities.SaveChanges();
+                using (var transaction = _entities.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var sharedCode = _stringGenerator.Next();
+                        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var image = new Image();
+                        //if (_entities.Image.ToList().Count > 0)
+                        //    image.id = _entities.Image.Max(s => s.id) + 1;
+                        //else image.id = 1;
+                        image.isPublic = false;
+                        image.folderId = _entities.Folder.Where(f=>f.name.Equals("General")).Select(fol=>fol.id).FirstOrDefault();
+                        image.sharedCode = sharedCode;
+                        image.name = fileName;
+                        image.publicationDate = DateTime.Now;
+                        _entities.Image.Add(image);
+                        _entities.SaveChanges();
+
+                        transaction.Commit();
+
+                        var bitmap = new Bitmap(file.InputStream);
+
+                        var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
+                        bitmap.Save(path, ImageFormat.Png);
+
+                        var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
+                        path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
+                        compressedBitmap.Save(path, ImageFormat.Png);
+                    }
+                    catch(Exception e)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+                 
             }
             return View();
         }
@@ -73,30 +94,17 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult ChangeFoldersAttr(Folder folder)
         {
-            //folders[folder.BookId] = folder;
             ViewBag.Folders = _entities.Folder.ToList();
 
             return RedirectToAction("Library");
         }
         #endregion
 
-//        public static List<string> GetImageList()
-//        {
-//<<<<<<< HEAD
-//            var l = Directory.GetFiles(System.Web.HttpContext.Current.Server.MapPath("~/img/")).ToList<string>();
-//            l = l.Select(s => "~/img/" + Path.GetFileName(s)).ToList<string>();
-//            return l;
-//=======
-//            var pathsList = _entities.image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode + "_compressed.png").ToList();
-//            ViewBag.Paths = pathsList;
-//
-//        }
-
         public ActionResult Images()
         {
-            var list = _entities.Image.ToList().Select(i => i.name).ToList();
+            var list = _entities.Image.ToList();
             ViewBag.Images = list;
-            var pathsList = _entities.Image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode + "_compressed.png").ToList();
+            var pathsList = _entities.Image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode ).ToList();
             ViewBag.Paths = pathsList;
             return View();
         }
@@ -112,7 +120,12 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(string image)
         {
-            ViewBag.Image = image;
+            ViewBag.Image =  _entities.Image.Where(im=>im.sharedCode.Equals(image)).FirstOrDefault();
+            if(ViewBag.Image==null && _entities.Image.ToList().Count>0)
+            {
+                ViewBag.Image = _entities.Image.ToList().First();
+            }
+
             return View();
         }
     }

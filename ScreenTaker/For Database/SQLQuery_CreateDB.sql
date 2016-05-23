@@ -3,11 +3,11 @@ begin tran
 CREATE TABLE Folder
 (
 	id int  NOT NULL ,
-	name varchar(20)  NOT NULL ,
+	name varchar(max)  NOT NULL ,
 	ownerId integer  NOT NULL ,
-	isPublic bit  NOT NULL ,
+	isPublic bit  NOT NULL DEFAULT 0,
 	sharedCode varchar(max)  NOT NULL ,
-	publicationDate datetime  DEFAULT GETDATE()  
+	publicationDate datetime NOT NULL
 )
 
 
@@ -58,7 +58,7 @@ CREATE TABLE Image
 	folderId int  NOT NULL ,
 	isPublic bit  NOT NULL ,
 	sharedCode varchar(max)  NOT NULL ,
-	name varchar(20)  NOT NULL ,
+	name varchar(max)  NOT NULL ,
 	publicationDate datetime  DEFAULT GETDATE()  
 )
 
@@ -89,7 +89,7 @@ CREATE TABLE Person
 (
 	id integer  NOT NULL ,
 	email varchar(max)  NOT NULL ,
-	personImageName varchar(15) DEFAULT 'avatar.png' ,
+	personImageName varchar(max) DEFAULT 'avatar.png' ,
 	isActive bit  NOT NULL ,
 	passwordHash varbinary(128)  NOT NULL ,
 	salt varchar(20)  NOT NULL ,
@@ -108,7 +108,7 @@ ALTER TABLE Person
 CREATE TABLE PersonGroup
 (
 	id integer  NOT NULL ,
-	name varchar(20)  NOT NULL ,
+	name varchar(max)  NOT NULL ,
 	personId integer  NULL 
 )
 
@@ -124,7 +124,7 @@ ALTER TABLE PersonGroup
 CREATE TABLE Tag
 (
 	id integer  NOT NULL ,
-	name varchar(20)  NOT NULL ,
+	name varchar(max)  NOT NULL ,
 	personId integer  NOT NULL 
 )
 

@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/ScreenTaker/Models/ImageCompressor.cs
+/ScreenTaker/Models/RandomStringGenerator.cs

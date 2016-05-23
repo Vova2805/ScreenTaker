@@ -9,11 +9,11 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="ownerId" Type="int" Nullable="false" />
           <Property Name="isPublic" Type="bit" Nullable="false" />
           <Property Name="sharedCode" Type="varchar(max)" Nullable="false" />
-          <Property Name="publicationDate" Type="datetime" />
+          <Property Name="publicationDate" Type="datetime" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupMember">
@@ -40,7 +40,7 @@
           <Property Name="folderId" Type="int" Nullable="false" />
           <Property Name="isPublic" Type="bit" Nullable="false" />
           <Property Name="sharedCode" Type="varchar(max)" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="publicationDate" Type="datetime" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -57,7 +57,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="email" Type="varchar(max)" Nullable="false" />
-          <Property Name="personImageName" Type="varchar" MaxLength="15" />
+          <Property Name="personImageName" Type="varchar(max)" />
           <Property Name="isActive" Type="bit" Nullable="false" />
           <Property Name="passwordHash" Type="varbinary" MaxLength="128" Nullable="false" />
           <Property Name="salt" Type="varchar" MaxLength="20" Nullable="false" />
@@ -68,7 +68,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="personId" Type="int" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -76,7 +76,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="personId" Type="int" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -362,11 +362,11 @@ warning 6002: The table/view 'ScreenTakerDB.sys.database_firewall_rules' does no
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ownerId" Type="Int32" Nullable="false" />
           <Property Name="isPublic" Type="Boolean" Nullable="false" />
           <Property Name="sharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="publicationDate" Type="DateTime" Precision="3" />
+          <Property Name="publicationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Person" Relationship="Self.R_16" FromRole="Folder" ToRole="Person" />
           <NavigationProperty Name="Image" Relationship="Self.R_19" FromRole="Folder" ToRole="Image" />
@@ -402,7 +402,7 @@ warning 6002: The table/view 'ScreenTakerDB.sys.database_firewall_rules' does no
           <Property Name="folderId" Type="Int32" Nullable="false" />
           <Property Name="isPublic" Type="Boolean" Nullable="false" />
           <Property Name="sharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="publicationDate" Type="DateTime" Precision="3" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Folder" Relationship="Self.R_19" FromRole="Image" ToRole="Folder" />
@@ -415,7 +415,7 @@ warning 6002: The table/view 'ScreenTakerDB.sys.database_firewall_rules' does no
             <PropertyRef Name="id" />
           </Key>
           <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="personImageName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="personImageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <Property Name="passwordHash" Type="Binary" MaxLength="128" FixedLength="false" Nullable="false" />
           <Property Name="salt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -431,7 +431,7 @@ warning 6002: The table/view 'ScreenTakerDB.sys.database_firewall_rules' does no
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="personId" Type="Int32" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="GroupMember" Relationship="Self.R_36" FromRole="PersonGroup" ToRole="GroupMember" />
@@ -442,7 +442,7 @@ warning 6002: The table/view 'ScreenTakerDB.sys.database_firewall_rules' does no
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="personId" Type="Int32" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Person" Relationship="Self.R_35" FromRole="Tag" ToRole="Person" />
