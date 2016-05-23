@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Images";
+    string ShareLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + ".png";
+    string CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png";
+    string Name = @ViewBag.Images[0].name + ".png";
+}
+
+<h2>Images</h2>
+<div class="col-md-12 text-left">
+    <div class="row">
+        <ul class="vert_menu">
+            <li><a href="/Home/Library" class="current">User</a></li>
+             <li><a href="/Home/Images" class="current">Shared folder</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="center-block" style="margin:5px;margin-top:-50px;">
+                @using (Html.BeginForm("", "Home/Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                        <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
+                        <input type="button" class="btn btn-primary btn-lg center-block" style="width:150px; height:40px;" value="Upload image" onclick="document.getElementById('fileInput').click();" />
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var i in ViewBag.Images)
+            {
+                string original = @i.sharedCode;
+                string commpressed = ViewBag.BASE_URL + @i.sharedCode + "_compressed.png";
+                string name = @i.name + ".png";
+                <a href="/Home/SingleImage?image=@original">
+                    <div class="col-md-2 text-center" style="margin-bottom: 60px">
+                        <img src="@commpressed" alt="@commpressed" style="width: 128px; height: 128px" />
+                        <label class="text-center">@name</label>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+    <div class="col-md-3" style="background-color: #686868; height: 90vh; margin-left:50px;">
+        <div style="margin-left: 10px">
+            <img src="@CommpressedLink" style="margin:5px;" />
+            <p style="color: #E0E0E0">@Name</p>
+            <hr />
+            <div>
+                <button type="button" class="btn btn-default" style="width: 100%">Open</button>
+            </div>
+            <br />
+            <div>
+                <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
+            </div>
+            <br />
+            <div>
+                <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
+            </div>
+            <br />
+            <div>
+                <button class="btn btn-warning" style="width: 100%">Make public</button>
+            </div>
+            <hr />
+            <p style="color: #E0E0E0">Share image</p>
+            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ShareLink" />
+            <hr />
+        </div>
+    </div>
+</div>

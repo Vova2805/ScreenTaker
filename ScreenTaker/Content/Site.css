@@ -22,3 +22,116 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.library-menu {
+    background-color: #686868;
+    min-height: 100px;
+    border-radius: 10px;
+}
+
+.library-folder {
+    background-color: #E0E0E0;
+    border-radius: 30px;
+}
+
+.library-folder:hover {
+    background-color: #686868;
+}
+
+.library-folder:active {
+    background-color: #F0F0F0;
+}
+
+
+.welcome-image{
+}
+
+.header-p{
+    font-size:100px;
+}
+
+.text-color{
+    color:dimgray;
+}
+
+.lead-site{
+    margin-bottom:20px;
+    font-size:18px;
+    font-weight:300;
+    line-height:1.4;
+}
+
+.vert_menu{   overflow: hidden;  width: 100%; }
+.vert_menu li{  float: left; margin-right:55px; margin-left:-40px; }
+.vert_menu a{
+  padding: 8px 0px 8px 40px;
+  float: left; text-align:center;
+  text-decoration: none; font: normal 16px Myriad Pro, Helvetica, Arial, sans-serif;  text-shadow:0px 1px 0px #000;
+  color: #e6e2cf;
+  position: relative; text-shadow:1px 0 0 #000;
+  background: #525252;  min-width:181px; width:auto
+}
+
+.vert_menu a::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -19px;   
+  border-top: 19px solid transparent;
+  border-bottom: 19px solid transparent;
+  border-left: 1em solid;
+  right: -1em;
+}
+.vert_menu a::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -19px;   
+  border-top: 19px solid transparent;
+  border-bottom: 19px solid transparent;
+  border-left: 1em solid;
+  right: 10.5em;
+}
+
+.vert_menu a::after{   z-index: 3;  border-left-color: #525252;   }
+.vert_menu a::before{   z-index: 2;  }
+/*======================///////////////
+			START RESPONSIVE STYLE
+=====================///////////////////////*/
+
+
+@media(max-width:1199px ){
+
+	
+}
+
+
+@media(max-width:991px ){
+    .welcome-image{
+        width:100px;
+        height:100px;
+    }
+}
+
+
+@media(max-width:767px ){
+
+}
+
+@media(max-width:480px ){
+
+ 
+}
+
+
+@media(max-width:360px ){	
+
+	
+}
+
+
+@media(max-width:320px ){
+
+}
+
+	
