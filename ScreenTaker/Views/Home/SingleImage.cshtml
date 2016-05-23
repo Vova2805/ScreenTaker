@@ -1,26 +1,10 @@
 ﻿@{
     ViewBag.Title = "SingleImage";
-    ViewBag.OriginalPath = "";
-    if (ViewBag.Image != null)
-    {
-        ViewBag.OriginalPath = ViewBag.Image.sharedCode + ".png";
-    }
-    ViewBag.OriginalName = "";
-    if (ViewBag.Image != null)
-    {
-        ViewBag.OriginalName = ViewBag.Image.name + ".png";
-    }
-
-    ViewBag.Date = "";
-    if (ViewBag.Image != null)
-    {
-        ViewBag.OriginalName = ViewBag.Image.publicationDate;
-    }
 }
 
 
 <div class="container-fluid">
-    <div class="col-md-12 text-left">
+    <div class="col-md-12 text-left" style="margin-top:20px;">
         <div class="row">
             <ul class="vert_menu">
                 <li><a href="/Home/Library" class="current">User</a></li>
@@ -72,7 +56,7 @@
             </div>
 
             <div class="col-md-3" style="background-color: #686868;">
-                <div style="margin-left: 5px;height:600px;">
+                <div style="margin-left: 5px;height:800px;">
                     <p style="color: white;font-size:25px">@ViewBag.OriginalName</p>
                     <hr />
                     <div>
@@ -88,7 +72,7 @@
                     </div>
                     <hr />
                     <p style="color: #E0E0E0">Share image</p>
-                    <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@Url.Content(ViewBag.OriginalName)">
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ViewBag.OriginalPath"> @*value="@Url.Content(ViewBag.OriginalName)"*@
                     <hr />
                 </div>
             </div>

@@ -86,8 +86,8 @@ namespace ScreenTaker.Controllers
         public ActionResult Library()
         {
             ViewBag.Message = "Library page";
-            ViewBag.Folders = _entities.Folder.ToList(); ;
-
+            ViewBag.Folders = _entities.Folder.ToList();
+            ViewBag.FolderLink = GetBaseUrl() + _entities.Folder.ToList().ElementAt(0).sharedCode;
             return View();
         }
 
@@ -106,6 +106,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Images = list;
             var pathsList = _entities.Image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode ).ToList();
             ViewBag.Paths = pathsList;
+            ViewBag.BASE_URL = GetBaseUrl() + "img/";
             return View();
         }
 
@@ -115,6 +116,7 @@ namespace ScreenTaker.Controllers
             var appUrl = HttpRuntime.AppDomainAppVirtualPath;
             var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
             return baseUrl;
+           // return "http://screentaker.azurewebsites.net/";
         }
 
         [HttpGet]
@@ -125,7 +127,22 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Image = _entities.Image.ToList().First();
             }
+            ViewBag.OriginalPath = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.OriginalPath = GetBaseUrl()+"img/"+ViewBag.Image.sharedCode + ".png";
+            }
+            ViewBag.OriginalName = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.OriginalName = ViewBag.Image.name + ".png";
+            }
 
+            ViewBag.Date = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.Date = ViewBag.Image.publicationDate;
+            }
             return View();
         }
     }

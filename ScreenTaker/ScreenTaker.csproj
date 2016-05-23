@@ -232,9 +232,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\private.png" />
     <Content Include="fonts\public.png" />
     <Content Include="For Database\SQLQuery_CreateDB.sql" />
@@ -242,6 +245,7 @@
     <Content Include="For Database\SQLQuery_DropAllTables.sql" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\addImage.png" />
     <Content Include="img\printscreen.png" />
     <Content Include="img\private.png" />
     <Content Include="img\public.png" />
@@ -250,8 +254,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="For Database\screenTakerDB.erwin" />
     <EntityDeploy Include="ScreenTakerDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -260,6 +262,10 @@
     <Content Include="ScreenTakerDM.edmx.diagram">
       <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="ScreenTakerDM.Context.tt">
