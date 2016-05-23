@@ -82,6 +82,7 @@ textarea {
   border-left: 1em solid;
   right: -1em;
 }
+
 .vert_menu a::before{
   content: "";
   position: absolute;
