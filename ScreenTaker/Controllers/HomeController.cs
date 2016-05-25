@@ -163,6 +163,7 @@ namespace ScreenTaker.Controllers
                 if (accesGranted)
                 {
                     ViewBag.ImageName = image.name;
+                    ViewBag.ImagePath = GetBaseUrl() + "img/" + image.sharedCode + ".png";
                 }
             }
             ViewBag.AccessGranted = accesGranted;
