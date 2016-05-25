@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Microsoft.Ajax.Utilities;
 
 namespace ScreenTaker.Controllers
 {
@@ -122,7 +123,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(string image)
         {
-            ViewBag.Image =  _entities.Image.Where(im=>im.sharedCode.Equals(image)).FirstOrDefault();
+            ViewBag.Image =  _entities.Image.FirstOrDefault(im => im.sharedCode.Equals(image));
             if(ViewBag.Image==null && _entities.Image.ToList().Count>0)
             {
                 ViewBag.Image = _entities.Image.ToList().First();
@@ -143,7 +144,30 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Date = ViewBag.Image.publicationDate;
             }
+
+            if (ViewBag.Image != null)
+            {
+                ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.sharedCode;
+            }
             return View();
         }
+
+        [HttpGet]
+        public ActionResult SharedImage(string i)
+        {
+            var image = _entities.Image.FirstOrDefault(im => im.sharedCode.Equals(i));
+            bool accesGranted = false;
+            if (image != null)
+            {
+                accesGranted = true;
+                if (accesGranted)
+                {
+                    ViewBag.ImageName = image.name;
+                }
+            }
+            ViewBag.AccessGranted = accesGranted;
+            return View();
+        }
+
     }
 }

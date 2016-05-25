@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "SharedImage";
+}
+
+@if (ViewBag.AccessGranted)
+{
+    <h2>@ViewBag.ImageName</h2>;
+}
+else
+{
+    <h2>AccessDenied</h2>;
+}
+
