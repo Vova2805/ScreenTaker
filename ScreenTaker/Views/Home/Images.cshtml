@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + ".png";
     string CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png";
     string Name = @ViewBag.Images[0].name + ".png";
 }
@@ -65,7 +64,7 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ShareLink" />
+            <input class="form-control" style="width: 100%" type="text" placeholder="Share link" value="@ViewBag.SharedLink" />
             <hr />
         </div>
     </div>

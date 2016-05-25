@@ -108,6 +108,8 @@ namespace ScreenTaker.Controllers
             var pathsList = _entities.Image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode ).ToList();
             ViewBag.Paths = pathsList;
             ViewBag.BASE_URL = GetBaseUrl() + "img/";
+            ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + list.First().sharedCode;
+
             return View();
         }
 
