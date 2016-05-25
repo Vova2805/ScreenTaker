@@ -209,6 +209,11 @@
       <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ScreenTakerDM.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -246,11 +251,6 @@
     <Content Include="For Database\SQLQuery_DropAllTables.sql" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="img\addImage.png" />
-    <Content Include="img\printscreen.png" />
-    <Content Include="img\private.png" />
-    <Content Include="img\public.png" />
-    <Content Include="img\user.png" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -260,6 +260,11 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ScreenTakerDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Resources\addImage.png" />
+    <None Include="Resources\printscreen.png" />
+    <None Include="Resources\private.png" />
+    <None Include="Resources\public.png" />
+    <None Include="Resources\user.png" />
     <Content Include="ScreenTakerDM.edmx.diagram">
       <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
     </Content>
@@ -355,6 +360,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -362,6 +368,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WebResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

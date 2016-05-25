@@ -16,11 +16,11 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
+ Set width on the form input elements since they're 100% wide by default 
 input,
 select,
 textarea {
-    max-width: 280px;
+    width: 100%;
 }
 
 .library-menu {
@@ -133,5 +133,37 @@ textarea {
 @media(max-width:320px ){
 
 }
+
+.shadow {
+    box-shadow: 5px 5px 0 #000000;
+}
+
+.account-style {
+    background-color: #444444;
+    padding: 5px;
+    color: #D6D6D6;
+}
+
+.account-button {
+    background-color: #D6D6D6;
+    border-radius: 0;
+}
+
+.account-button:hover {
+    background-color: #EBEBEB;
+}
+
+.account-link {
+    color: #D6D6D6;
+}
+
+.account-link:hover {
+    color: #AAAAAA;
+}
+
+.login-signup-center{
+}
+
+
 
 	

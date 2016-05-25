@@ -1,7 +1,87 @@
-﻿
+﻿@using ScreenTaker.Models
+@model LoginViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Edit groups";
 }
 
-<h2>Index</h2>
 
+
+<div class="container" style="margin-top:40px;">
+
+    <div class="row">
+        <h2 class="text-center">@ViewBag.Title</h2>
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-10 account-style shadow center-block" style="height:1000px;">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Group name" aria-describedby="sizing-addon2">
+                                <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul class="list-group" style="height:100%">
+                                <li class="list-group-item active">
+                                    Cras justo odio
+                                    <span class="label label-default label-pill pull-xs-right right">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Dapibus ac facilisis in
+                                    <span class="label label-default label-pill pull-xs-right">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Morbi leo risus
+                                    <span class="label label-default label-pill pull-xs-right">14</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2">
+                                <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item active">
+                                    <h4 class="list-group-item-heading">List group item heading</h4>
+                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading">List group item heading</h4>
+                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading">List group item heading</h4>
+                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+       
+        <div class="col-sm-1">
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
