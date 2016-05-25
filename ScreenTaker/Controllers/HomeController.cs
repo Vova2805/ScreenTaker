@@ -193,6 +193,7 @@ namespace ScreenTaker.Controllers
             }
             return RedirectToAction("Images");
         }
+
         public ActionResult RenameImage(string path, string newName, string lang = "en")
         {
             using (var transaction = _entities.Database.BeginTransaction())

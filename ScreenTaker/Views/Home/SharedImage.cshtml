@@ -1,14 +1,24 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "SharedImage";
 }
 
 @if (ViewBag.AccessGranted)
 {
+<<<<<<< HEAD
     <h2>@ViewBag.ImageName</h2>;
+=======
+    <br/>
+    <div class="col-md-12 text-center">
+        <img src="@ViewBag.ImagePath"/>
+        <h2>@ViewBag.ImageName</h2>
+    </div>
+>>>>>>> b7a7f32... Added shared image view
 }
 else
 {
-    <h2>AccessDenied</h2>;
+    <br/>
+    <div class="col-md-12 text-left">
+        <h2>Access denied</h2>
+        <p>Image owner has restricted access to this image</p>
+    </div>
 }
-
