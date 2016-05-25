@@ -403,6 +403,7 @@
     <Content Include="Views\Edit\UserGroups.cshtml" />
     <Content Include="Views\Home\SingleImage.cshtml" />
     <Content Include="Views\Edit\EditImage.cshtml" />
+    <Content Include="Views\Home\SharedImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

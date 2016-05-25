@@ -8,7 +8,6 @@ using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Image = ScreenTaker.Models.Image;
-
 namespace ScreenTaker.Controllers
 {
     public class HomeController : Controller
@@ -149,9 +148,30 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Date = ViewBag.Image.PublicationDate;
             }
+
+            if (ViewBag.Image != null)
+            {
+                ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.sharedCode;
+            }
             return View();
         }
 
+        [HttpGet]
+        public ActionResult SharedImage(string i)
+        {
+            var image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
+            bool accesGranted = false;
+            if (image != null)
+            {
+                accesGranted = true;
+                if (accesGranted)
+                {
+                    ViewBag.ImageName = image.Name;
+                }
+            }
+            ViewBag.AccessGranted = accesGranted;
+            return View();
+        }
         public ActionResult DeleteImage(string path, string lang = "en")
         {
             using (var transaction = _entities.Database.BeginTransaction())
