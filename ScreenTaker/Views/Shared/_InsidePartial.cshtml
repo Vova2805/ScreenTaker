@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Globalization
+@using System.Threading;
+@section JavaScript
+{
+    @*<script type="text/javascript" src="@Url.Content("/Scripts/SomeScript.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/AnotherScript.js")"></script>*@
+}
+@{ 
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
+}
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ENG<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("UserGroups","Edit",new {lang="ukr"})">UKR</a></li>
+                    <li><a href="@Url.Action("UserGroups","Edit",new {lang="rus"})">RUS</a></li>
+                    <li><a href="@Url.Action("UserGroups","Edit",new {lang="en"})">ENG</a>
+</ul>
+            </li>
+            <li>
+                @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ENG<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("UserGroups","Edit",new {lang="uk"})">UKR</a></li>
+                <li><a href="@Url.Action("UserGroups","Edit",new {lang="ru"})">RUS</a></li>
+                <li><a href="@Url.Action("UserGroups","Edit",new {lang="en"})">ENG</a></li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("vovadudas@gmail.com", "Profile", "Account")</li>
+        <li>@Html.ActionLink("Log out", "Logout", "Account")</li>
+    </ul>
+}

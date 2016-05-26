@@ -23,14 +23,13 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Folders", "Library", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_InsidePartial")
             </div>
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
-    </div>
-    <footer>
         <div class="navbar-fixed-bottom navbar-default navbar row-fluid" style="background-color: #000000">
             <div class="navbar-inner">
                 <div class="container">
@@ -40,10 +39,10 @@
                 </div>
             </div>
         </div>
-    </footer>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    </div>
+ 
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")
+                @RenderSection("scripts", required: false)
 </body>
 </html>
