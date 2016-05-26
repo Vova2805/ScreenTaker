@@ -36,6 +36,9 @@ namespace ScreenTaker.Controllers
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         var image = new Image();
+                        //if (_entities.Image.ToList().Count > 0)
+                        //    image.id = _entities.Image.Max(s => s.id) + 1;
+                        //else image.id = 1;
                         image.isPublic = false;
                         image.folderId = _entities.Folder.Where(f=>f.name.Equals("General")).Select(fol=>fol.id).FirstOrDefault();
                         image.sharedCode = sharedCode;
@@ -43,6 +46,9 @@ namespace ScreenTaker.Controllers
                         image.publicationDate = DateTime.Now;
                         _entities.Image.Add(image);
                         _entities.SaveChanges();
+
+                        transaction.Commit();
+
                         var bitmap = new Bitmap(file.InputStream);
 
                         var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
@@ -51,7 +57,6 @@ namespace ScreenTaker.Controllers
                         var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
                         path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
                         compressedBitmap.Save(path, ImageFormat.Png);
-                        transaction.Commit();
                     }
                     catch(Exception e)
                     {
