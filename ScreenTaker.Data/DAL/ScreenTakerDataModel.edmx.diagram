@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ce463fca824444e28d0330fd3e08b052" Name="Diagram1">
+        <EntityTypeShape EntityType="ScreenTakerDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetRole" Width="1.5" PointX="9.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUser" Width="1.5" PointX="12" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.Folder" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.GroupMember" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.GroupShare" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.Image" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.Person" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.PersonGroup" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.Tag" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.UserShare" Width="1.5" PointX="10.5" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="ScreenTakerDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_16" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_19" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_23" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_27" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_36" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_37" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_22" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_24" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_26" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_20" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_25" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.R_35" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.ImageTag" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
