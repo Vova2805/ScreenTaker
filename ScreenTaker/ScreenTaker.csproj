@@ -350,6 +350,7 @@
     <Content Include="Views\Home\Library.cshtml" />
     <Content Include="Views\Home\Images.cshtml" />
     <Content Include="Views\Home\SingleImage.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

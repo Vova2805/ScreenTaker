@@ -481,5 +481,13 @@ namespace ScreenTaker.Controllers
             }
         }
         #endregion
+        [AllowAnonymous]
+        public ActionResult UserProfile()
+        {
+            ViewBag.Avatar = "~/img/user.png";
+            ViewBag.Email = "test@gmail.com";
+
+            return View();
+        }
     }
 }
