@@ -20,30 +20,33 @@
                 @Html.ActionLink("ScreenTaker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @*<ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Folders", "Library", "Home")</li>
-                </ul>
+                </ul>*@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div>
         @RenderBody()
     </div>
-    <footer>
-        <div class="navbar-fixed-bottom navbar-default navbar row-fluid" style="background-color: #000000">
-            <div class="navbar-inner">
-                <div class="container">
-                    <span style="color: #929292">Developed by </span>
-                    <span style="color: #3D8AF7">DREAM</span>
-                    <span style="color: #929292">TEAM</span>
-                </div>
+    <div style="background-color: #222; margin-bottom:-20px;bottom:0px;vertical-align:middle;height:70px; margin-top:20px;">
+        <div class="row">
+            <div class="col-sm-5">
+            </div>
+            <div class="col-sm-3" style="vertical-align:middle;padding-top:15px;;font-size:15px">
+                <span style="color: #929292">Developed by </span>
+                <span style="color: #3D8AF7">DREAM TEAM</span>
+            </div>
+            <div class="col-sm-4">
             </div>
         </div>
-    </footer>
-
+    </div>  
+  
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
 </body>
+
 </html>

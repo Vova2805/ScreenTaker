@@ -49,7 +49,7 @@ else
                 <li><a href="@Url.Action("UserGroups","Edit",new {lang="en"})">ENG</a></li>
             </ul>
         </li>
-        <li>@Html.ActionLink("Log In", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-        <li>@Html.ActionLink("Sign in", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+        <li>@Html.ActionLink("Sign in", "Register", "Account")</li>
     </ul>
 }

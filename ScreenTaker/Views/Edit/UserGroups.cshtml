@@ -5,7 +5,7 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Edit groups";
-    Layout = "~/Views/Shared/_LayoutInside.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     if (!Request.QueryString["lang"].IsEmpty())
     {
         Culture = UICulture = Request.QueryString["lang"];
@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="media-right" style="vertical-align:middle;">
                                         <button type="button" class="btn badge right" aria-label="Left Align">
-                                           <span aria-hidden="true">14</span>
+                                            <span aria-hidden="true">14</span>
                                         </button>
                                     </div>
                                     <div class="media-right" style="vertical-align:middle;">
@@ -51,7 +51,6 @@
                                         </button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -63,8 +62,8 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2">
                                 <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
-                                
-                             </div>
+
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -108,4 +107,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
+
 

@@ -369,13 +369,11 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Home\Library.cshtml" />
     <Content Include="Views\Home\Images.cshtml" />
     <Content Include="Views\Home\SingleImage.cshtml" />
-    <Content Include="Views\Shared\_LayoutInside.cshtml" />
-    <Content Include="Views\Shared\_InsidePartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Edit\UserGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
