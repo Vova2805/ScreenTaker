@@ -1,9 +1,57 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + ".png";
-    string CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png";
-    string Name = @ViewBag.Images[0].name + ".png";
+    string ShareLink = ViewBag.Images.Count>0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + ".png"):"";
+    string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png"):"";
+    string Name = ViewBag.Images.Count > 0 ? (@ViewBag.Images[0].name + ".png"):"";
 }
+
+<div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Rename</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">Enter new title for image</label>
+                        <input type="text" class="form-control" id="new-title">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteImage" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">Delete image</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label text-center">Save changes?</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 600px">
     <div class="col-md-2"></div>
@@ -17,15 +65,7 @@
                 </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-2 text-center" style="margin-top: -50px">
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        <input id="fileInput" style="visibility: collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                        <input id="fileSubmit" style="visibility: collapse" type="submit" value="bla" />
-                        <input type="button" class="btn btn-primary btn-lg center-block" style="width: 128px; height: 128px;" value="Upload" onclick="document.getElementById('fileInput').click();" />
-                    }
-            </div>
+        <div class="row">ss
             @foreach (var i in ViewBag.Images)
             {
                 string original = @i.sharedCode;
@@ -50,11 +90,11 @@
             </div>
             <br/>
             <div>
-                <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#RenameImage" style="width: 100%">Rename</button>
             </div>
             <br/>
             <div>
-                <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">Delete</button>
             </div>
             <br/>
             <div>
