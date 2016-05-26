@@ -1,20 +1,27 @@
 ﻿@using ScreenTaker.Models
+@using System.Globalization
+@using System.Threading;
+@using ScreenTaker;
 @model LoginViewModel
 @{
     ViewBag.Title = "Edit groups";
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
 }
 
-
-
-<div class="container" style="margin-top:40px;">
-
+<div class="container">
     <div class="row">
-       
+        <h2 class="text-center">@Resources.Resource.EDIT_GROUP</h2>
         <div class="col-sm-1">
-            <label />
         </div>
-        <div class="col-sm-10 account-style shadow center-block" style="height:1000px;">
-            <div class="row">
+        <div class="col-sm-10 account-style shadow center-block" style="height:560px;">
+            <div class="row-fluid">
                 <div class="col-sm-4">
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-sm-12">
@@ -26,18 +33,66 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <ul class="list-group" style="height:100%">
+                            <ul class="list-group" style="height:auto;max-height:450px;overflow:auto;">
                                 <li class="list-group-item active">
-                                    Cras justo odio
-                                    <span class="label label-default label-pill pull-xs-right right">14</span>
+                                    Friends
+                                    <span class="badge">14</span>
                                 </li>
                                 <li class="list-group-item">
-                                    Dapibus ac facilisis in
-                                    <span class="label label-default label-pill pull-xs-right">14</span>
+                                    Family
+                                    <span class="badge">14</span>
                                 </li>
                                 <li class="list-group-item">
-                                    Morbi leo risus
-                                    <span class="label label-default label-pill pull-xs-right">14</span>
+                                    School
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item ">
+                                    Friends
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Family
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    School
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item ">
+                                    Friends
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Family
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    School
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item ">
+                                    Friends
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Family
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    School
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item ">
+                                    Friends
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Family
+                                    <span class="badge">14</span>
+                                </li>
+                                <li class="list-group-item">
+                                    School
+                                    <span class="badge">14</span>
                                 </li>
                             </ul>
                         </div>
@@ -53,10 +108,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-sm-12">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item active">
+                            <div class="list-group respo" style="height:auto;max-height:450px;overflow:auto;">
+                                    <div class="media list-group-item active">
+                                        <div class="media-left">
+                                                <img class="media-object" style="width:50px;height:50px;" src="~/Resources/images/public.png" alt="Image not found">
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">vovadudas@gmail.com</h4>
+                                        </div>
+                                    </div> 
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading">List group item heading</h4>
+                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading">List group item heading</h4>
+                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading">List group item heading</h4>
+                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading">List group item heading</h4>
+                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading">List group item heading</h4>
+                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                </a>
+                                <a href="#" class="list-group-item">
                                     <h4 class="list-group-item-heading">List group item heading</h4>
                                     <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
                                 </a>
@@ -74,7 +157,14 @@
                     </div>
                 </div>
             </div>
-           
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-default center-block" style="width:20%">Save</button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-default center-block" style="width:20%">Cancel</button>
+                </div>
+            </div>
         </div>
        
         <div class="col-sm-1">

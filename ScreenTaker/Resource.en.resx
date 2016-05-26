@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Button" xml:space="preserve">
-    <value>Dudas</value>
-  </data>
-  <data name="Header" xml:space="preserve">
-    <value>Vova</value>
-  </data>
-  <data name="Label1.Text" xml:space="preserve">
-    <value />
+  <data name="Message" xml:space="preserve">
+    <value>Hello</value>
   </data>
 </root>
