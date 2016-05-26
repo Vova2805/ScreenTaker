@@ -60,7 +60,7 @@
                     <p style="color: white;font-size:25px">@ViewBag.OriginalName</p>
                     <hr />
                     <div>
-                        <button type="button" class="btn btn-default" style="width: 100%" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })'" >Rename</button>
+                        <button type="button" class="btn btn-default" style="width: 100%" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath, newName="renamed" })'" >Rename</button>
                     </div>
                     <br />
                     <div>

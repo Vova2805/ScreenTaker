@@ -153,8 +153,8 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var rowToDelete = _entities.Image.Where(w => w.sharedCode == sharedDode).FirstOrDefault();
-                    _entities.Image.Remove(rowToDelete);
+                    var obj = _entities.Image.Where(w => w.sharedCode == sharedDode).FirstOrDefault();
+                    _entities.Image.Remove(obj);
                     _entities.SaveChanges();
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
@@ -167,13 +167,16 @@ namespace ScreenTaker.Controllers
             }
             return RedirectToAction("Images");
         }
-        public ActionResult RenameImage(string path)
+        public ActionResult RenameImage(string path, string newName)
         {
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
-
+                    var sharedDode = Path.GetFileNameWithoutExtension(path);
+                    var obj=_entities.Image.Where(w => w.sharedCode == sharedDode).FirstOrDefault();
+                    obj.name = newName;
+                    _entities.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception ex)
