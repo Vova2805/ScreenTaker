@@ -40,7 +40,7 @@ namespace ScreenTaker.Controllers
                         //    image.id = _entities.Image.Max(s => s.id) + 1;
                         //else image.id = 1;
                         image.isPublic = false;
-                        image.folderId = _entities.Folder.Where(f=>f.name.Equals("General")).Select(fol=>fol.id).FirstOrDefault();
+                        image.folderId = _entities.Folder.Where(f => f.name.Equals("General")).Select(fol => fol.id).FirstOrDefault();
                         image.sharedCode = sharedCode;
                         image.name = fileName;
                         image.publicationDate = DateTime.Now;
@@ -58,12 +58,12 @@ namespace ScreenTaker.Controllers
                         path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
                         compressedBitmap.Save(path, ImageFormat.Png);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         transaction.Rollback();
                     }
                 }
-                 
+
             }
             return View();
         }
@@ -104,7 +104,7 @@ namespace ScreenTaker.Controllers
         {
             var list = _entities.Image.ToList();
             ViewBag.Images = list;
-            var pathsList = _entities.Image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode ).ToList();
+            var pathsList = _entities.Image.ToList().Select(i => GetBaseUrl() + "img/" + i.sharedCode).ToList();
             ViewBag.Paths = pathsList;
             ViewBag.BASE_URL = GetBaseUrl() + "img/";
             return View();
@@ -116,21 +116,21 @@ namespace ScreenTaker.Controllers
             var appUrl = HttpRuntime.AppDomainAppVirtualPath;
             var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
             return baseUrl;
-           // return "http://screentaker.azurewebsites.net/";
+            // return "http://screentaker.azurewebsites.net/";
         }
 
         [HttpGet]
         public ActionResult SingleImage(string image)
         {
-            ViewBag.Image =  _entities.Image.Where(im=>im.sharedCode.Equals(image)).FirstOrDefault();
-            if(ViewBag.Image==null && _entities.Image.ToList().Count>0)
+            ViewBag.Image = _entities.Image.Where(im => im.sharedCode.Equals(image)).FirstOrDefault();
+            if (ViewBag.Image == null && _entities.Image.ToList().Count > 0)
             {
                 ViewBag.Image = _entities.Image.ToList().First();
             }
             ViewBag.OriginalPath = "";
             if (ViewBag.Image != null)
             {
-                ViewBag.OriginalPath = GetBaseUrl()+"img/"+ViewBag.Image.sharedCode + ".png";
+                ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.sharedCode + ".png";
             }
             ViewBag.OriginalName = "";
             if (ViewBag.Image != null)
@@ -144,6 +144,44 @@ namespace ScreenTaker.Controllers
                 ViewBag.Date = ViewBag.Image.publicationDate;
             }
             return View();
+        }
+
+        public ActionResult DeleteImage(string path)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var sharedDode = Path.GetFileNameWithoutExtension(path);
+                    var rowToDelete = _entities.Image.Where(w => w.sharedCode == sharedDode).FirstOrDefault();
+                    _entities.Image.Remove(rowToDelete);
+                    _entities.SaveChanges();
+                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
+                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("Images");
+        }
+        public ActionResult RenameImage(string path)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path) });
         }
     }
 }
