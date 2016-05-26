@@ -20,7 +20,7 @@
 input,
 select,
 textarea {
-    width: 100%;
+    max-width: 100%;
 }
 
 .library-menu {
@@ -161,13 +161,9 @@ textarea {
     color: #AAAAAA;
 }
 
-.login-signup-center{
+.profile-avatar {
+    width: 128px;
+    height: 128px;
 }
-.button-standart{
-    min-width:60px;
-    min-height:20px;
-}
-
-
 
 	
