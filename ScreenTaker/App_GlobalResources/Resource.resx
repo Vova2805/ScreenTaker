@@ -229,4 +229,7 @@
   <data name="YOUR_OLD_PASS" xml:space="preserve">
     <value>Your old password</value>
   </data>
+  <data name="UPLOAD_IMAGE" xml:space="preserve">
+    <value>Upload image</value>
+  </data>
 </root>

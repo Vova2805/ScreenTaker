@@ -390,6 +390,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload image.
+        /// </summary>
+        internal static string UPLOAD_IMAGE {
+            get {
+                return ResourceManager.GetString("UPLOAD_IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your old password.
         /// </summary>
         internal static string YOUR_OLD_PASS {
