@@ -13,10 +13,10 @@ namespace ScreenTaker
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ScreenTakerDBEntities : DbContext
+    public partial class ScreenTakerEntities : DbContext
     {
-        public ScreenTakerDBEntities()
-            : base("name=ScreenTakerDBEntities")
+        public ScreenTakerEntities()
+            : base("name=ScreenTakerEntities")
         {
         }
     
@@ -25,6 +25,11 @@ namespace ScreenTaker
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Folder> Folder { get; set; }
         public virtual DbSet<GroupMember> GroupMember { get; set; }
         public virtual DbSet<GroupShare> GroupShare { get; set; }

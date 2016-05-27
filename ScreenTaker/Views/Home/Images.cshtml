@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.Images.Count>0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + ".png"):"";
-    string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png"):"";
+    string ShareLink = ViewBag.Images.Count>0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + ".png"):"";
+    string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png"):"";
     string Name = ViewBag.Images.Count > 0 ? (@ViewBag.Images[0].name + ".png"):"";
 }
 @section Scripts

@@ -22,12 +22,12 @@ namespace ScreenTaker
             this.Tag = new HashSet<Tag>();
         }
     
-        public int folderId { get; set; }
-        public bool isPublic { get; set; }
-        public string sharedCode { get; set; }
-        public string name { get; set; }
-        public Nullable<System.DateTime> publicationDate { get; set; }
-        public int id { get; set; }
+        public int FolderId { get; set; }
+        public bool IsPublic { get; set; }
+        public string SharedCode { get; set; }
+        public string Name { get; set; }
+        public Nullable<System.DateTime> PublicationDate { get; set; }
+        public int Id { get; set; }
     
         public virtual Folder Folder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
