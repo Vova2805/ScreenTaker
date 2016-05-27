@@ -1,3 +1,5 @@
+using ScreenTaker.Models;
+
 namespace ScreenTaker.Migrations
 {
     using System;
@@ -9,7 +11,7 @@ namespace ScreenTaker.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(ScreenTaker.Models.ApplicationDbContext context)
@@ -25,7 +27,6 @@ namespace ScreenTaker.Migrations
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
-            //
         }
     }
 }

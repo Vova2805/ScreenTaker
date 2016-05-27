@@ -181,6 +181,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605271430553_TestMigration.cs" />
+    <Compile Include="Migrations\201605271430553_TestMigration.Designer.cs">
+      <DependentUpon>201605271430553_TestMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605271605440_TestInit.cs" />
+    <Compile Include="Migrations\201605271605440_TestInit.Designer.cs">
+      <DependentUpon>201605271605440_TestInit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -318,6 +326,14 @@
       <Project>{4f81187d-6083-457a-b3fe-623347f39a5c}</Project>
       <Name>ScreenTaker.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605271430553_TestMigration.resx">
+      <DependentUpon>201605271430553_TestMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605271605440_TestInit.resx">
+      <DependentUpon>201605271605440_TestInit.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
