@@ -1,6 +1,207 @@
 ﻿@{
     ViewBag.Title = "Library";
 }
+@section Scripts
+{
+    <script>
+        $('#toggle_event_editing button').click(function () {
+            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
+                /* code to do when unlocking */
+                $('#switch_status').html('Switched on.');
+            } else {
+                /* code to do when locking */
+                $('#switch_status').html('Switched off.');
+            }
+
+            /* reverse locking status */
+            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
+            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
+        });
+    </script>
+}
+
+<div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">Rename</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">Enter new title for folder</label>
+                        <input type="text" class="form-control" id="new-title">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">Delete image</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label text-center">Save changes?</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess" style="top:100px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Manage access</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-bottom:5px;">
+                    <div class="col-sm-9">
+                        <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Access by link</h5>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="btn-group pull-right" id="toggle_event_editing">
+                            <button type="button" class="btn btn-default unlocked_inactive" style="height:30px;width:60px;font-size:12px;">On</button>
+                            <button type="button" class="btn btn-info locked_active" style="height:30px;width:60px;font-size:12px;">Off</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
+                            <span class="input-group-btn" style="height:30px;">
+                                <button class="btn btn-default" style="height:30px;" type="button">Copy</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-sm-12">
+                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">People</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
+                                    <div class="list-group-item">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2">
+                                    <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-sm-12">
+                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Groups</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group" style="height:auto;height:205px;overflow:auto;border:solid #E0E0E0 1px;">
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">Friends</h5>
+                                        </div>
+                                        <div class="material-switch media-right" style="vertical-align:middle">
+                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" />
+                                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" style="width:100px;" data-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row" style="margin-bottom: -40px; overflow: hidden; position: relative;  min-height: 600px">
     <div class="col-md-2"></div>
@@ -29,23 +230,23 @@
             </div>
             <br/>
             <div>
-                <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#RenameFolder" style="width: 100%">Rename</button>
             </div>
             <br/>
             <div>
-                <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteFolder" style="width: 100%">Delete</button>
             </div>
             <br/>
             <div>
                 <button class="btn btn-warning" style="width: 100%">Make public</button>
             </div>
-            <br />
-            <div>
-                <button type="button" class="btn btn-default" style="width: 100%">Manage access</button>
-            </div>
             <hr/>
             <p style="color: #E0E0E0">Share folder</p>
             <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ViewBag.FolderLink"/>
+            <br />
+            <div>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FolderManageAccess" style="width: 100%">Manage access</button>
+            </div>
             <hr/>
         </div>
     </div>
