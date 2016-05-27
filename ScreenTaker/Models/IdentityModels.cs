@@ -63,9 +63,6 @@ namespace ScreenTaker.Models
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<IdentityUser>().ToTable("Person", "dbo").Property(p => p.Id).HasColumnName("UserId");
-            modelBuilder.Entity<ApplicationUser>().ToTable("Person", "dbo").Property(p => p.Id).HasColumnName("UserId");
         }
 
     }
