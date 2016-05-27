@@ -380,6 +380,7 @@
     <Content Include="Views\Home\Images.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Edit\UserGroups.cshtml" />
+    <Content Include="Views\Home\SingleImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

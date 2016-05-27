@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "SingleImage";
+}
+
+
+<div class="container-fluid">
+    <div class="col-md-12 text-left" style="margin-top:20px;">
+        <div class="row">
+            <ul class="vert_menu">
+                <li><a href="/Home/Library" class="current">User</a></li>
+                <li><a href="/Home/Images" class="current">Shared folder</a></li>
+                <li><a href="#" class="current">@ViewBag.OriginalName</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row text-center">
+                    <img src="@ViewBag.OriginalPath" style="width:800px;height:450px" />
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="text-md-center">
+                                <h3 class="text-center">@ViewBag.OriginalName</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="text-md-center">
+                                <h5 class="text-center">Uploaded @ViewBag.Date</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">map</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">favorite</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">earth</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">mine</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">family</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">nature</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="background-color: #686868;">
+                <div style="margin-left: 5px;height:800px;">
+                    <p style="color: white;font-size:25px">@ViewBag.OriginalName</p>
+                    <hr />
+                    <div>
+                        <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
+                    </div>
+                    <br />
+                    <div>
+                        <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
+                    </div>
+                    <br />
+                    <div>
+                        <button class="btn btn-warning" style="width: 100%">Make public</button>
+                    </div>
+                    <hr />
+                    <p style="color: #E0E0E0">Share image</p>
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ViewBag.OriginalPath"> @*value="@Url.Content(ViewBag.OriginalName)"*@
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
