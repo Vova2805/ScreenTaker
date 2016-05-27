@@ -19,13 +19,18 @@ namespace ScreenTaker.Controllers
             Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
             Length = 10
         };
-        public ActionResult Index()
+        public ActionResult Index(string lang = "en")
+        {
+            return RedirectToAction("Welcome", "Home");
+        }
+
+        public ActionResult Welcome(string lang = "en")
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(HttpPostedFileBase file)
+        public ActionResult Welcome(HttpPostedFileBase file, string lang = "en")
         {
             if (file != null)
             {
@@ -68,14 +73,14 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult About(string lang = "en")
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(string lang = "en")
         {
             ViewBag.Message = "Your contact page.";
 
@@ -83,7 +88,7 @@ namespace ScreenTaker.Controllers
         }
 
         #region Library
-        public ActionResult Library()
+        public ActionResult Library(string lang = "en")
         {
             ViewBag.Message = "Library page";
             ViewBag.Folders = _entities.Folder.ToList();
@@ -92,7 +97,7 @@ namespace ScreenTaker.Controllers
         }
 
         [HttpGet]
-        public ActionResult ChangeFoldersAttr(Folder folder)
+        public ActionResult ChangeFoldersAttr(Folder folder, string lang = "en")
         {
             ViewBag.Folders = _entities.Folder.ToList();
 
@@ -100,7 +105,7 @@ namespace ScreenTaker.Controllers
         }
         #endregion
 
-        public ActionResult Images()
+        public ActionResult Images(string lang = "en")
         {
             var list = _entities.Image.ToList();
             ViewBag.Images = list;
@@ -116,11 +121,10 @@ namespace ScreenTaker.Controllers
             var appUrl = HttpRuntime.AppDomainAppVirtualPath;
             var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
             return baseUrl;
-            // return "http://screentaker.azurewebsites.net/";
         }
 
         [HttpGet]
-        public ActionResult SingleImage(string image)
+        public ActionResult SingleImage(string image, string lang = "en")
         {
             ViewBag.Image = _entities.Image.Where(im => im.sharedCode.Equals(image)).FirstOrDefault();
             if (ViewBag.Image == null && _entities.Image.ToList().Count > 0)
@@ -146,7 +150,7 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
-        public ActionResult DeleteImage(string path)
+        public ActionResult DeleteImage(string path, string lang = "en")
         {
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -167,7 +171,7 @@ namespace ScreenTaker.Controllers
             }
             return RedirectToAction("Images");
         }
-        public ActionResult RenameImage(string path, string newName)
+        public ActionResult RenameImage(string path, string newName, string lang = "en")
         {
             using (var transaction = _entities.Database.BeginTransaction())
             {

@@ -21,15 +21,29 @@ namespace ScreenTaker.Controllers
 
         public ActionResult UserGroups(string lang = "en")
         {
-            //if (!Request.QueryString["lang"].IsEmpty())
-            //{
-            //    Culture = UICulture = Request.QueryString["lang"];
-            //}
-            //else
-            //{
-            //    Culture = UICulture = "en";
-            //}
             return View();
+        }
+
+        public void ChangeLocalization(string request,string lang = "en")
+        {
+            if(request.Contains("?"))
+            {
+                if(request.Contains("lang"))
+                {
+                    int index = request.IndexOf("lang=");
+                    string sub = request.Substring(index, 7);
+                    request = request.Replace(sub,"lang="+lang);
+                }
+                else
+                {
+                    request += "&lang=" + lang;
+                }
+            }
+            else
+            {
+                request += "?lang=" + lang;
+            }
+             Response.Redirect(request);
         }
     }
 }

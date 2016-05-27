@@ -61,12 +61,93 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access by link.
+        /// </summary>
+        internal static string ACCESS_BY_LINK {
+            get {
+                return ResourceManager.GetString("ACCESS_BY_LINK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string ADD {
+            get {
+                return ResourceManager.GetString("ADD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap AddImage {
             get {
                 object obj = ResourceManager.GetObject("AddImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alphabet.
+        /// </summary>
+        internal static string ALPHABET {
+            get {
+                return ResourceManager.GetString("ALPHABET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CANCEL {
+            get {
+                return ResourceManager.GetString("CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change password.
+        /// </summary>
+        internal static string CHANGE_PASS {
+            get {
+                return ResourceManager.GetString("CHANGE_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change your profile image.
+        /// </summary>
+        internal static string CHANGE_PROFILE_IMG {
+            get {
+                return ResourceManager.GetString("CHANGE_PROFILE_IMG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classic.
+        /// </summary>
+        internal static string CLASSIC {
+            get {
+                return ResourceManager.GetString("CLASSIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm a new password.
+        /// </summary>
+        internal static string CONFIRM_PASS {
+            get {
+                return ResourceManager.GetString("CONFIRM_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string DATE {
+            get {
+                return ResourceManager.GetString("DATE", resourceCulture);
             }
         }
         
@@ -81,11 +162,74 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string DELETE {
+            get {
+                return ResourceManager.GetString("DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developed by.
+        /// </summary>
+        internal static string DEVELOPED_BY {
+            get {
+                return ResourceManager.GetString("DEVELOPED_BY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string EDIT {
+            get {
+                return ResourceManager.GetString("EDIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit groups.
         /// </summary>
         internal static string EDIT_GROUP {
             get {
                 return ResourceManager.GetString("EDIT_GROUP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit groups.
+        /// </summary>
+        internal static string EDIT_GROUPS {
+            get {
+                return ResourceManager.GetString("EDIT_GROUPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a new password.
+        /// </summary>
+        internal static string ENTER_NEW_PASS {
+            get {
+                return ResourceManager.GetString("ENTER_NEW_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Features.
+        /// </summary>
+        internal static string FEATURES {
+            get {
+                return ResourceManager.GetString("FEATURES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups.
+        /// </summary>
+        internal static string GROUPS {
+            get {
+                return ResourceManager.GetString("GROUPS", resourceCulture);
             }
         }
         
@@ -96,6 +240,69 @@ namespace Resources {
             get {
                 object obj = ResourceManager.GetObject("Keyboard", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        internal static string LOGIN_EMAIL {
+            get {
+                return ResourceManager.GetString("LOGIN_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage access.
+        /// </summary>
+        internal static string MANAGE_ACCESS {
+            get {
+                return ResourceManager.GetString("MANAGE_ACCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage groups.
+        /// </summary>
+        internal static string MANAGE_GROUPS {
+            get {
+                return ResourceManager.GetString("MANAGE_GROUPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string PASSWORD {
+            get {
+                return ResourceManager.GetString("PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password confirm.
+        /// </summary>
+        internal static string PASSWORD_CONFIRM {
+            get {
+                return ResourceManager.GetString("PASSWORD_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to People.
+        /// </summary>
+        internal static string PEOPLE {
+            get {
+                return ResourceManager.GetString("PEOPLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private.
+        /// </summary>
+        internal static string PRIVATE {
+            get {
+                return ResourceManager.GetString("PRIVATE", resourceCulture);
             }
         }
         
@@ -116,6 +323,78 @@ namespace Resources {
             get {
                 object obj = ResourceManager.GetObject("PublicFolder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string REMOVE {
+            get {
+                return ResourceManager.GetString("REMOVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        internal static string RENAME {
+            get {
+                return ResourceManager.GetString("RENAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SAVE {
+            get {
+                return ResourceManager.GetString("SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved as.
+        /// </summary>
+        internal static string SAVED_AS {
+            get {
+                return ResourceManager.GetString("SAVED_AS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign in.
+        /// </summary>
+        internal static string SIGNIN_LOGOUT {
+            get {
+                return ResourceManager.GetString("SIGNIN_LOGOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        internal static string SUBMIT {
+            get {
+                return ResourceManager.GetString("SUBMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        internal static string UPLOAD {
+            get {
+                return ResourceManager.GetString("UPLOAD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your old password.
+        /// </summary>
+        internal static string YOUR_OLD_PASS {
+            get {
+                return ResourceManager.GetString("YOUR_OLD_PASS", resourceCulture);
             }
         }
     }
