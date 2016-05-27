@@ -4,11 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body style="background-color: #E0E0E0">
+<body style="background-color: #E0E0E0; overflow-x: hidden">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -20,24 +20,33 @@
                 @Html.ActionLink("ScreenTaker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @*<ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Folders", "Library", "Home")</li>
-                </ul>
+                </ul>*@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div>
         @RenderBody()
-        <footer class="navbar navbar-inverse navbar-fixed-bottom" style="background-color: #000000">
-            <div class="container">
-                <div class="navbar-header navbar-brand"><span style="color: #929292">Developed by </span><span style="color: #3D8AF7">DREAM</span><span style="color: #929292">TEAM</span></div>
-            </div>
-        </footer>
     </div>
-
+    <div style="background-color: #222; margin-bottom:-20px;bottom:0px;vertical-align:middle;height:70px; margin-top:20px;">
+        <div class="row">
+            <div class="col-sm-5">
+            </div>
+            <div class="col-sm-3" style="vertical-align:middle;padding-top:15px;;font-size:15px">
+                <span style="color: #929292">Developed by </span>
+                <span style="color: #3D8AF7">DREAM TEAM</span>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+    </div>  
+  
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
 </body>
+
 </html>
