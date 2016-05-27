@@ -52,17 +52,21 @@ namespace ScreenTaker.Models
     {
         public ApplicationDbContext()
             : base("IdentityConnection")
-        { }
+        {
+            System.Data.Entity.Database.SetInitializer<ApplicationDbContext>(null);
+        }
         
         public static ApplicationDbContext Create()
         {
-           
+            
             return new ApplicationDbContext();
         }
 
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("Person", "dbo");
         }
 
     }
