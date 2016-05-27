@@ -5,21 +5,11 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="ScreenTakerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserClaims">
@@ -27,7 +17,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
         </EntityType>
@@ -39,21 +29,21 @@
           </Key>
           <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
             <PropertyRef Name="UserId" />
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
           <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
@@ -68,88 +58,95 @@
         </EntityType>
         <EntityType Name="Folder">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="varchar(max)" Nullable="false" />
-          <Property Name="ownerId" Type="int" Nullable="false" />
-          <Property Name="isPublic" Type="bit" Nullable="false" />
-          <Property Name="sharedCode" Type="varchar(max)" Nullable="false" />
-          <Property Name="publicationDate" Type="datetime" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="IsPublic" Type="bit" Nullable="false" />
+          <Property Name="SharedCode" Type="varchar(max)" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupMember">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="groupId" Type="int" Nullable="false" />
-          <Property Name="personMemberId" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupShare">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="groupId" Type="int" Nullable="false" />
-          <Property Name="folderId" Type="int" />
-          <Property Name="imageId" Type="int" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="FolderId" Type="int" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="folderId" Type="int" Nullable="false" />
-          <Property Name="isPublic" Type="bit" Nullable="false" />
-          <Property Name="sharedCode" Type="varchar(max)" Nullable="false" />
-          <Property Name="name" Type="varchar(max)" Nullable="false" />
-          <Property Name="publicationDate" Type="datetime" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FolderId" Type="int" Nullable="false" />
+          <Property Name="IsPublic" Type="bit" Nullable="false" />
+          <Property Name="SharedCode" Type="varchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PublicationDate" Type="datetime" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="ImageTag">
           <Key>
-            <PropertyRef Name="imageId" />
-            <PropertyRef Name="tagId" />
+            <PropertyRef Name="ImageId" />
+            <PropertyRef Name="TagId" />
           </Key>
-          <Property Name="imageId" Type="int" Nullable="false" />
-          <Property Name="tagId" Type="int" Nullable="false" />
+          <Property Name="ImageId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="email" Type="varchar(max)" Nullable="false" />
-          <Property Name="personImageName" Type="varchar(max)" />
-          <Property Name="isActive" Type="bit" Nullable="false" />
-          <Property Name="passwordHash" Type="varbinary" MaxLength="128" Nullable="false" />
-          <Property Name="salt" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="registartionDate" Type="datetime" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AvatarFile" Type="nvarchar(max)" />
+          <Property Name="RegisterDate" Type="date" />
         </EntityType>
         <EntityType Name="PersonGroup">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="varchar(max)" Nullable="false" />
-          <Property Name="personId" Type="int" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="PersonId" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="varchar(max)" Nullable="false" />
-          <Property Name="personId" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="UserShare">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="personId" Type="int" />
-          <Property Name="imageId" Type="int" />
-          <Property Name="folderId" Type="int" />
-          <Property Name="email" Type="varchar(max)" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="FolderId" Type="int" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -207,15 +204,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_16">
+        <Association Name="FK_Folder_ToPerson">
           <End Role="Person" Type="Self.Person" Multiplicity="1" />
           <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Folder">
-              <PropertyRef Name="ownerId" />
+              <PropertyRef Name="OwnerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -224,10 +221,10 @@
           <End Role="Image" Type="Self.Image" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Folder">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Image">
-              <PropertyRef Name="folderId" />
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -236,10 +233,10 @@
           <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PersonGroup">
-              <PropertyRef Name="personId" />
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -248,10 +245,10 @@
           <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PersonGroup">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupShare">
-              <PropertyRef Name="groupId" />
+              <PropertyRef Name="GroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -260,10 +257,10 @@
           <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Folder">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupShare">
-              <PropertyRef Name="folderId" />
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -272,10 +269,10 @@
           <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupShare">
-              <PropertyRef Name="imageId" />
+              <PropertyRef Name="ImageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -284,10 +281,10 @@
           <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserShare">
-              <PropertyRef Name="personId" />
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -296,10 +293,10 @@
           <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserShare">
-              <PropertyRef Name="imageId" />
+              <PropertyRef Name="ImageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -308,10 +305,10 @@
           <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Folder">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserShare">
-              <PropertyRef Name="folderId" />
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -320,10 +317,10 @@
           <End Role="ImageTag" Type="Self.ImageTag" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ImageTag">
-              <PropertyRef Name="imageId" />
+              <PropertyRef Name="ImageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -332,10 +329,10 @@
           <End Role="ImageTag" Type="Self.ImageTag" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tag">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ImageTag">
-              <PropertyRef Name="tagId" />
+              <PropertyRef Name="TagId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -344,10 +341,10 @@
           <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Tag">
-              <PropertyRef Name="personId" />
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -356,10 +353,10 @@
           <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PersonGroup">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupMember">
-              <PropertyRef Name="groupId" />
+              <PropertyRef Name="GroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -368,15 +365,14 @@
           <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupMember">
-              <PropertyRef Name="personMemberId" />
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ScreenTakerDBModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -407,7 +403,7 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="R_16" Association="Self.R_16">
+          <AssociationSet Name="FK_Folder_ToPerson" Association="Self.FK_Folder_ToPerson">
             <End Role="Person" EntitySet="Person" />
             <End Role="Folder" EntitySet="Folder" />
           </AssociationSet>
@@ -469,21 +465,11 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ScreenTakerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
@@ -492,7 +478,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
@@ -505,14 +491,14 @@
           </Key>
           <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -530,51 +516,51 @@
         </EntityType>
         <EntityType Name="Folder">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ownerId" Type="Int32" Nullable="false" />
-          <Property Name="isPublic" Type="Boolean" Nullable="false" />
-          <Property Name="sharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="publicationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Person" Relationship="Self.R_16" FromRole="Folder" ToRole="Person" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="IsPublic" Type="Boolean" Nullable="false" />
+          <Property Name="SharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Folder_ToPerson" FromRole="Folder" ToRole="Person" />
           <NavigationProperty Name="Images" Relationship="Self.R_19" FromRole="Folder" ToRole="Image" />
           <NavigationProperty Name="GroupShares" Relationship="Self.R_23" FromRole="Folder" ToRole="GroupShare" />
           <NavigationProperty Name="UserShares" Relationship="Self.R_27" FromRole="Folder" ToRole="UserShare" />
         </EntityType>
         <EntityType Name="GroupMember">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="groupId" Type="Int32" Nullable="false" />
-          <Property Name="personMemberId" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="PersonGroup" Relationship="Self.R_36" FromRole="GroupMember" ToRole="PersonGroup" />
           <NavigationProperty Name="Person" Relationship="Self.R_37" FromRole="GroupMember" ToRole="Person" />
         </EntityType>
         <EntityType Name="GroupShare">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="groupId" Type="Int32" Nullable="false" />
-          <Property Name="folderId" Type="Int32" />
-          <Property Name="imageId" Type="Int32" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="FolderId" Type="Int32" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Folder" Relationship="Self.R_23" FromRole="GroupShare" ToRole="Folder" />
           <NavigationProperty Name="PersonGroup" Relationship="Self.R_22" FromRole="GroupShare" ToRole="PersonGroup" />
           <NavigationProperty Name="Image" Relationship="Self.R_24" FromRole="GroupShare" ToRole="Image" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="folderId" Type="Int32" Nullable="false" />
-          <Property Name="isPublic" Type="Boolean" Nullable="false" />
-          <Property Name="sharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="publicationDate" Type="DateTime" Precision="3" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FolderId" Type="Int32" Nullable="false" />
+          <Property Name="IsPublic" Type="Boolean" Nullable="false" />
+          <Property Name="SharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PublicationDate" Type="DateTime" Precision="3" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Folder" Relationship="Self.R_19" FromRole="Image" ToRole="Folder" />
           <NavigationProperty Name="GroupShares" Relationship="Self.R_24" FromRole="Image" ToRole="GroupShare" />
           <NavigationProperty Name="UserShares" Relationship="Self.R_26" FromRole="Image" ToRole="UserShare" />
@@ -582,16 +568,23 @@
         </EntityType>
         <EntityType Name="Person">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="personImageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="isActive" Type="Boolean" Nullable="false" />
-          <Property Name="passwordHash" Type="Binary" MaxLength="128" FixedLength="false" Nullable="false" />
-          <Property Name="salt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="registartionDate" Type="DateTime" Precision="3" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Folders" Relationship="Self.R_16" FromRole="Person" ToRole="Folder" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AvatarFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Folders" Relationship="Self.FK_Folder_ToPerson" FromRole="Person" ToRole="Folder" />
           <NavigationProperty Name="GroupMembers" Relationship="Self.R_37" FromRole="Person" ToRole="GroupMember" />
           <NavigationProperty Name="PersonGroups" Relationship="Self.R_20" FromRole="Person" ToRole="PersonGroup" />
           <NavigationProperty Name="UserShares" Relationship="Self.R_25" FromRole="Person" ToRole="UserShare" />
@@ -599,34 +592,34 @@
         </EntityType>
         <EntityType Name="PersonGroup">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="personId" Type="Int32" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonId" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="GroupMembers" Relationship="Self.R_36" FromRole="PersonGroup" ToRole="GroupMember" />
           <NavigationProperty Name="GroupShares" Relationship="Self.R_22" FromRole="PersonGroup" ToRole="GroupShare" />
           <NavigationProperty Name="Person" Relationship="Self.R_20" FromRole="PersonGroup" ToRole="Person" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="personId" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Person" Relationship="Self.R_35" FromRole="Tag" ToRole="Person" />
           <NavigationProperty Name="Images" Relationship="Self.ImageTag" FromRole="Tag" ToRole="Image" />
         </EntityType>
         <EntityType Name="UserShare">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="personId" Type="Int32" />
-          <Property Name="imageId" Type="Int32" />
-          <Property Name="folderId" Type="Int32" />
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="FolderId" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Folder" Relationship="Self.R_27" FromRole="UserShare" ToRole="Folder" />
           <NavigationProperty Name="Image" Relationship="Self.R_26" FromRole="UserShare" ToRole="Image" />
           <NavigationProperty Name="Person" Relationship="Self.R_25" FromRole="UserShare" ToRole="Person" />
@@ -659,15 +652,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_16">
+        <Association Name="FK_Folder_ToPerson">
           <End Role="Person" Type="Self.Person" Multiplicity="1" />
           <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Folder">
-              <PropertyRef Name="ownerId" />
+              <PropertyRef Name="OwnerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -676,10 +669,10 @@
           <End Role="Image" Type="Self.Image" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Folder">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Image">
-              <PropertyRef Name="folderId" />
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -688,10 +681,10 @@
           <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Folder">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupShare">
-              <PropertyRef Name="folderId" />
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -700,10 +693,10 @@
           <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Folder">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserShare">
-              <PropertyRef Name="folderId" />
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -712,10 +705,10 @@
           <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PersonGroup">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupMember">
-              <PropertyRef Name="groupId" />
+              <PropertyRef Name="GroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -724,10 +717,10 @@
           <End Role="GroupMember" Type="Self.GroupMember" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupMember">
-              <PropertyRef Name="personMemberId" />
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -736,10 +729,10 @@
           <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PersonGroup">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupShare">
-              <PropertyRef Name="groupId" />
+              <PropertyRef Name="GroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -748,10 +741,10 @@
           <End Role="GroupShare" Type="Self.GroupShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="GroupShare">
-              <PropertyRef Name="imageId" />
+              <PropertyRef Name="ImageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -760,10 +753,10 @@
           <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserShare">
-              <PropertyRef Name="imageId" />
+              <PropertyRef Name="ImageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -772,10 +765,10 @@
           <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PersonGroup">
-              <PropertyRef Name="personId" />
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -784,10 +777,10 @@
           <End Role="UserShare" Type="Self.UserShare" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserShare">
-              <PropertyRef Name="personId" />
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -796,10 +789,10 @@
           <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Tag">
-              <PropertyRef Name="personId" />
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -812,7 +805,6 @@
           <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
         </Association>
         <EntityContainer Name="ScreenTakerDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
@@ -833,7 +825,7 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="R_16" Association="Self.R_16">
+          <AssociationSet Name="FK_Folder_ToPerson" Association="Self.FK_Folder_ToPerson">
             <End Role="Person" EntitySet="People" />
             <End Role="Folder" EntitySet="Folders" />
           </AssociationSet>
@@ -896,16 +888,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ScreenTakerDBModelStoreContainer" CdmEntityContainer="ScreenTakerDBEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="ScreenTakerDBModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -954,85 +936,92 @@
           <EntitySetMapping Name="Folders">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.Folder">
               <MappingFragment StoreEntitySet="Folder">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="ownerId" ColumnName="ownerId" />
-                <ScalarProperty Name="isPublic" ColumnName="isPublic" />
-                <ScalarProperty Name="sharedCode" ColumnName="sharedCode" />
-                <ScalarProperty Name="publicationDate" ColumnName="publicationDate" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="SharedCode" ColumnName="SharedCode" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GroupMembers">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.GroupMember">
               <MappingFragment StoreEntitySet="GroupMember">
-                <ScalarProperty Name="groupId" ColumnName="groupId" />
-                <ScalarProperty Name="personMemberId" ColumnName="personMemberId" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GroupShares">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.GroupShare">
               <MappingFragment StoreEntitySet="GroupShare">
-                <ScalarProperty Name="groupId" ColumnName="groupId" />
-                <ScalarProperty Name="folderId" ColumnName="folderId" />
-                <ScalarProperty Name="imageId" ColumnName="imageId" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="FolderId" ColumnName="FolderId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Images">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.Image">
               <MappingFragment StoreEntitySet="Image">
-                <ScalarProperty Name="folderId" ColumnName="folderId" />
-                <ScalarProperty Name="isPublic" ColumnName="isPublic" />
-                <ScalarProperty Name="sharedCode" ColumnName="sharedCode" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="publicationDate" ColumnName="publicationDate" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FolderId" ColumnName="FolderId" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="SharedCode" ColumnName="SharedCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PublicationDate" ColumnName="PublicationDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.Person">
               <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="personImageName" ColumnName="personImageName" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="passwordHash" ColumnName="passwordHash" />
-                <ScalarProperty Name="salt" ColumnName="salt" />
-                <ScalarProperty Name="registartionDate" ColumnName="registartionDate" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AvatarFile" ColumnName="AvatarFile" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PersonGroups">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.PersonGroup">
               <MappingFragment StoreEntitySet="PersonGroup">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="personId" ColumnName="personId" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tags">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.Tag">
               <MappingFragment StoreEntitySet="Tag">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="personId" ColumnName="personId" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserShares">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.UserShare">
               <MappingFragment StoreEntitySet="UserShare">
-                <ScalarProperty Name="personId" ColumnName="personId" />
-                <ScalarProperty Name="imageId" ColumnName="imageId" />
-                <ScalarProperty Name="folderId" ColumnName="folderId" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="FolderId" ColumnName="FolderId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1046,10 +1035,10 @@
           </AssociationSetMapping>
           <AssociationSetMapping Name="ImageTag" TypeName="ScreenTakerDBModel.ImageTag" StoreEntitySet="ImageTag">
             <EndProperty Name="Image">
-              <ScalarProperty Name="id" ColumnName="imageId" />
+              <ScalarProperty Name="Id" ColumnName="ImageId" />
             </EndProperty>
             <EndProperty Name="Tag">
-              <ScalarProperty Name="id" ColumnName="tagId" />
+              <ScalarProperty Name="Id" ColumnName="TagId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

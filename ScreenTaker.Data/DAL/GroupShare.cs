@@ -14,10 +14,10 @@ namespace ScreenTaker.Data.DAL
     
     public partial class GroupShare
     {
-        public int groupId { get; set; }
-        public Nullable<int> folderId { get; set; }
-        public Nullable<int> imageId { get; set; }
-        public int id { get; set; }
+        public int GroupId { get; set; }
+        public Nullable<int> FolderId { get; set; }
+        public Nullable<int> ImageId { get; set; }
+        public int Id { get; set; }
     
         public virtual Folder Folder { get; set; }
         public virtual PersonGroup PersonGroup { get; set; }

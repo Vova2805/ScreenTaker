@@ -22,12 +22,12 @@ namespace ScreenTaker.Data.DAL
             this.UserShares = new HashSet<UserShare>();
         }
     
-        public string name { get; set; }
-        public int ownerId { get; set; }
-        public bool isPublic { get; set; }
-        public string sharedCode { get; set; }
-        public System.DateTime publicationDate { get; set; }
-        public int id { get; set; }
+        public string Name { get; set; }
+        public int OwnerId { get; set; }
+        public bool IsPublic { get; set; }
+        public string SharedCode { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public int Id { get; set; }
     
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

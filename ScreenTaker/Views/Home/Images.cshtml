@@ -1,8 +1,8 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + ".png";
-    string CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png";
-    string Name = @ViewBag.Images[0].name + ".png";
+    string ShareLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + ".png";
+    string CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png";
+    string Name = @ViewBag.Images[0].Name + ".png";
 }
 
 <h2>Images</h2>
@@ -31,9 +31,9 @@
         <div class="row">
             @foreach (var i in ViewBag.Images)
             {
-                string original = @i.sharedCode;
-                string commpressed = ViewBag.BASE_URL + @i.sharedCode + "_compressed.png";
-                string name = @i.name + ".png";
+                string original = @i.SharedCode;
+                string commpressed = ViewBag.BASE_URL + @i.SharedCode + "_compressed.png";
+                string name = @i.Name + ".png";
                 <a href="/Home/SingleImage?image=@original">
                     <div class="col-md-2 text-center" style="margin-bottom: 60px">
                         <img src="@commpressed" alt="@commpressed" style="width: 128px; height: 128px" />

@@ -14,11 +14,11 @@ namespace ScreenTaker.Data.DAL
     
     public partial class UserShare
     {
-        public Nullable<int> personId { get; set; }
-        public Nullable<int> imageId { get; set; }
-        public Nullable<int> folderId { get; set; }
-        public string email { get; set; }
-        public int id { get; set; }
+        public Nullable<int> PersonId { get; set; }
+        public Nullable<int> ImageId { get; set; }
+        public Nullable<int> FolderId { get; set; }
+        public string Email { get; set; }
+        public int Id { get; set; }
     
         public virtual Folder Folder { get; set; }
         public virtual Image Image { get; set; }

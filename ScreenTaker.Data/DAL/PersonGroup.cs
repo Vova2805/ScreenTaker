@@ -21,9 +21,9 @@ namespace ScreenTaker.Data.DAL
             this.GroupShares = new HashSet<GroupShare>();
         }
     
-        public string name { get; set; }
-        public Nullable<int> personId { get; set; }
-        public int id { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> PersonId { get; set; }
+        public int Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupMember> GroupMembers { get; set; }

@@ -14,9 +14,9 @@ namespace ScreenTaker.Data.DAL
     
     public partial class GroupMember
     {
-        public int groupId { get; set; }
-        public int personMemberId { get; set; }
-        public int id { get; set; }
+        public int GroupId { get; set; }
+        public int PersonId { get; set; }
+        public int Id { get; set; }
     
         public virtual PersonGroup PersonGroup { get; set; }
         public virtual Person Person { get; set; }
