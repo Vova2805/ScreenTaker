@@ -258,6 +258,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -304,6 +308,8 @@
     </Content>
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
+    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\button.js" />
@@ -372,7 +378,6 @@
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Home\Library.cshtml" />
     <Content Include="Views\Home\Images.cshtml" />
-    <Content Include="Views\Home\SingleImage.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Edit\UserGroups.cshtml" />
   </ItemGroup>
