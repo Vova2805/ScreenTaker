@@ -4,6 +4,24 @@
     string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png"):"";
     string Name = ViewBag.Images.Count > 0 ? (@ViewBag.Images[0].name + ".png"):"";
 }
+@section Scripts
+{
+    <script>
+        $('#toggle_event_editing button').click(function () {
+            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
+                /* code to do when unlocking */
+                $('#switch_status').html('Switched on.');
+            } else {
+                /* code to do when locking */
+                $('#switch_status').html('Switched off.');
+            }
+
+            /* reverse locking status */
+            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
+            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
+        });
+    </script>
+}
 
 <div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px" >
     <div class="modal-dialog" role="document">
@@ -53,7 +71,7 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess">
+<div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:200px">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -62,14 +80,28 @@
                 <h4 class="modal-title" id="gridSystemModalLabel">Manage access</h4>
             </div>
             <div class="modal-body">
-                <div class="list-group-item active">
-                    <div class="media-body" style="vertical-align:middle">
-                        <h5 class="media-heading">Access by link</h5>
+                <div class="row"  style="margin-bottom:5px;">
+                    <div class="col-sm-9">
+                        <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Access by link</h5>
                     </div>
-                    <div class="media-right" style="vertical-align:middle;">
+                    <div class="col-sm-3">
+                        <div class="btn-group pull-right" id="toggle_event_editing" >
+                            <button type="button" class="btn btn-default unlocked_inactive" style="height:30px;width:50px;font-size:12px;">On</button>
+                            <button type="button" class="btn btn-info locked_active" style="height:30px;width:50px;font-size:12px;">Off</button>
+                        </div>
                     </div>
                 </div>
-                @*<div class="row-fluid">
+                <div class="row" >
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text"  style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
+                            <span class="input-group-btn"  style="height:30px;">
+                                <button class="btn btn-default"  style="height:30px;" type="button">Copy</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row">
                     <div class="col-sm-4" style="padding:5px;">
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-sm-12">
@@ -135,7 +167,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary">Submit</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

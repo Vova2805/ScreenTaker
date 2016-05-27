@@ -3,8 +3,7 @@
 @using System.Threading;
 @section JavaScript
 {
-    @*<script type="text/javascript" src="@Url.Content("/Scripts/SomeScript.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/Scripts/AnotherScript.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Site.js")"></script>
 }
 @{ 
     if (!Request.QueryString["lang"].IsEmpty())
