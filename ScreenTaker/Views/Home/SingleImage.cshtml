@@ -3,8 +3,9 @@
 }
 
 
-<div class="container-fluid">
-    <div class="col-md-12 text-left" style="margin-top:20px;">
+<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 600px">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-left" style="margin-top: 20px;">
         <div class="row">
             <ul class="vert_menu">
                 <li><a href="/Home/Library" class="current">User</a></li>
@@ -12,12 +13,11 @@
                 <li><a href="#" class="current">@ViewBag.OriginalName</a></li>
             </ul>
         </div>
-    </div>
-    <div class="col-md-12">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
                 <div class="row text-center">
-                    <img src="@ViewBag.OriginalPath" style="width:800px;height:450px" />
+                    <img src="@ViewBag.OriginalPath" style="width: 800px; height: 450px"/>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -32,50 +32,50 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-2" >
-                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">map</button>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">map</button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">favorite</button>
+                                <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">favorite</button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">earth</button>
+                                <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">earth</button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">mine</button>
+                                <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">mine</button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">family</button>
+                                <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">family</button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-warning" style="width: 100%;background-color:#686868;color:white">nature</button>
+                                <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">nature</button>
                             </div>
                         </div>
+                        <br/>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3" style="background-color: #686868;">
-                <div style="margin-left: 5px;height:800px;">
-                    <p style="color: white;font-size:25px">@ViewBag.OriginalName</p>
-                    <hr />
-                    <div>
-                        <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
-                    </div>
-                    <br />
-                    <div>
-                        <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
-                    </div>
-                    <br />
-                    <div>
-                        <button class="btn btn-warning" style="width: 100%">Make public</button>
-                    </div>
-                    <hr />
-                    <p style="color: #E0E0E0">Share image</p>
-                    <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ViewBag.OriginalPath"> @*value="@Url.Content(ViewBag.OriginalName)"*@
-                    <hr />
+        </div>
+    </div>
+    <div class="col-md-2" style="background-color: #686868; right: 10px; height: 100%; position: absolute">
+        <div style="margin-left: 10px">
+                <p style="color: #E0E0E0; padding-top: 10px">Name</p>
+                <hr/>
+                <div>
+                    <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
                 </div>
-            </div>
+                <br/>
+                <div>
+                    <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
+                </div>
+                <br/>
+                <div>
+                    <button class="btn btn-warning" style="width: 100%">Make public</button>
+                </div>
+                <hr/>
+                <p style="color: #E0E0E0">Share image</p>
+                <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="SharedLink"/>
+            <hr/>
         </div>
     </div>
 </div>

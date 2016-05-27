@@ -5,30 +5,27 @@
     string Name = @ViewBag.Images[0].name + ".png";
 }
 
-<h2>Images</h2>
-<div class="col-md-12 text-left">
-    <div class="row">
-        <ul class="vert_menu">
-            <li><a href="/Home/Library" class="current">User</a></li>
-             <li><a href="/Home/Images" class="current">Shared folder</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="container">
+<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 600px">
+    <div class="col-md-2"></div>
     <div class="col-md-8">
-        <div class="row">
-            <div class="center-block" style="margin:5px;margin-top:-50px;">
-                @using (Html.BeginForm("", "Home/Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                        <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
-                        <input type="button" class="btn btn-primary btn-lg center-block" style="width:150px; height:40px;" value="Upload image" onclick="document.getElementById('fileInput').click();" />
-                }
+        <h2>Images</h2>
+        <div class="col-md-12 text-left">
+            <div class="row">
+                <ul class="vert_menu">
+                    <li><a href="/Home/Library" class="current">User</a></li>
+                    <li><a href="/Home/Images" class="current">Shared folder</a></li>
+                </ul>
             </div>
         </div>
-
         <div class="row">
+            <div class="col-md-2 text-center" style="margin-top: -50px">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input id="fileInput" style="visibility: collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                        <input id="fileSubmit" style="visibility: collapse" type="submit" value="bla" />
+                        <input type="button" class="btn btn-primary btn-lg center-block" style="width: 128px; height: 128px;" value="Upload" onclick="document.getElementById('fileInput').click();" />
+                    }
+            </div>
             @foreach (var i in ViewBag.Images)
             {
                 string original = @i.sharedCode;
@@ -36,37 +33,37 @@
                 string name = @i.name + ".png";
                 <a href="/Home/SingleImage?image=@original">
                     <div class="col-md-2 text-center" style="margin-bottom: 60px">
-                        <img src="@commpressed" alt="@commpressed" style="width: 128px; height: 128px" />
+                        <img src="@commpressed" alt="@commpressed" style="width: 128px; height: 128px"/>
                         <label class="text-center">@name</label>
                     </div>
                 </a>
             }
         </div>
     </div>
-    <div class="col-md-3" style="background-color: #686868; height: 90vh; margin-left:50px;">
+    <div class="col-md-2" style="background-color: #686868; right: 10px; height: 100%; position: absolute">
         <div style="margin-left: 10px">
-            <img src="@CommpressedLink" style="margin:5px;" />
+            <img src="@CommpressedLink" style="margin: 5px;"/>
             <p style="color: #E0E0E0">@Name</p>
-            <hr />
+            <hr/>
             <div>
                 <button type="button" class="btn btn-default" style="width: 100%">Open</button>
             </div>
-            <br />
+            <br/>
             <div>
                 <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
             </div>
-            <br />
+            <br/>
             <div>
                 <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
             </div>
-            <br />
+            <br/>
             <div>
                 <button class="btn btn-warning" style="width: 100%">Make public</button>
             </div>
-            <hr />
+            <hr/>
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ShareLink" />
-            <hr />
+            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ShareLink"/>
+            <hr/>
         </div>
     </div>
 </div>
