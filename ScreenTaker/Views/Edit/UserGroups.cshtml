@@ -1,0 +1,114 @@
+﻿@using ScreenTaker.Models
+@using System.Globalization
+@using System.Threading;
+@using ScreenTaker;
+@model LoginViewModel
+@{
+    ViewBag.Title = "Edit groups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="text-center">@Resources.Resource.EDIT_GROUP</h2>
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-10 account-style shadow center-block" style="height:500px;">
+            <div class="row-fluid">
+                <div class="col-sm-4" style="padding:5px;">
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Group name" aria-describedby="sizing-addon2">
+                                <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="list-group" style="height:auto;max-height:450px;overflow:auto;">
+                                @* Change to dynamic*@
+                                <div class="list-group-item active">
+                                    <div class="media-body" style="vertical-align:middle">
+                                        <h5 class="media-heading">Friends</h5>
+                                    </div>
+                                    <div class="media-right" style="vertical-align:middle;">
+                                        <button type="button" class="btn badge right" aria-label="Left Align">
+                                            <span aria-hidden="true">14</span>
+                                        </button>
+                                    </div>
+                                    <div class="media-right" style="vertical-align:middle;">
+                                        <button type="button" class="btn badge right" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-8" style="padding:5px;">
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2">
+                                <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="list-group respo" style="height:auto;max-height:450px;overflow:auto;">
+                                @* Change to dynamic*@
+                                <div class="list-group-item active">
+                                    <div class="media-left">
+                                        <img class="media-object" style="width:50px;height:50px;" src="~/Resources/images/public.png" alt="Image not found">
+                                    </div>
+                                    <div class="media-body" style="vertical-align:middle">
+                                        <h4 class="media-heading">vovadudas@gmail.com</h4>
+                                    </div>
+                                    <div class="media-right" style="vertical-align:middle">
+                                        <button type="button" class="btn badge right" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-default center-block" style="width:20%">Save</button>
+        </div>
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-default center-block" style="width:20%">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
