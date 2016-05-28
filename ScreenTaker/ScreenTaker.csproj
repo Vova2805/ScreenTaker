@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ScreenTaker</RootNamespace>
     <AssemblyName>ScreenTaker</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -25,7 +25,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -65,7 +64,6 @@
     <Reference Include="System" />
     <Reference Include="System.Collections.Concurrent" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO" />
     <Reference Include="System.Runtime.Serialization" />
@@ -75,7 +73,8 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -100,7 +99,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -118,7 +119,6 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
@@ -169,121 +169,69 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\Resource.uk.designer.cs">
-      <DependentUpon>Resource.uk.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.ru.designer.cs">
-      <DependentUpon>Resource.ru.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.en.designer.cs">
-      <DependentUpon>Resource.en.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="AspNetRoles.cs">
-      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaims.cs">
-      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogins.cs">
-      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUsers.cs">
-      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="database_firewall_rules.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Folder.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605271430553_TestMigration.cs" />
-    <Compile Include="Migrations\201605271430553_TestMigration.Designer.cs">
-      <DependentUpon>201605271430553_TestMigration.cs</DependentUpon>
+    <Compile Include="GroupMember.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605271605440_TestInit.cs" />
-    <Compile Include="Migrations\201605271605440_TestInit.Designer.cs">
-      <DependentUpon>201605271605440_TestInit.cs</DependentUpon>
+    <Compile Include="GroupShare.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Image.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Folder.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GroupMember.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GroupShare.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Image.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ImageCompressor.cs" />
+    <Compile Include="Models\LocalizationInside.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Person.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PersonGroup.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\RandomStringGenerator.cs" />
-    <Compile Include="Models\ScreenTakerDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScreenTakerDataModel.Context.tt</DependentUpon>
+    <Compile Include="Person.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ScreenTakerDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ScreenTakerDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tag.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserShare.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    <Compile Include="PersonGroup.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenTakerDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenTakerDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenTakerDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Tag.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserShare.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-switch.css" />
-    <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -292,54 +240,46 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\private.png" />
     <Content Include="fonts\public.png" />
-    <Content Include="For Database\dbo.AspNetRoles.sql" />
-    <Content Include="For Database\dbo.AspNetUserClaims.sql" />
-    <Content Include="For Database\dbo.AspNetUserLogins.sql" />
-    <Content Include="For Database\dbo.AspNetUserRoles.sql" />
-    <Content Include="For Database\dbo.AspNetUsers.sql" />
-    <Content Include="For Database\dbo._MigrationHistory.sql" />
     <Content Include="For Database\SQLQuery_CreateDB.sql" />
     <Content Include="For Database\SQLQuery_CreateUSER.sql" />
     <Content Include="For Database\SQLQuery_DropAllTables.sql" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\addImage.png" />
+    <Content Include="img\printscreen.png" />
+    <Content Include="img\private.png" />
+    <Content Include="img\public.png" />
+    <Content Include="img\user.png" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="For Database\screenTakerDB.erwin" />
-    <EntityDeploy Include="Models\ScreenTakerDataModel.edmx">
+    <EntityDeploy Include="ScreenTakerDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ScreenTakerDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>ScreenTakerDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ScreenTakerDataModel.edmx.diagram">
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
+    <Content Include="ScreenTakerDM.edmx.diagram">
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
     </Content>
-    <None Include="Resources\images\addImage.png" />
-    <None Include="Resources\images\printscreen.png" />
-    <None Include="Resources\images\private.png" />
-    <None Include="Resources\images\public.png" />
-    <None Include="Resources\images\user.png" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
-    <Content Include="Models\ScreenTakerDataModel.Context.tt">
+    <Content Include="ScreenTakerDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
-      <LastGenOutput>ScreenTakerDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+      <LastGenOutput>ScreenTakerDM.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ScreenTakerDataModel.tt">
+    <Content Include="ScreenTakerDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
-      <LastGenOutput>ScreenTakerDataModel.cs</LastGenOutput>
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+      <LastGenOutput>ScreenTakerDM.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
-    <Content Include="Scripts\bootstrap-switch.js" />
-    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\button.js" />
@@ -366,16 +306,13 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\scrollspy.js" />
     <Content Include="Scripts\shift.js" />
-    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\tab.js" />
     <Content Include="Scripts\tether.js" />
     <Content Include="Scripts\tooltip.js" />
     <Content Include="Scripts\util.js" />
     <Content Include="Scripts\utils.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -388,7 +325,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Welcome.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -408,17 +345,15 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Home\Library.cshtml" />
     <Content Include="Views\Home\Images.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Edit\UserGroups.cshtml" />
     <Content Include="Views\Home\SingleImage.cshtml" />
-    <Content Include="Views\Edit\EditImage.cshtml" />
+    <Content Include="Views\Home\SharedImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -426,39 +361,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\Resource.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\Resource.en.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.en.designer.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\Resource.ru.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.ru.designer.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\Resource.uk.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.uk.designer.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605271430553_TestMigration.resx">
-      <DependentUpon>201605271430553_TestMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605271605440_TestInit.resx">
-      <DependentUpon>201605271605440_TestInit.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
