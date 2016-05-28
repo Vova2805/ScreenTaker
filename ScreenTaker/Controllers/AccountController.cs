@@ -185,7 +185,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code, string lang = "en")
+        public async Task<ActionResult> ConfirmEmail(int userId, string code, string lang = "en")
         {
             if (userId == default(int) || code == null)
             {
