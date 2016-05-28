@@ -21,11 +21,10 @@ namespace ScreenTaker.Controllers
             return View("UserGroups");
         }
 
-        public ActionResult UserGroups(string lang = "en",int selectedId=0)
+        public ActionResult UserGroups(string lang = "en",int selectedId=-1)
         {
             using (var transaction = _entities.Database.BeginTransaction())
-            {
-                ViewBag.selectedId = selectedId;
+            {                                   
                 try
                 {
                     ViewBag.Groups = _entities.PersonGroups.Select(s => s).ToList();              
@@ -38,6 +37,9 @@ namespace ScreenTaker.Controllers
                                  select new { ID = m.GroupId, Email = p.Email };
                     if (emails.Any())
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
+                    if (selectedId == -1)
+                        selectedId= _entities.PersonGroups.Select(s => s.Id).FirstOrDefault();
+                    ViewBag.selectedId = selectedId;
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -72,7 +74,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult CreateGroup(string name)
         {
-
+            int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -85,6 +87,7 @@ namespace ScreenTaker.Controllers
                     group.PersonId = null;
                     _entities.PersonGroups.Add(group);
                     _entities.SaveChanges();
+                    idToRedirect = group.Id;
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -92,12 +95,13 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("UserGroups");
+            return RedirectToAction("UserGroups", new {selectedId=idToRedirect });
         }
 
 
         public ActionResult RemoveGroup(int selectedId = 0)
         {
+            int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -112,7 +116,7 @@ namespace ScreenTaker.Controllers
                     }
                     var group = _entities.PersonGroups.Where(w => w.Id == groupId).FirstOrDefault();
                     _entities.PersonGroups.Remove(group);
-
+                    idToRedirect = _entities.PersonGroups.Select(s=>s.Id).FirstOrDefault();
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
@@ -121,11 +125,11 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("UserGroups");
+            return RedirectToAction("UserGroups", new { selectedId = idToRedirect});
         }
 
         public ActionResult AddUser(int selectedId,string email)
-        {
+        {            
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -146,7 +150,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("UserGroups");
+            return RedirectToAction("UserGroups", new { selectedId = selectedId });
         }
 
         public ActionResult RemoveUser(int selectedId,string email)
@@ -165,7 +169,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("UserGroups");
+            return RedirectToAction("UserGroups", new { selectedId = selectedId });
         }
     }
 }
