@@ -1,8 +1,7 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.Images.Count>0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + ".png"):"";
-    string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png"):"";
-    string Name = ViewBag.Images.Count > 0 ? (@ViewBag.Images[0].Name + ".png"):"";
+    string CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png";
+    string Name = @ViewBag.Images[0].name + ".png";
 }
 @section Scripts
 {
@@ -71,7 +70,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -261,12 +259,8 @@
             </div>
             <hr/>
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ShareLink"/>
-            <br/>
-            <div>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
-            </div>
-            <hr/>
+            <input class="form-control" style="width: 100%" type="text" placeholder="Share link" value="@ViewBag.SharedLink" />
+            <hr />
         </div>
     </div>
 </div>
