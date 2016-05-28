@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Data.DAL
 {
     using System;
     using System.Data.Entity;
@@ -25,14 +25,17 @@ namespace ScreenTaker
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Folder> Folder { get; set; }
-        public virtual DbSet<GroupMember> GroupMember { get; set; }
-        public virtual DbSet<GroupShare> GroupShare { get; set; }
-        public virtual DbSet<Image> Image { get; set; }
-        public virtual DbSet<Person> Person { get; set; }
-        public virtual DbSet<PersonGroup> PersonGroup { get; set; }
-        public virtual DbSet<Tag> Tag { get; set; }
-        public virtual DbSet<UserShare> UserShare { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Folder> Folders { get; set; }
+        public virtual DbSet<GroupMember> GroupMembers { get; set; }
+        public virtual DbSet<GroupShare> GroupShares { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<PersonGroup> PersonGroups { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<UserShare> UserShares { get; set; }
     }
 }

@@ -7,34 +7,34 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Data.DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Image
+    public partial class Folder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Image()
+        public Folder()
         {
-            this.GroupShare = new HashSet<GroupShare>();
-            this.UserShare = new HashSet<UserShare>();
-            this.Tag = new HashSet<Tag>();
+            this.Images = new HashSet<Image>();
+            this.GroupShares = new HashSet<GroupShare>();
+            this.UserShares = new HashSet<UserShare>();
         }
     
-        public int folderId { get; set; }
-        public bool isPublic { get; set; }
-        public string sharedCode { get; set; }
-        public string name { get; set; }
-        public Nullable<System.DateTime> publicationDate { get; set; }
-        public int id { get; set; }
+        public string Name { get; set; }
+        public int OwnerId { get; set; }
+        public bool IsPublic { get; set; }
+        public string SharedCode { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public int Id { get; set; }
     
-        public virtual Folder Folder { get; set; }
+        public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupShare> GroupShare { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserShare> UserShare { get; set; }
+        public virtual ICollection<GroupShare> GroupShares { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tag> Tag { get; set; }
+        public virtual ICollection<UserShare> UserShares { get; set; }
     }
 }

@@ -12,7 +12,7 @@
                     <a href="/Home/Images">
                         <figure class="col-md-2 text-center">
                             <img src="~/Resources/images/private.png"/>
-                            <figcaption class="text-center">@ViewBag.Folders[i].name</figcaption>
+                            <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
                         </figure>
                     </a>
                 }
@@ -22,8 +22,9 @@
     <div class="col-md-2" style="background-color: #686868; height: 100%; right: 15px; position: absolute;">
         <div >
             <img src="~/Resources/images/private.png"/>
-            <p style="color: #E0E0E0">@ViewBag.Folders[0].name</p>
+            <p style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
             <hr/>
+
             <div>
                 <button type="button" class="btn btn-default" style="width: 100%">Open</button>
             </div>

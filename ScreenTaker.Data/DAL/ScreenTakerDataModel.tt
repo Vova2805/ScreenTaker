@@ -2,7 +2,7 @@
 <#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
  output extension=".cs"#><#
 
-const string inputFile = @"ScreenTakerDM.edmx";
+const string inputFile = @"ScreenTakerDataModel.edmx";
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);

@@ -7,20 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Data.DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class GroupShare
+    public partial class GroupMember
     {
-        public int groupId { get; set; }
-        public Nullable<int> folderId { get; set; }
-        public Nullable<int> imageId { get; set; }
-        public int id { get; set; }
+        public int GroupId { get; set; }
+        public int PersonId { get; set; }
+        public int Id { get; set; }
     
-        public virtual Folder Folder { get; set; }
         public virtual PersonGroup PersonGroup { get; set; }
-        public virtual Image Image { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

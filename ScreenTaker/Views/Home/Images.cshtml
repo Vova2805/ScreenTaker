@@ -1,8 +1,9 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.Images.Count>0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + ".png"):"";
-    string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png"):"";
-    string Name = ViewBag.Images.Count > 0 ? (@ViewBag.Images[0].name + ".png"):"";
+
+    string ShareLink = ViewBag.Images.Count>0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + ".png"):"";
+    string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png"):"";
+    string Name = ViewBag.Images.Count > 0 ? (@ViewBag.Images[0].Name + ".png"):"";
 }
 @section Scripts
 {
@@ -21,6 +22,7 @@
             $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
         });
     </script>
+
 }
 
 <div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px" >
@@ -220,9 +222,9 @@
         <div class="row">
             @foreach (var i in ViewBag.Images)
             {
-                string original = @i.sharedCode;
-                string commpressed = ViewBag.BASE_URL + @i.sharedCode + "_compressed.png";
-                string name = @i.name + ".png";
+                string original = @i.SharedCode;
+                string commpressed = ViewBag.BASE_URL + @i.SharedCode + "_compressed.png";
+                string name = @i.Name + ".png";
                 <a href="/Home/SingleImage?image=@original">
                     <div class="col-md-2 text-center" style="margin-bottom: 60px">
                         <img src="@commpressed" alt="@commpressed" style="width: 128px; height: 128px"/>

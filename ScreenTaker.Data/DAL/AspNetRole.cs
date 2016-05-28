@@ -7,25 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Data.DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Tag
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tag()
+        public AspNetRole()
         {
-            this.Image = new HashSet<Image>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
-        public string name { get; set; }
-        public int personId { get; set; }
-        public int id { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Image> Image { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }
