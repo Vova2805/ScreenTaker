@@ -220,7 +220,7 @@
             @foreach (var i in ViewBag.Images)
             {
                 string original = @i.SharedCode;
-                string commpressed = ViewBag.BASE_URL + @i.SharedCode + "_compressed.png";
+                string compressed = ViewBag.BASE_URL + @i.SharedCode + "_compressed.png";
                 string name = @i.Name + ".png";
                 <a href="/Home/SingleImage?image=@original">
                     <div class="col-md-2 text-center task active" style="margin-bottom: 60px">
