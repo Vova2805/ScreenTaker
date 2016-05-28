@@ -211,13 +211,63 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Folder.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GroupMember.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GroupShare.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ImageCompressor.cs" />
     <Compile Include="Models\LocalizationInside.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Person.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PersonGroup.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RandomStringGenerator.cs" />
+    <Compile Include="Models\ScreenTakerDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScreenTakerDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScreenTakerDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tag.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserShare.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,7 +279,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-
     <Content Include="fonts\private.png" />
     <Content Include="fonts\public.png" />
     <Content Include="For Database\dbo.AspNetRoles.sql" />
@@ -238,7 +287,6 @@
     <Content Include="For Database\dbo.AspNetUserRoles.sql" />
     <Content Include="For Database\dbo.AspNetUsers.sql" />
     <Content Include="For Database\dbo._MigrationHistory.sql" />
-
     <Content Include="For Database\SQLQuery_CreateDB.sql" />
     <Content Include="For Database\SQLQuery_CreateUSER.sql" />
     <Content Include="For Database\SQLQuery_DropAllTables.sql" />
@@ -249,19 +297,34 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="For Database\screenTakerDB.erwin" />
-
+    <EntityDeploy Include="Models\ScreenTakerDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ScreenTakerDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ScreenTakerDataModel.edmx.diagram">
+      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
+    </Content>
     <None Include="Resources\images\addImage.png" />
     <None Include="Resources\images\printscreen.png" />
     <None Include="Resources\images\private.png" />
     <None Include="Resources\images\public.png" />
     <None Include="Resources\images\user.png" />
-
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Models\ScreenTakerDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
+      <LastGenOutput>ScreenTakerDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ScreenTakerDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
+      <LastGenOutput>ScreenTakerDataModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
     <Content Include="Scripts\bootstrap-switch.js" />
@@ -353,8 +416,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-
-  <Content Include="Resource.en.resx">
+    <Content Include="Resource.en.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Resource.en.designer.cs</LastGenOutput>
     </Content>
@@ -382,7 +444,6 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Resource.uk.designer.cs</LastGenOutput>
     </Content>
-
     <ProjectReference Include="..\ScreenTaker.Data\ScreenTaker.Data.csproj">
       <Project>{4f81187d-6083-457a-b3fe-623347f39a5c}</Project>
       <Name>ScreenTaker.Data</Name>
@@ -395,8 +456,7 @@
     <EmbeddedResource Include="Migrations\201605271605440_TestInit.resx">
       <DependentUpon>201605271605440_TestInit.cs</DependentUpon>
     </EmbeddedResource>
-
-	</ItemGroup>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

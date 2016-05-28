@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker.Data.DAL
+namespace ScreenTaker.Models
 {
     using System;
     using System.Data.Entity;

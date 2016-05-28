@@ -7,23 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker.Data.DAL
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRole
+    public partial class PersonGroup
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRole()
+        public PersonGroup()
         {
-            this.AspNetUsers = new HashSet<AspNetUser>();
+            this.GroupMembers = new HashSet<GroupMember>();
+            this.GroupShares = new HashSet<GroupShare>();
         }
     
-        public int Id { get; set; }
         public string Name { get; set; }
+        public Nullable<int> PersonId { get; set; }
+        public int Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public virtual ICollection<GroupMember> GroupMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GroupShare> GroupShares { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

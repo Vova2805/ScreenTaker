@@ -7,20 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker.Data.DAL
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class GroupShare
+    public partial class AspNetUserClaim
     {
-        public int GroupId { get; set; }
-        public Nullable<int> FolderId { get; set; }
-        public Nullable<int> ImageId { get; set; }
         public int Id { get; set; }
+        public int UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual Folder Folder { get; set; }
-        public virtual PersonGroup PersonGroup { get; set; }
-        public virtual Image Image { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

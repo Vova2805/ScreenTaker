@@ -7,17 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker.Data.DAL
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogin
+    public partial class GroupMember
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public int UserId { get; set; }
+        public int GroupId { get; set; }
+        public int PersonId { get; set; }
+        public int Id { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual PersonGroup PersonGroup { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

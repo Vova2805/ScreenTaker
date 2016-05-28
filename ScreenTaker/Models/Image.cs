@@ -7,34 +7,34 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker.Data.DAL
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Folder
+    public partial class Image
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Folder()
+        public Image()
         {
-            this.Images = new HashSet<Image>();
             this.GroupShares = new HashSet<GroupShare>();
             this.UserShares = new HashSet<UserShare>();
+            this.Tags = new HashSet<Tag>();
         }
     
-        public string Name { get; set; }
-        public int OwnerId { get; set; }
+        public int FolderId { get; set; }
         public bool IsPublic { get; set; }
         public string SharedCode { get; set; }
-        public System.DateTime CreationDate { get; set; }
+        public string Name { get; set; }
+        public Nullable<System.DateTime> PublicationDate { get; set; }
         public int Id { get; set; }
     
-        public virtual Person Person { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual Folder Folder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupShare> GroupShares { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserShare> UserShares { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

@@ -7,21 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker.Data.DAL
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class UserShare
+    public partial class Tag
     {
-        public Nullable<int> PersonId { get; set; }
-        public Nullable<int> ImageId { get; set; }
-        public Nullable<int> FolderId { get; set; }
-        public string Email { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tag()
+        {
+            this.Images = new HashSet<Image>();
+        }
+    
+        public string Name { get; set; }
+        public int PersonId { get; set; }
         public int Id { get; set; }
     
-        public virtual Folder Folder { get; set; }
-        public virtual Image Image { get; set; }
         public virtual Person Person { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

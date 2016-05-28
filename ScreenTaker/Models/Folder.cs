@@ -7,28 +7,34 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker.Data.DAL
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class PersonGroup
+    public partial class Folder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PersonGroup()
+        public Folder()
         {
-            this.GroupMembers = new HashSet<GroupMember>();
+            this.Images = new HashSet<Image>();
             this.GroupShares = new HashSet<GroupShare>();
+            this.UserShares = new HashSet<UserShare>();
         }
     
         public string Name { get; set; }
-        public Nullable<int> PersonId { get; set; }
+        public int OwnerId { get; set; }
+        public bool IsPublic { get; set; }
+        public string SharedCode { get; set; }
+        public System.DateTime CreationDate { get; set; }
         public int Id { get; set; }
     
+        public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupMember> GroupMembers { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupShare> GroupShares { get; set; }
-        public virtual Person Person { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserShare> UserShares { get; set; }
     }
 }

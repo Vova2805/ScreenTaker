@@ -51,84 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\AspNetRole.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\AspNetUser.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\AspNetUserClaim.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\AspNetUserLogin.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Folder.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\GroupMember.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\GroupShare.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Image.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Person.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\PersonGroup.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\ScreenTakerDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScreenTakerDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\ScreenTakerDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\ScreenTakerDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Tag.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\UserShare.cs">
-      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="DAL\ScreenTakerDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ScreenTakerDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DAL\ScreenTakerDataModel.edmx.diagram">
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\ScreenTakerDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
-      <LastGenOutput>ScreenTakerDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DAL\ScreenTakerDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
-      <LastGenOutput>ScreenTakerDataModel.cs</LastGenOutput>
-    </Content>
+    <Folder Include="DAL\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

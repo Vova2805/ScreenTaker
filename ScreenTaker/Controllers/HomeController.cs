@@ -7,8 +7,7 @@ using System.Web.Mvc;
 using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
-using ScreenTaker.Data.DAL;
-using Image = ScreenTaker.Data.DAL.Image;
+using Image = ScreenTaker.Models.Image;
 
 namespace ScreenTaker.Controllers
 {
