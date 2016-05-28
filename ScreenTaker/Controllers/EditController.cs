@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Globalization;
 using System.Threading;
 using System.Web.WebPages;
+using Microsoft.AspNet.Identity;
 
 namespace ScreenTaker.Controllers
 {
@@ -78,6 +79,9 @@ namespace ScreenTaker.Controllers
                 {
                     var group = new PersonGroup();
                     group.Name = name;
+
+                    //Microsoft.AspNet.Identity.UserManager.FindById(User.Identity.GetUserId());
+
                     group.PersonId = null;
                     _entities.PersonGroups.Add(group);
                     _entities.SaveChanges();
