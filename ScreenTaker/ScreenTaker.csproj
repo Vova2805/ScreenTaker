@@ -444,10 +444,6 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Resource.uk.designer.cs</LastGenOutput>
     </Content>
-    <ProjectReference Include="..\ScreenTaker.Data\ScreenTaker.Data.csproj">
-      <Project>{4f81187d-6083-457a-b3fe-623347f39a5c}</Project>
-      <Name>ScreenTaker.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605271430553_TestMigration.resx">
