@@ -38,8 +38,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">Submit</button>
             </div>
         </div>
     </div>
@@ -57,13 +57,13 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="new-title" class="control-label text-center">Save changes?</label>
+                        <label for="new-title" class="control-label text-center">Are you sure?</label>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
-                <button type="button" class="btn btn-primary">No</button>
+            <div class="modal-footer">                
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath })'" >Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" >No</button>
             </div>
         </div>
     </div>
