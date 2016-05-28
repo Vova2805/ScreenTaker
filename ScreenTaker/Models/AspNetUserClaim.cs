@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class database_firewall_rules
+    public partial class AspNetUserClaim
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string start_ip_address { get; set; }
-        public string end_ip_address { get; set; }
-        public System.DateTime create_date { get; set; }
-        public System.DateTime modify_date { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

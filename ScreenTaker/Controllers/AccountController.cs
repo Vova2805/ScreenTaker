@@ -187,7 +187,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code, string lang = "en")
         {
-            if (userId == null || code == null)
+            if (userId == default(int) || code == null)
             {
                 return View("Error");
             }
@@ -298,7 +298,7 @@ namespace ScreenTaker.Controllers
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe, string lang = "en")
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
+            if (userId == default(int))
             {
                 return View("Error");
             }

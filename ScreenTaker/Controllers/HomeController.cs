@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Image = ScreenTaker.Models.Image;
 
 namespace ScreenTaker.Controllers
 {
@@ -45,11 +46,11 @@ namespace ScreenTaker.Controllers
                         //    image.id = _entities.Image.Max(s => s.id) + 1;
                         //else image.id = 1;
                         image.IsPublic = false;
-                        image.FolderId = _entities.Folder.Where(f => f.Name.Equals("General")).Select(fol => fol.Id).FirstOrDefault();
+                        image.FolderId = _entities.Folders.Where(f=>f.Name.Equals("General")).Select(fol=>fol.Id).FirstOrDefault();
                         image.SharedCode = sharedCode;
                         image.Name = fileName;
                         image.PublicationDate = DateTime.Now;
-                        _entities.Image.Add(image);
+                        _entities.Images.Add(image);
                         _entities.SaveChanges();
 
                         transaction.Commit();
@@ -91,15 +92,15 @@ namespace ScreenTaker.Controllers
         public ActionResult Library(string lang = "en")
         {
             ViewBag.Message = "Library page";
-            ViewBag.Folders = _entities.Folder.ToList();
-            ViewBag.FolderLink = GetBaseUrl() + _entities.Folder.ToList().ElementAt(0).SharedCode;
+            ViewBag.Folders = _entities.Folders.ToList();
+            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
             return View();
         }
 
         [HttpGet]
         public ActionResult ChangeFoldersAttr(Folder folder, string lang = "en")
         {
-            ViewBag.Folders = _entities.Folder.ToList();
+            ViewBag.Folders = _entities.Folders.ToList();
 
             return RedirectToAction("Library");
         }
@@ -107,9 +108,9 @@ namespace ScreenTaker.Controllers
 
         public ActionResult Images(string lang = "en")
         {
-            var list = _entities.Image.ToList();
+            var list = _entities.Images.ToList();
             ViewBag.Images = list;
-            var pathsList = _entities.Image.ToList().Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
+            var pathsList = _entities.Images.ToList().Select(i => GetBaseUrl() + "img/" + i.SharedCode ).ToList();
             ViewBag.Paths = pathsList;
             ViewBag.BASE_URL = GetBaseUrl() + "img/";
             return View();
@@ -126,26 +127,26 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en")
         {
-            ViewBag.Image = _entities.Image.Where(im => im.SharedCode.Equals(image)).FirstOrDefault();
-            if (ViewBag.Image == null && _entities.Image.ToList().Count > 0)
+            ViewBag.Image =  _entities.Images.Where(im=>im.SharedCode.Equals(image)).FirstOrDefault();
+            if(ViewBag.Image==null && _entities.Images.ToList().Count>0)
             {
-                ViewBag.Image = _entities.Image.ToList().First();
+                ViewBag.Image = _entities.Images.ToList().First();
             }
             ViewBag.OriginalPath = "";
             if (ViewBag.Image != null)
             {
-                ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.sharedCode + ".png";
+                ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
             }
             ViewBag.OriginalName = "";
             if (ViewBag.Image != null)
             {
-                ViewBag.OriginalName = ViewBag.Image.name + ".png";
+                ViewBag.OriginalName = ViewBag.Image.Name + ".png";
             }
 
             ViewBag.Date = "";
             if (ViewBag.Image != null)
             {
-                ViewBag.Date = ViewBag.Image.publicationDate;
+                ViewBag.Date = ViewBag.Image.PublicationDate;
             }
             return View();
         }
@@ -157,8 +158,8 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj = _entities.Image.Where(w => w.SharedCode == sharedDode).FirstOrDefault();
-                    _entities.Image.Remove(obj);
+                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    _entities.Images.Remove(obj);
                     _entities.SaveChanges();
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
@@ -178,7 +179,7 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj=_entities.Image.Where(w => w.SharedCode == sharedDode).FirstOrDefault();
+                    var obj=_entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
                     obj.Name = newName;
                     _entities.SaveChanges();
                     transaction.Commit();

@@ -7,20 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class GroupShare
+    public partial class GroupMember
     {
         public int GroupId { get; set; }
-        public Nullable<int> FolderId { get; set; }
-        public Nullable<int> ImageId { get; set; }
+        public int PersonId { get; set; }
         public int Id { get; set; }
     
-        public virtual Folder Folder { get; set; }
         public virtual PersonGroup PersonGroup { get; set; }
-        public virtual Image Image { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

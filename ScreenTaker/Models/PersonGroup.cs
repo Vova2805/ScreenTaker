@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,8 +17,8 @@ namespace ScreenTaker
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PersonGroup()
         {
-            this.GroupMember = new HashSet<GroupMember>();
-            this.GroupShare = new HashSet<GroupShare>();
+            this.GroupMembers = new HashSet<GroupMember>();
+            this.GroupShares = new HashSet<GroupShare>();
         }
     
         public string Name { get; set; }
@@ -26,9 +26,9 @@ namespace ScreenTaker
         public int Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupMember> GroupMember { get; set; }
+        public virtual ICollection<GroupMember> GroupMembers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupShare> GroupShare { get; set; }
+        public virtual ICollection<GroupShare> GroupShares { get; set; }
         public virtual Person Person { get; set; }
     }
 }

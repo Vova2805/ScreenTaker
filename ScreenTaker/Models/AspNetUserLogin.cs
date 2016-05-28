@@ -7,21 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class UserShare
+    public partial class AspNetUserLogin
     {
-        public Nullable<int> PersonId { get; set; }
-        public Nullable<int> ImageId { get; set; }
-        public Nullable<int> FolderId { get; set; }
-        public string Email { get; set; }
-        public int Id { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public int UserId { get; set; }
     
-        public virtual Folder Folder { get; set; }
-        public virtual Image Image { get; set; }
-        public virtual Person Person { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

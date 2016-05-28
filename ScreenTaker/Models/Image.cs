@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScreenTaker
+namespace ScreenTaker.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,9 +17,9 @@ namespace ScreenTaker
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Image()
         {
-            this.GroupShare = new HashSet<GroupShare>();
-            this.UserShare = new HashSet<UserShare>();
-            this.Tag = new HashSet<Tag>();
+            this.GroupShares = new HashSet<GroupShare>();
+            this.UserShares = new HashSet<UserShare>();
+            this.Tags = new HashSet<Tag>();
         }
     
         public int FolderId { get; set; }
@@ -31,10 +31,10 @@ namespace ScreenTaker
     
         public virtual Folder Folder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupShare> GroupShare { get; set; }
+        public virtual ICollection<GroupShare> GroupShares { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserShare> UserShare { get; set; }
+        public virtual ICollection<UserShare> UserShares { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tag> Tag { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }
