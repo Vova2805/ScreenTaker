@@ -117,7 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ACCESS_BY_LINK" xml:space="preserve">
+    <value>Access by link</value>
+  </data>
+  <data name="ADD" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ALPHABET" xml:space="preserve">
+    <value>Alphabet</value>
+  </data>
+  <data name="CANCEL" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CHANGE_PASS" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="CHANGE_PROFILE_IMG" xml:space="preserve">
+    <value>Change your profile image</value>
+  </data>
+  <data name="CLASSIC" xml:space="preserve">
+    <value>Classic</value>
+  </data>
+  <data name="CONFIRM_PASS" xml:space="preserve">
+    <value>Confirm a new password</value>
+  </data>
+  <data name="DATE" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DELETE" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DEVELOPED_BY" xml:space="preserve">
+    <value>Developed by</value>
+  </data>
+  <data name="EDIT" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="EDIT_GROUP" xml:space="preserve">
     <value> Редактировать групи</value>
+  </data>
+  <data name="EDIT_GROUPS" xml:space="preserve">
+    <value>Edit groups</value>
+  </data>
+  <data name="ENTER_NEW_PASS" xml:space="preserve">
+    <value>Enter a new password</value>
+  </data>
+  <data name="FEATURES" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="GROUPS" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="LOGIN_EMAIL" xml:space="preserve">
+    <value>Ввойти</value>
+  </data>
+  <data name="MANAGE_ACCESS" xml:space="preserve">
+    <value>Manage access</value>
+  </data>
+  <data name="MANAGE_GROUPS" xml:space="preserve">
+    <value>Manage groups</value>
+  </data>
+  <data name="PASSWORD" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PASSWORD_CONFIRM" xml:space="preserve">
+    <value>Password confirm</value>
+  </data>
+  <data name="PEOPLE" xml:space="preserve">
+    <value>People</value>
+  </data>
+  <data name="PRIVATE" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="REMOVE" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="RENAME" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="SAVE" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SAVED_AS" xml:space="preserve">
+    <value>Saved as</value>
+  </data>
+  <data name="SIGNIN_LOGOUT" xml:space="preserve">
+    <value>Зарегистрироватса</value>
+  </data>
+  <data name="SUBMIT" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="UPLOAD" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="UPLOAD_IMAGE" xml:space="preserve">
+    <value>Вигрузить картинку</value>
+  </data>
+  <data name="YOUR_OLD_PASS" xml:space="preserve">
+    <value>Your old password</value>
   </data>
 </root>

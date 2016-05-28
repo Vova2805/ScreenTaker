@@ -194,6 +194,18 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AspNetRoles.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaims.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogins.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUsers.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -237,7 +249,6 @@
       <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ImageCompressor.cs" />
-    <Compile Include="Models\LocalizationInside.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Person.cs">
       <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
@@ -313,6 +324,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="ScreenTakerDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ScreenTakerDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ScreenTakerDM.edmx.diagram">
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Models\ScreenTakerDataModel.Context.tt">
@@ -377,7 +395,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -403,6 +421,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Edit\UserGroups.cshtml" />
     <Content Include="Views\Home\SingleImage.cshtml" />
+    <Content Include="Views\Edit\EditImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -416,15 +435,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resource.en.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.en.designer.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_GlobalResources\Resource.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

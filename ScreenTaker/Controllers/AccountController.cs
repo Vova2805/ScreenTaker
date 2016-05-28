@@ -55,18 +55,18 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, string lang = "en")
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        public ActionResult Profile()
+        public ActionResult Profile(string lang = "en")
         {
             return View();
         }
 
-        public ActionResult Logout()
+        public ActionResult Logout(string lang = "en")
         {
             return View();
         }
@@ -76,7 +76,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl, string lang = "en")
         {
             if (!ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe, string lang = "en")
         {
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
@@ -119,7 +119,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model, string lang = "en")
         {
             if (!ModelState.IsValid)
             {
@@ -147,7 +147,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string lang = "en")
         {
             return View();
         }
@@ -157,7 +157,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, string lang = "en")
         {
             if (ModelState.IsValid)
             {
@@ -185,7 +185,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(int userId, string code)
+        public async Task<ActionResult> ConfirmEmail(string userId, string code, string lang = "en")
         {
             if (userId == default(int) || code == null)
             {
@@ -198,7 +198,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
-        public ActionResult ForgotPassword()
+        public ActionResult ForgotPassword(string lang = "en")
         {
             return View();
         }
@@ -208,7 +208,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model, string lang = "en")
         {
             if (ModelState.IsValid)
             {
@@ -234,7 +234,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
+        public ActionResult ForgotPasswordConfirmation(string lang = "en")
         {
             return View();
         }
@@ -242,7 +242,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string code, string lang = "en")
         {
             return code == null ? View("Error") : View();
         }
@@ -252,7 +252,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model, string lang = "en")
         {
             if (!ModelState.IsValid)
             {
@@ -276,7 +276,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
+        public ActionResult ResetPasswordConfirmation(string lang = "en")
         {
             return View();
         }
@@ -286,7 +286,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
+        public ActionResult ExternalLogin(string provider, string returnUrl, string lang = "en")
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
@@ -295,7 +295,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
+        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe, string lang = "en")
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == default(int))
@@ -312,7 +312,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        public async Task<ActionResult> SendCode(SendCodeViewModel model, string lang = "en")
         {
             if (!ModelState.IsValid)
             {
@@ -330,7 +330,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl, string lang = "en")
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
@@ -362,7 +362,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl, string lang = "en")
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -399,7 +399,7 @@ namespace ScreenTaker.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult LogOff(string lang = "en")
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
@@ -408,7 +408,7 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
+        public ActionResult ExternalLoginFailure(string lang = "en")
         {
             return View();
         }

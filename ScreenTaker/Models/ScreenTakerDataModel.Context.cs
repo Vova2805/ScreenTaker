@@ -13,10 +13,10 @@ namespace ScreenTaker.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ScreenTakerDBEntities : DbContext
+    public partial class ScreenTakerEntities : DbContext
     {
-        public ScreenTakerDBEntities()
-            : base("name=ScreenTakerDBEntities")
+        public ScreenTakerEntities()
+            : base("name=ScreenTakerEntities")
         {
         }
     

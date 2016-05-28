@@ -17,6 +17,7 @@
         <EntityTypeShape EntityType="ScreenTakerDBModel.PersonGroup" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="ScreenTakerDBModel.Tag" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ScreenTakerDBModel.UserShare" Width="1.5" PointX="10.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.database_firewall_rules" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="ScreenTakerDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.FK_Folder_ToPerson" ManuallyRouted="false" />
