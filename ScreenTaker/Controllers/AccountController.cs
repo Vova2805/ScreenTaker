@@ -61,16 +61,6 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
-        public ActionResult Profile(string lang = "en")
-        {
-            return View();
-        }
-
-        public ActionResult Logout(string lang = "en")
-        {
-            return View();
-        }
-
         //
         // POST: /Account/Login
         [HttpPost]
@@ -492,9 +482,9 @@ namespace ScreenTaker.Controllers
         }
         #endregion
         [AllowAnonymous]
-        public ActionResult UserProfile()
+        public ActionResult UserProfile(string lang = "en")
         {
-            ViewBag.Avatar = "~/img/user.png";
+            ViewBag.Avatar = "~/Resources/images/user.png";
             ViewBag.Email = "test@gmail.com";
 
             return View();
