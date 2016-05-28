@@ -72,8 +72,9 @@
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2">
-                                <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                                <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput">
+                                <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
+                                onclick="location.href='@Url.Action("AddUser", "Edit",new {selectedId=ViewBag.SelectedId })&email=' + document.getElementById('AddUserInput').value">+</span>                           
 
                             </div>
                         </div>
@@ -92,7 +93,8 @@
                                         <div class="media-body" style="vertical-align:middle">
                                             <h4 class="media-heading">@ViewBag.Emails[i]</h4>
                                         </div>
-                                        <div class="media-right" style="vertical-align:middle">
+                                        <div class="media-right" style="vertical-align:middle" 
+                                             onclick="if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;  location.href='@Url.Action("RemoveUser", "Edit", new { selectedId = ViewBag.SelectedId, email=ViewBag.Emails[i] })';">
                                             <button type="button" class="btn badge right" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                             </button>

@@ -99,8 +99,16 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     var groupId = selectedId;
+
+                    if (_entities.GroupMembers.Where(w => w.GroupId == groupId).Any())
+                    {
+                        var groupMembers = _entities.GroupMembers.Where(w => w.GroupId == groupId).ToList();
+                        for(var i=0;i<groupMembers.Count;i++)                        
+                            _entities.GroupMembers.Remove(groupMembers[i]);                        
+                    }
                     var group = _entities.PersonGroups.Where(w => w.Id == groupId).FirstOrDefault();
                     _entities.PersonGroups.Remove(group);
+
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
@@ -112,5 +120,48 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("UserGroups");
         }
 
+        public ActionResult AddUser(int selectedId,string email)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (!_entities.People.Where(s => s.Email.Equals(email)).Any())
+                        throw new Exception("There is no user with such e-mail.");
+                    if (_entities.People.Where(w => w.Email == email && w.GroupMembers.Where(w2 => w2.GroupId == selectedId).Any()).Any())
+                        throw new Exception("This user is alredy here.");
+                    var groupMember = new GroupMember();
+                    groupMember.GroupId = selectedId;
+                    groupMember.PersonId = _entities.People.Where(s => s.Email.Equals(email)).Select(s => s.Id).FirstOrDefault();
+                    _entities.GroupMembers.Add(groupMember);
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("UserGroups");
+        }
+
+        public ActionResult RemoveUser(int selectedId,string email)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var personId = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
+                    _entities.GroupMembers.Remove(_entities.GroupMembers.Where(w => w.GroupId == selectedId && w.PersonId == personId).FirstOrDefault());
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("UserGroups");
+        }
     }
 }
