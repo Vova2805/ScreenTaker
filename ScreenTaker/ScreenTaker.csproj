@@ -200,6 +200,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="database_firewall_rules.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Folder.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogins.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUsers.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -207,13 +219,53 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GroupMember.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GroupShare.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Image.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ImageCompressor.cs" />
+    <Compile Include="Models\LocalizationInside.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RandomStringGenerator.cs" />
+    <Compile Include="Person.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonGroup.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenTakerDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenTakerDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenTakerDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Tag.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserShare.cs">
+      <DependentUpon>ScreenTakerDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -239,13 +291,27 @@
     <Content Include="For Database\SQLQuery_DropAllTables.sql" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\addImage.png" />
+    <Content Include="img\printscreen.png" />
+    <Content Include="img\private.png" />
+    <Content Include="img\public.png" />
+    <Content Include="img\user.png" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="For Database\screenTakerDB.erwin" />
+    <EntityDeploy Include="ScreenTakerDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ScreenTakerDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ScreenTakerDM.edmx.diagram">
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+    </Content>
     <None Include="Resources\images\addImage.png" />
     <None Include="Resources\images\printscreen.png" />
+    <None Include="Resources\images\private.png" />
+    <None Include="Resources\images\public.png" />
     <None Include="Resources\images\user.png" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -253,6 +319,16 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="ScreenTakerDM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+      <LastGenOutput>ScreenTakerDM.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ScreenTakerDM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ScreenTakerDM.edmx</DependentUpon>
+      <LastGenOutput>ScreenTakerDM.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
     <Content Include="Scripts\bootstrap-switch.js" />
