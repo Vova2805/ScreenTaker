@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-4 account-style shadow center-block">
             <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "col-md-12 text-center form-horizontal", role = "form" }))
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     <h4>Create a new account to keep track of your pasted images</h4>
