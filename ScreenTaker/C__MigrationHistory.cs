@@ -12,13 +12,11 @@ namespace ScreenTaker
     using System;
     using System.Collections.Generic;
     
-    public partial class GroupMember
+    public partial class C__MigrationHistory
     {
-        public int GroupId { get; set; }
-        public int PersonId { get; set; }
-        public int Id { get; set; }
-    
-        public virtual PersonGroup PersonGroup { get; set; }
-        public virtual Person Person { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

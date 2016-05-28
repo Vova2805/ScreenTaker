@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.Images.Count>0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + ".png"):"";
-    string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].sharedCode + "_compressed.png"):"";
+    string ShareLink = ViewBag.Images.Count>0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + ".png"):"";
+    string CommpressedLink = ViewBag.Images.Count > 0 ? (ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png"):"";
     string Name = ViewBag.Images.Count > 0 ? (@ViewBag.Images[0].name + ".png"):"";
 }
 @section Scripts
@@ -205,8 +205,7 @@
 </div>
 
 <div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 600px">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-10">
         <h2>Images</h2>
         <div class="col-md-12 text-left">
             <div class="row">
@@ -220,14 +219,22 @@
             @foreach (var i in ViewBag.Images)
             {
                 string original = @i.sharedCode;
-                string commpressed = ViewBag.BASE_URL + @i.sharedCode + "_compressed.png";
+                string compressed = ViewBag.BASE_URL + @i.sharedCode + "_compressed.png";
                 string name = @i.name + ".png";
                 <a href="/Home/SingleImage?image=@original">
-                    <div class="col-md-2 text-center task" style="margin-bottom: 60px">
-                        <img src="@commpressed" alt="@commpressed" style="width: 128px; height: 128px"/>
+                    <div class="col-md-2 text-center task active" style="margin-bottom: 60px">
+                        <img src="@compressed" alt="@compressed" style="width: 128px; height: 128px"/>
                         <label class="text-center">@name</label>
                     </div>
-                </a>
+                    @*<div class="col-sm-3 col-md-3">
+                        <div class="thumbnail active">
+                            <img src="@compressed" alt="@compressed" style="width: 128px; height: 128px">
+                            <div class="caption">
+                                <h3>@name</h3>
+                            </div>
+                        </div>
+                   </div>*@
+            </a>
             }
         </div>
     </div>
