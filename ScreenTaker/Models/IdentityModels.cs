@@ -54,10 +54,10 @@ namespace ScreenTaker.Models
         {
             System.Data.Entity.Database.SetInitializer<ApplicationDbContext>(null);
         }
-        
+
         public static ApplicationDbContext Create()
         {
-            
+
             return new ApplicationDbContext();
         }
 

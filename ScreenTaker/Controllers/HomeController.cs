@@ -45,6 +45,7 @@ namespace ScreenTaker.Controllers
                         //if (_entities.Image.ToList().Count > 0)
                         //    image.id = _entities.Image.Max(s => s.id) + 1;
                         //else image.id = 1;
+
                         image.IsPublic = false;
                         image.FolderId = _entities.Folders.Where(f=>f.Name.Equals("General")).Select(fol=>fol.Id).FirstOrDefault();
                         image.SharedCode = sharedCode;
