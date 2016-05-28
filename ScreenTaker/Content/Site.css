@@ -20,7 +20,7 @@
 input,
 select,
 textarea {
-    width: 100%;
+    max-width: 100%;
 }
 
 .library-menu {
@@ -161,7 +161,9 @@ textarea {
     color: #AAAAAA;
 }
 
-.login-signup-center{
+.profile-avatar {
+    width: 128px;
+    height: 128px;
 }
 .material-switch > input[type="checkbox"] {
     display: none;   
@@ -253,14 +255,3 @@ textarea {
 .task {
     
 }
-
-
-
-
-
-
-
-
-
-
-	
