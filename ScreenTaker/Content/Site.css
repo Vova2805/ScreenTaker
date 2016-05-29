@@ -255,3 +255,18 @@ textarea {
 .task {
     
 }
+
+.images {
+    background-color: #E0E0E0;
+    color: #686868;
+}
+
+.images:hover {
+    background-color: #686868;
+    color: #F0F0F0;
+}
+
+.images:active {
+    background-color: #F0F0F0;
+    color: #686868;
+}
