@@ -24,6 +24,7 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Welcome", "Home");
         }
 
+        [HttpGet]
         public ActionResult Welcome(string lang = "en")
         {
             return View();
@@ -113,7 +114,7 @@ namespace ScreenTaker.Controllers
             var pathsList = _entities.Images.ToList().Select(i => GetBaseUrl() + "img/" + i.SharedCode ).ToList();
             ViewBag.Paths = pathsList;
             ViewBag.BASE_URL = GetBaseUrl() + "img/";
-            ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + list.First().sharedCode;
+            ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode;
 
             return View();
         }

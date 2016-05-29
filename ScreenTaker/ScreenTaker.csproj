@@ -404,6 +404,7 @@
     <Content Include="Views\Home\SingleImage.cshtml" />
     <Content Include="Views\Edit\EditImage.cshtml" />
     <Content Include="Views\Home\SharedImage.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

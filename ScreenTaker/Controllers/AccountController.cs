@@ -402,6 +402,11 @@ namespace ScreenTaker.Controllers
         {
             return View();
         }
+        
+        public ActionResult UserProfile()
+        {
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {
