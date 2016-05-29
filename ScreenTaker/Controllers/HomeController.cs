@@ -92,10 +92,18 @@ namespace ScreenTaker.Controllers
         #region Library
         public ActionResult Library(string lang = "en")
         {
-            ViewBag.Message = "Library page";
-            ViewBag.Folders = _entities.Folders.ToList();
-            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-            return View();
+            if (!Request.IsAuthenticated)
+            {
+                throw new HttpException(404, "Your error message");
+            }
+            else
+            {
+                ViewBag.Message = "Library page";
+                ViewBag.Folders = _entities.Folders.ToList();
+                ViewBag.BaseURL = GetBaseUrl()+"";
+                ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
+                return View();
+            }
         }
 
         [HttpGet]
@@ -111,13 +119,8 @@ namespace ScreenTaker.Controllers
         {
             var list = _entities.Images.ToList();
             ViewBag.Images = list;
-            var pathsList = _entities.Images.ToList()
-                .Select(i => GetBaseUrl() + "img/" + i.SharedCode ).ToList();
-            ViewBag.Paths = pathsList;
-            ViewBag.BASE_URL = GetBaseUrl() + "img/";
-            ViewBag.SharedLinks = _entities.Images.ToList()
-                .Select(i=> GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
-
+            ViewBag.BASE_URL = GetBaseUrl()+"";
+            string url = ViewBag.BASE_URL.toString();
             return View();
         }
 

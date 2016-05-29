@@ -17,6 +17,23 @@
             $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
             $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
         });
+
+        function openFolder() {
+            location.href = "/Home/Images";
+            return false;
+        }
+
+         function selectImage(name, sharedLinkValue,image) {
+            document.getElementById("sharedLink").value = sharedLinkValue;
+            document.getElementById("folderImage").src = image;
+            document.getElementById("folderTitle").innerText = name;
+           
+            return false;
+         }
+
+         function selectText() {
+             document.getElementById('sharedLink').select();
+         }
     </script>
 }
 
@@ -212,9 +229,11 @@
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
                 @for (int i = 0; i < ViewBag.Folders.Count; i++)
                 {
-                    <a href="/Home/Images">
-                        <figure class="col-md-2 text-center">
-                            <img src="~/Resources/images/private.png" />
+                    string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
+                    string imageLink = "/Resources/images/"+ (ViewBag.Folders[i].IsPublic?"public.png":"private.png");
+                    <a href="#" onclick="selectImage('@ViewBag.Folders[i].Name','@link','@imageLink')" ondblclick="openFolder()">
+                        <figure class="col-md-2 text-center task active images">
+                            <img src="~/Resources/images/public.png" />
                             <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
                         </figure>
                     </a>
@@ -224,12 +243,12 @@
     </div>
     <div class="col-md-2" style="background-color: #686868; height: 100%; right: 15px; position: absolute;">
         <div >
-            <img src="~/Resources/images/private.png"/>
-            <p style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
+            <img id="folderImage" src="~/Resources/images/public.png"/>
+            <p id="folderTitle" style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
             <hr/>
 
             <div>
-                <button type="button" class="btn btn-default" style="width: 100%">Open</button>
+                <button type="button" class="btn btn-default" style="width: 100%" onclick="openFolder()">Open</button>
             </div>
             <br/>
             <div>
@@ -245,7 +264,7 @@
             </div>
             <hr/>
             <p style="color: #E0E0E0">Share folder</p>
-            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ViewBag.FolderLink"/>
+            <input id="sharedLink" class="form-control" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink"/>
             <br />
             <div>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FolderManageAccess" style="width: 100%">Manage access</button>

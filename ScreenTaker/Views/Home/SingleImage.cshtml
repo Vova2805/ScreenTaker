@@ -17,6 +17,10 @@
             $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
             $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
         });
+
+        function selectText() {
+            document.getElementById('sharedLink').select();
+        }
     </script>
 }
 
@@ -203,7 +207,7 @@
     </div>
 </div>
 
-<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 600px">
+<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 800px">
     <div class="col-md-10">
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <h2>@ViewBag.OriginalName</h2>
@@ -273,7 +277,7 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ViewBag.SharedLink" />
+            <input class="form-control" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.SharedLink" />
             <br />
             <div>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
