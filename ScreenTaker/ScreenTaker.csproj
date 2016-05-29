@@ -278,8 +278,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\private.png" />
-    <Content Include="fonts\public.png" />
     <Content Include="For Database\dbo.AspNetRoles.sql" />
     <Content Include="For Database\dbo.AspNetUserClaims.sql" />
     <Content Include="For Database\dbo.AspNetUserLogins.sql" />
