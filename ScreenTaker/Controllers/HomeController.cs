@@ -154,7 +154,7 @@ namespace ScreenTaker.Controllers
 
             if (ViewBag.Image != null)
             {
-                ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.sharedCode;
+                ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
             }
             return View();
         }
