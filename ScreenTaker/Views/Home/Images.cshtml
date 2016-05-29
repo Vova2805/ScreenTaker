@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + ".png";
+    string ShareLink = ViewBag.SharedLinks[0];
     string CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png";
     string Name = @ViewBag.Images[0].Name + ".png";
 }
