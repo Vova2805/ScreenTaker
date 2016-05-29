@@ -23,35 +23,44 @@
                     <button class="btn btn-default account-button" onclick="location='/Edit/UserGroups'">Manage groups</button>
                 </div>
             </div>
-            <div>
-                @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new {@class = "form-horizontal text-left", @style = "padding-left: 30px", role = "form"}))
-                {
+        </div>
+        <br/>
+        <div class="col-md-12">
+            <div class="col-md-6 text-left">
+                <h4>Email: @ViewBag.Email</h4>
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn btn-default account-button">Manage groups</button>
+            </div>
+        </div>
+        <div>
+            @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new {@class = "form-horizontal text-left", @style = "padding-left: 30px", role = "form"}))
+            {
                 @Html.ValidationSummary("", new {@class = "text-danger"})
                 <div class="form-group" style="padding-left: 15px">
                     <label>Your old password</label>
                     <div>
-                        <input type="password" class="col-md-4" placeholder="" />
+                        <input type="password" class="col-md-4" placeholder=""/>
                     </div>
                 </div>
                 <div class="form-group" style="padding-left: 15px">
                     <label>Enter a new password</label>
                     <div>
-                        <input type="password" class="col-md-4" placeholder="" />
+                        <input type="password" class="col-md-4" placeholder=""/>
                     </div>
                 </div>
                 <div class="form-group" style="padding-left: 15px">
                     <label>Confirm a new password</label>
                     <div>
-                        <input type="password" class="col-md-4" placeholder="" />
+                        <input type="password" class="col-md-4" placeholder=""/>
                     </div>
                 </div>
                 <div class="form-group" style="padding-bottom: 10px">
                     <div class="col-md-10">
-                        <input type="submit" class="btn btn-default account-button" value="Change password" />
+                        <input type="submit" class="btn btn-default account-button" value="Change password"/>
                     </div>
                 </div>
-                }
-            </div>
+            }
         </div>
     </div>
 </div>
