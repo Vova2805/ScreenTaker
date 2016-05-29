@@ -162,16 +162,35 @@ namespace ScreenTaker.Controllers
         }
 
         [HttpGet]
-        public ActionResult SharedImage(string i)
+        public ActionResult SharedImage(string i, string lang = "en")
         {
-            var image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
+            ViewBag.Image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
             bool accesGranted = false;
-            if (image != null)
+            if (ViewBag.Image != null)
             {
                 accesGranted = true;
                 if (accesGranted)
                 {
-                    ViewBag.ImageName = image.Name;
+                    ViewBag.ImageName = ViewBag.Image.Name;
+                    if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
+                    {
+                        ViewBag.Image = _entities.Images.ToList().First();
+                    }
+                    ViewBag.OriginalPath = "";
+                    if (ViewBag.Image != null)
+                    {
+                        ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
+                    }
+                    ViewBag.OriginalName = "";
+                    if (ViewBag.Image != null)
+                    {
+                        ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+                    }
+
+                    if (ViewBag.Image != null)
+                    {
+                        ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
+                    }
                 }
             }
             ViewBag.AccessGranted = accesGranted;

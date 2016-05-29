@@ -203,16 +203,18 @@
     </div>
 </div>
 
-<div class="row" style="margin-bottom: -40px; overflow: hidden; position: relative;  min-height: 600px">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <div class="container">
-            <div class="col-md-12">
+<div class="row" style="margin-bottom: -40px; overflow: hidden; position: relative;  min-height: 800px">
+    <div class="col-md-10">
+        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
+            <h2>Folders</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
                 @for (int i = 0; i < ViewBag.Folders.Count; i++)
                 {
                     <a href="/Home/Images">
                         <figure class="col-md-2 text-center">
-                            <img src="~/Resources/images/private.png"/>
+                            <img src="~/Resources/images/private.png" />
                             <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
                         </figure>
                     </a>

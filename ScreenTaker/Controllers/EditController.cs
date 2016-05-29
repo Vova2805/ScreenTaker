@@ -22,6 +22,11 @@ namespace ScreenTaker.Controllers
             return View("UserGroups");
         }
 
+        public ActionResult EditImage(string lang = "en")
+        {
+            return View("EditImage");
+        }
+
         public ActionResult UserGroups(string lang = "en",int selectedId=-1)
         {
             using (var transaction = _entities.Database.BeginTransaction())

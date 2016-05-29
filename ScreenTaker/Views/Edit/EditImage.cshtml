@@ -1,8 +1,39 @@
-﻿
+﻿@using ScreenTaker.Models
+@using System.Globalization
+@using System.Threading;
+@using ScreenTaker;
+@model LoginViewModel
 @{
-    ViewBag.Title = "EditImage";
+    ViewBag.Title = "Edit images";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
 }
 
-<h2>EditImage</h2>
+<div class="container">
+    <div class="row" style="min-height:750px;">
+        <h2 class="text-center">Edit image</h2>
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-10 account-style shadow center-block" style="height:500px;">
+        </div>
+        <div class="col-sm-1">
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
 

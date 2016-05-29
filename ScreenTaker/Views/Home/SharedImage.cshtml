@@ -4,17 +4,39 @@
 
 @if (ViewBag.AccessGranted)
 {
-    <br/>
-    <div class="col-md-12 text-center">
-        <img src="@ViewBag.ImagePath" height="400"/>
-        <h2>@ViewBag.ImageName</h2>
+    <div class="row" style="margin-top: 20px; overflow: hidden; position: relative; ">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+                    <div class="row text-center">
+                        <img src="@ViewBag.OriginalPath" style="max-width: 800px; max-height: 600px" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="text-md-center">
+                                    <h3 class="text-center">@ViewBag.OriginalName</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 }
 else
 {
-    <br/>
-    <div class="col-md-12 text-left">
-        <h2>Access denied</h2>
-        <p>Image owner has restricted access to this image</p>
+    <div class="row" style="margin-top: 20px; overflow: hidden; position: relative; ">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+                                <div class="text-md-center">
+                                    <h2 class="text-center">Access denied</h2>
+                                    <p class="text-center">Image owner has restricted access to this image</p>
+                                </div>
+                </div>
+            </div>
+        </div>
     </div>
 }
