@@ -19,6 +19,9 @@ namespace ScreenTaker.Controllers
             Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
             Length = 10
         };
+
+        private SecurityHelper _securityHelper = new SecurityHelper();
+
         public ActionResult Index(string lang = "en")
         {
             return RedirectToAction("Welcome", "Home");
@@ -132,7 +135,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en")
         {
-            ViewBag.Image =  _entities.Images.Where(im=>im.SharedCode.Equals(image)).FirstOrDefault();
+            ViewBag.Image =  _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(image));
             if(ViewBag.Image==null && _entities.Images.ToList().Count>0)
             {
                 ViewBag.Image = _entities.Images.ToList().First();
@@ -168,10 +171,18 @@ namespace ScreenTaker.Controllers
             bool accesGranted = false;
             if (image != null)
             {
-                accesGranted = true;
+                if (image.IsPublic)
+                {
+                    accesGranted = true;
+                }
+//                else if (image.IsPublic)
+//                {
+//                    
+//                }
                 if (accesGranted)
                 {
                     ViewBag.ImageName = image.Name;
+                    ViewBag.ImagePath = _securityHelper.GetImagePath(GetBaseUrl() + "img", i);
                 }
             }
             ViewBag.AccessGranted = accesGranted;
