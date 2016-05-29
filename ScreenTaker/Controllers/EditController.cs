@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Threading;
 using System.Web.WebPages;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace ScreenTaker.Controllers
 {
@@ -84,7 +85,14 @@ namespace ScreenTaker.Controllers
 
                     //Microsoft.AspNet.Identity.UserManager.FindById(User.Identity.GetUserId());
 
-                    group.PersonId = null;
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var email = user.Email;
+                        group.PersonId = _entities.People.Where(w=>w.Email==email).Select(s=>s.Id).FirstOrDefault();
+                    }
+                    else
+                        group.PersonId = null;
                     _entities.PersonGroups.Add(group);
                     _entities.SaveChanges();
                     idToRedirect = group.Id;
