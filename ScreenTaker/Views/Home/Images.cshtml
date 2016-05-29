@@ -20,6 +20,19 @@
             $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
             $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
         });
+
+        function openImage(path) {
+            location.href = "/Home/SingleImage?image=" + path;
+            return false;
+        }
+
+        function selectImage(original, sharedLink, compressed, name) {
+            document.getElementById("original").value = original;
+            document.getElementById("sharedLink").value = sharedLink;
+            document.getElementById("compressedLink").src = compressed;
+            document.getElementById("compressedName").innerHtml = name;
+            return false;
+        }
     </script>
 
 }
@@ -221,10 +234,11 @@
             @foreach (var i in ViewBag.Images)
             {
                 string original = @i.SharedCode;
+                string sharedLink = ViewBag.BASE_URL + @i.SharedCode + ".png";
                 string compressed = ViewBag.BASE_URL + @i.SharedCode + "_compressed.png";
                 string name = @i.Name + ".png";
-                <a href="/Home/SingleImage?image=@original">
-                    <div class="col-md-2 text-center task active" style="margin-bottom: 60px">
+                <a href="#" onclick="selectImage('@original', '@sharedLink', '@compressed', '@name')" ondblclick="openImage('@original')">
+                    <div class="col-md-2 text-center task active images" style="margin-bottom: 60px; padding-top: 10px;">
                         <img src="@compressed" alt="@compressed" style="width: 128px; height: 128px"/>
                         <label class="text-center">@name</label>
                     </div>
@@ -242,11 +256,12 @@
     </div>
     <div class="col-md-2" style="background-color: #686868; right: 10px; height: 100%; position: absolute">
         <div style="margin-left: 10px">
-            <img src="@CommpressedLink" style="margin: 5px;"/>
-            <p style="color: #E0E0E0">@Name</p>
+            <input type="text" class="hidden" id="original"/>
+            <img src="@CommpressedLink" id="compressedLink" style="margin: 5px;"/>
+            <p id="compressedName" style="color: #E0E0E0">@Name</p>
             <hr/>
             <div>
-                <button type="button" class="btn btn-default" style="width: 100%">Open</button>
+                <button type="button" class="btn btn-default" style="width: 100%" onclick="openImage(document.getElementById('original').value)">Open</button>
             </div>
             <br/>
             <div>
@@ -262,7 +277,7 @@
             </div>
             <hr/>
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ShareLink"/>
+            <input class="form-control" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" value="@ShareLink"/>
             <br/>
             <div>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
