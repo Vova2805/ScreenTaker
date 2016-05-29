@@ -25,6 +25,7 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Welcome", "Home");
         }
 
+        [HttpGet]
         public ActionResult Welcome(string lang = "en")
         {
             return View();
