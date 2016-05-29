@@ -8,7 +8,6 @@ using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Image = ScreenTaker.Models.Image;
-
 namespace ScreenTaker.Controllers
 {
     public class HomeController : Controller
@@ -25,6 +24,7 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Welcome", "Home");
         }
 
+        [HttpGet]
         public ActionResult Welcome(string lang = "en")
         {
             return View();
@@ -111,9 +111,13 @@ namespace ScreenTaker.Controllers
         {
             var list = _entities.Images.ToList();
             ViewBag.Images = list;
-            var pathsList = _entities.Images.ToList().Select(i => GetBaseUrl() + "img/" + i.SharedCode ).ToList();
+            var pathsList = _entities.Images.ToList()
+                .Select(i => GetBaseUrl() + "img/" + i.SharedCode ).ToList();
             ViewBag.Paths = pathsList;
             ViewBag.BASE_URL = GetBaseUrl() + "img/";
+            ViewBag.SharedLinks = _entities.Images.ToList()
+                .Select(i=> GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
+
             return View();
         }
 
@@ -149,9 +153,30 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Date = ViewBag.Image.PublicationDate;
             }
+
+            if (ViewBag.Image != null)
+            {
+                ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
+            }
             return View();
         }
 
+        [HttpGet]
+        public ActionResult SharedImage(string i)
+        {
+            var image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
+            bool accesGranted = false;
+            if (image != null)
+            {
+                accesGranted = true;
+                if (accesGranted)
+                {
+                    ViewBag.ImageName = image.Name;
+                }
+            }
+            ViewBag.AccessGranted = accesGranted;
+            return View();
+        }
         public ActionResult DeleteImage(string path, string lang = "en")
         {
             using (var transaction = _entities.Database.BeginTransaction())
@@ -173,6 +198,7 @@ namespace ScreenTaker.Controllers
             }
             return RedirectToAction("Images");
         }
+
         public ActionResult RenameImage(string path, string newName, string lang = "en")
         {
             using (var transaction = _entities.Database.BeginTransaction())
