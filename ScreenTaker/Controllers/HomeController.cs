@@ -103,9 +103,18 @@ namespace ScreenTaker.Controllers
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            ViewBag.BaseURL = GetBaseUrl()+"";
+            ViewBag.UserId = user.Id;
+            ViewBag.BaseURL = GetBaseUrl() + "";
             ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
+            Folder folder = _entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            ViewBag.CurrentFolderShCode = folder == null ? (
+                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
+                ) : folder.SharedCode;
+
+            ViewBag.CurrentFolderId = (folder == null )? (
+               ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
+               ) : folder.Id;
             return View();
         }
 
@@ -118,6 +127,22 @@ namespace ScreenTaker.Controllers
         }
         #endregion
 
+        private void FillImagesViewBag(int folderId)
+        {
+            var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
+
+            ViewBag.IsEmpty = !list.Any();
+            ViewBag.Images = list;            
+            var pathsList = _entities.Images.ToList()
+                .Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
+            ViewBag.Paths = pathsList;
+            ViewBag.BASE_URL = GetBaseUrl();
+            ViewBag.SharedLinks = _entities.Images.ToList()
+                .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
+
+            ViewBag.FolderId = folderId;
+        }
+
         public ActionResult Images(string id, string lang = "en")
         {
             if (id == null)
@@ -125,17 +150,50 @@ namespace ScreenTaker.Controllers
                 return RedirectToAction("Welcome");
             }
 
-            int folderId = Int32.Parse(id);
-            var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
+            FillImagesViewBag(Int32.Parse(id));
 
-            ViewBag.IsEmpty = !list.Any();
-            ViewBag.Images = list;
-            var pathsList = _entities.Images.ToList()
-                .Select(i => GetBaseUrl() + "img/" + i.SharedCode ).ToList();
-            ViewBag.Paths = pathsList;
-            ViewBag.BASE_URL = GetBaseUrl();
-            ViewBag.SharedLinks = _entities.Images.ToList()
-                .Select(i=> GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Images(HttpPostedFileBase file, string folderId, string lang = "en")
+        {
+            if (file != null)
+            {
+                using (var transaction = _entities.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var sharedCode = _stringGenerator.Next();
+                        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var image = new Image();                
+                        image.IsPublic = false;
+                        image.FolderId = Int32.Parse(folderId);
+                        image.SharedCode = sharedCode;
+                        image.Name = fileName;
+                        image.PublicationDate = DateTime.Now;
+                        _entities.Images.Add(image);
+                        _entities.SaveChanges();
+
+                        transaction.Commit();
+
+                        var bitmap = new Bitmap(file.InputStream);
+
+                        var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
+                        bitmap.Save(path, ImageFormat.Png);
+
+                        var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
+                        path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
+                        compressedBitmap.Save(path, ImageFormat.Png);
+                    }
+                    catch (Exception e)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+
+            }
+            FillImagesViewBag(Int32.Parse(folderId));
 
             return View();
         }
@@ -221,20 +279,39 @@ namespace ScreenTaker.Controllers
                 }
             }
             ViewBag.AccessGranted = accesGranted;
+
+            ViewBag.Image = image;
+            if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
+            {
+                ViewBag.Image = _entities.Images.ToList().First();
+            }
+            ViewBag.OriginalPath = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
+            }
+            ViewBag.OriginalName = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+            }
             return View();
         }
         public ActionResult DeleteImage(string path, string lang = "en")
         {
+            int folderId = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
+                {                    
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
+                    folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
                     _entities.Images.Remove(obj);
                     _entities.SaveChanges();
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
+                    
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -242,7 +319,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images");
+            return RedirectToAction("Images", new { id = folderId.ToString() });
         }
 
         public ActionResult RenameImage(string path, string newName, string lang = "en")
@@ -266,8 +343,38 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path) });
         }
 
+        public ActionResult AddFolder(string path, string title, string lang = "en")
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    
+                        var newolder = new Folder()
+                        {
+                            IsPublic = true,
+                            OwnerId = user.Id,
+                            SharedCode = _stringGenerator.Next(),
+                            Name = title,
+                            CreationDate = DateTime.Now
+                        };
+                    _entities.Folders.Add(newolder);
+                    _entities.SaveChanges();
+                    
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("Library","Home");
+        }
+
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
         {
+            int folderId = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -276,6 +383,7 @@ namespace ScreenTaker.Controllers
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
                     obj.Name = newName;
+                    folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
@@ -284,7 +392,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images", new { image = Path.GetFileNameWithoutExtension(path) });
+            return RedirectToAction("Images", new { id=folderId.ToString() });
         }
 
         public ActionResult DeleteFolder(string path, string lang = "en")
@@ -293,12 +401,10 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
-                    var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
-                    _entities.Images.Remove(obj);
+                    var sharedСode = Path.GetFileNameWithoutExtension(path);
+                    var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedСode);
+                    _entities.Folders.Remove(obj);
                     _entities.SaveChanges();
-                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
-                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -306,7 +412,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images");
+            return RedirectToAction("Library");
         }
 
         public ActionResult RenameFolder(string path, string newName, string lang = "en")
@@ -315,9 +421,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
-                    ViewBag.ImageTitle = newName;
-                    var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    var sharedCode = Path.GetFileNameWithoutExtension(path);
+                    var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedCode);
                     obj.Name = newName;
                     _entities.SaveChanges();
                     transaction.Commit();
@@ -327,7 +432,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path) });
+            return RedirectToAction("Library");
         }
     }
 }

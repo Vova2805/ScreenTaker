@@ -332,6 +332,7 @@
     <Content Include="Scripts\carousel.js" />
     <Content Include="Scripts\collapse.js" />
     <Content Include="Scripts\constraint.js" />
+    <Content Include="Scripts\context-menu.js" />
     <Content Include="Scripts\dropdown.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
