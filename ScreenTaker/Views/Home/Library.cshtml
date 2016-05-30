@@ -25,10 +25,13 @@
         return false;
     }
 
-    function selectImage(name, sharedLinkValue, image) {
+    function selectFolder(name, sharedLinkValue, image,id,sharedCode) {
         document.getElementById("sharedLink").value = sharedLinkValue;
         document.getElementById("folderImage").src = image;
         document.getElementById("folderTitle").innerText = name;
+        //selected folder info
+        ViewBag.CurrentFolderId = id;
+        ViewBag.CurrentFolderSCode = sharedCode;
 
         return false;
     }
@@ -232,8 +235,11 @@
                 @for (int i = 0; i < ViewBag.Folders.Count; i++)
                 {
                     string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
+                    string id = ViewBag.Folders[i].Id;
+                    string sharedCode = ViewBag.Folders[i].SharedCode;
                     string imageLink = "/Resources/images/"+ (ViewBag.Folders[i].IsPublic?"public.png":"private.png");
-                    <a href="#" onclick="selectImage('@ViewBag.Folders[i].Name','@link','@imageLink')" ondblclick="openFolder(@ViewBag.Folders[i].Id)">
+                    <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Name','@link','@imageLink','@id',@sharedCode')" 
+                       ondblclick="openFolder(@ViewBag.Folders[i].Id)">
                         <figure class="col-md-2 text-center task active images">
                             <img src="~/Resources/images/public.png" />
                             <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
