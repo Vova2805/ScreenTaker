@@ -244,7 +244,9 @@
                     @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                        <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
+                        <input id="fileSubmit" style="visibility: collapse" type="submit" value="bla"/>
+                        <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
+
                         <input type="button" class="btn btn-primary btn-lg pull-right success" style="width:200px; height:30px;vertical-align:middle;background-color:cornflowerblue;margin-top:-30px;margin-bottom:10px;font-size:12px;" value="@Resources.Resource.UPLOAD_IMAGE" onclick="document.getElementById('fileInput').click();" />
                     }
                 </div>
