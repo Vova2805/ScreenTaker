@@ -91,7 +91,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" onclick=
-                        "location.href='@Url.Action("RenameFolder", "Home")?path='+document.getElementById('sharedLink').value+'&newName='+document.getElementById('new-title').value">Submit</button>
+                        "location.href='@Url.Action("RenameFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">Submit</button>
             </div>
         </div>
     </div>
@@ -116,7 +116,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                 <button type="button" class="btn btn-primary"  onclick=
-                        "location.href='@Url.Action("DeleteFolder", "Home")?path='+document.getElementById('sharedLink').value+'&newName='+document.getElementById('new-title').value">Yes</button>
+                        "location.href='@Url.Action("DeleteFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">Yes</button>
             </div>
         </div>
     </div>

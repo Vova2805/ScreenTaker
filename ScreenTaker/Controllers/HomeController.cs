@@ -403,6 +403,14 @@ namespace ScreenTaker.Controllers
                 {
                     var sharedСode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedСode);
+                    var images = obj.Images;
+                    while (images.Count > 0)
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + ".png");
+                        System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + "_compressed.png");
+                        _entities.Images.Remove(images.ElementAt(0));
+                        _entities.SaveChanges();
+                    }
                     _entities.Folders.Remove(obj);
                     _entities.SaveChanges();
                     transaction.Commit();
