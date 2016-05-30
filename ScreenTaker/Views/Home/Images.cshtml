@@ -8,8 +8,8 @@
 
     if (!ViewBag.IsEmpty)
     {
-        ShareLink = ViewBag.SharedLinks[0];
-        CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png";
+        ShareLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + ViewBag.Images[0].SharedCode;
+        CommpressedLink = ViewBag.BASE_URL + "img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
         Name = ViewBag.Images[0].Name + ".png";
     }
 
@@ -266,7 +266,6 @@
                     <a href="#" onclick="selectImage('@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
                         <div class="col-md-2 text-center task active images" style="margin-bottom: 60px; padding-top: 10px; " >
                             <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
-                                @*<img src="" alt="@compressed" />*@
                             </div>
                             <label class="text-center">@name</label>
                         </div>
