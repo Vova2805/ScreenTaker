@@ -99,6 +99,7 @@ namespace ScreenTaker.Controllers
         #region Library
         public ActionResult Library(string lang = "en")
         {
+<<<<<<< HEAD
             ViewBag.Message = "Library page";
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
@@ -116,6 +117,14 @@ namespace ScreenTaker.Controllers
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
             return View();
+=======
+            
+                ViewBag.Message = "Library page";
+                ViewBag.Folders = _entities.Folders.ToList();
+                ViewBag.BaseURL = GetBaseUrl()+"";
+                ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
+                return View();
+>>>>>>> origin/develop
         }
 
         [HttpGet]
