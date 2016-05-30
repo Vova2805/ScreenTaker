@@ -29,7 +29,6 @@
     }
 
     function selectImage(name, sharedLinkValue, image, id, sharedCode) {
-        alert(id);
         //selected folder info
         ViewBag.CurrentFolderId = id;
         ViewBag.CurrentFolderSCode = sharedCode;
@@ -48,6 +47,34 @@
 </script>
 }
 
+
+
+
+<div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">New folder</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">Enter a title for new folder</label>
+                        <input type="text" class="form-control" id="new-title1" value="New folder">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -61,32 +88,7 @@
                 <form>
                     <div class="form-group">
                         <label for="new-title" class="control-label">Enter new title for folder</label>
-                        <input type="text" class="form-control" id="new-title1">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">Add</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="exampleModalLabel">Add new folder</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="new-title" class="control-label">Enter a title for new folder</label>
-                        <input type="text" class="form-control" id="new-title" value="New Folder">
+                        <input type="text" class="form-control" id="new-title">
                     </div>
                 </form>
             </div>
