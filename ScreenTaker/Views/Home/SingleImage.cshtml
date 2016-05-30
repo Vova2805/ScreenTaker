@@ -21,6 +21,10 @@
       function selectText() {
           document.getElementById('sharedLink').select();
       }
+
+
+      
+
     </script>
 }
 
@@ -275,7 +279,9 @@
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" style="width: 100%">Make public</button>
+                <button class="btn btn-warning btn-not-rounded" style="width: 100%"  onclick="location.href='@Url.Action("MakeSingleImagePublic", "Home" , new {imagestatus=ViewBag.IsPublic,imageId=ViewBag.Id})'" >@ViewBag.ButtonPrivateORPublic</button>
+            status is: @ViewBag.IsPublic
+                id is: @ViewBag.Id
             </div>
             <hr />
             <p style="color: #E0E0E0">Share image</p>
