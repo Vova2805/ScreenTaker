@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Library";
     ViewBag.CurrentFolderShCode = "-1";
+    ViewBag.CurrentFolderId = "-1";
 }
 @section Scripts
 {
@@ -25,22 +26,50 @@
             return false;
         }
 
-         function selectFolder(name, sharedLinkValue,image,sharedCode) {
+         function selectFolder(id,name, sharedLinkValue,image,sharedCode) {
             document.getElementById("sharedLink").value = sharedLinkValue;
             document.getElementById("folderImage").src = image;
-
+            document.getElementById("folderTitle").innerText = name;
             ViewBag.CurrentFolderShCode = sharedCode;
+            ViewBag.CurrentFolderId = id;
 
-            document.getElementById("folderTitle").innerText = ViewBag.CurrentFolderShCode;//name;
+           
 
             return false;
          }
 
          function selectText() {
              document.getElementById('sharedLink').select();
+             return false;
          }
     </script>
 }
+
+
+<div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">New folder</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">Enter a title for new folder</label>
+                        <input type="text" class="form-control" id="new-title1" value="New folder">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">
     <div class="modal-dialog" role="document">
@@ -227,8 +256,11 @@
 
 <div class="row" style="margin-bottom: -40px; overflow: hidden; position: relative;  min-height: 800px">
     <div class="col-md-10">
-        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
+        <div class="col-sm-10" style="padding-left:25px;padding-right:25px;">
             <h2>Folders</h2>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary btn-lg pull-right success btn-not-rounded" style="width:150px; height:30px;vertical-align:middle;background-color:cornflowerblue;margin-top:30px;margin-bottom:10px;font-size:13px;" data-toggle="modal" data-target="#AddFolder"> Add folder</button>
         </div>
         <div class="row">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
@@ -236,7 +268,7 @@
                 {
                     string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
                     string imageLink = "/Resources/images/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
-                    <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Name','@link','@imageLink','@ViewBag.Folders[i].SharedCode')" ondblclick="openFolder(@ViewBag.Folders[i].Id)">
+                    <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@ViewBag.Folders[i].Name','@link','@imageLink','@ViewBag.Folders[i].SharedCode')" ondblclick="openFolder(@ViewBag.Folders[i].Id)">
                         <figure class="col-md-2 text-center task active images">
                             <img src="~/Resources/images/public.png" />
                             <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
