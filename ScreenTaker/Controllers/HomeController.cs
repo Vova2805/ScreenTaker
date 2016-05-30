@@ -401,12 +401,10 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
-                    var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
-                    _entities.Images.Remove(obj);
+                    var sharedСode = Path.GetFileNameWithoutExtension(path);
+                    var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedСode);
+                    _entities.Folders.Remove(obj);
                     _entities.SaveChanges();
-                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
-                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -414,7 +412,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images");
+            return RedirectToAction("Library");
         }
 
         public ActionResult RenameFolder(string path, string newName, string lang = "en")
@@ -423,9 +421,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
-                    ViewBag.ImageTitle = newName;
-                    var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    var sharedCode = Path.GetFileNameWithoutExtension(path);
+                    var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedCode);
                     obj.Name = newName;
                     _entities.SaveChanges();
                     transaction.Commit();
@@ -435,7 +432,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path) });
+            return RedirectToAction("Library");
         }
     }
 }
