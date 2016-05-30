@@ -163,7 +163,7 @@ namespace ScreenTaker.Controllers
                         //else image.id = 1;
 
                         image.IsPublic = false;
-                        image.FolderId = _entities.Folders.Where(f => f.Name.Equals("General")).Select(fol => fol.Id).FirstOrDefault();
+                        image.FolderId = Int32.Parse(folderId);
                         image.SharedCode = sharedCode;
                         image.Name = fileName;
                         image.PublicationDate = DateTime.Now;
