@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Library";
+    //selected folder
     ViewBag.CurrentFolderId = "-1";
     ViewBag.CurrentFolderSCode = "-1";
 }
@@ -234,12 +235,12 @@
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
                 @for (int i = 0; i < ViewBag.Folders.Count; i++)
                 {
-                    string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
-                    string id = ViewBag.Folders[i].Id;
+                    string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode.ToString();
+                    string id = ViewBag.Folders[i].Id.ToString();
                     string sharedCode = ViewBag.Folders[i].SharedCode;
                     string imageLink = "/Resources/images/"+ (ViewBag.Folders[i].IsPublic?"public.png":"private.png");
                     <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Name','@link','@imageLink','@id',@sharedCode')" 
-                       ondblclick="openFolder(@ViewBag.Folders[i].Id)">
+                       ondblclick="openFolder(@ViewBag.CurrentFolderId)">
                         <figure class="col-md-2 text-center task active images">
                             <img src="~/Resources/images/public.png" />
                             <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
