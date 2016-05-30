@@ -99,8 +99,6 @@ namespace ScreenTaker.Controllers
         #region Library
         public ActionResult Library(string lang = "en")
         {
-            ViewBag.BaseURL = GetBaseUrl()+"";
-            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
             ViewBag.Message = "Library page";
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
@@ -108,7 +106,6 @@ namespace ScreenTaker.Controllers
 
             ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-
             return View();
         }
 
@@ -131,10 +128,14 @@ namespace ScreenTaker.Controllers
             int folderId = Int32.Parse(id);
             var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
 
-            ViewBag.IsEmpty = list.Any() ? true : false;
-
+            ViewBag.IsEmpty = !list.Any();
             ViewBag.Images = list;
-            ViewBag.BASE_URL = GetBaseUrl()+"";
+            var pathsList = _entities.Images.ToList()
+                .Select(i => GetBaseUrl() + "img/" + i.SharedCode ).ToList();
+            ViewBag.Paths = pathsList;
+            ViewBag.BASE_URL = GetBaseUrl() + "img/";
+            ViewBag.SharedLinks = _entities.Images.ToList()
+                .Select(i=> GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
 
             return View();
         }
@@ -181,35 +182,16 @@ namespace ScreenTaker.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult SharedImage(string i, string lang = "en")
+        public ActionResult SharedImage(string i)
         {
-            ViewBag.Image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
+            var image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
             bool accesGranted = false;
-            if (ViewBag.Image != null)
+            if (image != null)
             {
                 accesGranted = true;
                 if (accesGranted)
                 {
-                    ViewBag.ImageName = ViewBag.Image.Name;
-                    if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
-                    {
-                        ViewBag.Image = _entities.Images.ToList().First();
-                    }
-                    ViewBag.OriginalPath = "";
-                    if (ViewBag.Image != null)
-                    {
-                        ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
-                    }
-                    ViewBag.OriginalName = "";
-                    if (ViewBag.Image != null)
-                    {
-                        ViewBag.OriginalName = ViewBag.Image.Name + ".png";
-                    }
-
-                    if (ViewBag.Image != null)
-                    {
-                        ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
-                    }
+                    ViewBag.ImageName = image.Name;
                 }
             }
             ViewBag.AccessGranted = accesGranted;
