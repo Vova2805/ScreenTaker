@@ -21,23 +21,9 @@
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
                 <div class="col-sm-10">
-                    <h2>Images</h2>
-                </div>
-                
-                <div class="col-sm-2">
-                    @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                        <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
-                        <input type="button" class="btn btn-primary btn-lg pull-right success" style="width:200px; height:30px;vertical-align:middle;background-color:cornflowerblue;margin-top:-30px;margin-bottom:10px;font-size:12px;" value="@Resources.Resource.UPLOAD_IMAGE" onclick="document.getElementById('fileInput').click();" />
-                    }
+                    <h2>Folder name</h2>
                 </div>
             </div>
-            
-            <ol class="breadcrumb" >
-                <li><a href="/Home/Library">Folders</a></li>
-                <li class="active">Shared folder</li>
-            </ol>
         </div>
         <div class="row">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
