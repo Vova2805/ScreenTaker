@@ -272,3 +272,7 @@ textarea {
     background-color: #F0F0F0;
     color: #686868;
 }
+
+.btn-not-rounded {
+    border-radius: 0
+}

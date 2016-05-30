@@ -28,7 +28,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="exampleModalLabel">Rename</h4>
@@ -42,8 +42,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">Submit</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Close</button>                
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">Submit</button>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="exampleModalLabel">Delete image</h4>
@@ -66,8 +66,8 @@
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" class="btn btn-default " data-dismiss="modal">No</button>               
-                <button type="button" class="btn btn-primary" 
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">No</button>               
+                <button type="button" class="btn btn-primary btn-not-rounded" 
                         onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath })'" >Yes</button>
                 
             </div>
@@ -79,7 +79,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="gridSystemModalLabel">Manage access</h4>
@@ -91,8 +91,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="btn-group pull-right" id="toggle_event_editing">
-                            <button type="button" class="btn btn-default unlocked_inactive" style="height:30px;width:60px;font-size:12px;">On</button>
-                            <button type="button" class="btn btn-info locked_active" style="height:30px;width:60px;font-size:12px;">Off</button>
+                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">On</button>
+                            <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">Off</button>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                         <div class="input-group">
                             <input type="text" style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
                             <span class="input-group-btn" style="height:30px;">
-                                <button class="btn btn-default" style="height:30px;" type="button">Copy</button>
+                                <button class="btn btn-default btn-not-rounded" style="height:30px;" type="button">Copy</button>
                             </span>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                                             <h5 class="media-heading">vovadudas@gmail.com</h5>
                                         </div>
                                         <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -131,7 +131,7 @@
                                             <h5 class="media-heading">vovadudas@gmail.com</h5>
                                         </div>
                                         <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -141,7 +141,7 @@
                                             <h5 class="media-heading">vovadudas@gmail.com</h5>
                                         </div>
                                         <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -151,7 +151,7 @@
                                             <h5 class="media-heading">vovadudas@gmail.com</h5>
                                         </div>
                                         <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -161,7 +161,7 @@
                                             <h5 class="media-heading">vovadudas@gmail.com</h5>
                                         </div>
                                         <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -203,7 +203,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" style="width:100px;" data-dismiss="modal">Submit</button>
+                <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">Submit</button>
             </div>
         </div>
     </div>
@@ -238,22 +238,22 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">map</button>
+                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">map</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">favorite</button>
+                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">favorite</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">earth</button>
+                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">earth</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">mine</button>
+                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">mine</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">family</button>
+                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">family</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-warning" style="width: 100%; background-color: #686868; color: white">nature</button>
+                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">nature</button>
                                 </div>
                             </div>
                             <br />
@@ -267,22 +267,22 @@
             <p style="color: #E0E0E0; padding-top: 10px">@ViewBag.OriginalName</p>
             <hr />
             <div>
-                <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#RenameImage" style="width: 100%">Rename</button>
+                <button type="button" class="btn btn-default btn-not-rounded"  data-toggle="modal" data-target="#RenameImage" style="width: 100%">Rename</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#DeleteImage" style="width: 100%">Delete</button>
+                <button type="button" class="btn btn-danger btn-not-rounded"  data-toggle="modal" data-target="#DeleteImage" style="width: 100%">Delete</button>
             </div>
             <br />
             <div>
-                <button class="btn btn-warning" style="width: 100%">Make public</button>
+                <button class="btn btn-warning btn-not-rounded" style="width: 100%">Make public</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.SharedLink" />
+            <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.SharedLink" />
             <br />
             <div>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
+                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
             </div>
             <hr />
         </div>
