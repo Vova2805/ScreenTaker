@@ -118,6 +118,22 @@ namespace ScreenTaker.Controllers
         }
         #endregion
 
+        private void FillImagesViewBag(int folderId)
+        {
+            var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
+
+            ViewBag.IsEmpty = !list.Any();
+            ViewBag.Images = list;
+            var pathsList = _entities.Images.ToList()
+                .Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
+            ViewBag.Paths = pathsList;
+            ViewBag.BASE_URL = GetBaseUrl();
+            ViewBag.SharedLinks = _entities.Images.ToList()
+                .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
+
+            ViewBag.FolderId = folderId;
+        }
+
         public ActionResult Images(string id, string lang = "en")
         {
             if (id == null)
@@ -125,17 +141,54 @@ namespace ScreenTaker.Controllers
                 return RedirectToAction("Welcome");
             }
 
-            int folderId = Int32.Parse(id);
-            var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
+            FillImagesViewBag(Int32.Parse(id));
 
-            ViewBag.IsEmpty = !list.Any();
-            ViewBag.Images = list;
-            var pathsList = _entities.Images.ToList()
-                .Select(i => GetBaseUrl() + "img/" + i.SharedCode ).ToList();
-            ViewBag.Paths = pathsList;
-            ViewBag.BASE_URL = GetBaseUrl();
-            ViewBag.SharedLinks = _entities.Images.ToList()
-                .Select(i=> GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Images(HttpPostedFileBase file, string folderId, string lang = "en")
+        {
+            if (file != null)
+            {
+                using (var transaction = _entities.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var sharedCode = _stringGenerator.Next();
+                        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var image = new Image();
+                        //if (_entities.Image.ToList().Count > 0)
+                        //    image.id = _entities.Image.Max(s => s.id) + 1;
+                        //else image.id = 1;
+
+                        image.IsPublic = false;
+                        image.FolderId = _entities.Folders.Where(f => f.Name.Equals("General")).Select(fol => fol.Id).FirstOrDefault();
+                        image.SharedCode = sharedCode;
+                        image.Name = fileName;
+                        image.PublicationDate = DateTime.Now;
+                        _entities.Images.Add(image);
+                        _entities.SaveChanges();
+
+                        transaction.Commit();
+
+                        var bitmap = new Bitmap(file.InputStream);
+
+                        var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
+                        bitmap.Save(path, ImageFormat.Png);
+
+                        var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
+                        path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
+                        compressedBitmap.Save(path, ImageFormat.Png);
+                    }
+                    catch (Exception e)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+
+            }
+            FillImagesViewBag(Int32.Parse(folderId));
 
             return View();
         }
