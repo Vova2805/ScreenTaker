@@ -363,7 +363,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign in.
+        ///   Looks up a localized string similar to Sign up.
         /// </summary>
         internal static string SIGNIN_LOGOUT {
             get {

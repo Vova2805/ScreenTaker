@@ -21,9 +21,13 @@
                 @Html.ActionLink("ScreenTaker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Folders", "Library", "Home")</li>
-                </ul>*@
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Folders", "Library", "Home")</li>
+                    </ul>
+                }
+               
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
