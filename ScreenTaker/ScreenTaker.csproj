@@ -301,7 +301,6 @@
     <Content Include="Models\ScreenTakerDataModel.edmx.diagram">
       <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
     </Content>
-    <None Include="Resources\images\addImage.png" />
     <None Include="Resources\images\printscreen.png" />
     <None Include="Resources\images\private.png" />
     <None Include="Resources\images\public.png" />
