@@ -1,5 +1,7 @@
-﻿@{
+﻿@using ScreenTaker.Models;
+@{
     ViewBag.Title = "Library";
+    ViewBag.CurrentFolderShCode = "-1";
 }
 @section Scripts
 {
@@ -23,10 +25,13 @@
             return false;
         }
 
-         function selectImage(name, sharedLinkValue,image) {
+         function selectFolder(name, sharedLinkValue,image,sharedCode) {
             document.getElementById("sharedLink").value = sharedLinkValue;
             document.getElementById("folderImage").src = image;
-            document.getElementById("folderTitle").innerText = name;
+           
+            ViewBag.CurrentFolderShCode = sharedCode;
+
+            document.getElementById("folderTitle").innerText = ViewBag.CurrentFolderShCode;//name;
            
             return false;
          }
@@ -231,7 +236,7 @@
                 {
                     string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
                     string imageLink = "/Resources/images/"+ (ViewBag.Folders[i].IsPublic?"public.png":"private.png");
-                    <a href="#" onclick="selectImage('@ViewBag.Folders[i].Name','@link','@imageLink')" ondblclick="openFolder(@ViewBag.Folders[i].Id)">
+                    <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Name','@link','@imageLink','@ViewBag.Folders[i].SharedCode')" ondblclick="openFolder(@ViewBag.Folders[i].Id)">
                         <figure class="col-md-2 text-center task active images">
                             <img src="~/Resources/images/public.png" />
                             <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
