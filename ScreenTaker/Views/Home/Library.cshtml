@@ -18,8 +18,8 @@
             $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
         });
 
-        function openFolder() {
-            location.href = "/Home/Images";
+        function openFolder(i) {
+            location.href = "/Home/Images?id=" + i;
             return false;
         }
 
@@ -231,7 +231,7 @@
                 {
                     string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
                     string imageLink = "/Resources/images/"+ (ViewBag.Folders[i].IsPublic?"public.png":"private.png");
-                    <a href="#" onclick="selectImage('@ViewBag.Folders[i].Name','@link','@imageLink')" ondblclick="openFolder()">
+                    <a href="#" onclick="selectImage('@ViewBag.Folders[i].Name','@link','@imageLink')" ondblclick="openFolder(i)">
                         <figure class="col-md-2 text-center task active images">
                             <img src="~/Resources/images/public.png" />
                             <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>

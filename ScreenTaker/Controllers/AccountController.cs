@@ -18,6 +18,12 @@ namespace ScreenTaker.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private RandomStringGenerator _stringGenerator = new RandomStringGenerator()
+        {
+            Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
+            Length = 15
+        };
+
         public AccountController()
         {
         }
@@ -157,13 +163,26 @@ namespace ScreenTaker.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
+                    using (var entities = new ScreenTakerEntities())
+                    {
+                        var defaultFolder = new Folder()
+                        {
+                            IsPublic = true,
+                            OwnerId = user.Id,
+                            SharedCode = _stringGenerator.Next(),
+                            Name = "Default (" + user.UserName + ")",
+                            CreationDate = DateTime.Now
+                        };
+                        entities.Folders.Add(defaultFolder);
+                        entities.SaveChanges();
+                    }
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Library", "Home");
                 }
                 AddErrors(result);
             }

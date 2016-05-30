@@ -1,8 +1,18 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string SharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + ViewBag.Images[0].SharedCode;
-    string CommpressedLink = ViewBag.BASE_URL+"img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
-    string Name = ViewBag.Images[0].Name + ".png";
+
+
+    string ShareLink = "";
+    string CommpressedLink = "";
+    string Name = "";
+
+    if (ViewBag.IsEmpty)
+    {
+        ShareLink = ViewBag.SharedLinks[0];
+        CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png";
+        Name = ViewBag.Images[0].Name + ".png";
+    }
+
 }
 @section Scripts
 {
@@ -288,7 +298,7 @@
             </div>
             <hr/>
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@SharedLink"/>
+            <input class="form-control" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ShareLink"/>
             <br/>
             <div>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
