@@ -262,7 +262,7 @@
             @foreach (var i in ViewBag.Images)
             {
                 string original = i.SharedCode;
-                string sharedLink1 = ViewBag.BASE_URL.Substring(0, ViewBag.BASE_URL.Length - 4) + "Home/SharedImage?i=" + original;
+                string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                 string compressed = ViewBag.BASE_URL+"img/" + i.SharedCode + "_compressed.png";
                 string name = i.Name + ".png";
                     <a href="#" onclick="selectImage('@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
