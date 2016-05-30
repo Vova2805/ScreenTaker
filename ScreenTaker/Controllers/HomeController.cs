@@ -140,6 +140,28 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
+        public ActionResult SharedFolder(string id, string lang = "en")
+        {
+            //if (id == null)
+            //{
+            //    return RedirectToAction("Welcome");
+            //}
+
+            int folderId = Int32.Parse(id);
+            var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
+
+            ViewBag.IsEmpty = !list.Any();
+            ViewBag.Images = list;
+            var pathsList = _entities.Images.ToList()
+                .Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
+            ViewBag.Paths = pathsList;
+            ViewBag.BASE_URL = GetBaseUrl();
+            ViewBag.SharedLinks = _entities.Images.ToList()
+                .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
+
+            return View();
+        }
+
         public string GetBaseUrl()
         {
             var request = HttpContext.Request;
