@@ -274,6 +274,22 @@ namespace ScreenTaker.Controllers
                 }
             }
             ViewBag.AccessGranted = accesGranted;
+
+            ViewBag.Image = image;
+            if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
+            {
+                ViewBag.Image = _entities.Images.ToList().First();
+            }
+            ViewBag.OriginalPath = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
+            }
+            ViewBag.OriginalName = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+            }
             return View();
         }
         public ActionResult DeleteImage(string path,string folderId, string lang = "en")
