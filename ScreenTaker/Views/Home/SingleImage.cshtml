@@ -37,7 +37,7 @@
                 <form>
                     <div class="form-group">
                         <label for="new-title" class="control-label">Enter new title for image</label>
-                        <input type="text" class="form-control" id="new-title">
+                        <input type="text" class="form-control" id="new-title" value="@ViewBag.OriginalName.Substring(0,ViewBag.OriginalName.Length - 4)">
                     </div>
                 </form>
             </div>
@@ -65,9 +65,11 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">                
-                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath })'" >Yes</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" >No</button>
+            <div class="modal-footer"> 
+                <button type="button" class="btn btn-default " data-dismiss="modal">No</button>               
+                <button type="button" class="btn btn-primary" 
+                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath })'" >Yes</button>
+                
             </div>
         </div>
     </div>
@@ -262,7 +264,7 @@
     </div>
     <div class="col-md-2" style="background-color: #686868; right: 10px; height: 100%; position: absolute">
         <div style="margin-left: 10px">
-            <p style="color: #E0E0E0; padding-top: 10px">@ViewBag.Title</p>
+            <p style="color: #E0E0E0; padding-top: 10px">@ViewBag.OriginalName</p>
             <hr />
             <div>
                 <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#RenameImage" style="width: 100%">Rename</button>

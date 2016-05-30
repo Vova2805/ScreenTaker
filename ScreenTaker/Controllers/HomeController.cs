@@ -166,7 +166,11 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.OriginalName = ViewBag.Image.Name + ".png";
             }
-
+            ViewBag.ImageTitle = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.ImageTitle = ViewBag.Image.Name;
+            }
             ViewBag.Date = "";
             if (ViewBag.Image != null)
             {
@@ -225,8 +229,73 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    ViewBag.ImageTitle = newName;
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
                     var obj=_entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    obj.Name = newName;
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path) });
+        }
+
+        public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ViewBag.ImageTitle = newName;
+                    var sharedDode = Path.GetFileNameWithoutExtension(path);
+                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    obj.Name = newName;
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("Images", new { image = Path.GetFileNameWithoutExtension(path) });
+        }
+
+        public ActionResult DeleteFolder(string path, string lang = "en")
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var sharedDode = Path.GetFileNameWithoutExtension(path);
+                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    _entities.Images.Remove(obj);
+                    _entities.SaveChanges();
+                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
+                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("Images");
+        }
+
+        public ActionResult RenameFolder(string path, string newName, string lang = "en")
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ViewBag.ImageTitle = newName;
+                    var sharedDode = Path.GetFileNameWithoutExtension(path);
+                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
                     obj.Name = newName;
                     _entities.SaveChanges();
                     transaction.Commit();
