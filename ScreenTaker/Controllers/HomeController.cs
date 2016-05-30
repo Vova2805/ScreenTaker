@@ -276,7 +276,7 @@ namespace ScreenTaker.Controllers
             ViewBag.AccessGranted = accesGranted;
             return View();
         }
-        public ActionResult DeleteImage(string path, string lang = "en")
+        public ActionResult DeleteImage(string path,string folderId, string lang = "en")
         {
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -295,7 +295,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images");
+            return RedirectToAction("Images","Home", new { id = folderId });
         }
 
         public ActionResult RenameImage(string path, string newName, string lang = "en")
@@ -317,6 +317,35 @@ namespace ScreenTaker.Controllers
                 }
             }
             return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path) });
+        }
+
+        public ActionResult AddFolder(string path, string title, string lang = "en")
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    
+                        var newolder = new Folder()
+                        {
+                            IsPublic = true,
+                            OwnerId = user.Id,
+                            SharedCode = _stringGenerator.Next(),
+                            Name = title,
+                            CreationDate = DateTime.Now
+                        };
+                    _entities.Folders.Add(newolder);
+                    _entities.SaveChanges();
+                    
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("Library","Home");
         }
 
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")

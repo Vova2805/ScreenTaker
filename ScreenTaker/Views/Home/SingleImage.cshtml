@@ -68,7 +68,7 @@
             <div class="modal-footer"> 
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">No</button>               
                 <button type="button" class="btn btn-primary btn-not-rounded" 
-                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath })'" >Yes</button>
+                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath,folderId=ViewBag.CurrentFolderId})'" >Yes</button>
                 
             </div>
         </div>
