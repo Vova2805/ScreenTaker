@@ -79,16 +79,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AddImage {
-            get {
-                object obj = ResourceManager.GetObject("AddImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alphabet.
         /// </summary>
         internal static string ALPHABET {
