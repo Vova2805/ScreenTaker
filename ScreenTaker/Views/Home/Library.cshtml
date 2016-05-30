@@ -3,38 +3,38 @@
 }
 @section Scripts
 {
-    <script src="~/Scripts/context-menu.js">
-        $('#toggle_event_editing button').click(function () {
-            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
-                /* code to do when unlocking */
-                $('#switch_status').html('Switched on.');
-            } else {
-                /* code to do when locking */
-                $('#switch_status').html('Switched off.');
-            }
-
-            /* reverse locking status */
-            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
-            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
-        });
-
-        function openFolder(i) {
-            location.href = "/Home/Images?id=" + i;
-            return false;
+<script>
+    $('#toggle_event_editing button').click(function () {
+        if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
+            /* code to do when unlocking */
+            $('#switch_status').html('Switched on.');
+        } else {
+            /* code to do when locking */
+            $('#switch_status').html('Switched off.');
         }
 
-         function selectImage(name, sharedLinkValue,image) {
-            document.getElementById("sharedLink").value = sharedLinkValue;
-            document.getElementById("folderImage").src = image;
-            document.getElementById("folderTitle").innerText = name;
-           
-            return false;
-         }
+        /* reverse locking status */
+        $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
+        $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
+    });
 
-         function selectText() {
-             document.getElementById('sharedLink').select();
-         }
-    </script>
+    function openFolder(i) {
+        location.href = "/Home/Images?id=" + i;
+        return false;
+    }
+
+    function selectImage(name, sharedLinkValue, image) {
+        document.getElementById("sharedLink").value = sharedLinkValue;
+        document.getElementById("folderImage").src = image;
+        document.getElementById("folderTitle").innerText = name;
+
+        return false;
+    }
+
+    function selectText() {
+        document.getElementById('sharedLink').select();
+    }
+</script>
 }
 
 <div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">
