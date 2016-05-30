@@ -6,7 +6,7 @@
     string CommpressedLink = "";
     string Name = "";
 
-    if (ViewBag.IsEmpty)
+    if (!ViewBag.IsEmpty)
     {
         ShareLink = ViewBag.SharedLinks[0];
         CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png";
