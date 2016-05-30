@@ -3,7 +3,7 @@
 }
 @section Scripts
 {
-    <script>
+    <script src="~/Scripts/context-menu.js">
         $('#toggle_event_editing button').click(function () {
             if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
                 /* code to do when unlocking */
@@ -274,3 +274,30 @@
     </div>
 </div>
 <br/>
+
+<nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+        <li class="context-menu__item">
+            <a href="#" class="context-menu__link" data-action="View"> Delete</a>
+        </li>
+        <li class="context-menu__item">
+            <a href="#" class="context-menu__link" data-action="Edit"> Rename</a>
+        </li>
+        <li class="context-menu__item">
+            <div class="row" style="padding: 4px 12px;">
+                <div class="col-md-3">
+                    <h5 style="padding-top: 7px; margin: 0;">Private</h5>
+                </div>
+                <div class="col-md-9">
+                    <div class="btn-group pull-right" id="toggle_event_editing">
+                        <button type="button" class="btn btn-default unlocked_inactive" style="height: 30px; width: 60px; font-size: 12px;">On</button>
+                        <button type="button" class="btn btn-info locked_active" style="height: 30px; width: 60px; font-size: 12px;">Off</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="context-menu__item">
+            <a href="#" class="context-menu__link" data-action="Delete"> Manage access</a>
+        </li>
+    </ul>
+</nav>

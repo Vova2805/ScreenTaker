@@ -210,12 +210,13 @@ textarea {
     left: 20px;
 }
 
+
 .context-menu {
   display: none;
   position: absolute;
   z-index: 10;
   padding: 12px 0;
-  width: 240px;
+  width: 200px;
   background-color: #fff;
   border: solid 1px #dfdfdf;
   box-shadow: 1px 1px 2px #cfcfcf;
@@ -233,7 +234,7 @@ textarea {
 
 .context-menu__item {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 0;
 }
 
 .context-menu__item:last-child {
@@ -241,15 +242,16 @@ textarea {
 }
 
 .context-menu__link {
-  display: inline-block;
+  display: block;
   padding: 4px 12px;
-  color: #0066aa;
+  color: #000;
   text-decoration: none;
 }
 
 .context-menu__link:hover {
-  color: #fff;
-  background-color: #0066aa;
+  color: #000;
+  background-color: #EBEBEB;
+    text-decoration: none;
 }
 
 .task {
