@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace ScreenTaker.Controllers
 {
+    [Authorize]
     public class EditController : Controller
     {
         private ScreenTakerEntities _entities = new ScreenTakerEntities();

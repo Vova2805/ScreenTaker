@@ -210,7 +210,7 @@
             <div class="col-md-12">
                 @for (int i = 0; i < ViewBag.Folders.Count; i++)
                 {
-                    <a href="/Home/Images">
+                    <a href="@Url.Action("Images", "Home" , new {id = ViewBag.Folders[i].Id })">
                         <figure class="col-md-2 text-center">
                             <img src="~/Resources/images/private.png"/>
                             <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
