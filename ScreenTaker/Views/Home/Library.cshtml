@@ -26,13 +26,15 @@
             return false;
         }
 
-         function selectFolder(id,name, sharedLinkValue,image,sharedCode) {
+        function selectFolder(id,name, sharedLinkValue,sharedCode,image) {
             document.getElementById("sharedLink").value = sharedLinkValue;
+            
+            document.getElementById("sharedLinkhidden").value = sharedCode;
+            document.getElementById("Idhidden").value = id;
             document.getElementById("folderImage").src = image;
             document.getElementById("folderTitle").innerText = name;
             ViewBag.CurrentFolderShCode = sharedCode;
             ViewBag.CurrentFolderId = id;
-            alert(ViewBag.CurrentFolderId );
             return false;
          }
 
@@ -267,8 +269,9 @@
                 @for (int i = 0; i < ViewBag.Folders.Count; i++)
                 {
                     string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
+                    string sharedCode = ViewBag.Folders[i].SharedCode;
                     string imageLink = "/Resources/images/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
-                    <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@ViewBag.Folders[i].Name','@link','@imageLink','@ViewBag.Folders[i].SharedCode')"
+                    <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@ViewBag.Folders[i].Name','@link','@sharedCode','@imageLink')"
                         ondblclick="openFolder('@ViewBag.Folders[i].Id')">
                         <figure class="col-md-2 text-center task active images">
                             <img src="~/Resources/images/public.png" />
@@ -302,12 +305,14 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">Share folder</p>
-            <input id="sharedLink" class="form-control" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" />
+            <input id="sharedLink" class="form-control" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" />    
             <br />
             <div>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FolderManageAccess" style="width: 100%">Manage access</button>
             </div>
             <hr />
+            <input id="sharedLinkhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
+            <input id="Idhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
         </div>
     </div>
 </div>
