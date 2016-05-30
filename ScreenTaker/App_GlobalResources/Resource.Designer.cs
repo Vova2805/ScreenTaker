@@ -214,16 +214,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Keyboard {
-            get {
-                object obj = ResourceManager.GetObject("Keyboard", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         internal static string LOGIN_EMAIL {
@@ -283,26 +273,6 @@ namespace Resources {
         internal static string PRIVATE {
             get {
                 return ResourceManager.GetString("PRIVATE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PrivateFolder {
-            get {
-                object obj = ResourceManager.GetObject("PrivateFolder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PublicFolder {
-            get {
-                object obj = ResourceManager.GetObject("PublicFolder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
