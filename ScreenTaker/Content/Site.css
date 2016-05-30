@@ -16,11 +16,11 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
+ /*Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 100%;
 }
 
 .library-menu {
@@ -135,4 +135,145 @@ textarea {
 
 }
 
-	
+.shadow {
+    box-shadow: 5px 5px 0 #000000;
+}
+
+.account-style {
+    background-color: #444444;
+    padding: 5px;
+    color: #D6D6D6;
+}
+
+.account-button {
+    background-color: #D6D6D6;
+    border-radius: 0;
+}
+
+.account-button:hover {
+    background-color: #EBEBEB;
+}
+
+.account-link {
+    color: #D6D6D6;
+}
+
+.account-link:hover {
+    color: #AAAAAA;
+}
+
+.profile-avatar {
+    width: 128px;
+    height: 128px;
+}
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  padding: 12px 0;
+  width: 200px;
+  background-color: #fff;
+  border: solid 1px #dfdfdf;
+  box-shadow: 1px 1px 2px #cfcfcf;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.context-menu__item {
+  display: block;
+  margin-bottom: 0;
+}
+
+.context-menu__item:last-child {
+  margin-bottom: 0;
+}
+
+.context-menu__link {
+  display: block;
+  padding: 4px 12px;
+  color: #000;
+  text-decoration: none;
+}
+
+.context-menu__link:hover {
+  color: #000;
+  background-color: #EBEBEB;
+    text-decoration: none;
+}
+
+.task {
+    
+}
+
+.images {
+    background-color: #E0E0E0;
+    color: #686868;
+}
+
+.images:hover {
+    background-color: #686868;
+    color: #F0F0F0;
+}
+
+.images:active {
+    background-color: #F0F0F0;
+    color: #686868;
+}
+
+.btn-not-rounded {
+    border-radius: 0
+}

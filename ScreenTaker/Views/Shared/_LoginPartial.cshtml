@@ -1,4 +1,24 @@
 ﻿@using Microsoft.AspNet.Identity
+@using System.Globalization
+@using System.Threading;
+@section Scripts
+{
+    <script>
+         function setLocal(loc) {
+             document.getElementById('localization').innerHTML = loc + '<span class="caret"></span>';
+         }
+    </script>
+}
+@{ 
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
+}
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -6,8 +26,16 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ENG<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+                </ul>
+            </li>
             <li>
-                @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink(User.Identity.GetUserName(), "UserProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage groups" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
         </ul>
@@ -16,7 +44,15 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Log In", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-        <li>@Html.ActionLink("Sign in", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization">ENG<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
+                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
+                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink(@Resources.Resource.LOGIN_EMAIL, "Login", "Account")</li>
+        <li>@Html.ActionLink(@Resources.Resource.SIGNIN_LOGOUT, "Register", "Account")</li>
     </ul>
 }

@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Images";
+
+
+    string ShareLink = "";
+    string CommpressedLink = "";
+    string Name = "";
+
+    if (!ViewBag.IsEmpty)
+    {
+        ShareLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + ViewBag.Images[0].SharedCode;
+        CommpressedLink = ViewBag.BASE_URL + "img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
+        Name = ViewBag.Images[0].Name + ".png";
+    }
+
+}
+
+
+<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 800px">
+    <div class="col-md-12">
+        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h2>Folder name</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+            @foreach (var i in ViewBag.Images)
+            {
+                string original = i.SharedCode;
+                string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
+                string compressed = ViewBag.BASE_URL+"img/" + i.SharedCode + "_compressed.png";
+                string name = i.Name + ".png";
+                    <a href="#" onclick="selectImage('@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
+                        <div class="col-md-2 text-center task active images" style="margin-bottom: 60px; padding-top: 10px; " >
+                            <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
+                            </div>
+                            <label class="text-center">@name</label>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

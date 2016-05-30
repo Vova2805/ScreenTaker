@@ -24,13 +24,20 @@ namespace ScreenTaker
             this.Tag = new HashSet<Tag>();
         }
     
-        public string email { get; set; }
-        public string personImageName { get; set; }
-        public bool isActive { get; set; }
-        public byte[] passwordHash { get; set; }
-        public string salt { get; set; }
-        public Nullable<System.DateTime> registartionDate { get; set; }
-        public int id { get; set; }
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public bool EmailConfirmed { get; set; }
+        public string PasswordHash { get; set; }
+        public string SecurityStamp { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
+        public bool TwoFactorEnabled { get; set; }
+        public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
+        public bool LockoutEnabled { get; set; }
+        public int AccessFailedCount { get; set; }
+        public string UserName { get; set; }
+        public string AvatarFile { get; set; }
+        public Nullable<System.DateTime> RegisterDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Folder> Folder { get; set; }

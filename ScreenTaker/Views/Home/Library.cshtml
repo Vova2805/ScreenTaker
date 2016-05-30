@@ -1,34 +1,306 @@
-﻿@{
+﻿@using ScreenTaker.Models;
+@{
     ViewBag.Title = "Library";
+    ViewBag.CurrentFolderShCode = "-1";
+    ViewBag.CurrentFolderId ="-1";
+}
+@section Scripts
+{
+    <script>
+        $('#toggle_event_editing button').click(function () {
+            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
+                /* code to do when unlocking */
+                $('#switch_status').html('Switched on.');
+            } else {
+                /* code to do when locking */
+                $('#switch_status').html('Switched off.');
+            }
+
+            /* reverse locking status */
+            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
+            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
+        });
+
+        function openFolder(i) {
+            var id = document.getElementById("Idhidden").value;
+            if (id != "") i = id;
+            location.href = "/Home/Images?id=" + i;
+            return false;
+        }
+
+        function selectFolder(id,name, sharedLinkValue,sharedCode,image) {
+            document.getElementById("sharedLink").value = sharedLinkValue;
+            
+            document.getElementById("sharedLinkhidden").value = sharedCode;
+            document.getElementById("Idhidden").value = id;
+
+            document.getElementById("folderImage").src = image;
+            document.getElementById("folderTitle").innerText = name;
+            ViewBag.CurrentFolderShCode = sharedCode;
+            ViewBag.CurrentFolderId = id;
+            return false;
+         }
+
+         function selectText() {
+             document.getElementById('sharedLink').select();
+             return false;
+         }
+    </script>
 }
 
-<div class="container">
-    <div class="col-md-9">
-        @for (int i = 0; i < ViewBag.Folders.Count; i++)
-        {
-            <a href="/Home/Images">
-                <figure class="col-md-3 text-center">
-                    <img src="~/fonts/private.png" />
-                    <figcaption class="text-center">@ViewBag.Folders[i].name</figcaption>
-                </figure>
-            </a>
-        }
+
+<div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">New folder</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">Enter a title for new folder</label>
+                        <input type="text" class="form-control" id="new-title1" value="New folder">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">Add</button>
+            </div>
+        </div>
     </div>
-    <div class="col-md-3" style="background-color: #686868; height: 90vh">
-        <div style="margin-left: 10px">
-            <img src="~/fonts/private.png" />
-            <p style="color: #E0E0E0">@ViewBag.Folders[0].name</p>
+</div>
+
+<div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">Rename</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">Enter new title for folder</label>
+                        <input type="text" class="form-control" id="new-title">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick=
+                        "location.href='@Url.Action("RenameFolder", "Home")?path='+document.getElementById('sharedLink').value+'&newName='+document.getElementById('new-title').value">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">Delete image</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label text-center">Save changes?</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary"  onclick=
+                        "location.href='@Url.Action("DeleteFolder", "Home")?path='+document.getElementById('sharedLink').value+'&newName='+document.getElementById('new-title').value">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess" style="top:100px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Manage access</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-bottom:5px;">
+                    <div class="col-sm-9">
+                        <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Access by link</h5>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="btn-group pull-right" id="toggle_event_editing">
+                            <button type="button" class="btn btn-default unlocked_inactive" style="height:30px;width:60px;font-size:12px;">On</button>
+                            <button type="button" class="btn btn-info locked_active" style="height:30px;width:60px;font-size:12px;">Off</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
+                            <span class="input-group-btn" style="height:30px;">
+                                <button class="btn btn-default" style="height:30px;" type="button">Copy</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-sm-12">
+                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">People</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
+                                    <div class="list-group-item">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn badge right" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2">
+                                    <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-sm-12">
+                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Groups</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group" style="height:auto;height:205px;overflow:auto;border:solid #E0E0E0 1px;">
+                                    <div class="list-group-item ">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">Friends</h5>
+                                        </div>
+                                        <div class="material-switch media-right" style="vertical-align:middle">
+                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" />
+                                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" style="width:100px;" data-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom: -40px; overflow: hidden; position: relative;  min-height: 800px">
+    <div class="col-md-10">
+        <div class="col-sm-10" style="padding-left:25px;padding-right:25px;">
+            <h2>Folders</h2>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary btn-lg pull-right success btn-not-rounded" style="width:150px; height:30px;vertical-align:middle;background-color:cornflowerblue;margin-top:30px;margin-bottom:10px;font-size:13px;" data-toggle="modal" data-target="#AddFolder"> Add folder</button>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+                @for (int i = 0; i < ViewBag.Folders.Count; i++)
+                {
+                    string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
+                    string sharedCode = ViewBag.Folders[i].SharedCode;
+                    string imageLink = "/Resources/images/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+                    <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@ViewBag.Folders[i].Name','@link','@sharedCode','@imageLink')"
+                        ondblclick="openFolder('@ViewBag.Folders[i].Id')">
+                        <figure class="col-md-2 text-center task active images">
+                            <img src="~/Resources/images/public.png" />
+                            <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
+                        </figure>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" style="background-color: #686868; height: 100%; right: 15px; position: absolute;">
+        <div>
+            <img id="folderImage" src="~/Resources/images/public.png" />
+            <p id="folderTitle" style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
             <hr />
+
             <div>
-                <button type="button" class="btn btn-default" style="width: 100%">Open</button>
+                <button type="button" class="btn btn-default" style="width: 100%" onclick="openFolder('@ViewBag.CurrentFolderId')">Open</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-default" style="width: 100%">Rename</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#RenameFolder" style="width: 100%">Rename</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-danger" style="width: 100%">Delete</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteFolder" style="width: 100%">Delete</button>
             </div>
             <br />
             <div>
@@ -36,8 +308,43 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">Share folder</p>
-            <input class="form-control" style="width: 100%" type="text" placeholder="Sharing link" value="@ViewBag.FolderLink"/>
+            <input id="sharedLink" class="form-control" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" />    
+            <br />
+            <div>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FolderManageAccess" style="width: 100%">Manage access</button>
+            </div>
             <hr />
+            <input id="sharedLinkhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
+            <input id="Idhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
         </div>
     </div>
 </div>
+<br />
+<nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+        <li class="context-menu__item">
+            <a href="#" class="context-menu__link" data-action="View" data-target="#DeleteImage" data-toggle="modal"> Delete</a>
+        </li>
+        <li class="context-menu__item">
+            <a href="#" class="context-menu__link" data-action="Edit" data-target="#RenameImage" data-toggle="modal"> Rename</a>
+        </li>
+        <li class="context-menu__item">
+            <div class="row" style="padding: 4px 12px;">
+                <div class="col-md-3">
+                    <h5 style="padding-top: 7px; margin:0;">Private</h5>
+                </div>
+                <div class="col-md-9">
+                    <div class="btn-group pull-right" id="toggle_event_editing">
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">On</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">Off</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="context-menu__item">
+            <a href="#" class="context-menu__link" data-action="Delete"> Manage access</a>
+        </li>
+    </ul>
+</nav>
+
+<script src="~/Scripts/context-menu.js"></script>
