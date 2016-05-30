@@ -40,11 +40,14 @@
             document.getElementById('sharedLink').select();
         }
 
-        function selectImage(original, sharedLink, compressed, name) {
+        function selectImage(id,sharedCode,original, sharedLink, compressed, name) {
             document.getElementById("original").value = original;
             document.getElementById("sharedLink").value = sharedLink;
             document.getElementById("compressedLink").src = compressed;
             document.getElementById("compressedName").innerText = name;
+
+            document.getElementById("sharedLinkhidden").value = sharedCode;
+            document.getElementById("Idhidden").value = id;
             return false;
         }
     </script>
@@ -267,7 +270,7 @@
                 string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                 string compressed = ViewBag.BASE_URL+"img/" + i.SharedCode + "_compressed.png";
                 string name = i.Name + ".png";
-                    <a href="#" onclick="selectImage('@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
+                    <a href="#" onclick="selectImage('@i.Id','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
                         <div class="col-md-2 text-center task active images" style="margin-bottom: 60px; padding-top: 10px; " >
                             <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                             </div>
@@ -307,6 +310,8 @@
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
             </div>
             <hr/>
+            <input id="sharedLinkhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
+            <input id="Idhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
         </div>
     </div>
 </div>
