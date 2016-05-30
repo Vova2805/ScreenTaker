@@ -127,7 +127,7 @@ namespace ScreenTaker.Controllers
             var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
 
             ViewBag.IsEmpty = !list.Any();
-            ViewBag.Images = list;
+            ViewBag.Images = list;            
             var pathsList = _entities.Images.ToList()
                 .Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
             ViewBag.Paths = pathsList;
@@ -161,11 +161,7 @@ namespace ScreenTaker.Controllers
                     {
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                        var image = new Image();
-                        //if (_entities.Image.ToList().Count > 0)
-                        //    image.id = _entities.Image.Max(s => s.id) + 1;
-                        //else image.id = 1;
-
+                        var image = new Image();                
                         image.IsPublic = false;
                         image.FolderId = Int32.Parse(folderId);
                         image.SharedCode = sharedCode;
@@ -296,18 +292,21 @@ namespace ScreenTaker.Controllers
             }
             return View();
         }
-        public ActionResult DeleteImage(string path,string folderId, string lang = "en")
+        public ActionResult DeleteImage(string path, string lang = "en")
         {
+            int folderId = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
+                {                    
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
+                    folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
                     _entities.Images.Remove(obj);
                     _entities.SaveChanges();
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
+                    
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -315,7 +314,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images","Home", new { id = folderId });
+            return RedirectToAction("Images", new { id = folderId.ToString() });
         }
 
         public ActionResult RenameImage(string path, string newName, string lang = "en")
@@ -370,6 +369,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
         {
+            int folderId = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -378,6 +378,7 @@ namespace ScreenTaker.Controllers
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
                     obj.Name = newName;
+                    folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
@@ -386,7 +387,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images", new { image = Path.GetFileNameWithoutExtension(path) });
+            return RedirectToAction("Images", new { id=folderId.ToString() });
         }
 
         public ActionResult DeleteFolder(string path, string lang = "en")

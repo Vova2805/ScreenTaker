@@ -69,7 +69,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-not-rounded">Submit</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick=
+                        "location.href='@Url.Action("RenameImageOutside", "Home")?path='+document.getElementById('original').value+'&newName='+document.getElementById('new-title').value" >Submit</button>
             </div>
         </div>
     </div>
@@ -92,8 +93,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Yes</button>
-                <button type="button" class="btn btn-primary btn-not-rounded">No</button>
+                <button type="button" class="btn btn-default btn-not-rounded"  onclick=
+                        "location.href='@Url.Action("DeleteImage", "Home")?path='+document.getElementById('original').value+'.png'">Yes</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" data-dismiss="modal" >No</button>
             </div>
         </div>
     </div>
