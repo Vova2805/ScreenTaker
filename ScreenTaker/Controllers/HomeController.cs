@@ -257,12 +257,51 @@ namespace ScreenTaker.Controllers
                 ViewBag.Date = ViewBag.Image.PublicationDate;
             }
 
+            ViewBag.IsPublic = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.IsPublic = ViewBag.Image.IsPublic;
+            }
+
+            ViewBag.Id = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.Id = ViewBag.Image.Id;
+            }
+
+            ViewBag.ButtonPrivateORPublic = "";
+            if (ViewBag.Image != null)
+            {
+                if (ViewBag.Image.IsPublic) ViewBag.ButtonPrivateORPublic = "Make private";
+                else ViewBag.ButtonPrivateORPublic = "Make public";
+            }
+
             if (ViewBag.Image != null)
             {
                 ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
             }
             return View();
         }
+
+
+        //для одного зображення зміна доступу
+        public ActionResult MakeSingleImagePublic(bool imagestatus, int imageId)
+        {
+            var result = _entities.Images.FirstOrDefault(b => b.Id == imageId);
+            if (result != null)
+            {
+                if (imagestatus)
+                    result.IsPublic = false;
+                else
+                    result.IsPublic = true;
+
+                _entities.SaveChanges();
+            }
+
+            return RedirectToAction("SingleImage");
+        }
+
+
 
         [AllowAnonymous]
         [HttpGet]
@@ -403,6 +442,14 @@ namespace ScreenTaker.Controllers
                 {
                     var sharedСode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedСode);
+                    var images = obj.Images;
+                    while (images.Count > 0)
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + ".png");
+                        System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + "_compressed.png");
+                        _entities.Images.Remove(images.ElementAt(0));
+                        _entities.SaveChanges();
+                    }
                     _entities.Folders.Remove(obj);
                     _entities.SaveChanges();
                     transaction.Commit();
