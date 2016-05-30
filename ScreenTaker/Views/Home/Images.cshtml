@@ -1,68 +1,75 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string SharedLink = "";
+
+
+    string ShareLink = "";
     string CommpressedLink = "";
     string Name = "";
-    SharedLink = ViewBag?.BASE_URL + "Home/SharedImage?i=" + ViewBag?.Images[0]?.SharedCode;
-    CommpressedLink = ViewBag?.BASE_URL + "img/" + ViewBag?.Images[0]?.SharedCode + "_compressed.png";
-    Name = ViewBag?.Images[0]?.Name + ".png";
+
+    if (ViewBag.IsEmpty)
+    {
+        ShareLink = ViewBag.SharedLinks[0];
+        CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png";
+        Name = ViewBag.Images[0].Name + ".png";
+    }
+
 }
 @section Scripts
 {
-<script>
-    $('#toggle_event_editing button').click(function () {
-        if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
-            /* code to do when unlocking */
-            $('#switch_status').html('Switched on.');
-        } else {
-            /* code to do when locking */
-            $('#switch_status').html('Switched off.');
+    <script>
+        $('#toggle_event_editing button').click(function () {
+            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
+                /* code to do when unlocking */
+                $('#switch_status').html('Switched on.');
+            } else {
+                /* code to do when locking */
+                $('#switch_status').html('Switched off.');
+            }
+
+            /* reverse locking status */
+            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
+            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
+        });
+
+        function openImage(path) {
+            location.href = "/Home/SingleImage?image=" + path;
+            return false;
         }
 
-        /* reverse locking status */
-        $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
-        $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
-    });
+        function selectText() {
+            document.getElementById('sharedLink').select();
+        }
 
-    function openImage(path) {
-        location.href = "/Home/SingleImage?image=" + path;
-        return false;
-    }
+        function selectImage(original, sharedLink, compressed, name) {
+            document.getElementById("original").value = original;
+            document.getElementById("sharedLink").value = sharedLink;
+            document.getElementById("compressedLink").src = compressed;
+            document.getElementById("compressedName").innerText = name;
+            return false;
+        }
+    </script>
 
-    function selectText() {
-        document.getElementById('sharedLink').select();
-    }
-
-    function selectImage(original, sharedLink, compressed, name) {
-        document.getElementById("original").value = original;
-        document.getElementById("sharedLink").value = sharedLink;
-        document.getElementById("compressedLink").src = compressed;
-        document.getElementById("compressedName").innerText = name;
-        return false;
-    }
-</script>
 }
 
-<div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px">
+<div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="exampleModalLabel">Rename</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
                         <label for="new-title" class="control-label">Enter new title for image</label>
-                        <input type="text" class="form-control" id="new-title" value="@ViewBag.OriginalName.Substring(0,ViewBag.OriginalName.Length - 4)">
+                        <input type="text" class="form-control" id="new-title">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RenameImageOutside", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">Submit</button>
+                <button type="button" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>
@@ -80,17 +87,13 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="new-title" class="control-label text-center">Are you sure?</label>
+                        <label for="new-title" class="control-label text-center">Save changes?</label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default " data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary"
-                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath })'">
-                    Yes
-                </button>
-
+                <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary">No</button>
             </div>
         </div>
     </div>
@@ -295,7 +298,7 @@
             </div>
             <hr/>
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@SharedLink"/>
+            <input class="form-control" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ShareLink"/>
             <br/>
             <div>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>

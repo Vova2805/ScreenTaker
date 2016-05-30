@@ -3,16 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Web;
 
 namespace ScreenTaker.Models
 {
+
+    public static class StaticRandom
+    {
+        static int _seed = Environment.TickCount;
+
+        static readonly ThreadLocal<Random> Random =
+            new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _seed)));
+
+        public static int Rand()
+        {
+            return Random.Value.Next();
+        }
+
+        public static int Rand(int maxValue)
+        {
+            return Random.Value.Next(maxValue);
+        }
+
+        public static int Rand(int minValue, int maxValue)
+        {
+            return Random.Value.Next(minValue, maxValue);
+        }
+    }
+
     public class RandomStringGenerator
     {
         public int Length { get; set; }
         public string Chars { get; set; }
-
-        private Random _rand = new Random();
 
         public string Next()
         {
@@ -20,7 +43,7 @@ namespace ScreenTaker.Models
 
             for (int i = 0; i < Length; ++i)
             {
-                res.Append(Chars[_rand.Next(Chars.Length)]);
+                res.Append(Chars[StaticRandom.Rand(Chars.Length)]);
             }
 
             return res.ToString();

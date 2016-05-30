@@ -7,9 +7,13 @@ using System.Web.Mvc;
 using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq.Expressions;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Image = ScreenTaker.Models.Image;
 namespace ScreenTaker.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
@@ -17,13 +21,14 @@ namespace ScreenTaker.Controllers
         private RandomStringGenerator _stringGenerator = new RandomStringGenerator()
         {
             Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
-            Length = 10
+            Length = 15
         };
         public ActionResult Index(string lang = "en")
         {
             return RedirectToAction("Welcome", "Home");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult Welcome(string lang = "en")
         {
@@ -75,6 +80,7 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult About(string lang = "en")
         {
             ViewBag.Message = "Your application description page.";
@@ -82,6 +88,7 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Contact(string lang = "en")
         {
             ViewBag.Message = "Your contact page.";
@@ -92,12 +99,17 @@ namespace ScreenTaker.Controllers
         #region Library
         public ActionResult Library(string lang = "en")
         {
-           
-                ViewBag.Message = "Library page";
-                ViewBag.Folders = _entities.Folders.ToList();
-                ViewBag.BaseURL = GetBaseUrl()+"";
-                ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-                return View();
+            ViewBag.BaseURL = GetBaseUrl()+"";
+            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
+            ViewBag.Message = "Library page";
+
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+
+            ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
+            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
+
+            return View();
         }
 
         [HttpGet]
@@ -109,9 +121,18 @@ namespace ScreenTaker.Controllers
         }
         #endregion
 
-        public ActionResult Images(string lang = "en")
+        public ActionResult Images(string id, string lang = "en")
         {
-            var list = _entities.Images.ToList();
+            if (id == null)
+            {
+                return RedirectToAction("Welcome");
+            }
+
+            int folderId = Int32.Parse(id);
+            var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
+
+            ViewBag.IsEmpty = list.Any() ? true : false;
+
             ViewBag.Images = list;
             ViewBag.BASE_URL = GetBaseUrl()+"";
 
@@ -129,7 +150,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en")
         {
-            ViewBag.Image =  _entities.Images.Where(im=>im.SharedCode.Equals(image)).FirstOrDefault();
+            ViewBag.Image =  _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(image));
             if(ViewBag.Image==null && _entities.Images.ToList().Count>0)
             {
                 ViewBag.Image = _entities.Images.ToList().First();
@@ -162,6 +183,7 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult SharedImage(string i, string lang = "en")
         {
