@@ -34,8 +34,16 @@ namespace ScreenTaker.Controllers
             {                                   
                 try
                 {
-                    ViewBag.Groups = _entities.PersonGroups.Select(s => s).ToList();              
-                    ViewBag.GroupMemberCounts= _entities.PersonGroups.Select(s => s.GroupMembers.Count).ToList();
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var email = user.Email;                        
+                        ViewBag.Groups = _entities.PersonGroups.Where(w=>w.Person.Email==email).Select(s => s).ToList();
+                        ViewBag.GroupMemberCounts = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.GroupMembers.Count).ToList();
+                        if (selectedId == -1)
+                            selectedId = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
+                        ViewBag.selectedId = selectedId;
+                    }                                        
 
                     var emails = from p in _entities.People
                                  join m in _entities.GroupMembers
@@ -43,10 +51,7 @@ namespace ScreenTaker.Controllers
                                  where m.GroupId == selectedId
                                  select new { ID = m.GroupId, Email = p.Email };
                     if (emails.Any())
-                        ViewBag.Emails = emails.Select(s => s.Email).ToList();
-                    if (selectedId == -1)
-                        selectedId= _entities.PersonGroups.Select(s => s.Id).FirstOrDefault();
-                    ViewBag.selectedId = selectedId;
+                        ViewBag.Emails = emails.Select(s => s.Email).ToList();                 
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -87,9 +92,7 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     var group = new PersonGroup();
-                    group.Name = name;
-
-                    //Microsoft.AspNet.Identity.UserManager.FindById(User.Identity.GetUserId());
+                    group.Name = name;                    
 
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null)
