@@ -92,18 +92,12 @@ namespace ScreenTaker.Controllers
         #region Library
         public ActionResult Library(string lang = "en")
         {
-            if (!Request.IsAuthenticated)
-            {
-                throw new HttpException(404, "Your error message");
-            }
-            else
-            {
+            
                 ViewBag.Message = "Library page";
                 ViewBag.Folders = _entities.Folders.ToList();
                 ViewBag.BaseURL = GetBaseUrl()+"";
                 ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
                 return View();
-            }
         }
 
         [HttpGet]
