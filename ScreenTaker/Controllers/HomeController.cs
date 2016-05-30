@@ -120,7 +120,7 @@ namespace ScreenTaker.Controllers
             var list = _entities.Images.ToList();
             ViewBag.Images = list;
             ViewBag.BASE_URL = GetBaseUrl()+"";
-            string url = ViewBag.BASE_URL.toString();
+
             return View();
         }
 

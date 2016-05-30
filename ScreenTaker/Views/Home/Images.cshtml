@@ -1,8 +1,8 @@
 ﻿@{
     ViewBag.Title = "Images";
-    string ShareLink = ViewBag.SharedLinks[0];
-    string CommpressedLink = ViewBag.BASE_URL + @ViewBag.Images[0].SharedCode + "_compressed.png";
-    string Name = @ViewBag.Images[0].Name + ".png";
+    string SharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + ViewBag.Images[0].SharedCode;
+    string CommpressedLink = ViewBag.BASE_URL+"img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
+    string Name = ViewBag.Images[0].Name + ".png";
 }
 @section Scripts
 {
@@ -236,10 +236,10 @@
             @foreach (var i in ViewBag.Images)
             {
                 string original = i.SharedCode;
-                string sharedLink = ViewBag.BASE_URL.Substring(0, ViewBag.BASE_URL.Length - 4) + "Home/SharedImage?i=" + original;
-                string compressed = ViewBag.BASE_URL + i.SharedCode + "_compressed.png";
+                string sharedLink1 = ViewBag.BASE_URL.Substring(0, ViewBag.BASE_URL.Length - 4) + "Home/SharedImage?i=" + original;
+                string compressed = ViewBag.BASE_URL+"img/" + i.SharedCode + "_compressed.png";
                 string name = i.Name + ".png";
-                    <a href="#" onclick="selectImage('@original', '@sharedLink', '@compressed', '@name')" ondblclick="openImage('@original')">
+                    <a href="#" onclick="selectImage('@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
                         <div class="col-md-2 text-center task active images" style="margin-bottom: 60px; padding-top: 10px; " >
                             <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                                 @*<img src="" alt="@compressed" />*@
@@ -274,7 +274,7 @@
             </div>
             <hr/>
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ShareLink"/>
+            <input class="form-control" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@SharedLink"/>
             <br/>
             <div>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
