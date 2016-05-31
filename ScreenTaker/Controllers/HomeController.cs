@@ -276,7 +276,7 @@ namespace ScreenTaker.Controllers
         }
 
         [HttpGet]
-        public ActionResult SingleImage(string image, string lang = "en")
+        public ActionResult SingleImage(string image, string lang = "en", int selectedId = -1)
         {
             ViewBag.Image =  _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
 
@@ -349,6 +349,37 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
             }
+            //User groups
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var email = user.Email;
+                        ViewBag.Groups = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s).ToList();
+                        ViewBag.GroupMemberCounts = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.GroupMembers.Count).ToList();
+                        if (selectedId == -1)
+                            selectedId = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
+                        ViewBag.selectedId = selectedId;
+                    }
+
+                    var emails = from p in _entities.People
+                                 join m in _entities.GroupMembers
+                                 on p.Id equals m.PersonId
+                                 where m.GroupId == selectedId
+                                 select new { ID = m.GroupId, Email = p.Email };
+                    if (emails.Any())
+                        ViewBag.Emails = emails.Select(s => s.Email).ToList();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+
             return View();
         }
 
