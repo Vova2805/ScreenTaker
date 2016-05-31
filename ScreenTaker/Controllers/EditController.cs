@@ -28,7 +28,7 @@ namespace ScreenTaker.Controllers
             return View("EditImage");
         }
 
-        public ActionResult UserGroups(string lang = "en",int selectedId=-1)
+        public ActionResult UserGroups(int selectedId=-1)
         {
             using (var transaction = _entities.Database.BeginTransaction())
             {                                   
@@ -43,7 +43,7 @@ namespace ScreenTaker.Controllers
                         if (selectedId == -1)
                             selectedId = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
                         ViewBag.selectedId = selectedId;
-                    }                                        
+                    }
 
                     var emails = from p in _entities.People
                                  join m in _entities.GroupMembers
@@ -51,7 +51,7 @@ namespace ScreenTaker.Controllers
                                  where m.GroupId == selectedId
                                  select new { ID = m.GroupId, Email = p.Email };
                     if (emails.Any())
-                        ViewBag.Emails = emails.Select(s => s.Email).ToList();                 
+                        ViewBag.Emails = emails.Select(s => s.Email).ToList();
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -112,7 +112,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("UserGroups", new {selectedId=idToRedirect });
+            return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect });
         }
 
 
@@ -133,7 +133,12 @@ namespace ScreenTaker.Controllers
                     }
                     var group = _entities.PersonGroups.Where(w => w.Id == groupId).FirstOrDefault();
                     _entities.PersonGroups.Remove(group);
-                    idToRedirect = _entities.PersonGroups.Select(s=>s.Id).FirstOrDefault();
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var email = user.Email;
+                        idToRedirect = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
+                    }
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
@@ -142,7 +147,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("UserGroups", new { selectedId = idToRedirect});
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect});
         }
 
         public ActionResult AddUser(int selectedId,string email)
@@ -167,7 +172,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("UserGroups", new { selectedId = selectedId });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId });
         }
 
         public ActionResult RemoveUser(int selectedId,string email)
@@ -186,7 +191,41 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("UserGroups", new { selectedId = selectedId });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId });
+        }
+
+        public ActionResult Partial_GroupsAndEmails(int selectedId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var email = user.Email;
+                        ViewBag.Groups = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s).ToList();
+                        ViewBag.GroupMemberCounts = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.GroupMembers.Count).ToList();
+                        if (selectedId == -1)
+                            selectedId = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
+                        ViewBag.selectedId = selectedId;
+                    }
+
+                    var emails = from p in _entities.People
+                                 join m in _entities.GroupMembers
+                                 on p.Id equals m.PersonId
+                                 where m.GroupId == selectedId
+                                 select new { ID = m.GroupId, Email = p.Email };
+                    if (emails.Any())
+                        ViewBag.Emails = emails.Select(s => s.Email).ToList();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return PartialView("Partial_GroupsAndEmails");
         }
     }
 }
