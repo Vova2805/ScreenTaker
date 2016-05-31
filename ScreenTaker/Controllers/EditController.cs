@@ -72,9 +72,9 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public void ChangeLocalization(string request, string lang = "en")
         {
-            if(GetBaseUrl().Equals(request))
+            if(request.Equals("/") || request.Equals(""))
             {
-                request += "/Home/Welcome";
+                request = GetBaseUrl() +"Home/Welcome";
             }
             if (request.Contains("?"))
             {

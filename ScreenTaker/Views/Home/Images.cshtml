@@ -310,7 +310,7 @@
                     string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                     string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
                     string name = i.Name + ".png";
-                    string classes = "col-md-2 text-center task active images";
+                    string classes = "floating-box text-center task active images";
                     if (index == 0)
                     {
                         classes += " active-image";
@@ -318,7 +318,7 @@
                     string image_id = "ID" + index;
 
                     <a href="#" onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
-                        <div class="@classes" id="@image_id"  style="margin-bottom: 60px; padding-top: 10px; ">
+                        <div class="@classes" id="@image_id"  style="padding-top: 10px; ">
                             <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                             </div>
                             <label class="text-center">@name</label>
@@ -334,7 +334,7 @@
         <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
             <input type="text" class="hidden" id="original" />
-            <img src="@CommpressedLink" id="compressedLink" style="margin: 5px;margin-left:0px;max-width:190px;max-height:128px;" />
+            <img src="@CommpressedLink" id="compressedLink" style="margin: 5px;margin-left:0px;max-width:160px;max-height:128px;" />
             <p id="compressedName" style="color: #E0E0E0">@Name</p>
             <hr />
             <div>
@@ -364,8 +364,8 @@
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
             </div>
             <hr />
-            <input id="sharedLinkhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
-            <input id="Idhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
+            <input id="sharedLinkhidden" class="form-control" style="margin-top:-50px ;width: 100%;visibility:collapse" type="text" />
+            <input id="Idhidden" class="form-control" style="margin-top:-50px;width: 100%;visibility:collapse" type="text" />
         </div>
     </div>
 </div>

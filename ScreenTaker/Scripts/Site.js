@@ -2,11 +2,11 @@
 function openNav() {
    
     $('#mySidenav').animate({
-        width: "260px",
+        width: "200px",
         opacity: "1"
     }, 50).promise().done(function () {
         $('#main').animate({
-            marginRight: "260px"
+            marginRight: "200px"
         }, 200);
     });
 
@@ -70,7 +70,7 @@ function openImage(path) {
 }
 
 function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name) {
-    var classes = "col-md-2 text-center task active images";
+    var classes = "floating-box text-center task active images";
     document.getElementById("original").value = original;
     document.getElementById("sharedLink").value = sharedLink;
     document.getElementById("compressedLink").src = compressed;

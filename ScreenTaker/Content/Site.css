@@ -402,7 +402,7 @@ textarea {
 
 .sidenav {
     height: 100%;
-    width: 260px;
+    width: 200px;
     position: fixed;
     top: 0;
     right: 0;
@@ -428,12 +428,12 @@ textarea {
 .closebtn {
     position: absolute;
     margin-top: -15px;
-    right:0px;
+    right:-10px;
     font-size: 40px;
     margin-right: 10px;
 }
 #main{
-    margin-right:260px;
+    margin-right:200px;
 }
 
 #openSideMenu{
@@ -444,4 +444,18 @@ textarea {
     
     vertical-align:middle;
     background-color:cornflowerblue;
+}
+
+.floating-box {
+    float: left;
+    width: 170px;
+    height: 170px;
+    margin:-4px;
+    margin-bottom: 10px; 
+     
+}
+
+.after-box {
+    clear: left;
+    border: 3px solid red;      
 }
