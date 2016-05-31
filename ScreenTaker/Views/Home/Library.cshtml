@@ -28,7 +28,7 @@
             return false;
         }
 
-        function selectFolder(id,name, sharedLinkValue,sharedCode,image) {
+        function selectFolder(id,folder_id,count,name, sharedLinkValue,sharedCode,image) {
             document.getElementById("sharedLink").value = sharedLinkValue;
             
             document.getElementById("sharedLinkhidden").value = sharedCode;
@@ -36,8 +36,15 @@
 
             document.getElementById("folderImage").src = image;
             document.getElementById("folderTitle").innerText = name;
-            ViewBag.CurrentFolderShCode = sharedCode;
-            ViewBag.CurrentFolderId = id;
+
+            var classes = "col-md-2 text-center task active images folder";
+            for(var i = 0; i< count;i++)
+            {
+                var ID = "FID"+i;
+                document.getElementById(ID).className = classes;
+            }
+            document.getElementById(folder_id).className += " active-image";
+
             return false;
          }
 
@@ -269,18 +276,28 @@
         </div>
         <div class="row">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
-                @for (int i = 0; i < ViewBag.Folders.Count; i++)
-                {
-                    string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
-                    string sharedCode = ViewBag.Folders[i].SharedCode;
-                    string imageLink = "/Resources/images/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
-                    <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@ViewBag.Folders[i].Name','@link','@sharedCode','@imageLink')"
-                        ondblclick="openFolder('@ViewBag.Folders[i].Id')">
-                        <figure class="col-md-2 text-center task active images">
-                            <img src="~/Resources/images/public.png" />
-                            <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
-                        </figure>
-                    </a>
+                @{
+                    int count = ViewBag.Folders.Count;
+
+                    for (int i = 0; i < ViewBag.Folders.Count; i++)
+                    {
+                        string classes = "col-md-2 text-center task active images folder";
+                        if (i == 0)
+                        {
+                            classes += " active-image";
+                        }
+                        string folder_id = "FID" + i;
+                        string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
+                        string sharedCode = ViewBag.Folders[i].SharedCode;
+                        string imageLink = "/Resources/images/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+                        <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@link','@sharedCode','@imageLink')"
+                               ondblclick="openFolder('@ViewBag.Folders[i].Id')">
+                            <figure class="@classes" id="@folder_id">
+                                <img src="~/Resources/images/public.png" />
+                                <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
+                            </figure>
+                        </a>
+                    }
                 }
             </div>
         </div>

@@ -297,3 +297,7 @@ textarea {
 .btn-not-rounded {
     border-radius: 0
 }
+.folder{
+    width:180px;
+    height:180px;
+}
