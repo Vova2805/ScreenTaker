@@ -1,6 +1,22 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header,
+footer {
+    flex: 0 0 auto;
+}
+
+html {
+    height: 100%;
+}
+
+.main-content {
+    flex: 1 0 auto;
 }
 
 /* Set padding to keep content from hitting the edges */
