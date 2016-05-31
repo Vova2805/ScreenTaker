@@ -14,52 +14,6 @@
     }
     
 }
-@section Scripts
-{
-    <script>
-        $('#toggle_event_editing button').click(function () {
-            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
-                /* code to do when unlocking */
-                $('#switch_status').html('Switched on.');
-            } else {
-                /* code to do when locking */
-                $('#switch_status').html('Switched off.');
-            }
-
-            /* reverse locking status */
-            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
-            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
-        });
-
-        function openImage(path) {
-            location.href = "/Home/SingleImage?image=" + path;
-            return false;
-        }
-
-        function selectText() {
-            document.getElementById('sharedLink').select();
-        }
-
-        function selectImage(id,image_id,count,sharedCode,original, sharedLink, compressed, name) {
-            var classes = "col-md-2 text-center task active images";
-            document.getElementById("original").value = original;
-            document.getElementById("sharedLink").value = sharedLink;
-            document.getElementById("compressedLink").src = compressed;
-            document.getElementById("compressedName").innerText = name;
-
-            document.getElementById("sharedLinkhidden").value = sharedCode;
-            document.getElementById("Idhidden").value = id;
-            for(var i = 0; i< count;i++)
-            {
-                var ID = "ID"+i;
-                document.getElementById(ID).className = classes;
-            }
-            document.getElementById(image_id).className += " active-image";
-            return false;
-        }
-    </script>
-
-}
 
 <div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px" >
     <div class="modal-dialog" role="document">
@@ -314,24 +268,30 @@
     </div>
 </div>
 
-<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
-    <div class="col-md-10">
+<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
+    <div class="col-md-12">
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                     <h2>Images</h2>
                 </div>
                 
-                <div class="col-sm-2">
+                <div class="col-sm-7"  style="display:inline">
+                    <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
+                        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    </button>
                     @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
-                        <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                        <input id="fileSubmit" style="visibility: collapse" type="submit" value="bla"/>
-                        <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
-
-                        <input type="button" class="btn btn-primary btn-lg pull-right success btn-not-rounded" style="width:150px; height:30px;vertical-align:middle;background-color:cornflowerblue;margin-top:-50px;margin-bottom:10px; font-size: 15px; padding-top: 5px;"  value="Upload image" onclick="document.getElementById('fileInput').click();"/>
-                    }
-                </div>
+                        <div class="pull-right" style="display:inline;height:44px;">
+                            <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                            <input id="fileSubmit" style="visibility: collapse" type="submit" value="bla" />
+                            <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
+                            <input type="text" id="UploadImageButton" data-placement="bottom" title="Upload new image" class="btn btn-primary btn-lg pull-right success btn-not-rounded"
+                                    style="width:40px; height:34px; margin-top:-5px;padding-top:5px;padding-left:10px; margin-right:-40px;" onclick="document.getElementById('fileInput').click();"/>
+                            <span id="UploadImageSpan" class="glyphicon glyphicon-open" aria-hidden="true" style="margin-left:57px;margin-right:-50px;color:white"></span>
+                        </div>
+                            }
+                        </div>
             </div>
             
             <ol class="breadcrumb" >
@@ -339,7 +299,7 @@
                 <li class="active">Shared folder</li>
             </ol>
         </div>
-        <div class="row">
+        <div class="row" >
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
             @{
                 int index = 0;
@@ -370,16 +330,17 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2" style="background-color: #686868; right: 10px; height: 100%; position: absolute">
-        <div style="margin-left: 10px">
-            <input type="text" class="hidden" id="original"/>
-            <img src="@CommpressedLink" id="compressedLink" style="margin: 5px;margin-left:0px;max-width:195px;max-height:128px;"/>
+    <div class="sidenav" id="mySidenav">
+        <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
+            <input type="text" class="hidden" id="original" />
+            <img src="@CommpressedLink" id="compressedLink" style="margin: 5px;margin-left:0px;max-width:190px;max-height:128px;" />
             <p id="compressedName" style="color: #E0E0E0">@Name</p>
-            <hr/>
+            <hr />
             <div>
                 <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" onclick="openImage(document.getElementById('original').value)">Open</button>
             </div>
-            <br/>
+            <br />
             <div>
                 <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">Move</button>
             </div>
@@ -387,22 +348,22 @@
             <div>
                 <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameImage" style="width: 100%">Rename</button>
             </div>
-            <br/>
+            <br />
             <div>
                 <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">Delete</button>
             </div>
-            <br/>
+            <br />
             <div>
                 <button class="btn btn-warning btn-not-rounded" style="width: 100%">Make public</button>
             </div>
-            <hr/>
+            <hr />
             <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ShareLink"/>
-            <br/>
+            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ShareLink" />
+            <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
             </div>
-            <hr/>
+            <hr />
             <input id="sharedLinkhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
             <input id="Idhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
         </div>
@@ -440,3 +401,4 @@
 </nav>
 
 <script src="~/Scripts/context-menu.js"></script>
+<script src="~/Scripts/Site.js"></script>

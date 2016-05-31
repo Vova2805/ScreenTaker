@@ -4,56 +4,6 @@
     ViewBag.CurrentFolderShCode = "-1";
     ViewBag.CurrentFolderId ="-1";
 }
-@section Scripts
-{
-    <script>
-        $('#toggle_event_editing button').click(function () {
-            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
-                /* code to do when unlocking */
-                $('#switch_status').html('Switched on.');
-            } else {
-                /* code to do when locking */
-                $('#switch_status').html('Switched off.');
-            }
-
-            /* reverse locking status */
-            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
-            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
-        });
-
-        function openFolder(i) {
-            var id = document.getElementById("Idhidden").value;
-            if (id != "") i = id;
-            location.href = "/Home/Images?id=" + i;
-            return false;
-        }
-
-        function selectFolder(id,folder_id,count,name, sharedLinkValue,sharedCode,image) {
-            document.getElementById("sharedLink").value = sharedLinkValue;
-            
-            document.getElementById("sharedLinkhidden").value = sharedCode;
-            document.getElementById("Idhidden").value = id;
-
-            document.getElementById("folderImage").src = image;
-            document.getElementById("folderTitle").innerText = name;
-
-            var classes = "col-md-2 text-center task active images folder";
-            for(var i = 0; i< count;i++)
-            {
-                var ID = "FID"+i;
-                document.getElementById(ID).className = classes;
-            }
-            document.getElementById(folder_id).className += " active-image";
-
-            return false;
-         }
-
-         function selectText() {
-             document.getElementById('sharedLink').select();
-             return false;
-         }
-    </script>
-}
 
 
 <div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
@@ -266,13 +216,19 @@
     </div>
 </div>
 
-<div class="row" style="margin-bottom: -40px; overflow: hidden; position: relative;  min-height: 675px">
-    <div class="col-md-10">
+<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 675px">
+    <div class="col-md-12">
         <div class="col-sm-10" style="padding-left:25px;padding-right:25px;">
             <h2>Folders</h2>
         </div>
         <div class="col-sm-2">
-            <button class="btn btn-primary btn-lg pull-right success btn-not-rounded" style="width:150px; height:30px;vertical-align:middle;background-color:cornflowerblue;margin-top:30px;margin-bottom:10px;font-size:15px; padding-top: 5px" data-toggle="modal" data-target="#AddFolder"> Add folder</button>
+           
+            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
+                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+            </button>
+            <button id="AddFolderButton"data-placement="bottom" title="Add new folder" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align" style="margin-top:20px;margin-right:-40px;background-color:cornflowerblue">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
         </div>
         <div class="row">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
@@ -302,12 +258,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2" style="background-color: #686868; height: 100%; right: 15px; position: absolute;">
-        <div>
+    <div class="sidenav" id="mySidenav">
+        <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
             <img id="folderImage" src="~/Resources/images/public.png" />
             <p id="folderTitle" style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
             <hr />
-
             <div>
                 <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" onclick="openFolder('@ViewBag.CurrentFolderId')">Open</button>
             </div>
@@ -325,7 +281,7 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">Share folder</p>
-            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" />    
+            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" style="width: 100%">Manage access</button>
@@ -365,3 +321,4 @@
 </nav>
 
 <script src="~/Scripts/context-menu.js"></script>
+<script src="~/Scripts/Site.js"></script>
