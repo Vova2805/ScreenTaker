@@ -26,6 +26,7 @@ namespace ScreenTaker.Controllers
 
         private SecurityHelper _securityHelper = new SecurityHelper();
 
+        [AllowAnonymous]
         public ActionResult Index(string lang = "en")
         {
             return RedirectToAction("Welcome", "Home");

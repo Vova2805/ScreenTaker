@@ -62,6 +62,7 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public void ChangeLocalization(string request, string lang = "en")
         {
             if (request.Contains("?"))
