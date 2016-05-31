@@ -61,10 +61,21 @@ namespace ScreenTaker.Controllers
             }
             return View();
         }
+        public string GetBaseUrl()
+        {
+            var request = HttpContext.Request;
+            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
+            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
+            return baseUrl;
+        }
 
         [AllowAnonymous]
         public void ChangeLocalization(string request, string lang = "en")
         {
+            if(GetBaseUrl().Equals(request))
+            {
+                request += "/Home/Welcome";
+            }
             if (request.Contains("?"))
             {
                 if (request.Contains("lang"))
