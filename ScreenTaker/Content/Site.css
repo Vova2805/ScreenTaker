@@ -279,6 +279,11 @@ textarea {
     color: #686868;
 }
 
+.active-image {
+    background-color: #444444;
+    color: #F0F0F0;
+}
+
 .images:hover {
     background-color: #686868;
     color: #F0F0F0;

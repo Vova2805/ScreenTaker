@@ -12,7 +12,7 @@
         CommpressedLink = ViewBag.BASE_URL + "img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
         Name = ViewBag.Images[0].Name + ".png";
     }
-
+    
 }
 @section Scripts
 {
@@ -40,7 +40,8 @@
             document.getElementById('sharedLink').select();
         }
 
-        function selectImage(id,sharedCode,original, sharedLink, compressed, name) {
+        function selectImage(id,image_id,count,sharedCode,original, sharedLink, compressed, name) {
+            var classes = "col-md-2 text-center task active images";
             document.getElementById("original").value = original;
             document.getElementById("sharedLink").value = sharedLink;
             document.getElementById("compressedLink").src = compressed;
@@ -48,6 +49,12 @@
 
             document.getElementById("sharedLinkhidden").value = sharedCode;
             document.getElementById("Idhidden").value = id;
+            for(var i = 0; i< count;i++)
+            {
+                var ID = "ID"+i;
+                document.getElementById(ID).className = classes;
+            }
+            document.getElementById(image_id).className += " active-image";
             return false;
         }
     </script>
@@ -322,20 +329,32 @@
         </div>
         <div class="row">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
-            @foreach (var i in ViewBag.Images)
-            {
-                string original = i.SharedCode;
-                string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                string compressed = ViewBag.BASE_URL+"img/" + i.SharedCode + "_compressed.png";
-                string name = i.Name + ".png";
-                    <a href="#" onclick="selectImage('@i.Id','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
-                        <div class="col-md-2 text-center task active images" style="margin-bottom: 60px; padding-top: 10px; " >
+            @{
+                int index = 0;
+                int count = ViewBag.Images.Count;
+                foreach (var i in ViewBag.Images)
+                {
+                    string original = i.SharedCode;
+                    string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
+                    string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+                    string name = i.Name + ".png";
+                    string classes = "col-md-2 text-center task active images";
+                    if (index == 0)
+                    {
+                        classes += " active-image";
+                    }
+                    string image_id = "ID" + index;
+
+                    <a href="#" onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
+                        <div class="@classes" id="@image_id"  style="margin-bottom: 60px; padding-top: 10px; ">
                             <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                             </div>
                             <label class="text-center">@name</label>
                         </div>
                     </a>
+                    index=index + 1;
                 }
+            }
             </div>
         </div>
     </div>
