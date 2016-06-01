@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ABOUTST_TEXT" xml:space="preserve">
-    <value>About st text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+    <value>Screen Taker - це найпростіший спосіб ділитися знімками екрану та зображеннями без необхідності жодних завантажень та встановлень. Він розроблений з думкою про робочий процес і використовує мінімум натискань клавіш, щоб ділитись вашими зображеннями</value>
   </data>
   <data name="ABOUT_ST" xml:space="preserve">
     <value>Про Screen Taker</value>
@@ -148,7 +148,7 @@
     <value>Повноекранне захоплення</value>
   </data>
   <data name="CAPTURING_TEXT" xml:space="preserve">
-    <value>Capturing text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+    <value>Клавіша Print Screen є універсальною кнопою для знімків. Вона знаходиться у правовій верхній частині клавіатури і іноді її назва скорочується до "Prt Scr". Ти можеш її використовувати будь-як - тобі не потрібен відкритий сайт ScreenTaker. Просто натисніть її раз і збережіть поточний вигляд вашого екрану. Тоді збережіть зображення і натисніть кнопку Завантажити зображення.</value>
   </data>
   <data name="CHANGE_PASS" xml:space="preserve">
     <value>Змінити пароль</value>
@@ -208,7 +208,8 @@
     <value>Функції</value>
   </data>
   <data name="FEATURES_TEXT" xml:space="preserve">
-    <value>Features text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+    <value>Зареєструйтесь, щоб керувати та видаляти ваші зображення.
+Розроблений з думкою про досвідчених користувачів, ScreenTaker надає швидке робоче середовище з мінімумом натискань клавіш.</value>
   </data>
   <data name="FOLDERS" xml:space="preserve">
     <value>Папки</value>
@@ -220,7 +221,7 @@
     <value>Картинки</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
-    <value>Jumbotron text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+    <value>Найлегший шлях, щоб ділитись зображеннями.</value>
   </data>
   <data name="LOGIN_EMAIL" xml:space="preserve">
     <value>Увійти</value>
