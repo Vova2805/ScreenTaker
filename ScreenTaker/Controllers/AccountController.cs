@@ -9,6 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ScreenTaker.Models;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Collections.Generic;
 
 namespace ScreenTaker.Controllers
 {
@@ -17,6 +21,9 @@ namespace ScreenTaker.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ScreenTakerEntities _entities = new ScreenTakerEntities();
+        private ImageCompressor _imageCompressor = new ImageCompressor();
+
 
         private RandomStringGenerator _stringGenerator = new RandomStringGenerator()
         {
@@ -163,7 +170,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Localize = locale;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -444,6 +451,18 @@ namespace ScreenTaker.Controllers
         {
             ViewBag.Localize = locale;
             ViewBag.Email = User.Identity.GetUserName();
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+            if (user != null)
+            {
+                var avatarFile = "";
+                var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
+                if (person.AvatarFile == null)
+                    avatarFile = GetBaseUrl() + "/Resources/user.png";
+                else
+                    avatarFile = GetBaseUrl() + "/avatars/"+ person.AvatarFile + "_128.png";
+
+                ViewBag.Avatar_128 = avatarFile;
+            }
             return View();
         }
 
@@ -467,7 +486,6 @@ namespace ScreenTaker.Controllers
 
             base.Dispose(disposing);
         }
-
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -527,5 +545,58 @@ namespace ScreenTaker.Controllers
             }
         }
         #endregion
+
+
+       
+        public ActionResult SetAvatar(HttpPostedFileBase file)
+        {            
+            if (file != null)
+            {                
+                using (var transaction = _entities.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var avatarFile = "";
+                        ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                        if (user != null)
+                        {
+                            var email = user.Email;
+                            var person = _entities.People.Where(w => w.Email == email).FirstOrDefault();
+                            if (person.AvatarFile != null)
+                            {
+                                System.IO.File.Delete(Server.MapPath("~/avatars/")+person.AvatarFile + "_128.png");
+                                System.IO.File.Delete(Server.MapPath("~/avatars/") + person.AvatarFile + "_50.png");                                
+                            }
+                            person.AvatarFile = _stringGenerator.Next();
+                            avatarFile = person.AvatarFile;
+                            _entities.SaveChanges();
+                        }                        
+                        var bitmap = new Bitmap(file.InputStream);
+                        var bitmap128 = _imageCompressor.Compress(bitmap, new Size(128, 128));
+                        var path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_128.png");
+                        bitmap.Save(path, ImageFormat.Png);
+                        var bitmap50 = _imageCompressor.Compress(bitmap, new Size(50, 50));
+                        path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_50.png");
+                        bitmap50.Save(path, ImageFormat.Png);
+                        ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + avatarFile + "_128.png";
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+                
+            }
+            return View("UserProfile");
+        }
+
+        public string GetBaseUrl()
+        {
+            var request = HttpContext.Request;
+            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
+            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
+            return baseUrl;
+        }
     }
 }

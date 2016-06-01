@@ -66,7 +66,7 @@ namespace ScreenTaker.Controllers
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
 
-                        transaction.Commit();
+                        
 
                         var bitmap = new Bitmap(file.InputStream);
 
@@ -76,6 +76,7 @@ namespace ScreenTaker.Controllers
                         var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
                         path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
                         compressedBitmap.Save(path, ImageFormat.Png);
+                        transaction.Commit();
                     }
                     catch (Exception)
                     {

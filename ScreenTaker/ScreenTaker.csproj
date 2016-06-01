@@ -461,6 +461,7 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Home\SharedFolder.cshtml" />
     <Content Include="Views\Edit\Partial_GroupsAndEmails.cshtml" />
+    <Content Include="Views\Account\Partial_SetAvatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
