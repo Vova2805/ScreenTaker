@@ -564,8 +564,12 @@ namespace ScreenTaker.Controllers
                             var person = _entities.People.Where(w => w.Email == email).FirstOrDefault();
                             if (person.AvatarFile != null)
                             {
-                                System.IO.File.Delete(Server.MapPath("~/avatars/")+person.AvatarFile + "_128.png");
-                                System.IO.File.Delete(Server.MapPath("~/avatars/") + person.AvatarFile + "_50.png");                                
+                                try
+                                {
+                                    System.IO.File.Delete(Server.MapPath("~/avatars/") + person.AvatarFile + "_128.png");
+                                    System.IO.File.Delete(Server.MapPath("~/avatars/") + person.AvatarFile + "_50.png");
+                                }
+                                catch { }
                             }
                             person.AvatarFile = _stringGenerator.Next();
                             avatarFile = person.AvatarFile;
