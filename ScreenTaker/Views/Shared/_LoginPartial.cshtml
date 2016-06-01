@@ -4,8 +4,10 @@
 @section Scripts
 {
     <script>
-         function setLocal(loc) {
-             document.getElementById('localization').innerHTML = loc + '<span class="caret"></span>';
+
+         function ChangeLocalization(loc) {
+             document.getElementById('localization0').innerText = loc;
+             document.getElementById('localization1').innerHTML = loc;
          }
     </script>
 }
@@ -18,11 +20,11 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ENG<span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  id="localization0">ENG<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})" onclick="ChangeLocalization('UKR')">UKR</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})" onclick="ChangeLocalization('RUS')">RUS</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})" onclick="ChangeLocalization('ENG')">ENG</a></li>
                 </ul>
             </li>
             
@@ -34,7 +36,7 @@
                     <img src="~/Resources/user.png" class="img-circle" style="height:25px;width:25px;">
                 </a>
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Resource.LOGOUT</a></li>
+            <li><a href="javascript:document.getElementBфффффффyId('logoutForm').submit()">@Resources.Resource.LOGOUT</a></li>
         </ul>
     }
 }
@@ -42,14 +44,15 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization">ENG<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">ENG<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
-                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
-                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})" onclick="ChangeLocalization('UKR')">UKR</a></li>
+                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})" onclick="ChangeLocalization('RUS')">RUS</a></li>
+                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})" onclick="ChangeLocalization('ENG')">ENG</a></li>
             </ul>
         </li>
         <li>@Html.ActionLink(@Resources.Resource.LOGIN_EMAIL, "Login", "Account")</li>
         <li>@Html.ActionLink(@Resources.Resource.SIGNIN_LOGOUT, "Register", "Account")</li>
     </ul>
 }
+<script src="~/Scripts/Site.js"></script>

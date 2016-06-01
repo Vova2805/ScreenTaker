@@ -18,8 +18,9 @@
     }
     else
     {
-        Culture = UICulture = "en";
+        Culture = UICulture = ViewBag.Localize ?? "en";
     }
+
 }
 
 <div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 800px">

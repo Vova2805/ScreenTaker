@@ -8,6 +8,6 @@ namespace ScreenTaker.Controllers
 {
     public abstract class GeneralController: Controller
     {
-        public string locale = "en";
+        public static string locale = "en";
     }
 }

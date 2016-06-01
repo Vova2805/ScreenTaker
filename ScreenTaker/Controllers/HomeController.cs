@@ -29,6 +29,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult Index(string lang = "en")
         {
+            ViewBag.Localize = locale;
             return RedirectToAction("Welcome", "Home", new { lang = locale });
         }
 
@@ -36,12 +37,14 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult Welcome(string lang = "en")
         {
+            ViewBag.Localize = locale;
             return View("Welcome", new { lang = locale });
         }
 
         [HttpPost]
         public ActionResult Welcome(HttpPostedFileBase file, string lang = "en")
         {
+            ViewBag.Localize = locale;
             if (file != null)
             {
                 using (var transaction = _entities.Database.BeginTransaction())
@@ -87,6 +90,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult About(string lang = "en")
         {
+            ViewBag.Localize = locale;
             ViewBag.Message = "Your application description page.";
 
             return View("About", new { lang = locale });
@@ -96,13 +100,14 @@ namespace ScreenTaker.Controllers
         public ActionResult Contact(string lang = "en")
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewBag.Localize = locale;
             return View();
         }
 
         #region Library
         public ActionResult Library(string lang = "en")
         {
+            ViewBag.Localize = locale;
             ViewBag.Message = "Library page";
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
@@ -126,7 +131,7 @@ namespace ScreenTaker.Controllers
         public ActionResult ChangeFoldersAttr(Folder folder, string lang = "en")
         {
             ViewBag.Folders = _entities.Folders.ToList();
-
+            ViewBag.Localize = locale;
             return RedirectToAction("Library");
         }
         #endregion
@@ -134,7 +139,7 @@ namespace ScreenTaker.Controllers
         private void FillImagesViewBag(int folderId)
         {
             var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
-
+            ViewBag.Localize = locale;
             ViewBag.IsEmpty = !list.Any();
             ViewBag.Images = list;
             var pathsList = _entities.Images.ToList()
@@ -149,6 +154,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult Images(string id = "-1", string lang = "en")
         {
+            ViewBag.Localize = locale;
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
@@ -175,6 +181,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         public ActionResult Images(HttpPostedFileBase file, string folderId, string lang = "en")
         {
+            ViewBag.Localize = locale;
             if (file != null)
             {
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
@@ -229,12 +236,13 @@ namespace ScreenTaker.Controllers
 
             }
             FillImagesViewBag(Int32.Parse(folderId));
-
+            
             return View("Images", new { lang = locale });
         }
 
         public ActionResult SharedFolder(string id, string lang = "en")
         {
+            ViewBag.Localize = locale;
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
@@ -280,6 +288,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en", int selectedId = -1)
         {
+            ViewBag.Localize = locale;
             ViewBag.Image = _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
@@ -360,6 +369,7 @@ namespace ScreenTaker.Controllers
         //для одного зображення зміна доступу
         public ActionResult MakeSingleImagePublic(bool imagestatus, int imageId, string lang = "en")
         {
+            ViewBag.Localize = locale;
             var result = _entities.Images.FirstOrDefault(b => b.Id == imageId);
             if (result != null)
             {
@@ -380,6 +390,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SharedImage(string i, string lang = "en")
         {
+            ViewBag.Localize = locale;
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
@@ -418,6 +429,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult DeleteImage(string path, string lang = "en")
         {
+            ViewBag.Localize = locale;
             int folderId = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -443,6 +455,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RenameImage(string path, string newName, string lang = "en")
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -464,6 +477,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult AddFolder(string path, string title, string lang = "en")
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -493,6 +507,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
         {
+            ViewBag.Localize = locale;
             int folderId = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -516,6 +531,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult DeleteFolder(string path, string lang = "en")
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -544,6 +560,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RenameFolder(string path, string newName, string lang = "en")
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try

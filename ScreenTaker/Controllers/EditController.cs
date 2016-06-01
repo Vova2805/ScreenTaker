@@ -20,16 +20,19 @@ namespace ScreenTaker.Controllers
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
         public ActionResult Index(string lang = "en")
         {
+            ViewBag.Localize = locale;
             return View("UserGroups",new { lang = locale });
         }
 
         public ActionResult EditImage(string lang = "en")
         {
+            ViewBag.Localize = locale;
             return View("EditImage", new { lang = locale });
         }
 
         public ActionResult UserGroups(int selectedId=-1)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {                                   
                 try
@@ -72,7 +75,8 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public void ChangeLocalization(string request, string lang = "en")
         {
-            if(request.Equals("/") || request.Equals(""))
+            
+            if (request.Equals("/") || request.Equals(""))
             {
                 request = GetBaseUrl() +"Home/Welcome";
             }
@@ -94,11 +98,13 @@ namespace ScreenTaker.Controllers
                 request += "?lang=" + lang;
             }
             locale = lang;
+            ViewBag.Localize = locale;
             Response.Redirect(request);
         }
 
         public ActionResult CreateGroup(string name)
         {
+            ViewBag.Localize = locale;
             int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -131,6 +137,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RemoveGroup(int selectedId = 0)
         {
+            ViewBag.Localize = locale;
             int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -164,7 +171,8 @@ namespace ScreenTaker.Controllers
         }
 
         public ActionResult AddUser(int selectedId,string email)
-        {            
+        {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -190,6 +198,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RemoveUser(int selectedId,string email)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -209,6 +218,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult Partial_GroupsAndEmails(int selectedId, string lang = "en")
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
