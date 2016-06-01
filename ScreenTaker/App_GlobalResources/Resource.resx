@@ -221,13 +221,13 @@
     <value>Upload image</value>
   </data>
   <data name="ABOUT_ST" xml:space="preserve">
-    <value>About Screen Taker</value>
+    <value>About ScreenTaker</value>
   </data>
   <data name="CAPTURING_FS" xml:space="preserve">
     <value>Capturing full screen</value>
   </data>
   <data name="ABOUTST_TEXT" xml:space="preserve">
-    <value>About st text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+    <value>ScreenTaker is the fastest way to share a screenshot and images without needing any downloads or installations. It’s designed with your workflow in mind by using only a minimum number of keypresses to share your images.</value>
   </data>
   <data name="ALREADY_HAVE_ACC" xml:space="preserve">
     <value>Already have an account?</value>
@@ -236,7 +236,7 @@
     <value>Register as a new user</value>
   </data>
   <data name="CAPTURING_TEXT" xml:space="preserve">
-    <value>Capturing text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+    <value>The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere - you don’t need the Snaggy website open. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it and just open up ScreenTaker and paste it by pressing Upload image.</value>
   </data>
   <data name="CREATE_NEW_ACC" xml:space="preserve">
     <value>Create a new account to keep track of your pasted images</value>
@@ -245,13 +245,14 @@
     <value>Email</value>
   </data>
   <data name="FEATURES_TEXT" xml:space="preserve">
-    <value>Features text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+    <value>Register an account to manage and delete your old images.
+Designed with power-users in mind, ScreenTaker has a fast workflow that requires only the minimum number of keypresses.</value>
   </data>
   <data name="FOLDERS" xml:space="preserve">
     <value>Folders</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
-    <value>Jumbotron text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+    <value>The easiest way to share your images.</value>
   </data>
   <data name="LOGOUT" xml:space="preserve">
     <value>Log out</value>
