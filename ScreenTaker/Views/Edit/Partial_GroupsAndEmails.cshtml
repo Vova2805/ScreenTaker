@@ -110,8 +110,9 @@
                         {
                             <div class="list-group-item">
                                 <div class="media-left">
-                                    <img class="media-object" style="width:25px;height:25px;" src="@ViewBag.Avatars[i]" alt="Image not found">
-                                </div>
+                                    <div style="background:url(@ViewBag.Avatars[i]) no-repeat center center;" class="media-object img-circle zoom_img">
+                                    </div>
+                                 </div>
                                 <div class="media-body" style="vertical-align:middle">
                                     <h4 class="media-heading">@ViewBag.Emails[i]</h4>
                                 </div>
