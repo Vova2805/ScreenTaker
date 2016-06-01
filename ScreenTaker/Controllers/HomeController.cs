@@ -8,6 +8,7 @@ using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq.Expressions;
+using System.Net.Mail;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Image = ScreenTaker.Models.Image;

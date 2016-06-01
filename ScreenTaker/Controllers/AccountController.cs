@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -175,6 +177,25 @@ namespace ScreenTaker.Controllers
                         };
                         entities.Folders.Add(defaultFolder);
                         entities.SaveChanges();
+
+
+                        using (MailMessage mm = new MailMessage("screentakertest@mail.ua", "wheatley@i.ua"))
+                        {
+                            mm.Subject = "Account Activation";
+                            string body = "Hello " + user.Email + ",";
+                            body += "<br /><br />Please click the following link to activate your account";
+                            body += "<br /><br />Thanks";
+                            mm.Body = body;
+                            mm.IsBodyHtml = true;
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = "smtp.mail.ru";
+                            smtp.EnableSsl = true;
+                            NetworkCredential NetworkCred = new NetworkCredential("screentakertest@mail.ua", "abcABC12345");
+                            smtp.UseDefaultCredentials = true;
+                            smtp.Credentials = NetworkCred;
+                            smtp.Port = 587;
+                            smtp.Send(mm);
+                        }
                     }
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
