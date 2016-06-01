@@ -18,19 +18,19 @@
                 <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="exampleModalLabel">Rename</h4>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.RENAME</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="new-title" class="control-label">Enter new title for image</label>
+                        <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE_IMAGE</label>
                         <input type="text" class="form-control" id="new-title" value="@ViewBag.OriginalName.Substring(0,ViewBag.OriginalName.Length - 4)">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Close</button>                
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">Submit</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>                
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
             </div>
         </div>
     </div>
@@ -43,19 +43,19 @@
                 <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="exampleModalLabel">Delete image</h4>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_IMAGE</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="new-title" class="control-label text-center">Are you sure?</label>
+                        <label for="new-title" class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">No</button>               
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>               
                 <button type="button" class="btn btn-primary btn-not-rounded" 
-                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath,folderId=ViewBag.CurrentFolderId})'" >Yes</button>
+                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath,folderId=ViewBag.CurrentFolderId})'" >@Resources.Resource.YES</button>
                 
             </div>
         </div>
@@ -69,14 +69,14 @@
                 <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="exampleModalLabel">Move image to</h4>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.MOVE_IMAGE</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
+                                <input type="text" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" aria-label="Left Align">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -108,10 +108,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Enter new folder's title" value="New folder">
+                                <input type="text" class="form-control" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" aria-label="Left Align">
-                                        Create
+                                        @Resources.Resource.CREATE
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                                 </span>
@@ -121,9 +121,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CANCEL</button>
                 <button type="button" class="btn btn-primary btn-not-rounded">
-                    Move
+                    @Resources.Resource.MOVE
                 </button>
 
             </div>
@@ -138,17 +138,17 @@
                 <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="gridSystemModalLabel">Manage access</h4>
+                <h4 class="modal-title" id="gridSystemModalLabel">@Resources.Resource.MANAGE_ACCESS</h4>
             </div>
             <div class="modal-body">
                 <div class="row" style="margin-bottom:5px;">
                     <div class="col-sm-9">
-                        <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Access by link</h5>
+                        <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
                     </div>
                     <div class="col-sm-3">
                         <div class="btn-group pull-right" id="toggle_event_editing">
-                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">On</button>
-                            <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">Off</button>
+                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
+                            <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                         <div class="input-group">
                             <input type="text" style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
                             <span class="input-group-btn" style="height:30px;">
-                                <button class="btn btn-default btn-not-rounded" style="height:30px;" type="button">Copy</button>
+                                <button class="btn btn-default btn-not-rounded" style="height:30px;" type="button">@Resources.Resource.COPY</button>
                             </span>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                     <div class="col-sm-6">
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-sm-12">
-                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">People</h5>
+                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.PEOPLE</h5>
                             </div>
                         </div>
                         <div class="row">
@@ -228,7 +228,7 @@
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2">
+                                    <input type="text" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
                                     <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                     <div class="col-sm-6">
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-sm-12">
-                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Groups</h5>
+                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.GROUPS</h5>
                             </div>
                         </div>
                         <div class="row">
@@ -259,7 +259,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">Submit</button>
+                <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">@Resources.Resource.SUBMIT</button>
             </div>
         </div>
     </div>
@@ -281,7 +281,7 @@
             </div>
             
             <ol class="breadcrumb">
-                <li><a href="/Home/Library">Folders</a></li>
+                <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                 <li><a href="/Home/Images">Shared folder</a></li>
                 <li class="active">@ViewBag.OriginalName</li>
             </ol>
@@ -336,26 +336,26 @@
             <p style="color: #E0E0E0; padding-top: 10px">@ViewBag.OriginalName</p>
             <hr />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">Move</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">@Resources.Resource.MOVE</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameImage" style="width: 100%">Rename</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameImage" style="width: 100%">@Resources.Resource.RENAME</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">Delete</button>
+                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">@Resources.Resource.DELETE</button>
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" style="width: 100%" onclick="location.href='@Url.Action("MakeSingleImagePublic", "Home" , new {imagestatus=ViewBag.IsPublic,imageId=ViewBag.Id})'">@ViewBag.ButtonPrivateORPublic</button>
+                <button class="btn btn-warning btn-not-rounded" style="width: 100%" onclick="location.href='@Url.Action("MakeSingleImagePublic", "Home" , new {imagestatus=ViewBag.IsPublic,imageId=ViewBag.Id})'">@Resources.Resource.MAKE_PUBLIC</button>
             </div>
             <hr />
-            <p style="color: #E0E0E0">Share image</p>
+            <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
             <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.SharedLink" />
             <br />
             <div>
-                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
+                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
             </div>
             <hr />
         </div>
@@ -366,29 +366,29 @@
 <nav id="context-menu" class="context-menu">
     <ul class="context-menu__items">
         <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-target="#MoveImage" data-toggle="modal"> Move</a>
+            <a href="#" class="context-menu__link" data-target="#MoveImage" data-toggle="modal"> @Resources.Resource.MOVE</a>
         </li>
         <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-target="#DeleteImage" data-toggle="modal"> Delete</a>
+            <a href="#" class="context-menu__link" data-target="#DeleteImage" data-toggle="modal"> @Resources.Resource.DELETE</a>
         </li>
         <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-target="#RenameImage" data-toggle="modal"> Rename</a>
+            <a href="#" class="context-menu__link" data-target="#RenameImage" data-toggle="modal"> @Resources.Resource.RENAME</a>
         </li>
         <li class="context-menu__item">
             <div class="row" style="padding: 4px 12px;">
                 <div class="col-md-3">
-                    <h5 style="padding-top: 7px; margin:0;">Private</h5>
+                    <h5 style="padding-top: 7px; margin:0;">@Resources.Resource.PRIVATE</h5>
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
-                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">On</button>
-                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">Off</button>
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
                     </div>
                 </div>
             </div>
         </li>
         <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess"> Manage access</a>
+            <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess">@Resources.Resource.MANAGE_ACCESS</a>
         </li>
     </ul>
 </nav>

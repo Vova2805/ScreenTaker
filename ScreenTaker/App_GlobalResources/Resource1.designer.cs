@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new folder.
+        /// </summary>
+        internal static string ADD_NEW_FOLDER {
+            get {
+                return ResourceManager.GetString("ADD_NEW_FOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alphabet.
         /// </summary>
         internal static string ALPHABET {
@@ -178,11 +187,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string CLOSE {
+            get {
+                return ResourceManager.GetString("CLOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm a new password.
         /// </summary>
         internal static string CONFIRM_PASS {
             get {
                 return ResourceManager.GetString("CONFIRM_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        internal static string COPY {
+            get {
+                return ResourceManager.GetString("COPY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        internal static string CREATE {
+            get {
+                return ResourceManager.GetString("CREATE", resourceCulture);
             }
         }
         
@@ -220,6 +256,24 @@ namespace Resources {
         internal static string DELETE {
             get {
                 return ResourceManager.GetString("DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete folder.
+        /// </summary>
+        internal static string DELETE_FOLDER {
+            get {
+                return ResourceManager.GetString("DELETE_FOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete image.
+        /// </summary>
+        internal static string DELETE_IMAGE {
+            get {
+                return ResourceManager.GetString("DELETE_IMAGE", resourceCulture);
             }
         }
         
@@ -314,6 +368,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Images.
+        /// </summary>
+        internal static string IMAGES {
+            get {
+                return ResourceManager.GetString("IMAGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jumbotron text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulpu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string JUMBOTRON_TEXT {
@@ -351,6 +414,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make public.
+        /// </summary>
+        internal static string MAKE_PUBLIC {
+            get {
+                return ResourceManager.GetString("MAKE_PUBLIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage access.
         /// </summary>
         internal static string MANAGE_ACCESS {
@@ -365,6 +437,78 @@ namespace Resources {
         internal static string MANAGE_GROUPS {
             get {
                 return ResourceManager.GetString("MANAGE_GROUPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move.
+        /// </summary>
+        internal static string MOVE {
+            get {
+                return ResourceManager.GetString("MOVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move image to.
+        /// </summary>
+        internal static string MOVE_IMAGE {
+            get {
+                return ResourceManager.GetString("MOVE_IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New folder.
+        /// </summary>
+        internal static string NEW_FOLDER {
+            get {
+                return ResourceManager.GetString("NEW_FOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a title for new folder.
+        /// </summary>
+        internal static string NEW_FOLDER_TITLE {
+            get {
+                return ResourceManager.GetString("NEW_FOLDER_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string NO {
+            get {
+                return ResourceManager.GetString("NO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        internal static string OFF {
+            get {
+                return ResourceManager.GetString("OFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        internal static string ON {
+            get {
+                return ResourceManager.GetString("ON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        internal static string OPEN {
+            get {
+                return ResourceManager.GetString("OPEN", resourceCulture);
             }
         }
         
@@ -443,6 +587,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter new title for folder.
+        /// </summary>
+        internal static string RENAME_TITLE {
+            get {
+                return ResourceManager.GetString("RENAME_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new title for image.
+        /// </summary>
+        internal static string RENAME_TITLE_IMAGE {
+            get {
+                return ResourceManager.GetString("RENAME_TITLE_IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SAVE {
@@ -457,6 +619,42 @@ namespace Resources {
         internal static string SAVED_AS {
             get {
                 return ResourceManager.GetString("SAVED_AS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes?.
+        /// </summary>
+        internal static string SAVE_CHANGES {
+            get {
+                return ResourceManager.GetString("SAVE_CHANGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for.
+        /// </summary>
+        internal static string SEARCH_FOR {
+            get {
+                return ResourceManager.GetString("SEARCH_FOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share folder.
+        /// </summary>
+        internal static string SHARE_FOLDER {
+            get {
+                return ResourceManager.GetString("SHARE_FOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share link.
+        /// </summary>
+        internal static string SHARE_LINK {
+            get {
+                return ResourceManager.GetString("SHARE_LINK", resourceCulture);
             }
         }
         
@@ -497,11 +695,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload new image.
+        /// </summary>
+        internal static string UPLOAD_NEW_IMAGE {
+            get {
+                return ResourceManager.GetString("UPLOAD_NEW_IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use your account to log in.
         /// </summary>
         internal static string USE_ACCOUNT {
             get {
                 return ResourceManager.GetString("USE_ACCOUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string YES {
+            get {
+                return ResourceManager.GetString("YES", resourceCulture);
             }
         }
         

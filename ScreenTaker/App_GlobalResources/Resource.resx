@@ -268,4 +268,76 @@
   <data name="USE_ACCOUNT" xml:space="preserve">
     <value>Use your account to log in</value>
   </data>
+  <data name="ADD_NEW_FOLDER" xml:space="preserve">
+    <value>Add new folder</value>
+  </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="COPY" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CREATE" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="DELETE_FOLDER" xml:space="preserve">
+    <value>Delete folder</value>
+  </data>
+  <data name="DELETE_IMAGE" xml:space="preserve">
+    <value>Delete image</value>
+  </data>
+  <data name="IMAGES" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="MAKE_PUBLIC" xml:space="preserve">
+    <value>Make public</value>
+  </data>
+  <data name="MOVE" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="MOVE_IMAGE" xml:space="preserve">
+    <value>Move image to</value>
+  </data>
+  <data name="NEW_FOLDER" xml:space="preserve">
+    <value>New folder</value>
+  </data>
+  <data name="NEW_FOLDER_TITLE" xml:space="preserve">
+    <value>Enter a title for new folder</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="OFF" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ON" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="OPEN" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="RENAME_TITLE" xml:space="preserve">
+    <value>Enter new title for folder</value>
+  </data>
+  <data name="RENAME_TITLE_IMAGE" xml:space="preserve">
+    <value>Enter new title for image</value>
+  </data>
+  <data name="SAVE_CHANGES" xml:space="preserve">
+    <value>Save changes?</value>
+  </data>
+  <data name="SEARCH_FOR" xml:space="preserve">
+    <value>Search for</value>
+  </data>
+  <data name="SHARE_FOLDER" xml:space="preserve">
+    <value>Share folder</value>
+  </data>
+  <data name="SHARE_LINK" xml:space="preserve">
+    <value>Share link</value>
+  </data>
+  <data name="UPLOAD_NEW_IMAGE" xml:space="preserve">
+    <value>Upload new image</value>
+  </data>
+  <data name="YES" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>
