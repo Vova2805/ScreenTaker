@@ -551,7 +551,7 @@ namespace ScreenTaker.Controllers
                         var bitmap128 = _imageCompressor.Compress(bitmap, new Size(128, 128));
                         var path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_128.png");
                         bitmap.Save(path, ImageFormat.Png);
-                        var bitmap25 = _imageCompressor.Compress(bitmap, new Size(25, 25));
+                        var bitmap25 = _imageCompressor.Compress(bitmap, new Size(50, 50));
                         path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_25.png");
                         bitmap25.Save(path, ImageFormat.Png);
                         ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + avatarFile + "_128.png";
