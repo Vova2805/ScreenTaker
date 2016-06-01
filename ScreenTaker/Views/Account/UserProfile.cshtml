@@ -1,5 +1,13 @@
 ﻿@{
     ViewBag.Title = "Profile";
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
 }
 
 <div class="row" style="margin-top:20px;">
@@ -13,7 +21,7 @@
                 <div class="col-md-9 text-center">
                  
                         <a class="account-link">
-                            Change your profile picture
+                            @Resources.Resource.CHANGE_PROFILE_IMG
                         </a>
                     
                 </div>
@@ -21,10 +29,10 @@
             <br />
             <div class="col-md-12">
                 <div class="col-md-6 text-left">
-                    <h4>Email: @ViewBag.Email</h4>
+                    <h4>@Resources.Resource.EMAIL : @ViewBag.Email</h4>
                 </div>
                 <div class="col-md-6 text-right">
-                    <button class="btn btn-default account-button" onclick="location='/Edit/UserGroups'">Manage groups</button>
+                    <button class="btn btn-default account-button" onclick="location='/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
                 </div>
             </div>
             <div>
@@ -32,26 +40,26 @@
             {
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="form-group" style="padding-left: 15px">
-                        <label>Your old password</label>
+                        <label>@Resources.Resource.YOUR_OLD_PASS</label>
                         <div>
                             <input type="password" class="col-md-4" placeholder="" />
                         </div>
                     </div>
                     <div class="form-group" style="padding-left: 15px">
-                        <label>Enter a new password</label>
+                        <label>@Resources.Resource.ENTER_NEW_PASS</label>
                         <div>
                             <input type="password" class="col-md-4" placeholder="" />
                         </div>
                     </div>
                     <div class="form-group" style="padding-left: 15px">
-                        <label>Confirm a new password</label>
+                        <label>@Resources.Resource.CONFIRM_PASS</label>
                         <div>
                             <input type="password" class="col-md-4" placeholder="" />
                         </div>
                     </div>
                     <div class="form-group" style="padding-bottom: 10px">
                         <div class="col-md-10">
-                            <input type="submit" class="btn btn-default account-button" value="Change password" />
+                            <input type="submit" class="btn btn-default account-button" value="@Resources.Resource.CHANGE_PASS" />
                         </div>
                     </div>
                 }

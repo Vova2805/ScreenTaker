@@ -106,6 +106,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Already have an account?.
+        /// </summary>
+        internal static string ALREADY_HAVE_ACC {
+            get {
+                return ResourceManager.GetString("ALREADY_HAVE_ACC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register as a new user.
+        /// </summary>
+        internal static string AS_NEW_USER {
+            get {
+                return ResourceManager.GetString("AS_NEW_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string CANCEL {
@@ -165,6 +183,15 @@ namespace Resources {
         internal static string CONFIRM_PASS {
             get {
                 return ResourceManager.GetString("CONFIRM_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new account to keep track of your pasted images.
+        /// </summary>
+        internal static string CREATE_NEW_ACC {
+            get {
+                return ResourceManager.GetString("CREATE_NEW_ACC", resourceCulture);
             }
         }
         
@@ -233,6 +260,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        internal static string EMAIL {
+            get {
+                return ResourceManager.GetString("EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a new password.
         /// </summary>
         internal static string ENTER_NEW_PASS {
@@ -256,6 +292,15 @@ namespace Resources {
         internal static string FEATURES_TEXT {
             get {
                 return ResourceManager.GetString("FEATURES_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folders.
+        /// </summary>
+        internal static string FOLDERS {
+            get {
+                return ResourceManager.GetString("FOLDERS", resourceCulture);
             }
         }
         
@@ -293,6 +338,15 @@ namespace Resources {
         internal static string LOGIN_EMAIL {
             get {
                 return ResourceManager.GetString("LOGIN_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        internal static string LOGOUT {
+            get {
+                return ResourceManager.GetString("LOGOUT", resourceCulture);
             }
         }
         

@@ -3,6 +3,22 @@
     ViewBag.Title = "Library";
     ViewBag.CurrentFolderShCode = "-1";
     ViewBag.CurrentFolderId ="-1";
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
 }
 
 

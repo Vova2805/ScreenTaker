@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ABOUTST_TEXT" xml:space="preserve">
+    <value>About st text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+  </data>
+  <data name="ABOUT_ST" xml:space="preserve">
+    <value>Про Screen Taker</value>
+  </data>
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Доступ за посиланням</value>
   </data>
@@ -126,8 +132,20 @@
   <data name="ALPHABET" xml:space="preserve">
     <value>Алфавіт</value>
   </data>
+  <data name="ALREADY_HAVE_ACC" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="AS_NEW_USER" xml:space="preserve">
+    <value>Зареєструватись як новий користувач</value>
+  </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Відмінити</value>
+  </data>
+  <data name="CAPTURING_FS" xml:space="preserve">
+    <value>Повноекранне захоплення</value>
+  </data>
+  <data name="CAPTURING_TEXT" xml:space="preserve">
+    <value>Capturing text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
   </data>
   <data name="CHANGE_PASS" xml:space="preserve">
     <value>Змінити пароль</value>
@@ -140,6 +158,9 @@
   </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Підтвердити пароль</value>
+  </data>
+  <data name="CREATE_NEW_ACC" xml:space="preserve">
+    <value>Create a new account to keep track of your pasted images</value>
   </data>
   <data name="DATE" xml:space="preserve">
     <value>Дата</value>
@@ -159,17 +180,32 @@
   <data name="EDIT_GROUPS" xml:space="preserve">
     <value>Редагувати групи</value>
   </data>
+  <data name="EMAIL" xml:space="preserve">
+    <value>Поштова адреса</value>
+  </data>
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Введіть новий пароль</value>
   </data>
   <data name="FEATURES" xml:space="preserve">
     <value>Функції</value>
   </data>
+  <data name="FEATURES_TEXT" xml:space="preserve">
+    <value>Features text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+  </data>
+  <data name="FOLDERS" xml:space="preserve">
+    <value>Папки</value>
+  </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Групи</value>
   </data>
+  <data name="JUMBOTRON_TEXT" xml:space="preserve">
+    <value>Jumbotron text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</value>
+  </data>
   <data name="LOGIN_EMAIL" xml:space="preserve">
     <value>Увійти</value>
+  </data>
+  <data name="LOGOUT" xml:space="preserve">
+    <value>Вийти</value>
   </data>
   <data name="MANAGE_ACCESS" xml:space="preserve">
     <value>Керувати доступом</value>
@@ -212,6 +248,9 @@
   </data>
   <data name="UPLOAD_IMAGE" xml:space="preserve">
     <value>Завантажити зображення</value>
+  </data>
+  <data name="USE_ACCOUNT" xml:space="preserve">
+    <value>Use your account to log in</value>
   </data>
   <data name="YOUR_OLD_PASS" xml:space="preserve">
     <value>Ваш старий пароль</value>

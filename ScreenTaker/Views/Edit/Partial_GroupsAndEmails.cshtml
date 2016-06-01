@@ -1,4 +1,14 @@
-﻿<div class="row-fluid">
+﻿@{
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
+}
+<div class="row-fluid">
     <div class="col-sm-4" style="padding:5px;">
         <div class="row" style="margin-bottom:10px;">
             <div class="col-sm-12">

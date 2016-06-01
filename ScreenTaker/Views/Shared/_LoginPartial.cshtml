@@ -9,16 +9,7 @@
          }
     </script>
 }
-@{ 
-    if (!Request.QueryString["lang"].IsEmpty())
-    {
-        Culture = UICulture = Request.QueryString["lang"];
-    }
-    else
-    {
-        Culture = UICulture = "en";
-    }
-}
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -43,7 +34,7 @@
                     <img src="~/Resources/images/user.png" class="img-circle" style="height:25px;width:25px;">
                 </a>
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Resource.LOGOUT</a></li>
         </ul>
     }
 }

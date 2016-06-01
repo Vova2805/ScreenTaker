@@ -13,6 +13,14 @@
         Name = ViewBag.Images[0].Name + ".png";
     }
     
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
 }
 
 <div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px" >

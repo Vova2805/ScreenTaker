@@ -15,17 +15,17 @@ using Microsoft.AspNet.Identity.Owin;
 namespace ScreenTaker.Controllers
 {
     [Authorize]
-    public class EditController : Controller
+    public class EditController : GeneralController
     {
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
         public ActionResult Index(string lang = "en")
         {
-            return View("UserGroups");
+            return View("UserGroups",new { lang = locale });
         }
 
         public ActionResult EditImage(string lang = "en")
         {
-            return View("EditImage");
+            return View("EditImage", new { lang = locale });
         }
 
         public ActionResult UserGroups(int selectedId=-1)
@@ -59,7 +59,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return View();
+            return View("UserGroups", new { lang = locale });
         }
         public string GetBaseUrl()
         {
@@ -93,6 +93,7 @@ namespace ScreenTaker.Controllers
             {
                 request += "?lang=" + lang;
             }
+            locale = lang;
             Response.Redirect(request);
         }
 
@@ -124,7 +125,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect });
+            return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect, lang = locale  });
         }
 
 
@@ -159,7 +160,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect});
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect, lang = locale  });
         }
 
         public ActionResult AddUser(int selectedId,string email)
@@ -184,7 +185,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
         }
 
         public ActionResult RemoveUser(int selectedId,string email)
@@ -203,10 +204,10 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
         }
 
-        public ActionResult Partial_GroupsAndEmails(int selectedId)
+        public ActionResult Partial_GroupsAndEmails(int selectedId, string lang = "en")
         {
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -237,7 +238,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return PartialView("Partial_GroupsAndEmails");
+            return PartialView("Partial_GroupsAndEmails", new { lang = locale });
         }
     }
 }
