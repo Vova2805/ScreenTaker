@@ -49,9 +49,13 @@ namespace ScreenTaker.Controllers
                                  join m in _entities.GroupMembers
                                  on p.Id equals m.PersonId
                                  where m.GroupId == selectedId
-                                 select new { ID = m.GroupId, Email = p.Email };
+                                 select new { ID = m.GroupId, Email = p.Email, p.AvatarFile };              
                     if (emails.Any())
+                    {
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
+                        var baseUrl = GetBaseUrl();
+                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile==null? baseUrl + "/Resources/user.png": baseUrl + "/avatars/"+s.AvatarFile + "_128.png")).ToList();
+                    }                                                  
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -228,17 +232,22 @@ namespace ScreenTaker.Controllers
                                  join m in _entities.GroupMembers
                                  on p.Id equals m.PersonId
                                  where m.GroupId == selectedId
-                                 select new { ID = m.GroupId, Email = p.Email };
+                                 select new { ID = m.GroupId, Email = p.Email, p.AvatarFile };
                     if (emails.Any())
+                    {
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
+                        var baseUrl = GetBaseUrl();
+                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile == null ? baseUrl + "/Resources/user.png" : baseUrl + "/avatars/" + s.AvatarFile + "_128.png")).ToList();
+                    }
                     transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
                 }
+                return PartialView("Partial_GroupsAndEmails", new { lang = locale });
+
             }
-            return PartialView("Partial_GroupsAndEmails", new { lang = locale });
-        }
+        }       
     }
 }
