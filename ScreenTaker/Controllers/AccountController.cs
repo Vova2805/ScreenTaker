@@ -13,7 +13,7 @@ using ScreenTaker.Models;
 namespace ScreenTaker.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : GeneralController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -63,6 +63,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ViewBag.Localize = locale;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -74,6 +75,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            ViewBag.Localize = locale;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -102,6 +104,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
+            ViewBag.Localize = locale;
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
@@ -117,6 +120,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
+            ViewBag.Localize = locale;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -145,6 +149,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Localize = locale;
             return View();
         }
 
@@ -155,6 +160,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            ViewBag.Localize = locale;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -196,6 +202,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
+            ViewBag.Localize = locale;
             if (userId == default(int) || code == null)
             {
                 return View("Error");
@@ -209,6 +216,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
+            ViewBag.Localize = locale;
             return View();
         }
 
@@ -219,6 +227,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            ViewBag.Localize = locale;
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
@@ -245,6 +254,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
+            ViewBag.Localize = locale;
             return View();
         }
 
@@ -263,6 +273,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            ViewBag.Localize = locale;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -287,6 +298,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
+            ViewBag.Localize = locale;
             return View();
         }
 
@@ -306,6 +318,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
+            ViewBag.Localize = locale;
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == default(int))
             {
@@ -323,6 +336,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
+            ViewBag.Localize = locale;
             if (!ModelState.IsValid)
             {
                 return View();
@@ -341,6 +355,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+            ViewBag.Localize = locale;
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -373,6 +388,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
+            ViewBag.Localize = locale;
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Manage");
@@ -410,6 +426,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            ViewBag.Localize = locale;
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
@@ -419,17 +436,20 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
+            
             return View();
         }
         
         public ActionResult UserProfile()
         {
+            ViewBag.Localize = locale;
             ViewBag.Email = User.Identity.GetUserName();
             return View();
         }
 
         protected override void Dispose(bool disposing)
         {
+            
             if (disposing)
             {
                 if (_userManager != null)
@@ -470,6 +490,7 @@ namespace ScreenTaker.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
+            ViewBag.Localize = locale;
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
