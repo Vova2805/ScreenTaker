@@ -320,6 +320,9 @@
                         string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                         string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
                         string name = i.Name + ".png";
+                        int length = name.Length;
+                        int size = length <= 15 ? length : 15;
+                        string name = name.Substring(0, size);
                         string classes = "floating-box text-center task active images";
                         if (index == 0)
                         {

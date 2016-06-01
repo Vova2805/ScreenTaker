@@ -101,8 +101,7 @@ function selectFolder(id, folder_id, count, name, sharedLinkValue, sharedCode, i
 
     document.getElementById("folderImage").src = image;
     document.getElementById("folderTitle").innerText = name;
-
-    var classes = "col-md-2 text-center task active images folder";
+    var classes = "floating-box text-center task active images folder";
     for (var i = 0; i < count; i++) {
         var ID = "FID" + i;
         document.getElementById(ID).className = classes;
