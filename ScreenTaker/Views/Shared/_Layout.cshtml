@@ -5,8 +5,13 @@
     }
     else
     {
-        Culture = UICulture = "en";
+        Culture = UICulture = ViewBag.Localize??"en";
     }
+    //if (!ViewBag.Localize.Equals(Culture))
+    //{
+    //    
+    //}
+
 }
 <!DOCTYPE html>
 <html>

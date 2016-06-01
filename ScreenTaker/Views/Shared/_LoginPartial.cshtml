@@ -10,6 +10,21 @@
     </script>
 }
 
+@{
+//if (!Request.QueryString["lang"].IsEmpty())
+//{
+//    Culture = UICulture = Request.QueryString["lang"];
+//}
+//else
+//{
+//    Culture = UICulture = "en";
+//}
+//if (!ViewBag.Localize.Equals(Culture))
+//{
+//    Culture = UICulture = ViewBag.Localize;
+//}
+}
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
