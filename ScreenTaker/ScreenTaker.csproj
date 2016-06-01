@@ -195,6 +195,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\EditController.cs" />
@@ -322,6 +323,7 @@
       <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
       <LastGenOutput>ScreenTakerDataModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\images\loadingAnimation.gif" />
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
     <Content Include="Scripts\bootstrap-switch.js" />
@@ -337,6 +339,8 @@
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -405,9 +409,11 @@
     <Content Include="Views\Home\SharedImage.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Home\SharedFolder.cshtml" />
+    <Content Include="Views\Edit\Partial_GroupsAndEmails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="avatars\" />
     <Folder Include="img\" />
   </ItemGroup>
   <ItemGroup>
@@ -420,8 +426,8 @@
   <ItemGroup>
     <Content Include="App_GlobalResources\Resource.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resource1.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

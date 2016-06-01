@@ -12,68 +12,37 @@
         CommpressedLink = ViewBag.BASE_URL + "img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
         Name = ViewBag.Images[0].Name + ".png";
     }
-
-}
-@section Scripts
-{
-    <script>
-        $('#toggle_event_editing button').click(function () {
-            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
-                /* code to do when unlocking */
-                $('#switch_status').html('Switched on.');
-            } else {
-                /* code to do when locking */
-                $('#switch_status').html('Switched off.');
-            }
-
-            /* reverse locking status */
-            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
-            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
-        });
-
-        function openImage(path) {
-            location.href = "/Home/SingleImage?image=" + path;
-            return false;
-        }
-
-        function selectText() {
-            document.getElementById('sharedLink').select();
-        }
-
-        function selectImage(id,sharedCode,original, sharedLink, compressed, name) {
-            document.getElementById("original").value = original;
-            document.getElementById("sharedLink").value = sharedLink;
-            document.getElementById("compressedLink").src = compressed;
-            document.getElementById("compressedName").innerText = name;
-
-            document.getElementById("sharedLinkhidden").value = sharedCode;
-            document.getElementById("Idhidden").value = id;
-            return false;
-        }
-    </script>
-
+    
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
 }
 
-<div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px" >
+<div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Rename</h4>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.RENAME</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="new-title" class="control-label">Enter new title for image</label>
-                        <input type="text" class="form-control" id="new-title">
+                        <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE_IMAGE</label>
+                        <input type="text" class="form-control" id="new-title" value="@ViewBag.OriginalName.Substring(0,ViewBag.OriginalName.Length - 4)">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick=
-                        "location.href='@Url.Action("RenameImageOutside", "Home")?path='+document.getElementById('original').value+'&newName='+document.getElementById('new-title').value" >Submit</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
             </div>
         </div>
     </div>
@@ -82,145 +51,219 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="exampleModalLabel">Delete image</h4>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_IMAGE</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="new-title" class="control-label text-center">Save changes?</label>
+                        <label for="new-title" class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded"  onclick=
-                        "location.href='@Url.Action("DeleteImage", "Home")?path='+document.getElementById('original').value+'.png'">Yes</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" data-dismiss="modal" >No</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
+                <button type="button" class="btn btn-primary btn-not-rounded"
+                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath,folderId=ViewBag.CurrentFolderId})'">
+                    @Resources.Resource.YES
+                    </button>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="gridSystemModalLabel">Manage access</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row"  style="margin-bottom:5px;">
-                    <div class="col-sm-9">
-                        <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Access by link</h5>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="btn-group pull-right" id="toggle_event_editing" >
-                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">On</button>
-                            <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">Off</button>
-                        </div>
-                    </div>
+    <div class="modal fade" id="MoveImage" tabindex="-1" role="dialog" style="top:150px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:500px;">
+                <div class="modal-header">
+                    <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.MOVE_IMAGE</h4>
                 </div>
-                <div class="row" >
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <input type="text"  style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
-                            <span class="input-group-btn"  style="height:30px;">
-                                <button class="btn btn-default btn-not-rounded"  style="height:30px;" type="button">Copy</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="row" style="margin-bottom:10px;">
-                            <div class="col-sm-12">
-                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">People</h5>
-                            </div>
-                        </div>
+                <div class="modal-body">
+                    <form>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
-                                    <div class="list-group-item">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-bottom:10px;">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2">
-                                    <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                                    <input type="text" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="row" style="margin-bottom:10px;">
+                        <div class="row" style="margin-top:10px;">
                             <div class="col-sm-12">
-                                <h5 style="vertical-align:middle;margin:0;margin-top:5px;">Groups</h5>
+                                <div class="list-group" style="height:auto;max-height:200px;overflow:auto;border:solid 1px #E0E0E0">
+                                    @for (int i = 0; i < 10; i++)
+                                    {
+                                        string itemClass = "list-group-item";
+                                        string folderTitle = "Folder" + i.ToString();
+                                        if (i == 0)
+                                        {
+                                            itemClass += " active";
+                                        }
+                                        <div class="@itemClass">
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h5 class="media-heading">@folderTitle</h5>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="list-group" style="height:auto;height:205px;overflow:auto;border:solid #E0E0E0 1px;">
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">Friends</h5>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            @Resources.Resource.CREATE
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CANCEL</button>
+                    <button type="button" class="btn btn-primary btn-not-rounded">
+                        @Resources.Resource.MOVE
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">@Resources.Resource.MANAGE_ACCESS</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="margin-bottom:5px;">
+                        <div class="col-sm-9">
+                            <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="btn-group pull-right" id="toggle_event_editing">
+                                <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
+                                <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
+                                <span class="input-group-btn" style="height:30px;">
+                                    <button class="btn btn-default btn-not-rounded" style="height:30px;" type="button">@Resources.Resource.COPY</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-sm-12">
+                                    <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.PEOPLE</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
+                                        <div class="list-group-item">
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                            </div>
+                                            <div class="media-right" style="vertical-align:middle;">
+                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="material-switch media-right" style="vertical-align:middle">
-                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" />
-                                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                                        <div class="list-group-item ">
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                            </div>
+                                            <div class="media-right" style="vertical-align:middle;">
+                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item ">
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                            </div>
+                                            <div class="media-right" style="vertical-align:middle;">
+                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item ">
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                            </div>
+                                            <div class="media-right" style="vertical-align:middle;">
+                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item ">
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                            </div>
+                                            <div class="media-right" style="vertical-align:middle;">
+                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
+                                        <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row" style="margin-bottom:10px;">
+                                <div class="col-sm-12">
+                                    <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.GROUPS</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="list-group" style="height:auto;height:205px;overflow:auto;border:solid #E0E0E0 1px;">
+                                        <div class="list-group-item ">
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h5 class="media-heading">Friends</h5>
+                                            </div>
+                                            <div class="material-switch media-right" style="vertical-align:middle">
+                                                <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" />
+                                                <label for="someSwitchOptionInfo" class="label-info"></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -228,89 +271,111 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">Submit</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">@Resources.Resource.SUBMIT</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 800px">
-    <div class="col-md-10">
+<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
+    <div class="col-md-12">
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
-                <div class="col-sm-10">
-                    <h2>Images</h2>
+                <div class="col-sm-5">
+                    <h2>@Resources.Resource.IMAGES</h2>
                 </div>
                 
-                <div class="col-sm-2">
+                <div class="col-sm-7"  style="display:inline">
+                    <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
+                        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    </button>
                     @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
-                        <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                        <input id="fileSubmit" style="visibility: collapse" type="submit" value="bla"/>
-                        <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
-
-                        <input type="button" class="btn btn-primary btn-lg pull-right success btn-not-rounded" style="width:150px; height:30px;vertical-align:middle;background-color:cornflowerblue;margin-top:-50px;margin-bottom:10px;font-size:13px;"  value="Upload image" onclick="document.getElementById('fileInput').click();"/>
-                    }
-                </div>
+                        <div class="pull-right" style="display:inline;height:44px;">
+                            <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                            <input id="fileSubmit" style="visibility: collapse" type="submit" value="bla" />
+                            <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
+                            <input type="text" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" class="btn btn-primary btn-lg pull-right success btn-not-rounded"
+                                    style="width:40px; height:34px; margin-top:-5px;padding-top:5px;padding-left:10px; margin-right:-40px;" onclick="document.getElementById('fileInput').click();"/>
+                            <span id="UploadImageSpan" class="glyphicon glyphicon-open" aria-hidden="true" style="margin-left:57px;margin-right:-50px;color:white"></span>
+                        </div>
+                            }
+                        </div>
             </div>
             
             <ol class="breadcrumb" >
-                <li><a href="/Home/Library">Folders</a></li>
+                <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                 <li class="active">Shared folder</li>
             </ol>
         </div>
-        <div class="row">
+        <div class="row" >
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
-            @foreach (var i in ViewBag.Images)
-            {
-                string original = i.SharedCode;
-                string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                string compressed = ViewBag.BASE_URL+"img/" + i.SharedCode + "_compressed.png";
-                string name = i.Name + ".png";
-                    <a href="#" onclick="selectImage('@i.Id','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
-                        <div class="col-md-2 text-center task active images" style="margin-bottom: 60px; padding-top: 10px; " >
+            @{
+                int index = 0;
+                int count = ViewBag.Images.Count;
+                foreach (var i in ViewBag.Images)
+                {
+                    string original = i.SharedCode;
+                    string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
+                    string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+                    string name = i.Name + ".png";
+                    string classes = "floating-box text-center task active images";
+                    if (index == 0)
+                    {
+                        classes += " active-image";
+                    }
+                    string image_id = "ID" + index;
+
+                    <a href="#" onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
+                        <div class="@classes" id="@image_id"  style="padding-top: 10px; ">
                             <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                             </div>
                             <label class="text-center">@name</label>
                         </div>
                     </a>
+                    index=index + 1;
                 }
+            }
             </div>
         </div>
     </div>
-    <div class="col-md-2" style="background-color: #686868; right: 10px; height: 100%; position: absolute">
-        <div style="margin-left: 10px">
-            <input type="text" class="hidden" id="original"/>
-            <img src="@CommpressedLink" id="compressedLink" style="margin: 5px;margin-left:0px;max-width:195px;max-height:128px;"/>
+    <div class="sidenav" id="mySidenav">
+        <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
+            <input type="text" class="hidden" id="original" />
+            <img src="@CommpressedLink" id="compressedLink" style="margin: 5px;margin-left:0px;max-width:160px;max-height:128px;" />
             <p id="compressedName" style="color: #E0E0E0">@Name</p>
-            <hr/>
+            <hr />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" onclick="openImage(document.getElementById('original').value)">Open</button>
+                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" onclick="openImage(document.getElementById('original').value)">@Resources.Resource.OPEN</button>
             </div>
-            <br/>
+            <br />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameImage" style="width: 100%">Rename</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">@Resources.Resource.MOVE</button>
             </div>
-            <br/>
+            <br />
             <div>
-                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">Delete</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameImage" style="width: 100%">@Resources.Resource.RENAME</button>
             </div>
-            <br/>
+            <br />
+            <div>
+                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">@Resources.Resource.DELETE</button>
+            </div>
+            <br />
             <div>
                 <button class="btn btn-warning btn-not-rounded" style="width: 100%">Make public</button>
             </div>
-            <hr/>
-            <p style="color: #E0E0E0">Share image</p>
-            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ShareLink"/>
-            <br/>
+            <hr />
+            <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
+            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ShareLink" />
+            <br />
             <div>
-                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">Manage access</button>
+                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
             </div>
-            <hr/>
-            <input id="sharedLinkhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
-            <input id="Idhidden" class="form-control" style="width: 100%;visibility:collapse" type="text" />
+            <hr />
+            <input id="sharedLinkhidden" class="form-control" style="margin-top:-50px ;width: 100%;visibility:collapse" type="text" />
+            <input id="Idhidden" class="form-control" style="margin-top:-50px;width: 100%;visibility:collapse" type="text" />
         </div>
     </div>
 </div>
@@ -318,28 +383,32 @@
 <nav id="context-menu" class="context-menu">
     <ul class="context-menu__items">
         <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-target="#DeleteImage" data-toggle="modal"> Delete</a>
+            <a href="#" class="context-menu__link" data-target="#MoveImage" data-toggle="modal"> @Resources.Resource.MOVE</a>
         </li>
         <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-target="#RenameImage" data-toggle="modal"> Rename</a>
+            <a href="#" class="context-menu__link" data-target="#DeleteImage" data-toggle="modal"> @Resources.Resource.DELETE</a>
+        </li>
+        <li class="context-menu__item">
+            <a href="#" class="context-menu__link" data-target="#RenameImage" data-toggle="modal"> @Resources.Resource.RENAME</a>
         </li>
         <li class="context-menu__item">
             <div class="row" style="padding: 4px 12px;">
                 <div class="col-md-3">
-                    <h5 style="padding-top: 7px; margin:0;">Private</h5>
+                    <h5 style="padding-top: 7px; margin:0;">@Resources.Resource.PRIVATE</h5>
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
-                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">On</button>
-                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">Off</button>
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
                     </div>
                 </div>
             </div>
         </li>
         <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess"> Manage access</a>
+            <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess"> @Resources.Resource.MANAGE_ACCESS</a>
         </li>
     </ul>
 </nav>
 
 <script src="~/Scripts/context-menu.js"></script>
+<script src="~/Scripts/Site.js"></script>

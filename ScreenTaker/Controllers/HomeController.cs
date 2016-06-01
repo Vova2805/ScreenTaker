@@ -14,7 +14,7 @@ using Image = ScreenTaker.Models.Image;
 namespace ScreenTaker.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : GeneralController
     {
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
         private ImageCompressor _imageCompressor = new ImageCompressor();
@@ -26,16 +26,17 @@ namespace ScreenTaker.Controllers
 
         private SecurityHelper _securityHelper = new SecurityHelper();
 
+        [AllowAnonymous]
         public ActionResult Index(string lang = "en")
         {
-            return RedirectToAction("Welcome", "Home");
+            return RedirectToAction("Welcome", "Home", new { lang = locale });
         }
 
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Welcome(string lang = "en")
         {
-            return View();
+            return View("Welcome", new { lang = locale });
         }
 
         [HttpPost]
@@ -80,7 +81,7 @@ namespace ScreenTaker.Controllers
                 }
 
             }
-            return View();
+            return View("Welcome", new { lang = locale });
         }
 
         [AllowAnonymous]
@@ -88,7 +89,7 @@ namespace ScreenTaker.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View("About", new { lang = locale });
         }
 
         [AllowAnonymous]
@@ -146,7 +147,7 @@ namespace ScreenTaker.Controllers
             ViewBag.FolderId = folderId;
         }
 
-        public ActionResult Images(string id, string lang = "en")
+        public ActionResult Images(string id = "-1", string lang = "en")
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
@@ -168,7 +169,7 @@ namespace ScreenTaker.Controllers
             }
 
             FillImagesViewBag(folderId);
-            return View();
+            return View("Images", new { lang = locale });
         }
 
         [HttpPost]
@@ -190,7 +191,7 @@ namespace ScreenTaker.Controllers
 
                 if (!accesGranted)
                 {
-                    return RedirectToAction("Welcome");
+                    return RedirectToAction("Welcome", new { lang = locale });
                 }
 
                 using (var transaction = _entities.Database.BeginTransaction())
@@ -208,7 +209,7 @@ namespace ScreenTaker.Controllers
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
 
-                        transaction.Commit();
+                        
 
                         var bitmap = new Bitmap(file.InputStream);
 
@@ -218,6 +219,7 @@ namespace ScreenTaker.Controllers
                         var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
                         path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
                         compressedBitmap.Save(path, ImageFormat.Png);
+                        transaction.Commit();
                     }
                     catch (Exception e)
                     {
@@ -228,7 +230,7 @@ namespace ScreenTaker.Controllers
             }
             FillImagesViewBag(Int32.Parse(folderId));
 
-            return View();
+            return View("Images", new { lang = locale });
         }
 
         public ActionResult SharedFolder(string id, string lang = "en")
@@ -249,7 +251,7 @@ namespace ScreenTaker.Controllers
 
             if (!accesGranted)
             {
-                return RedirectToAction("Welcome");
+                return RedirectToAction("Welcome", new { lang = locale });
             }
 
             var list = _entities.Images.Where(i => i.FolderId == folderId 
@@ -264,7 +266,7 @@ namespace ScreenTaker.Controllers
             ViewBag.SharedLinks = _entities.Images.ToList()
                 .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
 
-            return View();
+            return View("SharedFolder", new { lang = locale });
         }
 
         public string GetBaseUrl()
@@ -276,7 +278,7 @@ namespace ScreenTaker.Controllers
         }
 
         [HttpGet]
-        public ActionResult SingleImage(string image, string lang = "en")
+        public ActionResult SingleImage(string image, string lang = "en", int selectedId = -1)
         {
             ViewBag.Image =  _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
 
@@ -349,12 +351,14 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
             }
-            return View();
+            
+
+            return View("SingleImage", new { lang = locale });
         }
 
 
         //для одного зображення зміна доступу
-        public ActionResult MakeSingleImagePublic(bool imagestatus, int imageId)
+        public ActionResult MakeSingleImagePublic(bool imagestatus, int imageId,string lang = "en")
         {
             var result = _entities.Images.FirstOrDefault(b => b.Id == imageId);
             if (result != null)
@@ -367,14 +371,14 @@ namespace ScreenTaker.Controllers
                 _entities.SaveChanges();
             }
 
-            return RedirectToAction("SingleImage");
+            return RedirectToAction("SingleImage", new { lang = locale });
         }
 
 
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult SharedImage(string i)
+        public ActionResult SharedImage(string i,string lang = "en")
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
@@ -409,7 +413,7 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.OriginalName = ViewBag.Image.Name + ".png";
             }
-            return View();
+            return View("SharedImage", new { lang = locale });
         }
 
         public ActionResult DeleteImage(string path, string lang = "en")
@@ -434,7 +438,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images", new { id = folderId.ToString() });
+            return RedirectToAction("Images", new { id = folderId.ToString(),  lang = locale  });
         }
 
         public ActionResult RenameImage(string path, string newName, string lang = "en")
@@ -455,7 +459,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path) });
+            return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path), lang = locale  });
         }
 
         public ActionResult AddFolder(string path, string title, string lang = "en")
@@ -484,7 +488,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Library","Home");
+            return RedirectToAction("Library","Home", new { lang = locale });
         }
 
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
@@ -507,7 +511,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images", new { id=folderId.ToString() });
+            return RedirectToAction("Images", new { id=folderId.ToString(), lang = locale  });
         }
 
         public ActionResult DeleteFolder(string path, string lang = "en")
@@ -535,7 +539,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Library");
+            return RedirectToAction("Library", new { lang = locale });
         }
 
         public ActionResult RenameFolder(string path, string newName, string lang = "en")
@@ -555,7 +559,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Library");
+            return RedirectToAction("Library", new { lang = locale });
         }
     }
 }

@@ -2,6 +2,7 @@
 @using System.Globalization
 @using System.Threading;
 @using ScreenTaker;
+
 @model LoginViewModel
 @{
     ViewBag.Title = "Edit groups";
@@ -19,23 +20,45 @@
 <div class="container">
     <div class="row" style="min-height:750px;">
         <h2 class="text-center">@Resources.Resource.EDIT_GROUP</h2>
+        <div class="preloader" id="loadingAnimation">
+            <div class="sk-cube-grid preloader-center center-block">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div> 
+        </div>                
+        <br />
         <div class="col-sm-1">
         </div>
-        <div class="col-sm-10 account-style shadow center-block" style="height:500px;">
+        <div class="col-sm-10 account-style shadow center-block" style="height:500px;" id="dynamicArea">
             <div class="row-fluid">
                 <div class="col-sm-4" style="padding:5px;">
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-sm-12">
-                            <div class="input-group">                           
+                            <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Group name" aria-describedby="sizing-addon2" id="GroupNameInput">
                                 <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
-                                      onclick="location.href='@Url.Action("CreateGroup", "Edit")?name=' + document.getElementById('GroupNameInput').value">+</span>                           
+                                      onclick="$.ajax({
+                                url: 'CreateGroup',
+                                data: {
+                                    name: document.getElementById('GroupNameInput').value,
+                                },
+                                success: function (data) {
+                                    $('#dynamicArea').html(data);
+                                }
+                            });">+</span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="list-group" style="height:auto;max-height:450px;overflow:auto;">                                
+                            <div class="list-group" style="height:auto;max-height:450px;overflow:auto;">
                                 @if (ViewBag.Groups != null)
                                 {
                                     for (int i = 0; i < ViewBag.Groups.Count; i++)
@@ -45,7 +68,14 @@
                                         {
                                             itemClass += " active";
                                         }
-                                        <div class="@itemClass" onclick="location.href='@Url.Action("UserGroups", "Edit", new { selectedId = ViewBag.Groups[i].Id })'">
+                                        <div class="@itemClass" onclick="$.ajax({
+                            url: 'Partial_GroupsAndEmails',
+                            data: {
+                            selectedId: @ViewBag.Groups[i].Id,
+                            },
+                            success: function (data) {
+                            $('#dynamicArea').html(data);                            
+                            }});">
                                             <div class="media-body" style="vertical-align:middle">
                                                 <h5 class="media-heading">@ViewBag.Groups[i].Name</h5>
                                             </div>
@@ -54,12 +84,21 @@
                                                     <span aria-hidden="true">@ViewBag.GroupMemberCounts[i]</span>
                                                 </button>
                                             </div>
-                                            <div class="media-right" style="vertical-align:middle;"  
-                                                 onclick="if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;  location.href='@Url.Action("RemoveGroup", "Edit", new { selectedId = ViewBag.Groups[i].Id })';">
+                                            <div class="media-right" style="vertical-align:middle;"
+                                                 onclick="if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;
+                                        $.ajax({
+                                            url: 'RemoveGroup',
+                                            data: {
+                                                selectedId: @ViewBag.Groups[i].Id,
+                                            },
+                                            success: function (data) {
+                                                $('#dynamicArea').html(data);
+                                            }
+                                        });">
                                                 <button type="button" class="btn badge right" aria-label="Left Align">
                                                     <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                                 </button>
-                                            </div>                                    
+                                            </div>
                                         </div>
                                     }
                                 }
@@ -74,32 +113,49 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput">
                                 <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
-                                onclick="location.href='@Url.Action("AddUser", "Edit",new {selectedId=ViewBag.SelectedId })&email=' + document.getElementById('AddUserInput').value">+</span>                           
-
+                                      onclick="$.ajax({
+                                        url: 'AddUser',
+                                        data: {
+                                            selectedId: @ViewBag.SelectedId,
+                                            email: document.getElementById('AddUserInput').value,
+                                        },
+                                        success: function (data) {
+                                            $('#dynamicArea').html(data);
+                                        }
+                                    });">+</span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="list-group respo" style="height:auto;max-height:450px;overflow:auto;">
-                                @if (ViewBag.Emails!= null)
+                                @if (ViewBag.Emails != null)
                                 {
                                     for (int i = 0; i < ViewBag.Emails.Count; i++)
                                     {
-                                    <div class="list-group-item">
-                                        <div class="media-left">
-                                            <img class="media-object" style="width:50px;height:50px;" src="~/Resources/images/user.png" alt="Image not found">
+                                        <div class="list-group-item">
+                                            <div class="media-left">
+                                                <img class="media-object" style="width:50px;height:50px;" src="~/Resources/images/user.png" alt="Image not found">
+                                            </div>
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h4 class="media-heading">@ViewBag.Emails[i]</h4>
+                                            </div>
+                                            <div class="media-right" style="vertical-align:middle"
+                                                 onclick="$.ajax({
+                                            url: 'RemoveUser',
+                                            data: {
+                                                selectedId: @ViewBag.SelectedId,
+                                                email: '@ViewBag.Emails[i]',
+                                            },
+                                            success: function (data) {
+                                                $('#dynamicArea').html(data);
+                                            }
+                                        });">
+                                                <button type="button" class="btn badge right" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h4 class="media-heading">@ViewBag.Emails[i]</h4>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle" 
-                                             onclick="if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;  location.href='@Url.Action("RemoveUser", "Edit", new { selectedId = ViewBag.SelectedId, email=ViewBag.Emails[i] })';">
-                                            <button type="button" class="btn badge right" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
                                     }
                                 }
                             </div>
@@ -116,6 +172,18 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+    @Scripts.Render("~/Scripts/jquery-2.2.3.min.js")
+<script>
+    var a = $('#loadingAnimation');
+    a.css('visibility', 'hidden');
+    $(document).ajaxStart(function () {
+        a.css('visibility', 'visible');
+    });
+    $(document).ajaxStop(function () {
+        a.css('visibility', 'hidden');
+    });
+</script>
 }
 
 

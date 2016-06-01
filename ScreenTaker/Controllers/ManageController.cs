@@ -11,7 +11,7 @@ using ScreenTaker.Models;
 namespace ScreenTaker.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : GeneralController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

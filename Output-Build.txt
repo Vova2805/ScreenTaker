@@ -1,0 +1,7 @@
+﻿------ Build started: Project: ScreenTaker, Configuration: Debug Any CPU ------
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(25,20,25,28): error CS0101: The namespace 'Resources' already contains a definition for 'Resource'
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(22,6,22,60): error CS0579: Duplicate 'global::System.CodeDom.Compiler.GeneratedCodeAttribute' attribute
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(23,6,23,61): error CS0579: Duplicate 'global::System.Diagnostics.DebuggerNonUserCodeAttribute' attribute
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(24,6,24,72): error CS0579: Duplicate 'global::System.Runtime.CompilerServices.CompilerGeneratedAttribute' attribute
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(32,18,32,26): error CS0111: Type 'Resource' already defines a member called '.ctor' with the same parameter types
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========

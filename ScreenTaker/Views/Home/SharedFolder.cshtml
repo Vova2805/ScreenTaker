@@ -12,9 +12,15 @@
         CommpressedLink = ViewBag.BASE_URL + "img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
         Name = ViewBag.Images[0].Name + ".png";
     }
-
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
 }
-
 
 <div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 800px">
     <div class="col-md-12">

@@ -1,5 +1,14 @@
 ﻿@{
     ViewBag.Title = "SharedImage";
+
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = "en";
+    }
 }
 
 @if (ViewBag.AccessGranted)

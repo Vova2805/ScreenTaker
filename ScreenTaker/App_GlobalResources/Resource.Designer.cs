@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About st text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulput [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ABOUTST_TEXT {
+            get {
+                return ResourceManager.GetString("ABOUTST_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Screen Taker.
+        /// </summary>
+        internal static string ABOUT_ST {
+            get {
+                return ResourceManager.GetString("ABOUT_ST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access by link.
         /// </summary>
         internal static string ACCESS_BY_LINK {
@@ -93,6 +111,24 @@ namespace Resources {
         internal static string CANCEL {
             get {
                 return ResourceManager.GetString("CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capturing full screen.
+        /// </summary>
+        internal static string CAPTURING_FS {
+            get {
+                return ResourceManager.GetString("CAPTURING_FS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capturing text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulpu [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string CAPTURING_TEXT {
+            get {
+                return ResourceManager.GetString("CAPTURING_TEXT", resourceCulture);
             }
         }
         
@@ -205,11 +241,39 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Features text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulput [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FEATURES_TEXT {
+            get {
+                return ResourceManager.GetString("FEATURES_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Groups.
         /// </summary>
         internal static string GROUPS {
             get {
                 return ResourceManager.GetString("GROUPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jumbotron text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulpu [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string JUMBOTRON_TEXT {
+            get {
+                return ResourceManager.GetString("JUMBOTRON_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Keyboard {
+            get {
+                object obj = ResourceManager.GetObject("Keyboard", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -345,6 +409,15 @@ namespace Resources {
         internal static string UPLOAD_IMAGE {
             get {
                 return ResourceManager.GetString("UPLOAD_IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use your account to log in.
+        /// </summary>
+        internal static string USE_ACCOUNT {
+            get {
+                return ResourceManager.GetString("USE_ACCOUNT", resourceCulture);
             }
         }
         

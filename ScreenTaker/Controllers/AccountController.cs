@@ -424,6 +424,7 @@ namespace ScreenTaker.Controllers
         
         public ActionResult UserProfile()
         {
+            ViewBag.Email = User.Identity.GetUserName();
             return View();
         }
 
