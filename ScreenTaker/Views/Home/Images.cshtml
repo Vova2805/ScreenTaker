@@ -283,7 +283,7 @@
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
                 <div class="col-sm-5">
-                    <h2>@Resources.Resource.IMAGES</h2>
+                    <h2>@ViewBag.FolderName</h2>
                 </div>
 
                 <div class="col-sm-7" style="display:inline">
@@ -306,7 +306,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
-                <li class="active">Shared folder</li>
+                <li class="active">@ViewBag.FolderName</li>
             </ol>
         </div>
         <div class="row">

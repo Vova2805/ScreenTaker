@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = ViewBag.IsPublic; //"SingleImage";
+    ViewBag.Title = "Image";
 
     if (!Request.QueryString["lang"].IsEmpty())
     {
@@ -282,7 +282,7 @@
             
             <ol class="breadcrumb">
                 <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
-                <li><a href="/Home/Images">Shared folder</a></li>
+                <li><a href=@ViewBag.FolderLink>@ViewBag.FolderName</a></li>
                 <li class="active">@ViewBag.OriginalName</li>
             </ol>
         </div>
