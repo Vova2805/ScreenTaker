@@ -136,7 +136,7 @@
     <value>Алфавіт</value>
   </data>
   <data name="ALREADY_HAVE_ACC" xml:space="preserve">
-    <value>Already have an account?</value>
+    <value>Ви вже зареєструвалися?</value>
   </data>
   <data name="AS_NEW_USER" xml:space="preserve">
     <value>Зареєструватись як новий користувач</value>
@@ -160,19 +160,19 @@
     <value>Класичний</value>
   </data>
   <data name="CLOSE" xml:space="preserve">
-    <value>Close</value>
+    <value>Закрити</value>
   </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Підтвердити пароль</value>
   </data>
   <data name="COPY" xml:space="preserve">
-    <value>Copy</value>
+    <value>Скопіювати</value>
   </data>
   <data name="CREATE" xml:space="preserve">
-    <value>Create</value>
+    <value>Створити</value>
   </data>
   <data name="CREATE_NEW_ACC" xml:space="preserve">
-    <value>Create a new account to keep track of your pasted images</value>
+    <value>Створіть новий акаунт, щоб відстежувати завантажені зображення</value>
   </data>
   <data name="DATE" xml:space="preserve">
     <value>Дата</value>
@@ -181,10 +181,10 @@
     <value>Видалити</value>
   </data>
   <data name="DELETE_FOLDER" xml:space="preserve">
-    <value>Delete folder</value>
+    <value>Видалити папку</value>
   </data>
   <data name="DELETE_IMAGE" xml:space="preserve">
-    <value>Delete image</value>
+    <value>Видалити зображення</value>
   </data>
   <data name="DEVELOPED_BY" xml:space="preserve">
     <value>Розроблено</value>
@@ -230,7 +230,7 @@
     <value>Вийти</value>
   </data>
   <data name="MAKE_PUBLIC" xml:space="preserve">
-    <value>Make public</value>
+    <value>Зробити доступною</value>
   </data>
   <data name="MANAGE_ACCESS" xml:space="preserve">
     <value>Керувати доступом</value>
@@ -239,25 +239,25 @@
     <value>Керувати групами</value>
   </data>
   <data name="MOVE" xml:space="preserve">
-    <value>Move</value>
+    <value>Перемістити</value>
   </data>
   <data name="MOVE_IMAGE" xml:space="preserve">
-    <value>Move image to</value>
+    <value>Перемістити зображення </value>
   </data>
   <data name="NEW_FOLDER" xml:space="preserve">
-    <value>New folder</value>
+    <value>Нова папка</value>
   </data>
   <data name="NEW_FOLDER_TITLE" xml:space="preserve">
-    <value>Enter a title for new folder</value>
+    <value>Введіть назву нової папки</value>
   </data>
   <data name="NO" xml:space="preserve">
-    <value>No</value>
+    <value>Ні</value>
   </data>
   <data name="OFF" xml:space="preserve">
-    <value>Off</value>
+    <value>Вимк</value>
   </data>
   <data name="ON" xml:space="preserve">
-    <value>On</value>
+    <value>Увімк</value>
   </data>
   <data name="OPEN" xml:space="preserve">
     <value>Відкрити</value>
@@ -281,10 +281,10 @@
     <value>Перейменувати</value>
   </data>
   <data name="RENAME_TITLE" xml:space="preserve">
-    <value>Enter new title for folder</value>
+    <value>Введіть нову назву папки</value>
   </data>
   <data name="RENAME_TITLE_IMAGE" xml:space="preserve">
-    <value>Enter new title for image</value>
+    <value>Введіть нову назву зображення</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>Зберегти</value>
@@ -293,16 +293,16 @@
     <value>Зберегти як</value>
   </data>
   <data name="SAVE_CHANGES" xml:space="preserve">
-    <value>Save changes?</value>
+    <value>Зберегти зміни?</value>
   </data>
   <data name="SEARCH_FOR" xml:space="preserve">
-    <value>Search for</value>
+    <value>Шукати за</value>
   </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
-    <value>Share folder</value>
+    <value>Поділитись папкою</value>
   </data>
   <data name="SHARE_LINK" xml:space="preserve">
-    <value>Share link</value>
+    <value>Посилання</value>
   </data>
   <data name="SIGNIN_LOGOUT" xml:space="preserve">
     <value>Зареєструватись</value>
@@ -317,13 +317,13 @@
     <value>Завантажити зображення</value>
   </data>
   <data name="UPLOAD_NEW_IMAGE" xml:space="preserve">
-    <value>Upload new image</value>
+    <value>Завантажити нове зображення</value>
   </data>
   <data name="USE_ACCOUNT" xml:space="preserve">
     <value>Використайте ваш обліковий запис щоб увійти</value>
   </data>
   <data name="YES" xml:space="preserve">
-    <value>Yes</value>
+    <value>Так</value>
   </data>
   <data name="YOUR_OLD_PASS" xml:space="preserve">
     <value>Ваш старий пароль</value>
