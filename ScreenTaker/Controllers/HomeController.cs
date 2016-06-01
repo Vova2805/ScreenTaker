@@ -56,7 +56,7 @@ namespace ScreenTaker.Controllers
                         //else image.id = 1;
 
                         image.IsPublic = false;
-                        image.FolderId = _entities.Folders.Where(f=>f.Name.Equals("General")).Select(fol=>fol.Id).FirstOrDefault();
+                        image.FolderId = _entities.Folders.Where(f => f.Name.Equals("General")).Select(fol => fol.Id).FirstOrDefault();
                         image.SharedCode = sharedCode;
                         image.Name = fileName;
                         image.PublicationDate = DateTime.Now;
@@ -116,7 +116,7 @@ namespace ScreenTaker.Controllers
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
                 ) : folder.SharedCode;
 
-            ViewBag.CurrentFolderId = (folder == null )? (
+            ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
             return View();
@@ -136,7 +136,7 @@ namespace ScreenTaker.Controllers
             var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
 
             ViewBag.IsEmpty = !list.Any();
-            ViewBag.Images = list;            
+            ViewBag.Images = list;
             var pathsList = _entities.Images.ToList()
                 .Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
             ViewBag.Paths = pathsList;
@@ -200,7 +200,7 @@ namespace ScreenTaker.Controllers
                     {
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                        var image = new Image();                
+                        var image = new Image();
                         image.IsPublic = false;
                         image.FolderId = Int32.Parse(folderId);
                         image.SharedCode = sharedCode;
@@ -209,7 +209,7 @@ namespace ScreenTaker.Controllers
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
 
-                        
+
 
                         var bitmap = new Bitmap(file.InputStream);
 
@@ -254,7 +254,7 @@ namespace ScreenTaker.Controllers
                 return RedirectToAction("Welcome", new { lang = locale });
             }
 
-            var list = _entities.Images.Where(i => i.FolderId == folderId 
+            var list = _entities.Images.Where(i => i.FolderId == folderId
                 && _securityHelper.IsImageAccessible(user, folder.Person, i)).ToList();
 
             ViewBag.IsEmpty = !list.Any();
@@ -280,7 +280,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en", int selectedId = -1)
         {
-            ViewBag.Image =  _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
+            ViewBag.Image = _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
@@ -300,7 +300,7 @@ namespace ScreenTaker.Controllers
                 return RedirectToAction("Welcome");
             }
 
-            if (ViewBag.Image==null && _entities.Images.ToList().Count>0)
+            if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
             {
                 ViewBag.Image = _entities.Images.ToList().First();
             }
@@ -351,14 +351,14 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
             }
-            
+
 
             return View("SingleImage", new { lang = locale });
         }
 
 
         //для одного зображення зміна доступу
-        public ActionResult MakeSingleImagePublic(bool imagestatus, int imageId,string lang = "en")
+        public ActionResult MakeSingleImagePublic(bool imagestatus, int imageId, string lang = "en")
         {
             var result = _entities.Images.FirstOrDefault(b => b.Id == imageId);
             if (result != null)
@@ -378,7 +378,7 @@ namespace ScreenTaker.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult SharedImage(string i,string lang = "en")
+        public ActionResult SharedImage(string i, string lang = "en")
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
@@ -422,7 +422,7 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {                    
+                {
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
                     folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
@@ -430,7 +430,7 @@ namespace ScreenTaker.Controllers
                     _entities.SaveChanges();
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
                     System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
-                    
+
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -438,7 +438,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images", new { id = folderId.ToString(),  lang = locale  });
+            return RedirectToAction("Images", new { id = folderId.ToString(), lang = locale });
         }
 
         public ActionResult RenameImage(string path, string newName, string lang = "en")
@@ -449,7 +449,7 @@ namespace ScreenTaker.Controllers
                 {
                     ViewBag.ImageTitle = newName;
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj=_entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
                     obj.Name = newName;
                     _entities.SaveChanges();
                     transaction.Commit();
@@ -459,7 +459,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path), lang = locale  });
+            return RedirectToAction("SingleImage", new { image = Path.GetFileNameWithoutExtension(path), lang = locale });
         }
 
         public ActionResult AddFolder(string path, string title, string lang = "en")
@@ -469,18 +469,18 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-                    
-                        var newolder = new Folder()
-                        {
-                            IsPublic = true,
-                            OwnerId = user.Id,
-                            SharedCode = _stringGenerator.Next(),
-                            Name = title,
-                            CreationDate = DateTime.Now
-                        };
+
+                    var newolder = new Folder()
+                    {
+                        IsPublic = true,
+                        OwnerId = user.Id,
+                        SharedCode = _stringGenerator.Next(),
+                        Name = title,
+                        CreationDate = DateTime.Now
+                    };
                     _entities.Folders.Add(newolder);
                     _entities.SaveChanges();
-                    
+
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -488,7 +488,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Library","Home", new { lang = locale });
+            return RedirectToAction("Library", "Home", new { lang = locale });
         }
 
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
@@ -511,7 +511,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-            return RedirectToAction("Images", new { id=folderId.ToString(), lang = locale  });
+            return RedirectToAction("Images", new { id = folderId.ToString(), lang = locale });
         }
 
         public ActionResult DeleteFolder(string path, string lang = "en")
