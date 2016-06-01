@@ -230,7 +230,7 @@ namespace ScreenTaker.Controllers
             }
             FillImagesViewBag(Int32.Parse(folderId));
 
-            return View("Images", new { lang = locale });
+            return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
         }
 
         public ActionResult SharedFolder(string id, string lang = "en")
