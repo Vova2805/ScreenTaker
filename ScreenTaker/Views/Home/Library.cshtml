@@ -253,11 +253,11 @@
                         string folder_id = "FID" + i;
                         string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
-                        string imageLink = "/Resources/images/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
                         <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@link','@sharedCode','@imageLink')"
                                ondblclick="openFolder('@ViewBag.Folders[i].Id')">
                             <figure class="@classes" id="@folder_id">
-                                <img src="~/Resources/images/public.png" />
+                                <img src="~/Resources/public.png" />
                                 <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
                             </figure>
                         </a>
@@ -269,7 +269,7 @@
     <div class="sidenav" id="mySidenav">
         <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-            <img id="folderImage" src="~/Resources/images/public.png" />
+            <img id="folderImage" src="/Resources/public.png" width="128" height="128" />
             <p id="folderTitle" style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
             <hr />
             <div>
