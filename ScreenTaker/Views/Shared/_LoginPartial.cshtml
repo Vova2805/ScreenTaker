@@ -59,8 +59,8 @@
             }            
             <li style="width:40px;">
                 <a href="/Account/UserProfile" style="margin-left:-20px;">
-                  
-                    <img src="@Url.Content(path)" class="img-circle" style="height:25px;width:25px;">
+                    <div style="height:25px;width:25px;background:url(@Url.Content(path)) no-repeat center center;" class="img-circle">
+                    </div>
                 </a>
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Resource.LOGOUT</a></li>
