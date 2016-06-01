@@ -175,6 +175,7 @@ namespace ScreenTaker.Controllers
                 return RedirectToAction("Welcome");
             }
 
+            ViewBag.FolderName = folder.Name;
             FillImagesViewBag(folderId);
             return View("Images", new { lang = locale });
         }
@@ -237,8 +238,8 @@ namespace ScreenTaker.Controllers
 
             }
             FillImagesViewBag(Int32.Parse(folderId));
-            
-            return View("Images", new { lang = locale });
+
+            return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
         }
 
         public ActionResult SharedFolder(string id, string lang = "en")
@@ -303,6 +304,9 @@ namespace ScreenTaker.Controllers
             if (im != null)
             {
                 accesGranted = _securityHelper.IsImageEditable(user, im.Folder.Person, im);
+
+                ViewBag.FolderName = im.Folder.Name;
+                ViewBag.FolderLink = GetBaseUrl() + "Home/Images?id=" + im.FolderId;
             }
 
             if (!accesGranted)
