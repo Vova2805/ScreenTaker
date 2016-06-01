@@ -200,12 +200,14 @@ namespace ScreenTaker.Controllers
                     {
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                        var image = new Image();                
-                        image.IsPublic = false;
-                        image.FolderId = Int32.Parse(folderId);
-                        image.SharedCode = sharedCode;
-                        image.Name = fileName;
-                        image.PublicationDate = DateTime.Now;
+                        var image = new Image
+                        {
+                            IsPublic = false,
+                            FolderId = Int32.Parse(folderId),
+                            SharedCode = sharedCode,
+                            Name = fileName,
+                            PublicationDate = DateTime.Now
+                        };
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
 
