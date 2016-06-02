@@ -12,6 +12,28 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
+@section Scripts {
+    <script>
+    var a = $('#loadingAnimation');
+    a.css('visibility', 'hidden');
+    $(document).ajaxStart(function () {
+        $('#loadingAnimation').css('visibility', 'visible');
+    });
+    $(document).ajaxStop(function () {
+        a.css('visibility', 'hidden');
+    });
+
+    function ShowProgress() {
+        setTimeout(function () {
+            var a = $('#loadingAnimation');
+            a.css('visibility', 'visible');
+        }, 200);
+    }
+    $('form').live("submit", function () {
+        ShowProgress();
+    });
+    </script>
+}
 
 
 <div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
@@ -33,7 +55,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">@Resources.Resource.ADD</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="$('#AddFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">@Resources.Resource.ADD</button>
             </div>
         </div>
     </div>
@@ -59,7 +81,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
                 <button type="button" class="btn btn-primary btn-not-rounded" onclick=
-                        "location.href='@Url.Action("RenameFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
+                        "$('#RenameFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("RenameFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
             </div>
         </div>
     </div>
@@ -84,7 +106,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
                 <button type="button" class="btn btn-primary btn-not-rounded"  onclick=
-                        "location.href='@Url.Action("DeleteFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.YES</button>
+                        "$('#DeleteFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("DeleteFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.YES</button>
             </div>
         </div>
     </div>
@@ -229,6 +251,19 @@
         <div class="col-sm-10" style="padding-left:25px;padding-right:25px;">
             <h2>@Resources.Resource.FOLDERS</h2>
         </div>
+        <div class="preloader" id="loadingAnimation">
+            <div class="sk-cube-grid preloader-center center-block">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div>
+        </div>  
         <div class="col-sm-2">
            
             <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">

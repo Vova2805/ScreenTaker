@@ -27,7 +27,7 @@
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
     $(document).ajaxStart(function () {
-        a.css('visibility', 'visible');
+        $('#loadingAnimation').css('visibility', 'visible');
     });
     $(document).ajaxStop(function () {
         a.css('visibility', 'hidden');
@@ -35,14 +35,8 @@
 
     function ShowProgress() {
         setTimeout(function () {
-            //var modal = $('<div />');
-            //modal.addClass("modal");
-            //$('body').append(modal);
-            var loading = $("#loadingAnimation");
-            loading.show();
-            var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
-            var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
-            loading.css({ top: top, left: left });
+            var a = $('#loadingAnimation');
+            a.css('visibility', 'visible');
         }, 200);
     }
     $('form').live("submit", function () {
@@ -335,9 +329,9 @@
                     {
                         <div class="pull-right" style="display:inline;height:44px;">
                             <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                            <input id="fileSubmit" style="visibility: collapse" type="submit" value="bla" />
+                            <input id="fileSubmit" style="visibility: collapse" type="submit" value="" onclick="$('#loadingAnimation').css('visibility', 'visible');"/>
                             <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
-                            <input type="text" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" class="btn btn-primary btn-lg pull-right success btn-not-rounded"
+                            <input type="text" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" class="btn btn-primary btn-lg pull-right success btn-not-rounded"
                                    style="width:40px; height:34px; margin-top:-5px;padding-top:5px;padding-left:10px; margin-right:-40px;" onclick="document.getElementById('fileInput').click();" />
                             <span id="UploadImageSpan" class="glyphicon glyphicon-open" aria-hidden="true" style="margin-left:57px;margin-right:-50px;color:white"></span>
                         </div>
