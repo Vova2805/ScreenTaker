@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Library";
     ViewBag.CurrentFolderShCode = "-1";
-    ViewBag.CurrentFolderId ="-1";
+    ViewBag.CurrentFolderId = "-1";
     if (!Request.QueryString["lang"].IsEmpty())
     {
         Culture = UICulture = Request.QueryString["lang"];
@@ -80,11 +80,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick=
-                        "$('#RenameFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("RenameFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
-            </div>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="$('#RenameFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("RenameFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">
+                    @Resources.Resource.SUBMIT
+            </button>
         </div>
     </div>
+</div>
 </div>
 
 <div class="modal fade" id="DeleteFolder" tabindex="-1" role="dialog" style="top:200px">
@@ -105,11 +106,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
-                <button type="button" class="btn btn-primary btn-not-rounded"  onclick=
-                        "$('#DeleteFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("DeleteFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.YES</button>
-            </div>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="$('#DeleteFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("DeleteFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">
+                    @Resources.Resource.YES
+            </button>
         </div>
     </div>
+</div>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess" style="top:100px">
@@ -246,9 +248,9 @@
     </div>
 </div>
 
-<div class="row" id="main">
+<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 675px">
     <div class="col-md-12">
-        <div class="col-sm-10" id="title">
+        <div class="col-sm-10" style="padding-left:25px;padding-right:25px;">
             <h2>@Resources.Resource.FOLDERS</h2>
         </div>
         <div class="preloader" id="loadingAnimation">
@@ -263,18 +265,18 @@
                 <div class="sk-cube sk-cube8"></div>
                 <div class="sk-cube sk-cube9"></div>
             </div>
-        </div>  
+        </div>
         <div class="col-sm-2">
+
             <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                 <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
             </button>
-            <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" 
-                    type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
+            <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align" style="margin-top:20px;margin-right:-40px;background-color:cornflowerblue">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
         </div>
         <div class="row">
-            <div class="col-sm-12 item-container">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
                 @{
                     int count = ViewBag.Folders.Count;
 
@@ -290,7 +292,7 @@
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
                         <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@link','@sharedCode','@imageLink')"
-                               ondblclick="openFolder('@ViewBag.Folders[i].Id')">
+                           ondblclick="openFolder('@ViewBag.Folders[i].Id')">
                             <figure class="@classes" id="@folder_id">
                                 <img src="~/Resources/public.png" />
                                 <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
@@ -302,7 +304,7 @@
         </div>
     </div>
     <div class="sidenav" id="mySidenav">
-        <div id="common-sidenav">
+        <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
             <img id="folderImage" src="/Resources/public.png" width="128" height="128" />
             <p id="folderTitle" style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
@@ -351,8 +353,8 @@
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
-                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded context-menu-toggle-item">@Resources.Resource.ON</button>
-                        <button type="button" class="btn btn-info locked_active btn-not-rounded context-menu-toggle-item">@Resources.Resource.OFF</button>
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
                     </div>
                 </div>
             </div>
