@@ -150,6 +150,10 @@ namespace ScreenTaker.Controllers
             var pathsList = _entities.Images.ToList()
                 .Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
             ViewBag.Paths = pathsList;
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+            if (user != null)
+                ViewBag.UserFolders = _entities.Folders.Where(w => w.OwnerId == user.Id&&w.Id!=folderId).ToList();
             ViewBag.BASE_URL = GetBaseUrl();
             ViewBag.SharedLinks = _entities.Images.ToList()
                 .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
@@ -294,10 +298,11 @@ namespace ScreenTaker.Controllers
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-
-
             var im = _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
-
+            if (im == null)
+                throw new Exception("Null image error.");
+            if (user != null)
+                ViewBag.UserFolders = _entities.Folders.Where(w => w.OwnerId == user.Id && w.Id != im.FolderId).ToList();            
             bool accesGranted = false;
 
             if (im != null)
@@ -586,5 +591,16 @@ namespace ScreenTaker.Controllers
             }
             return RedirectToAction("Library", new { lang = locale });
         }
+
+        public ActionResult MoveItMoveIt(int folderId,string imageSharedCode)
+        {
+            var imageId = _entities.Images.Where(w => w.SharedCode == imageSharedCode).Select(s=>s.Id).FirstOrDefault();
+            var img=_entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
+            img.FolderId = folderId;
+            _entities.SaveChanges();
+
+            return RedirectToAction("Images",new {id= folderId });
+        }
+
     }
 }
