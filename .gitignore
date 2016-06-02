@@ -246,3 +246,4 @@ ModelManifest.xml
 /ScreenTaker/Models/ImageCompressor.cs
 /ScreenTaker/Models/RandomStringGenerator.cs
 /ScreenTaker/App_GlobalResources
+*.png
