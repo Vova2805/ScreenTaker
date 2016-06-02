@@ -520,10 +520,12 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     ViewBag.ImageTitle = newName;
-                    var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    var sharedCode = Path.GetFileNameWithoutExtension(path);                  
+                    var obj = _entities.Images.Where(w=>w.SharedCode == sharedCode).FirstOrDefault();
+                    if (obj == null)                   
+                        throw new Exception("Path in invalid");
                     obj.Name = newName;
-                    folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
+                    folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedCode).FolderId;
                     _entities.SaveChanges();
                     transaction.Commit();
                 }

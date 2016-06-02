@@ -41,7 +41,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImageOutside", "Home")?path='+document.getElementById('original').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
                 <button type="button" class="btn btn-primary btn-not-rounded"
-                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath,folderId=ViewBag.CurrentFolderId})'">
+                        onclick="location.href='@Url.Action("DeleteImage", "Home")?path='+document.getElementById('original').value+'&folderId=@ViewBag.CurrentFolderId'">
                     @Resources.Resource.YES
                 </button>
 
@@ -347,7 +347,14 @@
     <div class="sidenav" id="mySidenav">
         <div id="common-sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-            <input type="text" class="hidden" id="original"/>
+            @if (ViewBag.Images != null && ViewBag.Images.Count > 0)
+            {
+                <input type="text" class="hidden" id="original" value="@ViewBag.Images[0].SharedCode"/>
+            }
+            else
+            {
+                <input type="text" class="hidden" id="original" value="" />
+            }
             <img src="@CommpressedLink" id="compressedLink"/>
             <p id="compressedName" style="color: #E0E0E0">@Name</p>
             <hr />
