@@ -6,77 +6,97 @@
     <script>
     </script>
 }
-
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+@{
+    if (!Request.QueryString["lang"].IsEmpty())
     {
-        @Html.AntiForgeryToken()
+        Culture = UICulture = Request.QueryString["lang"];
+        ViewBag.Localize = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+    string localization = ViewBag.Localize ?? "en";
+    string Loc = "ENG";
+    if (localization.Equals("uk"))
+    {
+        Loc = "UKR";
+    }
+    else
+    if (localization.Equals("ru"))
+    {
+        Loc = "RUS";
+    }
+    if (Request.IsAuthenticated)
+    {
 
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  id="localization0">ENG<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})" onclick="ChangeLocalization('UKR')">UKR</a></li>
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})" onclick="ChangeLocalization('RUS')">RUS</a></li>
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})" onclick="ChangeLocalization('ENG')">ENG</a></li>
-                </ul>
-            </li>
-            
-            <li>
-                @Html.ActionLink(User.Identity.GetUserName(), "UserProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage groups" })
-            </li>
-            @{
-                string path = "";
-                if (User == null)
-                {
-                    path = Server.MapPath("~/Resources/") + "user.png";
-                }
-                else
-                {
-                    var email = User.Identity.GetUserName();
-                    var people = ViewBag.PeopleForMaster;
-                    string avatarFile = null;
-                    for (int i = 0; i < people.Count; i++)
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization0">@Loc<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+                    </ul>
+                </li>
+                <li>
+                    @Html.ActionLink(User.Identity.GetUserName(), "UserProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage groups" })
+                </li>
+                @{
+                    string path = "";
+                    if (User == null)
                     {
-                        if (people[i].Email == email)
-                        {
-                            avatarFile = people[i].AvatarFile;
-                        }
-                    }
-                    if (avatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + avatarFile + "_50.png"))
-                    {
-                        path = "~/avatars/" + avatarFile + "_50.png";
+                        path = Server.MapPath("~/Resources/") + "user.png";
                     }
                     else
                     {
-                        path = "~/Resources/user_50.png";
+                        var email = User.Identity.GetUserName();
+                        var people = ViewBag.PeopleForMaster;
+                        string avatarFile = null;
+                        for (int i = 0; i < people.Count; i++)
+                        {
+                            if (people[i].Email == email)
+                            {
+                                avatarFile = people[i].AvatarFile;
+                            }
+                        }
+                        if (avatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + avatarFile + "_50.png"))
+                        {
+                            path = "~/avatars/" + avatarFile + "_50.png";
+                        }
+                        else
+                        {
+                            path = "~/Resources/user_50.png";
+                        }
                     }
-                }               
-            }            
-            <li style="width:50px;z-index:5000;">
-                <a href="/Account/UserProfile" style="margin: 0px; padding-bottom: 0px; padding-top: 0px;">
-                    <div style="z-index:5000;height:36px;width:36px;background: transparent url(@Url.Content(path)) no-repeat center center; margin-top: 0px; width: 50px; height: 50px; margin-left: -20px;" class="img-circle">
-                    </div>
-                </a>
+                }
+                <li style="width:50px;z-index:5000;">
+                    <a href="/Account/UserProfile" style="margin: 0px; padding-bottom: 0px; padding-top: 0px;">
+                        <div style="z-index:5000;height:36px;width:36px;background: transparent url(@Url.Content(path)) no-repeat center center; margin-top: 0px; width: 50px; height: 50px; margin-left: -20px;" class="img-circle">
+                        </div>
+                    </a>
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Resource.LOGOUT</a></li>
+            </ul>
+                        }
+                    }
+                    else
+                    {
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">@Loc<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+                </ul>
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Resource.LOGOUT</a></li>
+            <li>@Html.ActionLink(@Resources.Resource.LOGIN_EMAIL, "Login", "Account")</li>
+            <li>@Html.ActionLink(@Resources.Resource.SIGNIN_LOGOUT, "Register", "Account")</li>
         </ul>
     }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">ENG<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})" onclick="ChangeLocalization('UKR')">UKR</a></li>
-                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})" onclick="ChangeLocalization('RUS')">RUS</a></li>
-                <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})" onclick="ChangeLocalization('ENG')">ENG</a></li>
-            </ul>
-        </li>
-        <li>@Html.ActionLink(@Resources.Resource.LOGIN_EMAIL, "Login", "Account")</li>
-        <li>@Html.ActionLink(@Resources.Resource.SIGNIN_LOGOUT, "Register", "Account")</li>
-    </ul>
 }
 <script src="~/Scripts/Site.js"></script>
