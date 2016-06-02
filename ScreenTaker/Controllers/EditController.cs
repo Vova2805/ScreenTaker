@@ -56,8 +56,16 @@ namespace ScreenTaker.Controllers
                     if (emails.Any())
                     {
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
-                        var baseUrl = GetBaseUrl();
-                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile==null? baseUrl + "/Resources/user.png": baseUrl + "/avatars/"+s.AvatarFile + "_128.png")).ToList();
+                        var baseUrl = GetBaseUrl();                        
+                        IList<string> avatars = new List<string>();
+                        foreach (var e in emails)
+                        {
+                            if (e.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + e.AvatarFile + "_50.png"))
+                                avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
+                            else
+                                avatars.Add(baseUrl + "/Resources/user_50.png");
+                        }
+                        ViewBag.Avatars = avatars;
                     }                                                  
                     transaction.Commit();
                 }
@@ -246,8 +254,16 @@ namespace ScreenTaker.Controllers
                     if (emails.Any())
                     {
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
-                        var baseUrl = GetBaseUrl();
-                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile == null ? baseUrl + "/Resources/user.png" : baseUrl + "/avatars/" + s.AvatarFile + "_128.png")).ToList();
+                        var baseUrl = GetBaseUrl();                        
+                        IList<string> avatars = new List<string>();
+                        foreach (var e in emails)
+                        {
+                            if (e.AvatarFile == null || !System.IO.File.Exists(Server.MapPath("/avatars/") + e.AvatarFile + "_50.png"))
+                                avatars.Add(baseUrl + "/Resources/user_50.png");
+                            else
+                                avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
+                        }
+                        ViewBag.Avatars = avatars;
                     }
                     transaction.Commit();
                 }
