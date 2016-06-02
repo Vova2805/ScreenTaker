@@ -224,22 +224,22 @@
     </div>
 </div>
 
-<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 675px">
+<div class="row" id="main">
     <div class="col-md-12">
-        <div class="col-sm-10" style="padding-left:25px;padding-right:25px;">
+        <div class="col-sm-10" id="title">
             <h2>@Resources.Resource.FOLDERS</h2>
         </div>
         <div class="col-sm-2">
-           
             <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                 <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
             </button>
-            <button id="AddFolderButton"data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align" style="margin-top:20px;margin-right:-40px;background-color:cornflowerblue">
+            <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" 
+                    type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
         </div>
         <div class="row">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+            <div class="col-sm-12 item-container">
                 @{
                     int count = ViewBag.Folders.Count;
 
@@ -267,7 +267,7 @@
         </div>
     </div>
     <div class="sidenav" id="mySidenav">
-        <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
+        <div id="common-sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
             <img id="folderImage" src="/Resources/public.png" width="128" height="128" />
             <p id="folderTitle" style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
@@ -316,8 +316,8 @@
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
-                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
-                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded context-menu-toggle-item">@Resources.Resource.ON</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded context-menu-toggle-item">@Resources.Resource.OFF</button>
                     </div>
                 </div>
             </div>

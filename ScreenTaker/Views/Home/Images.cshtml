@@ -278,9 +278,9 @@
     </div>
 </div>
 
-<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
+<div class="row" id="main">
     <div class="col-md-12">
-        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
+        <div class="col-sm-12" id="title">
             <div class="row">
                 <div class="col-sm-5">
                     <h2>@ViewBag.FolderName</h2>
@@ -310,7 +310,7 @@
             </ol>
         </div>
         <div class="row">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+            <div class="col-sm-12 item-container">
                 @{
                     int index = 0;
                     int count = ViewBag.Images.Count;
@@ -344,10 +344,10 @@
         </div>
     </div>
     <div class="sidenav" id="mySidenav">
-        <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
+        <div id="common-sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-            <input type="text" class="hidden" id="original" />
-            <img src="@CommpressedLink" id="compressedLink" style="margin: 5px;margin-left:0px;max-width:160px;max-height:128px;" />
+            <input type="text" class="hidden" id="original"/>
+            <img src="@CommpressedLink" id="compressedLink"/>
             <p id="compressedName" style="color: #E0E0E0">@Name</p>
             <hr />
             <div>
@@ -401,8 +401,8 @@
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
-                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
-                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded context-menu-toggle-item">@Resources.Resource.ON</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded context-menu-toggle-item">@Resources.Resource.OFF</button>
                     </div>
                 </div>
             </div>
