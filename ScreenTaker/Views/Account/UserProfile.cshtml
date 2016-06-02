@@ -9,73 +9,6 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
-
-<<<<<<< HEAD
-<div class="row" style="margin-top:20px;">
-    <div class="col-md-12">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 account-style shadow">
-            <div class="col-md-12" style="padding-top: 30px">
-                <div class="col-md-3" id="dynamicArea">
-                    <img src="@ViewBag.Avatar_128" class="profile-avatar" />
-                </div>
-                <div class="col-md-9 text-center">
-
-                    @*onclick=
-                                                   "$.ajax({
-                            url: 'SetAvatar',
-                            data: {
-                                name: document.getElementById('GroupNameInput').value,
-                            },
-                            success: function (data) {
-                                $('#dynamicArea').html(data);
-                            }
-                        });">*@
-
-                    @using (Html.BeginForm("SetAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                        <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
-                        <a class="account-link" onclick="document.getElementById('fileInput').click();"> @Resources.Resource.CHANGE_PROFILE_IMG</a>
-                    }
-
-                </div>
-            </div>
-            <br />
-            <div class="col-md-12">
-                <div class="col-md-6 text-left">
-                    <h4>@Resources.Resource.EMAIL : @ViewBag.Email</h4>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button class="btn btn-default account-button" onclick="location='/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
-                </div>
-            </div>
-            <div>
-                @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { @class = "form-horizontal text-left", @style = "padding-left: 30px", role = "form" }))
-            {
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                    <div class="form-group" style="padding-left: 15px">
-                        <label>@Resources.Resource.YOUR_OLD_PASS</label>
-                        <div>
-                            <input type="password" class="col-md-4" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="form-group" style="padding-left: 15px">
-                        <label>@Resources.Resource.ENTER_NEW_PASS</label>
-                        <div>
-                            <input type="password" class="col-md-4" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="form-group" style="padding-left: 15px">
-                        <label>@Resources.Resource.CONFIRM_PASS</label>
-                        <div>
-                            <input type="password" class="col-md-4" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="form-group" style="padding-bottom: 10px">
-                        <div class="col-md-10">
-                            <input type="submit" class="btn btn-default account-button" value="@Resources.Resource.CHANGE_PASS" />
-=======
 <div class="container">
     <div class="row" style="margin-top: 20px;">
         <div class="col-sm-12">
@@ -144,7 +77,6 @@
                             <div class="col-md-12 login-signup-center">
                                 <input type="submit" class="btn btn-default btn-block account-button" value="@Resources.Resource.CHANGE_PASS" />
                             </div>
->>>>>>> user-profile-mobile
                         </div>
                     }
                 </div>
