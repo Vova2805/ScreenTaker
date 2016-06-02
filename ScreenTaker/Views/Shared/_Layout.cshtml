@@ -1,17 +1,12 @@
 ﻿@{
     if (!Request.QueryString["lang"].IsEmpty())
-    {
-        Culture = UICulture = Request.QueryString["lang"];
-    }
-    else
-    {
-        Culture = UICulture = ViewBag.Localize??"en";
-    }
-    //if (!ViewBag.Localize.Equals(Culture))
-    //{
-    //    
-    //}
-
+            {
+                Culture = UICulture = Request.QueryString["lang"];
+            }
+            else
+            {
+                Culture = UICulture = ViewBag.Localize ?? "en";
+            }
 }
 <!DOCTYPE html>
 <html>
