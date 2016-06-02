@@ -12,65 +12,76 @@
 }
 
 <div class="container">
-    <div class="row" style="margin-top:20px;">
+    <div class="row" style="margin-top: 20px;">
         <div class="col-sm-12">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4 account-style shadow center-block">
-                <div class="col-sm-12" style="padding-top: 15px">
-                    <div class="col-sm-12 text-center" id="dynamicArea">
-                        <div style="background: url(@ViewBag.Avatar_128) no-repeat center center;" class="col-sm-12 profile-avatar"></div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 account-style shadow center-block">
+                <div class="text-center">
+                    <h4>@Resources.Resource.USE_ACCOUNT</h4>
+                    <hr />
+                </div>
+                <div class="col-sm-6" style="padding-top: 15px">
+                    <div class="col-sm-12  text-center" id="dynamicArea">
+                        <img class="profile-avatar" src="@ViewBag.Avatar_128"/>
                     </div>
-                    <div class="col-sm-12 text-center" style="margin-top: -15px">
-                        @using (Html.BeginForm("SetAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    <div class="col-sm-12">
+                        <div class="text-center">
+                            <h4>@ViewBag.Email</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 text-center" style="margin-top: -35px">
+                        @using (Html.BeginForm("SetAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-sm-12 form-horizontal text-center" }))
                         {
-                            <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
-                            <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
-                            <a class="account-link" onclick="document.getElementById('fileInput').click();" style="margin-left: -40px"> @Resources.Resource.CHANGE_PROFILE_IMG</a>
+                            <input id="fileInput" style="visibility: collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                            <input id="fileSubmit" style="visibility: collapse" type="submit" />
+                            <div class="form-group">
+                                <div class="col-md-12 login-signup-center">
+                                    <a class="account-link" onclick="document.getElementById('fileInput').click();" > @Resources.Resource.CHANGE_PROFILE_IMG</a>
+                                </div>
+                            </div>
                         }
                     </div>
-                </div>
-                <br />
-                <div class="col-sm-12">
-                    <div class="text-left">
-                        <h4>@Resources.Resource.EMAIL : @ViewBag.Email</h4>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-default btn-block btn-lg account-button" style="width: 100%" onclick="location = '/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
+                    <div class="col-sm-12" style="margin-top: 3px">
+                        <div class="form-group">
+                            <button class="btn btn-default btn-block account-button" style="width: 100%" onclick="location = '/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
+                        </div>
                     </div>
                 </div>
-                @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { @class = "col-md-12 text-left form-horizontal", role = "form" }))
-                {
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="col-md-12 login-signup-center">
-                            <label>@Resources.Resource.YOUR_OLD_PASS</label>
-                            <input type="password" class="form-control input-lg btn-not-rounded" placeholder="" />
-                            @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                <div class="col-sm-6">
+                    @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { @class = "col-sm-12 text-left form-horizontal", role = "form" }))
+                    {
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-md-12 login-signup-center">
+                                <label>@Resources.Resource.YOUR_OLD_PASS</label>
+                                <input type="password" class="form-control btn-not-rounded" placeholder="" />
+                                @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12 login-signup-center">
-                            <label>@Resources.Resource.ENTER_NEW_PASS</label>
-                            <input type="password" class="form-control input-lg btn-not-rounded" placeholder="" />
-                            @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                        <div class="form-group">
+                            <div class="col-md-12 login-signup-center">
+                                <label>@Resources.Resource.ENTER_NEW_PASS</label>
+                                <input type="password" class="form-control btn-not-rounded" placeholder="" />
+                                @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12 login-signup-centers">
-                            <label>@Resources.Resource.CONFIRM_PASS</label>
-                            <input type="password" class="form-control input-lg btn-not-rounded" placeholder="" />
-                            @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                        <div class="form-group">
+                            <div class="col-md-12 login-signup-centers">
+                                <label>@Resources.Resource.CONFIRM_PASS</label>
+                                <input type="password" class="form-control btn-not-rounded" placeholder="" />
+                                @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12 login-signup-center">
-                            <input type="submit" class="btn btn-default btn-block btn-lg account-button" value="@Resources.Resource.CHANGE_PASS" />
+                        <div class="form-group">
+                            <div class="col-md-12 login-signup-center">
+                                <input type="submit" class="btn btn-default btn-block account-button" value="@Resources.Resource.CHANGE_PASS" />
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
