@@ -20,6 +20,35 @@
     {
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
+
+}
+@section Scripts {
+    <script>
+    var a = $('#loadingAnimation');
+    a.css('visibility', 'hidden');
+    $(document).ajaxStart(function () {
+        a.css('visibility', 'visible');
+    });
+    $(document).ajaxStop(function () {
+        a.css('visibility', 'hidden');
+    });
+
+    function ShowProgress() {
+        setTimeout(function () {
+            //var modal = $('<div />');
+            //modal.addClass("modal");
+            //$('body').append(modal);
+            var loading = $("#loadingAnimation");
+            loading.show();
+            var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+            var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+            loading.css({ top: top, left: left });
+        }, 200);
+    }
+    $('form').live("submit", function () {
+        ShowProgress();
+    });
+    </script>
 }
 
 <div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px">
@@ -285,7 +314,19 @@
                 <div class="col-sm-5">
                     <h2>@ViewBag.FolderName</h2>
                 </div>
-
+                <div class="preloader" id="loadingAnimation">
+                    <div class="sk-cube-grid preloader-center center-block">
+                        <div class="sk-cube sk-cube1"></div>
+                        <div class="sk-cube sk-cube2"></div>
+                        <div class="sk-cube sk-cube3"></div>
+                        <div class="sk-cube sk-cube4"></div>
+                        <div class="sk-cube sk-cube5"></div>
+                        <div class="sk-cube sk-cube6"></div>
+                        <div class="sk-cube sk-cube7"></div>
+                        <div class="sk-cube sk-cube8"></div>
+                        <div class="sk-cube sk-cube9"></div>
+                    </div>
+                </div>  
                 <div class="col-sm-7" style="display:inline">
                     <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
