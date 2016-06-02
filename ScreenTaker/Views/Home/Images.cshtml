@@ -106,13 +106,14 @@
                                 {
                                     string itemClass = "list-group-item";
                                     string folderTitle = "Folder" + i.ToString();
-                                    if (i == 0)
-                                    {
-                                        itemClass += " active";
-                                    }
                                     <div class="@itemClass">
                                         <div class="media-body" style="vertical-align:middle">
                                             <h5 class="media-heading">@folderTitle</h5>
+                                        </div>
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn right btn-primary btn-not-rounded" aria-label="Left Align">
+                                                Move
+                                            </button>
                                         </div>
                                     </div>
                                 }
@@ -135,15 +136,15 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CANCEL</button>
-                <button type="button" class="btn btn-primary btn-not-rounded">
-                    @Resources.Resource.MOVE
-                </button>
-
-            </div>
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal" style="width:85px;">
+                    @Resources.Resource.CLOSE
+            </button>
         </div>
     </div>
 </div>
+</div>
+
+
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
     <div class="modal-dialog" role="document">

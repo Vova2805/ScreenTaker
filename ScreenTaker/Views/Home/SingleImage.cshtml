@@ -62,6 +62,7 @@
     </div>
 </div>
 
+
 <div class="modal fade" id="MoveImage" tabindex="-1" role="dialog" style="top:150px;">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width:500px;">
@@ -88,20 +89,21 @@
                     <div class="row" style="margin-top:10px;">
                         <div class="col-sm-12">
                             <div class="list-group" style="height:auto;max-height:200px;overflow:auto;border:solid 1px #E0E0E0">
-                                    @for (int i = 0; i <10; i++)
-                                    {
-                                        string itemClass = "list-group-item";
-                                        string folderTitle = "Folder"+i.ToString();
-                                        if (i==0)
-                                        {
-                                            itemClass += " active";
-                                        }
-                                        <div class="@itemClass">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">@folderTitle</h5>
-                                            </div>
+                                @for (int i = 0; i < 10; i++)
+                                {
+                                    string itemClass = "list-group-item";
+                                    string folderTitle = "Folder" + i.ToString();
+                                    <div class="@itemClass">
+                                        <div class="media-body" style="vertical-align:middle">
+                                            <h5 class="media-heading">@folderTitle</h5>
                                         </div>
-                                    }
+                                        <div class="media-right" style="vertical-align:middle;">
+                                            <button type="button" class="btn right btn-primary btn-not-rounded" aria-label="Left Align">
+                                                Move
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -121,11 +123,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CANCEL</button>
-                <button type="button" class="btn btn-primary btn-not-rounded">
-                    @Resources.Resource.MOVE
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal" style="width:85px;">
+                    @Resources.Resource.CLOSE
                 </button>
-
             </div>
         </div>
     </div>
