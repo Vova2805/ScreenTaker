@@ -31,8 +31,7 @@
                 <div class="sk-cube sk-cube8"></div>
                 <div class="sk-cube sk-cube9"></div>
             </div> 
-        </div>                
-        <br />
+        </div>  
         <div class="col-sm-1">
         </div>
         <div class="col-sm-10 account-style shadow center-block" style="height:500px;" id="dynamicArea">
@@ -67,7 +66,8 @@
                                         {
                                             itemClass += " active";
                                         }
-                                        <div class="@itemClass" onclick="$.ajax({
+                                        <div class="@itemClass" 
+                             onclick="$.ajax({
                             url: 'Partial_GroupsAndEmails',
                             data: {
                             selectedId: @ViewBag.Groups[i].Id,
