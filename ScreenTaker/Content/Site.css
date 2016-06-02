@@ -39,6 +39,26 @@ textarea {
     max-width: 100%;
 }
 
+.library-menu {
+    background-color: #686868;
+    min-height: 100px;
+    border-radius: 10px;
+}
+
+.library-folder {
+    background-color: #E0E0E0;
+    border-radius: 30px;
+}
+
+.library-folder:hover {
+    background-color: #686868;
+}
+
+.library-folder:active {
+    background-color: #F0F0F0;
+}
+
+
 .welcome-image{
 }
 
@@ -213,12 +233,8 @@ textarea {
 }
 @media(max-width:450px )
 {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-    .container {
-        margin-left: 5px;
-        margin-right: 5px;
-    }
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
 }
 
 
@@ -233,8 +249,37 @@ textarea {
 
 }
 
-/* Dialog window part */
+.shadow {
+    box-shadow: 5px 5px 0 #000000;
+}
 
+.account-style {
+    background-color: #444444;
+    padding: 5px;
+    color: #D6D6D6;
+}
+
+.account-button {
+    background-color: #D6D6D6;
+    border-radius: 0;
+}
+
+.account-button:hover {
+    background-color: #EBEBEB;
+}
+
+.account-link {
+    color: #D6D6D6;
+}
+
+.account-link:hover {
+    color: #AAAAAA;
+}
+
+.profile-avatar {
+    width: 128px;
+    height: 128px;
+}
 .material-switch > input[type="checkbox"] {
     display: none;   
 }
@@ -281,8 +326,6 @@ textarea {
 }
 
 
-/* Context-menu part */
-
 .context-menu {
   display: none;
   position: absolute;
@@ -326,18 +369,37 @@ textarea {
     text-decoration: none;
 }
 
-.context-menu-toggle-item {
-    height:30px;
-    width:60px;
-    font-size:12px;
-}
-
 .task {
     
 }
 
+.images {
+    background-color: #E0E0E0;
+    color: #686868;
+}
 
-/* Side Nav menu part */
+.active-image {
+    background-color: #444444;
+    color: #F0F0F0;
+}
+
+.images:hover {
+    background-color: #686868;
+    color: #F0F0F0;
+}
+
+.images:active {
+    background-color: #F0F0F0;
+    color: #686868;
+}
+
+.btn-not-rounded {
+    border-radius: 0
+}
+.folder{
+    width:180px;
+    height:180px;
+}
 
 .sidenav {
     height: 100%;
@@ -371,7 +433,7 @@ textarea {
     font-size: 40px;
     margin-right: 10px;
 }
-#library-main{
+#main{
     margin-right:200px;
 }
 
@@ -391,154 +453,31 @@ textarea {
     height: 170px;
     margin:-4px;
     margin-bottom: 10px; 
+     
 }
 
 .after-box {
     clear: left;
     border: 3px solid red;      
 }
-
-#common-sidenav {
-    margin-left: 10px; 
-    margin-right: 10px; 
-    height: 100%;
+.btn-input {
+   display: block;
 }
 
-/* Common part */
-
-#main {
-    margin-bottom: -20px; 
-    overflow: hidden; 
-    position: relative;  
-    min-height: 675px
+.btn-input .btn.form-control {
+    text-align: left;
 }
 
-#title {
-    padding-left:25px;
-    padding-right:25px;
+.btn-input .btn.form-control span:first-child {
+   left: 10px;
+   overflow: hidden;
+   position: absolute;
+   right: 25px;
 }
 
-.item-container {
-    padding-left:40px;
-    padding-right:40px;
-}
-
-/* Welcome part */
-
-#welcom-upload {
-    width:300px; 
-    height:70px;
-}
-
-
-/* Library part */
-
-.library-menu {
-    background-color: #686868;
-    min-height: 100px;
-    border-radius: 10px;
-}
-
-.library-folder {
-    background-color: #E0E0E0;
-    border-radius: 30px;
-}
-
-.library-folder:hover {
-    background-color: #686868;
-}
-
-.library-folder:active {
-    background-color: #F0F0F0;
-}
-
-#AddFolderButton {
-    margin-top:20px;
-    margin-right:-40px;
-    background-color:cornflowerblue
-}
-
-/* Images part */
-
-.images {
-    background-color: #E0E0E0;
-    color: #686868;
-}
-
-.active-image {
-    background-color: #444444;
-    color: #F0F0F0;
-}
-
-.images:hover {
-    background-color: #686868;
-    color: #F0F0F0;
-}
-
-.images:active {
-    background-color: #F0F0F0;
-    color: #686868;
-}
-
-.btn-not-rounded {
-    border-radius: 0
-}
-.folder{
-    width:180px;
-    height:180px;
-}
-
-#compressedLink {
-    margin: 5px;
-    margin-left:0;
-    max-width:160px;
-    max-height:128px;
-}
-
-/* Single Image part */
-
-.single-image {
-    max-width: 800px; 
-    max-height: 600px
-}
-
-.shared-image {
-    margin-top: 20px; 
-    overflow: hidden; 
-    position: relative; 
-    min-height: 660px
-}
-
-/* Account part */
-
-.shadow {
-    box-shadow: 5px 5px 0 #000000;
-}
-
-.account-style {
-    background-color: #444444;
-    padding: 5px;
-    color: #D6D6D6;
-}
-
-.account-button {
-    background-color: #D6D6D6;
-    border-radius: 0;
-}
-
-.account-button:hover {
-    background-color: #EBEBEB;
-}
-
-.account-link {
-    color: #D6D6D6;
-}
-
-.account-link:hover {
-    color: #AAAAAA;
-}
-
-.profile-avatar {
-    width: 128px;
-    height: 128px;
+.btn-input .btn.form-control .caret {
+   margin-top: -1px;
+   position: absolute;
+   right: 10px;
+   top: 50%;
 }
