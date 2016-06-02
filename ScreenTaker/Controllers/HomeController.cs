@@ -432,6 +432,46 @@ namespace ScreenTaker.Controllers
             return View("SharedImage", new { lang = locale });
         }
 
+        private string GetImagePath(string code)
+        {
+            return GetBaseUrl() + "img" + code + ".png";
+        }
+
+        private string GetImageLink(Image image)
+        {
+            return GetImageLink(image.SharedCode);
+        }
+
+        private string GetImageLink(string code)
+        {
+            return GetBaseUrl() + "img/" + code + ".png";
+        }
+
+        private string GetFolderLink(string code)
+        {
+            return GetBaseUrl() + "Home/Images?id=" + code;
+        }
+
+        private string GetSharedImageLink(Image image)
+        {
+            return GetSharedImageLink(image.SharedCode);
+        }
+
+        private string GetSharedImageLink(string code)
+        {
+            return GetBaseUrl() + "Home/SharedImage?i=" + code;
+        }
+
+        private string GetSharedFolderLink(Folder folder)
+        {
+            return GetSharedFolderLink(folder.SharedCode);
+        }
+
+        private string GetSharedFolderLink(string code)
+        {
+            return GetBaseUrl() + "Home/SharedFolder?f=" + code;
+        }
+
         public ActionResult DeleteImage(string path, string lang = "en")
         {
             ViewBag.Localize = locale;
