@@ -54,7 +54,7 @@ namespace ScreenTaker.Controllers
                     {
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
                         var baseUrl = GetBaseUrl();
-                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile==null? baseUrl + "/Resources/user.png": baseUrl + "/avatars/"+s.AvatarFile + "_25.png")).ToList();
+                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile==null? baseUrl + "/Resources/user_50.png": baseUrl + "/avatars/"+s.AvatarFile + "_50.png")).ToList();
                     }                                                  
                     transaction.Commit();
                 }
@@ -237,7 +237,7 @@ namespace ScreenTaker.Controllers
                     {
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
                         var baseUrl = GetBaseUrl();
-                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile == null ? baseUrl + "/Resources/user.png" : baseUrl + "/avatars/" + s.AvatarFile + "_25.png")).ToList();
+                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile == null ? baseUrl + "/Resources/user_50.png" : baseUrl + "/avatars/" + s.AvatarFile + "_50.png")).ToList();
                     }
                     transaction.Commit();
                 }

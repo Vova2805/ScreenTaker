@@ -15,29 +15,16 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 account-style shadow">
             <div class="col-md-12" style="padding-top: 30px">
-                <div class="col-md-3" id="dynamicArea">
-                    <img src="@ViewBag.Avatar_128" class="profile-avatar" />
+                <div class="col-md-3" id="dynamicArea">                    
+                    <div style="background:url(@ViewBag.Avatar_128) no-repeat center center;" class="col-md-12 profile-avatar"></div>
                 </div>
-                <div class="col-md-9 text-center">
-                 
-                         @*onclick=
-                           "$.ajax({
-    url: 'SetAvatar',
-    data: {
-        name: document.getElementById('GroupNameInput').value,
-    },
-    success: function (data) {
-        $('#dynamicArea').html(data);
-    }
-});">*@                 
-                    
+                <div class="col-md-9 text-center">                                  
                     @using (Html.BeginForm("SetAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
                         <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />                        
                         <a class="account-link" onclick="document.getElementById('fileInput').click();"> @Resources.Resource.CHANGE_PROFILE_IMG</a>
-                    }
-                    
+                    }                    
                 </div>
             </div>
             <br />
