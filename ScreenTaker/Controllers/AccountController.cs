@@ -454,14 +454,11 @@ namespace ScreenTaker.Controllers
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
             if (user != null)
             {
-                var avatarFile = "";
                 var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
-                if (person.AvatarFile == null)
-                    avatarFile = GetBaseUrl() + "/Resources/user.png";
+                if (person.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/")+ person.AvatarFile + "_128.png"))
+                    ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + person.AvatarFile + "_128.png";
                 else
-                    avatarFile = GetBaseUrl() + "/avatars/"+ person.AvatarFile + "_128.png";
-
-                ViewBag.Avatar_128 = avatarFile;
+                    ViewBag.Avatar_128 = GetBaseUrl() + "/Resources/user_128.png";
             }
             return View();
         }
@@ -576,13 +573,15 @@ namespace ScreenTaker.Controllers
                             _entities.SaveChanges();
                         }                        
                         var bitmap = new Bitmap(file.InputStream);
+
                         var bitmap128 = _imageCompressor.Compress(bitmap, new Size(128, 128));
                         var path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_128.png");
-                        bitmap.Save(path, ImageFormat.Png);
-                        var bitmap50 = _imageCompressor.Compress(bitmap, new Size(50, 50));
+                        bitmap128.Save(path, ImageFormat.Png);
+                        var bitmap25 = _imageCompressor.Compress(bitmap, new Size(50, 50));
                         path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_50.png");
-                        bitmap50.Save(path, ImageFormat.Png);
+                        bitmap25.Save(path, ImageFormat.Png);
                         ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + avatarFile + "_128.png";
+                        ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();
                         transaction.Commit();
                     }
                     catch (Exception)
