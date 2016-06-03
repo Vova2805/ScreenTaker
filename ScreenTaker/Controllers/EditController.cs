@@ -274,6 +274,12 @@ namespace ScreenTaker.Controllers
                 return PartialView("Partial_GroupsAndEmails", new { lang = locale });
 
             }
-        }       
+        }
+        public ActionResult AutocompleteSearchEmails(string term)
+        {
+            var emails = _entities.People.Where(w => w.Email.Contains(term)).Select(s => new {value=s.Email }).ToList();
+                //db.Books.Where(a => a.Author.Contains(term)).ToList().Select(a => new { value = a.Author }).Distinct();
+            return Json(emails, JsonRequestBehavior.AllowGet);
+        }
     }
 }
