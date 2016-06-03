@@ -46,10 +46,26 @@
 
         document.getElementById("sharedLinkhidden").value = sharedCode;
         document.getElementById("Idhidden").value = id;
+        document.getElementById("new-title").value = name;
 
         document.getElementById("folderImage").src = image;
         document.getElementById("folderTitle").innerText = name;
-        document.getElementById("new-title").value = name;
+       
+
+        if (folder_id == "FID0")
+        {
+            document.getElementById("RenameButton").disabled = true;
+            document.getElementById("DeleteButton").disabled = true;
+        }
+        else {
+            document.getElementById("RenameButton").disabled = false;
+            document.getElementById("DeleteButton").disabled = false;
+        }
+        document.getElementById("OpenButton").disabled = false;
+        document.getElementById("MakePublicButton").disabled = false;
+        document.getElementById("ManageAccessButton").disabled = false;
+        document.getElementById("sharedLink").disabled = false;
+
         var classes = "floating-box text-center task active images folder";
         for (var i = 0; i < count; i++) {
             var ID = "FID" + i;
@@ -317,7 +333,27 @@
 
                         if (i == 0)
                         {
-                            classes += " active-image";
+                            ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
+                            <script>
+                                document.getElementById("sharedLink").value = @sharedLink;
+
+                                document.getElementById("sharedLinkhidden").value = '@sharedCode';
+                                document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
+                                document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
+
+                                document.getElementById("folderImage").src = '@imageLink';
+                                document.getElementById("folderTitle").innerText = '@ViewBag.Folders[i].Name';
+                                document.getElementById("sharedLinkhidden").value = '@sharedCode';
+                                document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
+                                document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
+
+                                document.getElementById("RenameButton").disabled = true;
+                                document.getElementById("DeleteButton").disabled = true;
+                                document.getElementById("OpenButton").disabled = true;
+                                document.getElementById("MakePublicButton").disabled = true;
+                                document.getElementById("ManageAccessButton").disabled = true;
+                                document.getElementById("sharedLink").disabled = true;
+                            </script>
                         }
                        <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink')"
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')">
@@ -333,31 +369,33 @@
     </div>
     <div class="sidenav" id="mySidenav">
         <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-            <img id="folderImage" src="/Resources/public.png" width="128" height="128" />
-            <p id="folderTitle" style="color: #E0E0E0">@ViewBag.Folders[0].Name</p>
+            <div style="height:165px;">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
+                <img id="folderImage" src="" width="128" height="128" alt="Folder is not selected"/>
+                <p id="folderTitle" style="color: #E0E0E0"></p>
+            </div>
             <hr />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" onclick="openFolder('@ViewBag.CurrentFolderId')">@Resources.Resource.OPEN</button>
+                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" disabled id="OpenButton" onclick="openFolder('@ViewBag.CurrentFolderId')">@Resources.Resource.OPEN</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameFolder" disabled style="width: 100%">@Resources.Resource.RENAME</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameFolder" id="RenameButton" disabled style="width: 100%">@Resources.Resource.RENAME</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteFolder" disabled style="width: 100%">@Resources.Resource.DELETE</button>
+                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteFolder" disabled id="DeleteButton" style="width: 100%">@Resources.Resource.DELETE</button>
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" style="width: 100%">@Resources.Resource.MAKE_PUBLIC</button>
+                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%">@Resources.Resource.MAKE_PUBLIC</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
-            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" />
+            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="" disabled />
             <br />
             <div>
-                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
+                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
             </div>
             <hr />
             <input id="sharedLinkhidden" class="form-control" style="margin-top:-50px;width: 100%;visibility:collapse" type="text" />
