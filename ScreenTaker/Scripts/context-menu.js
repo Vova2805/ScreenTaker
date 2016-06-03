@@ -110,6 +110,10 @@
      */
     function contextListener() {
         document.addEventListener("contextmenu", function (e) {
+            clickCoords = getPosition(e);
+            clickCoordsX = clickCoords.x;
+            clickCoordsY = clickCoords.y;
+            document.elementFromPoint(clickCoordsX, clickCoordsY).click();
             taskItemInContext = clickInsideElement(e, taskItemClassName);
 
             if (taskItemInContext) {
