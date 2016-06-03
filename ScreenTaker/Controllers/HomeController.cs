@@ -307,7 +307,8 @@ namespace ScreenTaker.Controllers
             if (im == null)
                 throw new Exception("Null image error.");
             if (user != null)
-                ViewBag.UserFolders = _entities.Folders.Where(w => w.OwnerId == user.Id && w.Id != im.FolderId).ToList();            
+                ViewBag.UserFolders = _entities.Folders.Where(w => w.OwnerId == user.Id && w.Id != im.FolderId).ToList();
+            ViewBag.CurrentFolderId = im.FolderId;
             bool accesGranted = false;
 
             if (im != null)
@@ -638,12 +639,86 @@ namespace ScreenTaker.Controllers
 
         public ActionResult MoveItMoveIt(int folderId,string imageSharedCode)
         {
-            var imageId = _entities.Images.Where(w => w.SharedCode == imageSharedCode).Select(s=>s.Id).FirstOrDefault();
-            var img=_entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
-            img.FolderId = folderId;
-            _entities.SaveChanges();
-
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var imageId = _entities.Images.Where(w => w.SharedCode == imageSharedCode).Select(s => s.Id).FirstOrDefault();
+                    var img = _entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
+                    img.FolderId = folderId;
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
             return RedirectToAction("Images",new {id= folderId });
+        }
+
+        public ActionResult ImagesMoveCreateFolder(string name,int folderId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var newolder = new Folder()
+                        {
+                            IsPublic = true,
+                            OwnerId = user.Id,
+                            SharedCode = _stringGenerator.Next(),
+                            Name = name,
+                            CreationDate = DateTime.Now
+                        };
+                        _entities.Folders.Add(newolder);
+                        _entities.SaveChanges();
+                    }
+                    if (user != null)
+                        ViewBag.UserFolders = _entities.Folders.Where(w => w.OwnerId == user.Id && w.Id != folderId).ToList();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return PartialView("PartialImagesMoveCreateFolder");
+        }
+        public ActionResult SingleImageMoveCreateFolder(string name, int folderId,string imageSharedCode)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var newolder = new Folder()
+                        {
+                            IsPublic = true,
+                            OwnerId = user.Id,
+                            SharedCode = _stringGenerator.Next(),
+                            Name = name,
+                            CreationDate = DateTime.Now
+                        };
+                        _entities.Folders.Add(newolder);
+                        ViewBag.ImageSharedCode = imageSharedCode;
+                        _entities.SaveChanges();
+                    }
+                    if (user != null)
+                        ViewBag.UserFolders = _entities.Folders.Where(w => w.OwnerId == user.Id && w.Id != folderId).ToList();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+}
+            return PartialView("PartialSingleImageMoveCreateFolder");
         }
 
     }

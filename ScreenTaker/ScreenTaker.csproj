@@ -463,6 +463,8 @@
     <Content Include="Views\Home\SharedFolder.cshtml" />
     <Content Include="Views\Edit\Partial_GroupsAndEmails.cshtml" />
     <Content Include="Views\Account\Partial_SetAvatar.cshtml" />
+    <Content Include="Views\Home\PartialImagesMoveCreateFolder.cshtml" />
+    <Content Include="Views\Home\PartialSingleImageMoveCreateFolder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

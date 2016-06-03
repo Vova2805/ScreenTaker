@@ -86,10 +86,10 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="row" style="margin-top:10px;">
                         <div class="col-sm-12">
-                            <div class="list-group" style="height:auto;max-height:200px;overflow:auto;border:solid 1px #E0E0E0">
+                            <div class="list-group" style="height:auto;max-height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">
                                 @if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
                                 {
                                     for (int i = 0; i < ViewBag.UserFolders.Count; i++)
@@ -111,17 +111,29 @@
                                 }
                             </div>
                         </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
+                                    <input type="text" class="form-control" id="newFolderName" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                        <button type="button" class="btn btn-default" aria-label="Left Align" onclick=
+"$.ajax({
+    url: 'SingleImageMoveCreateFolder',
+    data: {
+        name: document.getElementById('newFolderName').value,
+        folderId: '@ViewBag.CurrentFolderId',
+        imageSharedCode: '@ViewBag.Image.SharedCode'
+    },
+    success: function (data) {
+        $('#areaForFolders').html(data);
+        document.getElementById('newFolderName').value='';
+    }
+});">
                                             @Resources.Resource.CREATE
                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                         </button>
-                                    </span>
-                                </div>
+                                    </span>                                
                             </div>
                         </div>
                     </div>
@@ -383,7 +395,7 @@
                     <div class="col-md-3">
                         <h5 style="padding-top: 7px; margin:0;">@Resources.Resource.PRIVATE</h5>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9">tio
                         <div class="btn-group pull-right" id="toggle_event_editing">
                             <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
                             <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
@@ -396,6 +408,9 @@
             </li>
         </ul>
     </nav>
-
+@section Scripts
+{
     <script src="~/Scripts/context-menu.js"></script>
     <script src="~/Scripts/Site.js"></script>
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+}
