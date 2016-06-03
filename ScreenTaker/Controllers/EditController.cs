@@ -224,7 +224,7 @@ namespace ScreenTaker.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return RedirectToAction("Message","Home",new { });
+                    //return RedirectToAction("Message","Home",new { });
                     transaction.Rollback();                    
                     TempData["MessageContent"]= ex.Message;
                 }
