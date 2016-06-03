@@ -433,6 +433,13 @@ textarea {
     font-size: 40px;
     margin-right: 10px;
 }
+.closebtn:hover {
+    color:#D6D6D6;
+}
+
+.no-underline{
+    text-decoration: none
+}
 #main{
     margin-right:200px;
 }

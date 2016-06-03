@@ -193,7 +193,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Content\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -372,6 +372,7 @@
       <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
       <LastGenOutput>ScreenTakerDataModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\email.png" />
     <Content Include="Resources\loadingAnimation.gif" />
     <Content Include="Resources\printscreen.png" />
     <Content Include="Resources\private.png" />
@@ -433,7 +434,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
@@ -465,6 +465,7 @@
     <Content Include="Views\Account\Partial_SetAvatar.cshtml" />
     <Content Include="Views\Home\PartialImagesMoveCreateFolder.cshtml" />
     <Content Include="Views\Home\PartialSingleImageMoveCreateFolder.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

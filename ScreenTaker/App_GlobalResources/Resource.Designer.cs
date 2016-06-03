@@ -196,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email confirmation.
+        /// </summary>
+        internal static string CONFIRMATION {
+            get {
+                return ResourceManager.GetString("CONFIRMATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm a new password.
         /// </summary>
         internal static string CONFIRM_PASS {
@@ -355,6 +364,24 @@ namespace Resources {
         internal static string GROUPS {
             get {
                 return ResourceManager.GetString("GROUPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We have sent mail to.
+        /// </summary>
+        internal static string HAVE_SENT {
+            get {
+                return ResourceManager.GetString("HAVE_SENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you not got any mail.
+        /// </summary>
+        internal static string IF_NOT_GOT {
+            get {
+                return ResourceManager.GetString("IF_NOT_GOT", resourceCulture);
             }
         }
         
@@ -566,6 +593,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resend confirmation mail again.
+        /// </summary>
+        internal static string RESEND_AGAIN {
+            get {
+                return ResourceManager.GetString("RESEND_AGAIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SAVE {
@@ -634,6 +670,15 @@ namespace Resources {
         internal static string SUBMIT {
             get {
                 return ResourceManager.GetString("SUBMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration.
+        /// </summary>
+        internal static string TO_CONFIRM {
+            get {
+                return ResourceManager.GetString("TO_CONFIRM", resourceCulture);
             }
         }
         
