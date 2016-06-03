@@ -375,6 +375,14 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.OriginalName = ViewBag.Image.Name + ".png";
             }
+            ViewBag.OriginalNameWithoutEx = "";
+            if (ViewBag.Image != null)
+            {
+                int length = ViewBag.Image.Name.Length;
+                int size = length <= 15 ? length : 15;
+                string name = ViewBag.Image.Name.Substring(0, size);
+                ViewBag.OriginalNameWithoutEx = name;
+            }
             ViewBag.ImageTitle = "";
             if (ViewBag.Image != null)
             {
@@ -674,6 +682,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult MoveItMoveIt(int folderId,string imageSharedCode)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -694,6 +703,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImagesMoveCreateFolder(string name,int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -725,6 +735,7 @@ namespace ScreenTaker.Controllers
         }
         public ActionResult SingleImageMoveCreateFolder(string name, int folderId,string imageSharedCode)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try

@@ -32,6 +32,33 @@
     $('form').live("submit", function () {
         ShowProgress();
     });
+
+
+    function openFolder(i) {
+        var id = document.getElementById("Idhidden").value;
+        if (id != "") i = id;
+        location.href = "/Home/Images?id=" + i;
+        return false;
+    }
+
+    function selectFolder(id, folder_id, count, name, sharedLinkValue, sharedCode, image) {
+        document.getElementById("sharedLink").value = sharedLinkValue;
+
+        document.getElementById("sharedLinkhidden").value = sharedCode;
+        document.getElementById("Idhidden").value = id;
+
+        document.getElementById("folderImage").src = image;
+        document.getElementById("folderTitle").innerText = name;
+        document.getElementById("new-title").value = name;
+        var classes = "floating-box text-center task active images folder";
+        for (var i = 0; i < count; i++) {
+            var ID = "FID" + i;
+            document.getElementById(ID).className = classes;
+        }
+        document.getElementById(folder_id).className += " active-image";
+
+        return false;
+    }
     </script>
 }
 
@@ -283,15 +310,16 @@
                     for (int i = 0; i < ViewBag.Folders.Count; i++)
                     {
                         string classes = "floating-box text-center task active images folder";
-                        if (i == 0)
-                        {
-                            classes += " active-image";
-                        }
                         string folder_id = "FID" + i;
                         string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
-                        <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink')"
+
+                        if (i == 0)
+                        {
+                            classes += " active-image";
+                        }
+                       <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink')"
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')">
                             <figure class="@classes" id="@folder_id">
                                 <img src="~/Resources/public.png" />
@@ -314,11 +342,11 @@
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameFolder" style="width: 100%">@Resources.Resource.RENAME</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameFolder" disabled style="width: 100%">@Resources.Resource.RENAME</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteFolder" style="width: 100%">@Resources.Resource.DELETE</button>
+                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteFolder" disabled style="width: 100%">@Resources.Resource.DELETE</button>
             </div>
             <br />
             <div>
