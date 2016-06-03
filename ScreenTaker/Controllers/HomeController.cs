@@ -293,6 +293,92 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
+
+        public ActionResult MakeFolderPublicOrPrivate(int folderId, string lang = "en")
+        {
+            ViewBag.Localize = locale;
+
+           // var sharedСode = Path.GetFileNameWithoutExtension(path);
+            var result = _entities.Folders.FirstOrDefault(w => w.Id  == folderId);
+
+            if (result.IsPublic)
+
+                result.IsPublic = false;
+
+            else
+                result.IsPublic = true;
+
+            _entities.SaveChanges();
+
+
+            return RedirectToAction("SingleImage", new { lang = locale });
+        }
+
+
+        public ActionResult FolderSwitchAccessOnOrOff(int groupId, int folderId)
+        {
+                var result = _entities.GroupShares.Where(w => w.GroupId == groupId && w.FolderId == folderId).Select(s => s.Id).FirstOrDefault();
+            if (result != 0)
+                _entities.GroupShares.Remove(_entities.GroupShares.FirstOrDefault(w => w.Id == result));
+            else
+            {
+
+                GroupShare us = new GroupShare
+                {
+                    GroupId = groupId,
+                    FolderId = folderId
+                };
+                _entities.GroupShares.Add(us);
+            }
+
+
+            _entities.SaveChanges();
+            return RedirectToAction("SingleImage");
+        }
+
+
+        public ActionResult FoldersAddMail(string userMail, int folderId)
+        {
+        
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+
+                    var personID =
+                              _entities.People.Where(w => w.Email == userMail).Select(s => s.Id).FirstOrDefault();
+
+                    if (personID != 0)
+                    {
+
+                        UserShare us = new UserShare
+                        {
+                            PersonId = personID,
+                            FolderId = folderId
+                        };
+                        _entities.UserShares.Add(us);
+                    }
+                    else
+                    {
+                        UserShare us = new UserShare
+                        {
+                            FolderId = folderId,
+                            Email = userMail
+                        };
+                        _entities.UserShares.Add(us);
+                    }
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                }
+
+            }
+            return RedirectToAction("SingleImage");
+        }
+
         [HttpGet]
         public ActionResult ChangeFoldersAttr(Folder folder, string lang = "en")
         {
