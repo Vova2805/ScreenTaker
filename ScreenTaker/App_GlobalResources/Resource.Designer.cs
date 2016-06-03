@@ -494,6 +494,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The page you are looking for cannot be found.
+        /// </summary>
+        internal static string NOT_FOUND {
+            get {
+                return ResourceManager.GetString("NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         internal static string OFF {
@@ -665,6 +674,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We&apos;re sorry ....
+        /// </summary>
+        internal static string SORRY {
+            get {
+                return ResourceManager.GetString("SORRY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         internal static string SUBMIT {
@@ -679,6 +697,15 @@ namespace Resources {
         internal static string TO_CONFIRM {
             get {
                 return ResourceManager.GetString("TO_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to homepage.
+        /// </summary>
+        internal static string TO_MAIN_PAGE {
+            get {
+                return ResourceManager.GetString("TO_MAIN_PAGE", resourceCulture);
             }
         }
         

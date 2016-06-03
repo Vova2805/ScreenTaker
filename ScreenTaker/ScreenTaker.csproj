@@ -379,6 +379,7 @@
     <Content Include="Resources\printscreen.png" />
     <Content Include="Resources\private.png" />
     <Content Include="Resources\public.png" />
+    <Content Include="Resources\sad.png" />
     <Content Include="Resources\warning.png" />
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
