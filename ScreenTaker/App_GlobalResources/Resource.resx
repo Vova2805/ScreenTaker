@@ -313,6 +313,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Search for</value>
   </data>
+  <data name="SHARED_FOLDERS" xml:space="preserve">
+    <value>Shared folder</value>
+  </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Share folder</value>
   </data>

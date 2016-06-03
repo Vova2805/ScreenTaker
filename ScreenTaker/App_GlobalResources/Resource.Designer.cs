@@ -647,6 +647,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shared folder.
+        /// </summary>
+        internal static string SHARED_FOLDERS {
+            get {
+                return ResourceManager.GetString("SHARED_FOLDERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Share folder.
         /// </summary>
         internal static string SHARE_FOLDER {

@@ -313,6 +313,9 @@
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Искать для</value>
   </data>
+  <data name="SHARED_FOLDERS" xml:space="preserve">
+    <value>Shared folder</value>
+  </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Поделиться папкой</value>
   </data>
