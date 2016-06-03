@@ -90,6 +90,16 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Images", new { id = fId, lang = locale });
         }
 
+        // GET: /Account/ConfirmEmail
+        [AllowAnonymous]
+        public ActionResult Message(string lang = "en")
+        {
+            ViewBag.Localize = locale;
+
+            ViewBag.Email = "";
+            return View();
+        }
+
         [AllowAnonymous]
         public ActionResult About(string lang = "en")
         {
