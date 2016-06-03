@@ -117,18 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ABOUTST_TEXT" xml:space="preserve">
+    <value>ScreenTaker is the fastest way to share a screenshot and images without needing any downloads or installations. It’s designed with your workflow in mind by using only a minimum number of keypresses to share your images.</value>
+  </data>
+  <data name="ABOUT_ST" xml:space="preserve">
+    <value>About Screen Taker</value>
+  </data>
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Access by link</value>
   </data>
   <data name="ADD" xml:space="preserve">
     <value>Add</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ADD_NEW_FOLDER" xml:space="preserve">
+    <value>Add new folder</value>
+  </data>
   <data name="ALPHABET" xml:space="preserve">
     <value>Alphabet</value>
   </data>
+  <data name="ALREADY_HAVE_ACC" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="AS_NEW_USER" xml:space="preserve">
+    <value>Register as a new user</value>
+  </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="CAPTURING_FS" xml:space="preserve">
+    <value>Capturing full screen</value>
+  </data>
+  <data name="CAPTURING_TEXT" xml:space="preserve">
+    <value>The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere - you don’t need the Snaggy website open. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image.</value>
   </data>
   <data name="CHANGE_PASS" xml:space="preserve">
     <value>Change password</value>
@@ -139,17 +159,35 @@
   <data name="CLASSIC" xml:space="preserve">
     <value>Classic</value>
   </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CONFIRMATION" xml:space="preserve">
+    <value>Email confirmation</value>
+  </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Confirm a new password</value>
+  </data>
+  <data name="COPY" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CREATE" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CREATE_NEW_ACC" xml:space="preserve">
+    <value>Create a new account to keep track of your pasted images</value>
   </data>
   <data name="DATE" xml:space="preserve">
     <value>Date</value>
   </data>
-  <data name="DefaultUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\images\user.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="DELETE" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="DELETE_FOLDER" xml:space="preserve">
+    <value>Delete folder</value>
+  </data>
+  <data name="DELETE_IMAGE" xml:space="preserve">
+    <value>Delete image</value>
   </data>
   <data name="DEVELOPED_BY" xml:space="preserve">
     <value>Developed by</value>
@@ -163,26 +201,75 @@
   <data name="EDIT_GROUPS" xml:space="preserve">
     <value>Edit groups</value>
   </data>
+  <data name="EMAIL" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Enter a new password</value>
   </data>
   <data name="FEATURES" xml:space="preserve">
     <value>Features</value>
   </data>
+  <data name="FEATURES_TEXT" xml:space="preserve">
+    <value>Register an account to manage and delete your old images.
+Designed with power-users in mind, ScreenTaker has a fast workflow that requires only the minimum number of keypresses.</value>
+  </data>
+  <data name="FOLDERS" xml:space="preserve">
+    <value>Folders</value>
+  </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
   </data>
-  <data name="Keyboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\images\printscreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="HAVE_SENT" xml:space="preserve">
+    <value>We have sent mail to</value>
+  </data>
+  <data name="IF_NOT_GOT" xml:space="preserve">
+    <value>If you not got any mail</value>
+  </data>
+  <data name="IMAGES" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="JUMBOTRON_TEXT" xml:space="preserve">
+    <value>The easiest way to share your images.</value>
   </data>
   <data name="LOGIN_EMAIL" xml:space="preserve">
     <value>Log in</value>
+  </data>
+  <data name="LOGOUT" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="MAKE_PUBLIC" xml:space="preserve">
+    <value>Make public</value>
   </data>
   <data name="MANAGE_ACCESS" xml:space="preserve">
     <value>Manage access</value>
   </data>
   <data name="MANAGE_GROUPS" xml:space="preserve">
     <value>Manage groups</value>
+  </data>
+  <data name="MOVE" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="MOVE_IMAGE" xml:space="preserve">
+    <value>Move image to</value>
+  </data>
+  <data name="NEW_FOLDER" xml:space="preserve">
+    <value>New folder</value>
+  </data>
+  <data name="NEW_FOLDER_TITLE" xml:space="preserve">
+    <value>Enter a title for new folder</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="OFF" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ON" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="OPEN" xml:space="preserve">
+    <value>Open</value>
   </data>
   <data name="PASSWORD" xml:space="preserve">
     <value>Password</value>
@@ -196,17 +283,20 @@
   <data name="PRIVATE" xml:space="preserve">
     <value>Private</value>
   </data>
-  <data name="PrivateFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\images\private.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PublicFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\images\public.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="REMOVE" xml:space="preserve">
     <value>Remove</value>
   </data>
   <data name="RENAME" xml:space="preserve">
     <value>Rename</value>
+  </data>
+  <data name="RENAME_TITLE" xml:space="preserve">
+    <value>Enter new title for folder</value>
+  </data>
+  <data name="RENAME_TITLE_IMAGE" xml:space="preserve">
+    <value>Enter new title for image</value>
+  </data>
+  <data name="RESEND_AGAIN" xml:space="preserve">
+    <value>Resend confirmation mail again</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
@@ -214,19 +304,43 @@
   <data name="SAVED_AS" xml:space="preserve">
     <value>Saved as</value>
   </data>
+  <data name="SAVE_CHANGES" xml:space="preserve">
+    <value>Save changes?</value>
+  </data>
+  <data name="SEARCH_FOR" xml:space="preserve">
+    <value>Search for</value>
+  </data>
+  <data name="SHARE_FOLDER" xml:space="preserve">
+    <value>Share folder</value>
+  </data>
+  <data name="SHARE_LINK" xml:space="preserve">
+    <value>Share link</value>
+  </data>
   <data name="SIGNIN_LOGOUT" xml:space="preserve">
     <value>Sign up</value>
   </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="TO_CONFIRM" xml:space="preserve">
+    <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
+  </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Upload</value>
   </data>
-  <data name="YOUR_OLD_PASS" xml:space="preserve">
-    <value>Your old password</value>
-  </data>
   <data name="UPLOAD_IMAGE" xml:space="preserve">
     <value>Upload image</value>
+  </data>
+  <data name="UPLOAD_NEW_IMAGE" xml:space="preserve">
+    <value>Upload new image</value>
+  </data>
+  <data name="USE_ACCOUNT" xml:space="preserve">
+    <value>Use your account to log in</value>
+  </data>
+  <data name="YES" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YOUR_OLD_PASS" xml:space="preserve">
+    <value>Your old password</value>
   </data>
 </root>

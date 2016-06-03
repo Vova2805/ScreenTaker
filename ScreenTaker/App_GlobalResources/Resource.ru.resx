@@ -117,17 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ABOUTST_TEXT" xml:space="preserve">
+    <value>Screen Taker - это простой способ поделиться скриншотами экрана и фото без необходимости дополнительных загрузок и инсталляций. Он разработан з мыслью о рабочем процессе и использует минимум нажатий клавиш, чтобы делиться вашими изображениями.</value>
+  </data>
+  <data name="ABOUT_ST" xml:space="preserve">
+    <value>О Screen Taker</value>
+  </data>
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Доступ по ссылке</value>
   </data>
   <data name="ADD" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="ADD_NEW_FOLDER" xml:space="preserve">
+    <value>Добавить новую папку</value>
+  </data>
   <data name="ALPHABET" xml:space="preserve">
     <value>Алфавит</value>
   </data>
+  <data name="ALREADY_HAVE_ACC" xml:space="preserve">
+    <value>У Вас уже есть аккаунт?</value>
+  </data>
+  <data name="AS_NEW_USER" xml:space="preserve">
+    <value>Зарегистрироваться как новый пользователь</value>
+  </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Отмена</value>
+  </data>
+  <data name="CAPTURING_FS" xml:space="preserve">
+    <value>Захватить полный экран</value>
+  </data>
+  <data name="CAPTURING_TEXT" xml:space="preserve">
+    <value>Клавиша Print Screen является универсальной кнопкой для снимков. Она находится в правовой верхней части клавиатуры и иногда ее название сокращается до "Prt Scr". Вы можете ее использовать как хотите - Вам не нужен открытый сайт ScreenTaker. Просто нажмите ее раз и сохраните текущий вид экрана. Затем сохраните изображения и нажмите кнопку Загрузить изображение.</value>
   </data>
   <data name="CHANGE_PASS" xml:space="preserve">
     <value>Изменить пароль</value>
@@ -138,14 +159,35 @@
   <data name="CLASSIC" xml:space="preserve">
     <value>Классический</value>
   </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="CONFIRMATION" xml:space="preserve">
+    <value>Email confirmation</value>
+  </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Подтвердить новый пароль</value>
+  </data>
+  <data name="COPY" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="CREATE" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="CREATE_NEW_ACC" xml:space="preserve">
+    <value>Создать новую учетную запись, чтобы следить за вашими загруженными изображениями</value>
   </data>
   <data name="DATE" xml:space="preserve">
     <value>Дата</value>
   </data>
   <data name="DELETE" xml:space="preserve">
     <value>Удалить</value>
+  </data>
+  <data name="DELETE_FOLDER" xml:space="preserve">
+    <value>Удалить папку</value>
+  </data>
+  <data name="DELETE_IMAGE" xml:space="preserve">
+    <value>Удалить изображение</value>
   </data>
   <data name="DEVELOPED_BY" xml:space="preserve">
     <value>Разработано</value>
@@ -159,23 +201,75 @@
   <data name="EDIT_GROUPS" xml:space="preserve">
     <value>Редактировать группы</value>
   </data>
+  <data name="EMAIL" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Введите новый пароль</value>
   </data>
   <data name="FEATURES" xml:space="preserve">
     <value>Функции</value>
   </data>
+  <data name="FEATURES_TEXT" xml:space="preserve">
+    <value>Зарегистрируйтесь, чтобы управлять и удалять свои изображения.
+Разработан с мыслью об опытных пользователях, ScreenTaker наддаст быструю рабочую среду с минимум нажатий клавиш.</value>
+  </data>
+  <data name="FOLDERS" xml:space="preserve">
+    <value>Папки</value>
+  </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Групы</value>
   </data>
+  <data name="HAVE_SENT" xml:space="preserve">
+    <value>We have sent mail to</value>
+  </data>
+  <data name="IF_NOT_GOT" xml:space="preserve">
+    <value>If you not got any mail</value>
+  </data>
+  <data name="IMAGES" xml:space="preserve">
+    <value>Изображения</value>
+  </data>
+  <data name="JUMBOTRON_TEXT" xml:space="preserve">
+    <value>Самый легкий путь, чтобы делиться изображениями.</value>
+  </data>
   <data name="LOGIN_EMAIL" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="LOGOUT" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="MAKE_PUBLIC" xml:space="preserve">
+    <value>Сделать публичной</value>
   </data>
   <data name="MANAGE_ACCESS" xml:space="preserve">
     <value>Управление доступом</value>
   </data>
   <data name="MANAGE_GROUPS" xml:space="preserve">
     <value>Управление группами</value>
+  </data>
+  <data name="MOVE" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="MOVE_IMAGE" xml:space="preserve">
+    <value>Переместить изображение в </value>
+  </data>
+  <data name="NEW_FOLDER" xml:space="preserve">
+    <value>Новая папка</value>
+  </data>
+  <data name="NEW_FOLDER_TITLE" xml:space="preserve">
+    <value>Введите имя для новой папки</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="OFF" xml:space="preserve">
+    <value>Выкл</value>
+  </data>
+  <data name="ON" xml:space="preserve">
+    <value>Вкл</value>
+  </data>
+  <data name="OPEN" xml:space="preserve">
+    <value>Открыть</value>
   </data>
   <data name="PASSWORD" xml:space="preserve">
     <value>Пароль</value>
@@ -195,23 +289,56 @@
   <data name="RENAME" xml:space="preserve">
     <value>Переименовать</value>
   </data>
+  <data name="RENAME_TITLE" xml:space="preserve">
+    <value>Введите новое имя для папки</value>
+  </data>
+  <data name="RENAME_TITLE_IMAGE" xml:space="preserve">
+    <value>Введите новое имя для изображения</value>
+  </data>
+  <data name="RESEND_AGAIN" xml:space="preserve">
+    <value>Resend confirmation mail again</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Сохранить</value>
   </data>
   <data name="SAVED_AS" xml:space="preserve">
     <value>Сохранить как</value>
   </data>
+  <data name="SAVE_CHANGES" xml:space="preserve">
+    <value>Сохранить изменения?</value>
+  </data>
+  <data name="SEARCH_FOR" xml:space="preserve">
+    <value>Искать для</value>
+  </data>
+  <data name="SHARE_FOLDER" xml:space="preserve">
+    <value>Поделиться папкой</value>
+  </data>
+  <data name="SHARE_LINK" xml:space="preserve">
+    <value>Ссылка</value>
+  </data>
   <data name="SIGNIN_LOGOUT" xml:space="preserve">
-    <value>Зарегестрироваться</value>
+    <value>Зарегистрироваться</value>
   </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Подтвердить</value>
+  </data>
+  <data name="TO_CONFIRM" xml:space="preserve">
+    <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Загрузить</value>
   </data>
   <data name="UPLOAD_IMAGE" xml:space="preserve">
     <value>Загрузить изображение</value>
+  </data>
+  <data name="UPLOAD_NEW_IMAGE" xml:space="preserve">
+    <value>Загрузить новое изображение</value>
+  </data>
+  <data name="USE_ACCOUNT" xml:space="preserve">
+    <value>Используйте свою учетную запись, чтобы войти</value>
+  </data>
+  <data name="YES" xml:space="preserve">
+    <value>Да</value>
   </data>
   <data name="YOUR_OLD_PASS" xml:space="preserve">
     <value>Ваш старый пароль</value>
