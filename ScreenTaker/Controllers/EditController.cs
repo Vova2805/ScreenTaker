@@ -15,7 +15,7 @@ using Microsoft.AspNet.Identity.Owin;
 namespace ScreenTaker.Controllers
 {
     [Authorize]
-    public class EditController : Controller
+    public class EditController : GeneralController
     {
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
         public ActionResult Index(string lang = "en")

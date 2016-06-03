@@ -15,7 +15,7 @@ using ScreenTaker.Models;
 namespace ScreenTaker.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : GeneralController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -220,14 +220,12 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(int userId, string code)
+        public ActionResult ConfirmEmail(string lang = "en")
         {
-            if (userId == default(int) || code == null)
-            {
-                return View("Error");
-            }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            ViewBag.Localize = locale;
+
+            ViewBag.Email = "vovadudas@gmail.com";
+            return View();
         }
 
         //

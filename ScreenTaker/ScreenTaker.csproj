@@ -211,6 +211,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\EditController.cs" />
@@ -396,7 +397,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
@@ -426,6 +426,7 @@
     <Content Include="Views\Home\SharedFolder.cshtml" />
     <Content Include="Views\Edit\Partial_GroupsAndEmails.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

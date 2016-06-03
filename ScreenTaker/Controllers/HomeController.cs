@@ -15,7 +15,7 @@ using Image = ScreenTaker.Models.Image;
 namespace ScreenTaker.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : GeneralController
     {
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
         private ImageCompressor _imageCompressor = new ImageCompressor();
