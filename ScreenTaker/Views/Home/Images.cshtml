@@ -162,6 +162,7 @@
     success: function (data) {
         $('#areaForFolders').html(data);
         document.getElementById('newFolderName').value='';
+        document.getElementById('areaForFolders').scrollTop = 9999;
     }
 });">
                                             @Resources.Resource.CREATE
