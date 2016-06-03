@@ -122,6 +122,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (_entities.PersonGroups.Where(w => w.Name == name).Any())
+                        throw new Exception("There is alredy a group with this name");
                     var group = new PersonGroup();
                     group.Name = name;                    
 
@@ -189,10 +191,26 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                        
+
+
                     if (!_entities.People.Where(s => s.Email.Equals(email)).Any())
                         throw new Exception("There is no user with such e-mail.");
                     if (_entities.People.Where(w => w.Email == email && w.GroupMembers.Where(w2 => w2.GroupId == selectedId).Any()).Any())
-                        throw new Exception("This user is alredy here.");
+                        throw new Exception("This user is alredy here.");                    
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        
+                        if (user != null && _entities.People.Where(w => w.Email == user.Email).Any())
+                                throw new Exception("You can't add yourself.");
+                        var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
+                        if(friend!=null&&!_entities.PersonFriends.Where(w=>w.PersonId==user.Id&&w.FriendId==friend.Id).Any())
+                        {
+                            var personFriend = new PersonFriend() {PersonId=user.Id,FriendId=friend.Id };
+                            _entities.PersonFriends.Add(personFriend);
+                        }
+                    }
                     var groupMember = new GroupMember();
                     groupMember.GroupId = selectedId;
                     groupMember.PersonId = _entities.People.Where(s => s.Email.Equals(email)).Select(s => s.Id).FirstOrDefault();
@@ -276,10 +294,14 @@ namespace ScreenTaker.Controllers
             }
         }
         public ActionResult AutocompleteSearchEmails(string term)
-        {
-            var emails = _entities.People.Where(w => w.Email.Contains(term)).Select(s => new {value=s.Email }).ToList();
-                //db.Books.Where(a => a.Author.Contains(term)).ToList().Select(a => new { value = a.Author }).Distinct();
-            return Json(emails, JsonRequestBehavior.AllowGet);
+        {            
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+            if (user != null)
+            {
+                var emails = _entities.People.Where(w => w.Email.Contains(term)&&_entities.PersonFriends.Where(ww=>ww.PersonId==user.Id).Select(s=>s.FriendId).Contains(w.Id)).Select(s => new { value = s.Email }).ToList();
+                return Json(emails, JsonRequestBehavior.AllowGet);
+            }
+            else return null;
         }
     }
 }

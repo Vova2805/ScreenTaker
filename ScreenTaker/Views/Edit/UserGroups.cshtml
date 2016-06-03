@@ -15,7 +15,6 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
-
 <div class="container">
     <div class="row" style="min-height:750px;">
         <h2 class="text-center">@Resources.Resource.EDIT_GROUP</h2>
@@ -191,6 +190,12 @@
     });
     $(document).ajaxStop(function () {
         a.css('visibility', 'hidden');
+        $(function () {
+            $("[data-autocomplete-source]").each(function () {
+                var target = $(this);
+                target.autocomplete({ source: target.attr("data-autocomplete-source") });
+            });
+        });
     });
 </script>
 }

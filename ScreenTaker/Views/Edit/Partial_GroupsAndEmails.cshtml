@@ -86,7 +86,7 @@
         <div class="row" style="margin-bottom:10px;">
             <div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput">
+                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
                     <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
                           onclick="$.ajax({
                                         url: 'AddUser',
@@ -139,14 +139,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {   
-    <script>
-    $(document).ajaxStart(function () {
-        $('#loadingAnimation').show();
-    });
-    $(document).ajaxStop(function () {
-        $('#loadingAnimation').hide();
-    });
-    </script>
-}
