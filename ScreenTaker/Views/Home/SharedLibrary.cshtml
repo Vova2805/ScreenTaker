@@ -1,0 +1,85 @@
+﻿@using ScreenTaker.Models;
+@{
+    ViewBag.Title = "Library";
+    ViewBag.CurrentFolderShCode = "-1";
+    ViewBag.CurrentFolderId = "-1";
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+}
+@section Scripts {
+    <script>
+    var a = $('#loadingAnimation');
+    a.css('visibility', 'hidden');
+    $(document).ajaxStart(function () {
+        $('#loadingAnimation').css('visibility', 'visible');
+    });
+    $(document).ajaxStop(function () {
+        a.css('visibility', 'hidden');
+    });
+
+    function ShowProgress() {
+        setTimeout(function () {
+            var a = $('#loadingAnimation');
+            a.css('visibility', 'visible');
+        }, 200);
+    }
+    $('form').live("submit", function () {
+        ShowProgress();
+    });
+    </script>
+}
+
+<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 675px">
+    <div class="col-md-12">
+        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
+            <h2>@Resources.Resource.SHARED_FOLDERS</h2>
+        </div>
+        <div class="preloader" id="loadingAnimation">
+            <div class="sk-cube-grid preloader-center center-block">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+                @{
+                    int count = ViewBag.Folders.Count;
+
+                    for (int i = 0; i < ViewBag.Folders.Count; i++)
+                    {
+                        string classes = "floating-box text-center task active images folder";
+                        string folder_id = "FID" + i;
+                        string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+                        string sharedCode = ViewBag.Folders[i].SharedCode;
+                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+                        <a href="#">
+                            <figure class="@classes" id="@folder_id">
+                                <img src="~/Resources/public.png" />
+                                <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
+                            </figure>
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<script src="~/Scripts/context-menu.js"></script>
+<script src="~/Scripts/Site.js"></script>

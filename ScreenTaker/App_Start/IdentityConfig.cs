@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Services.Description;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -18,10 +22,63 @@ namespace ScreenTaker
     {
         public Task SendAsync(IdentityMessage message)
         {
+            SendMail(message);
             // Plug in your email service here to send an email.
+            //using (MailMessage mm = new MailMessage("screentakertest@mail.ua", "wheatley@i.ua"))
+            //{
+            //    mm.Subject = "Account Activation";
+            //    string body = "Hello " + message.Destination + ",";
+            //    body += "<br /><br />Please click the following link to activate your account";
+            //    body += "<br /><br />Thanks";
+            //    mm.Body = body;
+            //    mm.IsBodyHtml = true;
+            //    SmtpClient smtp = new SmtpClient();
+            //    smtp.Host = "smtp.mail.ru";
+            //    smtp.EnableSsl = true;
+            //    NetworkCredential NetworkCred = new NetworkCredential("screentakertest@mail.ua", "abcABC12345");
+            //    smtp.UseDefaultCredentials = true;
+            //    smtp.Credentials = NetworkCred;
+            //    smtp.Port = 587;
+            //    smtp.Send(mm);
+            //}
+
             return Task.FromResult(0);
         }
+
+        private void SendMail(IdentityMessage message)
+        {
+            #region formatter
+            string text = string.Format("Please click on this link to {0}: {1}", message.Subject, message.Body);
+            string html = "Please confirm your account by clicking this link: <a href=\"" + message.Body + "\">link</a><br/>";
+
+            html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + message.Body);
+            #endregion
+
+            try
+            {
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("screentakertest@mail.ua");
+                msg.To.Add(message.Destination);
+                msg.Subject = message.Subject;
+                msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
+                msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+
+                SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", Convert.ToInt32(587));
+                System.Net.NetworkCredential credentials = new NetworkCredential("screentakertest@mail.ua",
+                    "abcABC12345");
+                smtpClient.Credentials = credentials;
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(msg);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
     }
+
+    
+
 
     public class SmsService : IIdentityMessageService
     {

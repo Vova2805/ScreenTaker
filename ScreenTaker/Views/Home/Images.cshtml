@@ -24,6 +24,20 @@
 }
 @section Scripts {
     <script>
+            (function ($) {
+
+                $('#filter').keyup(function () {
+                    var val = $(this).val();
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.searchable div.list-group-item').hide();
+                    $('.searchable div.list-group-item').filter(function () {
+                        var data = this.title;
+                        var result = rex.test(data);
+                        return result;
+                    }).show();
+                })
+
+            }(jQuery));
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
     $(document).ajaxStart(function () {
@@ -42,6 +56,7 @@
     $('form').live("submit", function () {
         ShowProgress();
     });
+
     </script>
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 }
@@ -113,7 +128,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
+                                    <input type="text" id="filter" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -124,14 +139,13 @@
                         </div>
                         <div class="row" style="margin-top:10px;">
                             <div class="col-sm-12">
-                                <div class="list-group" style="height:auto;max-height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">                                
+                                <div class="list-group searchable" style="height:auto;height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">                                
                                     @if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
                                     {
                                         for (int i = 0; i < ViewBag.UserFolders.Count; i++)
                                         {
-                                            string itemClass = "list-group-item";
                                             string folderTitle = ViewBag.UserFolders[i].Name;
-                                        <div class="@itemClass">
+                                        <div class="list-group-item" title="@folderTitle">
                                             <div class="media-body" style="vertical-align:middle">
                                                 <h5 class="media-heading">@folderTitle</h5>
                                             </div>
