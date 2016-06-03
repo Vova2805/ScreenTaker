@@ -248,3 +248,6 @@ ModelManifest.xml
 /ScreenTaker/App_GlobalResources
 *.png
 /ScreenTaker/img/
+/ScreenTaker/Models/C__MigrationHistory.cs
+/ScreenTaker/Models/database_firewall_rules.cs
+/ScreenTaker/Models/PersonFriend.cs
