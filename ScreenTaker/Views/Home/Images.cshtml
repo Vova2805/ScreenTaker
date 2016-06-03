@@ -29,9 +29,10 @@
                 $('#filter').keyup(function () {
                     var val = $(this).val();
                     var rex = new RegExp($(this).val(), 'i');
-                    $('.searchable div').hide();
-                    $('.searchable div').filter(function () {
-                        var result = rex.test($(this).title);
+                    $('.searchable div.list-group-item').hide();
+                    $('.searchable div.list-group-item').filter(function () {
+                        var data = this.title;
+                        var result = rex.test(data);
                         return result;
                     }).show();
                 })
@@ -138,14 +139,13 @@
                         </div>
                         <div class="row" style="margin-top:10px;">
                             <div class="col-sm-12">
-                                <div class="list-group searchable" style="height:auto;max-height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">                                
+                                <div class="list-group searchable" style="height:auto;height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">                                
                                     @if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
                                     {
                                         for (int i = 0; i < ViewBag.UserFolders.Count; i++)
                                         {
-                                            string itemClass = "list-group-item";
                                             string folderTitle = ViewBag.UserFolders[i].Name;
-                                        <div class="@itemClass" title="@folderTitle">
+                                        <div class="list-group-item" title="@folderTitle">
                                             <div class="media-body" style="vertical-align:middle">
                                                 <h5 class="media-heading">@folderTitle</h5>
                                             </div>
