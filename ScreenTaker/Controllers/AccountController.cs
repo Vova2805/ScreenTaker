@@ -183,7 +183,7 @@ namespace ScreenTaker.Controllers
                             IsPublic = true,
                             OwnerId = user.Id,
                             SharedCode = _stringGenerator.Next(),
-                            Name = "Default (" + user.UserName + ")",
+                            Name = "Public",
                             CreationDate = DateTime.Now
                         };
                         entities.Folders.Add(defaultFolder);

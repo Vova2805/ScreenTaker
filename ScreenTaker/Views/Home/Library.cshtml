@@ -288,10 +288,10 @@
                             classes += " active-image";
                         }
                         string folder_id = "FID" + i;
-                        string link = ViewBag.BaseURL + ViewBag.Folders[i].SharedCode;
+                        string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
-                        <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@link','@sharedCode','@imageLink')"
+                        <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink')"
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')">
                             <figure class="@classes" id="@folder_id">
                                 <img src="~/Resources/public.png" />

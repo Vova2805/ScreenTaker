@@ -24,8 +24,6 @@ namespace ScreenTaker.Controllers
             Length = 15
         };
 
-        private SecurityHelper _securityHelper = new SecurityHelper();
-
         [AllowAnonymous]
         public ActionResult Index(string lang = "en")
         {
@@ -59,7 +57,7 @@ namespace ScreenTaker.Controllers
                         var folder = _entities.Folders.Where(w=>w.OwnerId==user.Id).FirstOrDefault();
                         bool accesGranted = false;               
                         if (folder != null)                
-                            accesGranted = _securityHelper.IsFolderEditable(user, folder.Person, folder);                
+                            accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);                
                         else
                             return RedirectToAction("Account/Register", new { lang = locale });
                         if (!accesGranted)                
@@ -175,7 +173,7 @@ namespace ScreenTaker.Controllers
 
             if (folder != null)
             {
-                accesGranted = _securityHelper.IsFolderEditable(user, folder.Person, folder);
+                accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);
             }
 
             if (!accesGranted)
@@ -203,7 +201,7 @@ namespace ScreenTaker.Controllers
 
                 if (folder != null)
                 {
-                    accesGranted = _securityHelper.IsFolderEditable(user, folder.Person, folder);
+                    accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);
                 }
 
                 if (!accesGranted)
@@ -245,41 +243,48 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
         }
 
-        public ActionResult SharedFolder(string id, string lang = "en")
+        [AllowAnonymous]
+        public ActionResult SharedFolder(string f, string lang = "en")
         {
             ViewBag.Localize = locale;
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
-            int folderId = Int32.Parse(id);
-
-            var folder = _entities.Folders.Find(folderId);
-
-            bool accesGranted = false;
+            var folder = _entities.Folders.First(fold => fold.SharedCode == f);
+            
+            bool accessGranted = false;
 
             if (folder != null)
             {
-                accesGranted = _securityHelper.IsFolderAccessible(user, folder.Person, folder);
-            }
+                int folderId = folder.Id;
+                accessGranted = SecurityHelper.IsFolderAccessible(user, folder.Person, folder, _entities);
 
-            if (!accesGranted)
+                if (accessGranted)
+                {
+                    var images = _entities.Images.Where(i => 
+                        i.FolderId == folderId
+                        && (folder.OwnerId == user.Id || i.IsPublic)
+                    ).ToList();
+
+
+                    ViewBag.IsEmpty = !images.Any();
+                    ViewBag.Images = images;
+                    var pathsList = _entities.Images
+                        .Select(GetImageLink).ToList();
+
+                    ViewBag.Paths = pathsList;
+                    ViewBag.BASE_URL = GetBaseUrl();
+                    ViewBag.SharedLinks = _entities.Images
+                        .Select(GetSharedImageLink).ToList();
+
+                }
+            }
+            ViewBag.AccessGranted = accessGranted;
+            if (accessGranted)
             {
-                return RedirectToAction("Welcome", new { lang = locale });
+                return View("SharedFolder", new { lang = locale });
             }
-
-            var list = _entities.Images.Where(i => i.FolderId == folderId
-                && _securityHelper.IsImageAccessible(user, folder.Person, i)).ToList();
-
-            ViewBag.IsEmpty = !list.Any();
-            ViewBag.Images = list;
-            var pathsList = _entities.Images.ToList()
-                .Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
-            ViewBag.Paths = pathsList;
-            ViewBag.BASE_URL = GetBaseUrl();
-            ViewBag.SharedLinks = _entities.Images.ToList()
-                .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
-
-            return View("SharedFolder", new { lang = locale });
+                return RedirectToAction("Welcome", new { lang = locale });
         }
 
         public string GetBaseUrl()
@@ -307,7 +312,7 @@ namespace ScreenTaker.Controllers
 
             if (im != null)
             {
-                accesGranted = _securityHelper.IsImageEditable(user, im.Folder.Person, im);
+                accesGranted = SecurityHelper.IsImageEditable(user, im.Folder.Person, im, _entities);
 
                 ViewBag.FolderName = im.Folder.Name;
                 ViewBag.FolderLink = GetBaseUrl() + "Home/Images?id=" + im.FolderId;
@@ -394,7 +399,6 @@ namespace ScreenTaker.Controllers
         }
 
 
-
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SharedImage(string i, string lang = "en")
@@ -408,12 +412,12 @@ namespace ScreenTaker.Controllers
             bool accesGranted = false;
             if (image != null)
             {
-                accesGranted = _securityHelper.IsImageAccessible(user, image.Folder.Person, image);
+                accesGranted = SecurityHelper.IsImageAccessible(user, image.Folder.Person, image, _entities);
 
                 if (accesGranted)
                 {
                     ViewBag.ImageName = image.Name;
-                    ViewBag.ImagePath = _securityHelper.GetImagePath(GetBaseUrl() + "img", i);
+                    ViewBag.ImagePath = SecurityHelper.GetImagePath(GetBaseUrl() + "img", i);
                 }
             }
             ViewBag.AccessGranted = accesGranted;
