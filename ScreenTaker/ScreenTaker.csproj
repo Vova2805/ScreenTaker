@@ -242,6 +242,9 @@
     <Compile Include="Models\Person.cs">
       <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonFriend.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PersonGroup.cs">
       <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
     </Compile>
@@ -298,10 +301,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="For Database\screenTakerDB.erwin" />
-    <EntityDeploy Include="Models\ScreenTakerDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ScreenTakerDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="img\1z86Ux8gFpfopUJ.png" />
     <Content Include="img\1z86Ux8gFpfopUJ_compressed.png" />
     <Content Include="img\5CrB63YkxrAuLdv.png" />
@@ -353,13 +352,17 @@
     <Content Include="img\yGvmreoL3ImwPYA_compressed.png" />
     <Content Include="img\zwjLtEYZYVRvRq0.png" />
     <Content Include="img\zwjLtEYZYVRvRq0_compressed.png" />
-    <Content Include="Models\ScreenTakerDataModel.edmx.diagram">
-      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\ScreenTakerDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ScreenTakerDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ScreenTakerDataModel.edmx.diagram">
+      <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Models\ScreenTakerDataModel.Context.tt">
