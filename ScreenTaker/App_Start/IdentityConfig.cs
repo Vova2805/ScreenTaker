@@ -54,18 +54,26 @@ namespace ScreenTaker
             html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + message.Body);
             #endregion
 
-            MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("screentakertest@mail.ua");
-            msg.To.Add(message.Destination);
-            msg.Subject = message.Subject;
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+            try
+            {
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("screentakertest@mail.ua");
+                msg.To.Add(message.Destination);
+                msg.Subject = message.Subject;
+                msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
+                msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
 
-            SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", Convert.ToInt32(587));
-            System.Net.NetworkCredential credentials = new NetworkCredential("screentakertest@mail.ua", "abcABC12345");
-            smtpClient.Credentials = credentials;
-            smtpClient.EnableSsl = true;
-            smtpClient.Send(msg);
+                SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", Convert.ToInt32(587));
+                System.Net.NetworkCredential credentials = new NetworkCredential("screentakertest@mail.ua",
+                    "abcABC12345");
+                smtpClient.Credentials = credentials;
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(msg);
+            }
+            catch (Exception e)
+            {
+                
+            }
         }
     }
 
