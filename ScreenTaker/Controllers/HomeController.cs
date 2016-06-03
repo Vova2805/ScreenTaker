@@ -91,6 +91,16 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Images", new { id = fId, lang = locale });
         }
 
+        // GET: /Account/ConfirmEmail
+        [AllowAnonymous]
+        public ActionResult Message(string lang = "en")
+        {
+            ViewBag.Localize = locale;
+
+            ViewBag.Email = "";
+            return View();
+        }
+
         [AllowAnonymous]
         public ActionResult About(string lang = "en")
         {
@@ -110,6 +120,28 @@ namespace ScreenTaker.Controllers
 
         #region Library
         public ActionResult Library(string lang = "en")
+        {
+            ViewBag.Localize = locale;
+            ViewBag.Message = "Library page";
+
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+            ViewBag.UserId = user.Id;
+            ViewBag.BaseURL = GetBaseUrl() + "";
+            ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
+            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
+            Folder folder = _entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            ViewBag.CurrentFolderShCode = folder == null ? (
+                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
+                ) : folder.SharedCode;
+
+            ViewBag.CurrentFolderId = (folder == null) ? (
+               ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
+               ) : folder.Id;
+            return View();
+        }
+
+        public ActionResult SharedLibrary(string lang = "en")
         {
             ViewBag.Localize = locale;
             ViewBag.Message = "Library page";

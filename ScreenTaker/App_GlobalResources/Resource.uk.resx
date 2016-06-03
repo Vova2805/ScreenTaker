@@ -262,6 +262,9 @@
   <data name="NO" xml:space="preserve">
     <value>Ні</value>
   </data>
+  <data name="NOT_FOUND" xml:space="preserve">
+    <value>The page you are looking for cannot be found</value>
+  </data>
   <data name="OFF" xml:space="preserve">
     <value>Вимк</value>
   </data>
@@ -310,6 +313,9 @@
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Шукати за</value>
   </data>
+  <data name="SHARED_FOLDERS" xml:space="preserve">
+    <value>Shared folder</value>
+  </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Поділитись папкою</value>
   </data>
@@ -319,11 +325,17 @@
   <data name="SIGNIN_LOGOUT" xml:space="preserve">
     <value>Зареєструватись</value>
   </data>
+  <data name="SORRY" xml:space="preserve">
+    <value>We're sorry ...</value>
+  </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Підтвердити</value>
   </data>
   <data name="TO_CONFIRM" xml:space="preserve">
     <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
+  </data>
+  <data name="TO_MAIN_PAGE" xml:space="preserve">
+    <value>Return to homepage</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Завантажити</value>

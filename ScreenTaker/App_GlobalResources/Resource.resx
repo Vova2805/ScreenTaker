@@ -262,6 +262,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="NO" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="NOT_FOUND" xml:space="preserve">
+    <value>The page you are looking for cannot be found</value>
+  </data>
   <data name="OFF" xml:space="preserve">
     <value>Off</value>
   </data>
@@ -310,6 +313,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Search for</value>
   </data>
+  <data name="SHARED_FOLDERS" xml:space="preserve">
+    <value>Shared folder</value>
+  </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Share folder</value>
   </data>
@@ -319,11 +325,17 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="SIGNIN_LOGOUT" xml:space="preserve">
     <value>Sign up</value>
   </data>
+  <data name="SORRY" xml:space="preserve">
+    <value>We're sorry ...</value>
+  </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Submit</value>
   </data>
   <data name="TO_CONFIRM" xml:space="preserve">
     <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
+  </data>
+  <data name="TO_MAIN_PAGE" xml:space="preserve">
+    <value>Return to homepage</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Upload</value>

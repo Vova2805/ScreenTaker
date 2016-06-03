@@ -2,9 +2,8 @@
 {
     for (int i = 0; i < ViewBag.UserFolders.Count; i++)
     {
-        string itemClass = "list-group-item";
         string folderTitle = ViewBag.UserFolders[i].Name;
-        <div class="@itemClass">
+        <div class="list-group-item" title="@folderTitle">
             <div class="media-body" style="vertical-align:middle">
                 <h5 class="media-heading">@folderTitle</h5>
             </div>
