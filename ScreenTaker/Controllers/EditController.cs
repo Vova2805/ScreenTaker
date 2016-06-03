@@ -191,9 +191,6 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
-                        
-
-
                     if (!_entities.People.Where(s => s.Email.Equals(email)).Any())
                         throw new Exception("There is no user with such e-mail.");
                     if (_entities.People.Where(w => w.Email == email && w.GroupMembers.Where(w2 => w2.GroupId == selectedId).Any()).Any())
@@ -202,7 +199,7 @@ namespace ScreenTaker.Controllers
                     if (user != null)
                     {
                         
-                        if (user != null && _entities.People.Where(w => w.Email == user.Email).Any())
+                        if (user != null && email==user.Email)
                                 throw new Exception("You can't add yourself.");
                         var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
                         if(friend!=null&&!_entities.PersonFriends.Where(w=>w.PersonId==user.Id&&w.FriendId==friend.Id).Any())
