@@ -207,10 +207,11 @@ namespace ScreenTaker.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string lang = "en")
+        public ActionResult ConfirmEmail(string lang = "en")
         {
             ViewBag.Localize = locale;
 
+            ViewBag.Email = "vovadudas@gmail.com";
             return View();
         }
 

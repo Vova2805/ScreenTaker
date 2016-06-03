@@ -162,6 +162,9 @@
   <data name="CLOSE" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="CONFIRMATION" xml:space="preserve">
+    <value>Email confirmation</value>
+  </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Confirm a new password</value>
   </data>
@@ -216,6 +219,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
+  </data>
+  <data name="HAVE_SENT" xml:space="preserve">
+    <value>We have sent mail to</value>
+  </data>
+  <data name="IF_NOT_GOT" xml:space="preserve">
+    <value>If you not got any mail</value>
   </data>
   <data name="IMAGES" xml:space="preserve">
     <value>Images</value>
@@ -286,6 +295,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="RENAME_TITLE_IMAGE" xml:space="preserve">
     <value>Enter new title for image</value>
   </data>
+  <data name="RESEND_AGAIN" xml:space="preserve">
+    <value>Resend confirmation mail again</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -309,6 +321,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="TO_CONFIRM" xml:space="preserve">
+    <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Upload</value>
