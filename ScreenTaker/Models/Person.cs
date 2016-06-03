@@ -19,6 +19,8 @@ namespace ScreenTaker.Models
         {
             this.Folders = new HashSet<Folder>();
             this.GroupMembers = new HashSet<GroupMember>();
+            this.PersonFriends = new HashSet<PersonFriend>();
+            this.PersonFriends1 = new HashSet<PersonFriend>();
             this.PersonGroups = new HashSet<PersonGroup>();
             this.UserShares = new HashSet<UserShare>();
             this.Tags = new HashSet<Tag>();
@@ -43,6 +45,10 @@ namespace ScreenTaker.Models
         public virtual ICollection<Folder> Folders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonFriend> PersonFriends { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonFriend> PersonFriends1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonGroup> PersonGroups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

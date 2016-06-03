@@ -122,11 +122,19 @@
           <Property Name="AvatarFile" Type="nvarchar(max)" />
           <Property Name="RegisterDate" Type="date" />
         </EntityType>
+        <EntityType Name="PersonFriend">
+          <Key>
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="FriendId" />
+          </Key>
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="FriendId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PersonGroup">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PersonId" Type="int" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -213,6 +221,30 @@
             </Principal>
             <Dependent Role="Folder">
               <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFriend_Friend">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="PersonFriend" Type="Self.PersonFriend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonFriend">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFriend_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="PersonFriend" Type="Self.PersonFriend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonFriend">
+              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -384,6 +416,7 @@
           <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImageTag" EntityType="Self.ImageTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonFriend" EntityType="Self.PersonFriend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonGroup" EntityType="Self.PersonGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserShare" EntityType="Self.UserShare" Schema="dbo" store:Type="Tables" />
@@ -406,6 +439,14 @@
           <AssociationSet Name="FK_Folder_ToPerson" Association="Self.FK_Folder_ToPerson">
             <End Role="Person" EntitySet="Person" />
             <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFriend_Friend" Association="Self.FK_PersonFriend_Friend">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonFriend" EntitySet="PersonFriend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFriend_Person" Association="Self.FK_PersonFriend_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonFriend" EntitySet="PersonFriend" />
           </AssociationSet>
           <AssociationSet Name="R_19" Association="Self.R_19">
             <End Role="Folder" EntitySet="Folder" />
@@ -586,15 +627,27 @@
           <Property Name="RegisterDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Folders" Relationship="Self.FK_Folder_ToPerson" FromRole="Person" ToRole="Folder" />
           <NavigationProperty Name="GroupMembers" Relationship="Self.R_37" FromRole="Person" ToRole="GroupMember" />
+          <NavigationProperty Name="PersonFriends" Relationship="Self.FK_PersonFriend_Friend" FromRole="Person" ToRole="PersonFriend" />
+          <NavigationProperty Name="PersonFriends1" Relationship="Self.FK_PersonFriend_Person" FromRole="Person" ToRole="PersonFriend" />
           <NavigationProperty Name="PersonGroups" Relationship="Self.R_20" FromRole="Person" ToRole="PersonGroup" />
           <NavigationProperty Name="UserShares" Relationship="Self.R_25" FromRole="Person" ToRole="UserShare" />
           <NavigationProperty Name="Tags" Relationship="Self.R_35" FromRole="Person" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="PersonFriend">
+          <Key>
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="FriendId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="FriendId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_PersonFriend_Friend" FromRole="PersonFriend" ToRole="Person" />
+          <NavigationProperty Name="Person1" Relationship="Self.FK_PersonFriend_Person" FromRole="PersonFriend" ToRole="Person" />
         </EntityType>
         <EntityType Name="PersonGroup">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PersonId" Type="Int32" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="GroupMembers" Relationship="Self.R_36" FromRole="PersonGroup" ToRole="GroupMember" />
@@ -760,6 +813,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersonFriend_Friend">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="PersonFriend" Type="Self.PersonFriend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonFriend">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFriend_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="PersonFriend" Type="Self.PersonFriend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonFriend">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="R_20">
           <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
           <End Role="PersonGroup" Type="Self.PersonGroup" Multiplicity="*" />
@@ -804,7 +881,7 @@
           <End Role="Image" Type="Self.Image" Multiplicity="*" />
           <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="ScreenTakerDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ScreenTakerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
@@ -814,6 +891,7 @@
           <EntitySet Name="GroupShares" EntityType="Self.GroupShare" />
           <EntitySet Name="Images" EntityType="Self.Image" />
           <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PersonFriends" EntityType="Self.PersonFriend" />
           <EntitySet Name="PersonGroups" EntityType="Self.PersonGroup" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
           <EntitySet Name="UserShares" EntityType="Self.UserShare" />
@@ -861,6 +939,14 @@
             <End Role="Image" EntitySet="Images" />
             <End Role="UserShare" EntitySet="UserShares" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersonFriend_Friend" Association="Self.FK_PersonFriend_Friend">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PersonFriend" EntitySet="PersonFriends" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFriend_Person" Association="Self.FK_PersonFriend_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PersonFriend" EntitySet="PersonFriends" />
+          </AssociationSet>
           <AssociationSet Name="R_20" Association="Self.R_20">
             <End Role="Person" EntitySet="People" />
             <End Role="PersonGroup" EntitySet="PersonGroups" />
@@ -887,7 +973,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ScreenTakerDBModelStoreContainer" CdmEntityContainer="ScreenTakerDBEntities">
+        <EntityContainerMapping StorageEntityContainer="ScreenTakerDBModelStoreContainer" CdmEntityContainer="ScreenTakerEntities">
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -993,6 +1079,14 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AvatarFile" ColumnName="AvatarFile" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonFriends">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.PersonFriend">
+              <MappingFragment StoreEntitySet="PersonFriend">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="FriendId" ColumnName="FriendId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
