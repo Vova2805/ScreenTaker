@@ -14,20 +14,9 @@ namespace ScreenTaker.Controllers
         public string locale = "en";
         public GeneralController()
         {
-            var _entities = new ScreenTakerEntities();
-            if (User == null) return;
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            if (user != null)
-            {
-                var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
-                if (person.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + person.AvatarFile + "_50.png"))
-                    ViewBag.Avatar_50 = GetBaseUrl() + "/avatars/" + person.AvatarFile + "_50.png";
-                else
-                    ViewBag.Avatar_50 = GetBaseUrl() + "/Resources/user.png";
-            }
-            ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();
-            ViewBag.BaseUrl = GetBaseUrl()+"";
-        }         
+            var _entities = new ScreenTakerEntities();            
+            ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();            
+        }
         public string GetBaseUrl()
         {
             var request = HttpContext.Request;
