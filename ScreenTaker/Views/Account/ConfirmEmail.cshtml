@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "ConfirmEmail";
+    ViewBag.Title = "Confirm Email";
     Layout = "~/Views/Shared/_Layout.cshtml";
     if (!Request.QueryString["lang"].IsEmpty())
     {
@@ -10,8 +10,6 @@
     {
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
-
-
 }
 @section Scripts {
     <script>
@@ -84,4 +82,10 @@
         <div class="col-sm-3"></div>
     
 
+<h2>@ViewBag.Title.</h2>
+<div>
+    <p>
+        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"})
+    </p>
+</div>
 

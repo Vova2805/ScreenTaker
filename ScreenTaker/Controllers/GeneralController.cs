@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using ScreenTaker.Models;
 using System;
@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace ScreenTaker.Controllers
 {
-    public abstract class GeneralController: Controller
+    public abstract class GeneralController : Controller
     {
         public string locale = "en";
         public GeneralController()
