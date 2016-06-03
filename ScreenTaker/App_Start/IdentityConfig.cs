@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -19,6 +21,24 @@ namespace ScreenTaker
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
+            using (MailMessage mm = new MailMessage("screentakertest@mail.ua", "wheatley@i.ua"))
+            {
+                mm.Subject = "Account Activation";
+                string body = "Hello " + message.Destination + ",";
+                body += "<br /><br />Please click the following link to activate your account";
+                body += "<br /><br />Thanks";
+                mm.Body = body;
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.mail.ru";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential("screentakertest@mail.ua", "abcABC12345");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+            }
+
             return Task.FromResult(0);
         }
     }

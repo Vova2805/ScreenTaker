@@ -425,6 +425,7 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Home\SharedFolder.cshtml" />
     <Content Include="Views\Edit\Partial_GroupsAndEmails.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

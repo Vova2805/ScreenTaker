@@ -81,8 +81,22 @@ namespace ScreenTaker.Controllers
                 return View(model);
             }
 
+            // Require the user to have a confirmed email before they can log on.
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+
+                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    return View("Error");
+                }
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
+
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
@@ -163,7 +177,14 @@ namespace ScreenTaker.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+
+                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                         + "before you can log in.";
+
+                    //return RedirectToAction("Index", "Home");
 
                     using (var entities = new ScreenTakerEntities())
                     {
@@ -178,25 +199,9 @@ namespace ScreenTaker.Controllers
                         entities.Folders.Add(defaultFolder);
                         entities.SaveChanges();
 
-
-                        using (MailMessage mm = new MailMessage("screentakertest@mail.ua", "wheatley@i.ua"))
-                        {
-                            mm.Subject = "Account Activation";
-                            string body = "Hello " + user.Email + ",";
-                            body += "<br /><br />Please click the following link to activate your account";
-                            body += "<br /><br />Thanks";
-                            mm.Body = body;
-                            mm.IsBodyHtml = true;
-                            SmtpClient smtp = new SmtpClient();
-                            smtp.Host = "smtp.mail.ru";
-                            smtp.EnableSsl = true;
-                            NetworkCredential NetworkCred = new NetworkCredential("screentakertest@mail.ua", "abcABC12345");
-                            smtp.UseDefaultCredentials = true;
-                            smtp.Credentials = NetworkCred;
-                            smtp.Port = 587;
-                            smtp.Send(mm);
-                        }
                     }
+
+                    return View("Info");
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -524,6 +529,16 @@ namespace ScreenTaker.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+        private async Task<string> SendEmailConfirmationTokenAsync(int userID, string subject)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account",
+               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(userID, subject,
+               "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            return callbackUrl;
         }
         #endregion
     }
