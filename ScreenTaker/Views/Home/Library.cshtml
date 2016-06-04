@@ -129,18 +129,22 @@
                         <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
                     </div>
                     <div class="col-sm-3">
-                        <div class="btn-group pull-right" id="toggle_event_editing">
-                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
-                            <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
+                                    onclick="location.href='@Url.Action("MakeFolderPublicOrPrivate", "Home" )?folderId='+document.getElementById('Idhidden').value;">
+                                Turn Off
+                            </button>
+
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input type="text" style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
-                            <span class="input-group-btn" style="height:30px;">
-                                <button class="btn btn-default btn-not-rounded" style="height:30px;" type="button">@Resources.Resource.COPY</button>
+                           
+                            <input type="text" id="sharedLink" style="height: 30px;" class="form-control" value="@ViewBag.FolderLink">
+                            <span class="input-group-btn" style="height: 30px;">
+                                <button class="btn btn-default btn-not-rounded" style="height: 30px;" type="button">@Resources.Resource.COPY</button>
                             </span>
                         </div>
                     </div>
@@ -211,8 +215,8 @@
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
-                                    <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                                    <input type="text" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
+                                    <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="location.href='@Url.Action("FoldersAddMail", "Home")?userMail='+document.getElementById('userMail').value+'&folderId='+document.getElementById('Idhidden').value">+</span>
                                 </div>
                             </div>
                         </div>
@@ -226,15 +230,23 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="list-group" style="height:auto;height:205px;overflow:auto;border:solid #E0E0E0 1px;">
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">Friends</h5>
-                                        </div>
-                                        <div class="material-switch media-right" style="vertical-align:middle">
-                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" />
-                                            <label for="someSwitchOptionInfo" class="label-info"></label>
-                                        </div>
-                                    </div>
+                                    @if (ViewBag.Groups != null)
+                                    {
+                                        for (int i = 0; i < ViewBag.Groups.Count; i++)
+                                        {
+                                            <div class="list-group-item ">
+                                                <div class="media-body" style="vertical-align: middle">
+                                                    <h5 class="media-heading">@ViewBag.Groups[i] @ViewBag.GroupsIDs[i]</h5>
+                                                </div>
+                                                <div class="material-switch media-right" style="vertical-align: middle">
+                                                    <button type="button" class="btn btn-info locked_active btn-not-rounded text-center" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
+                                                            onclick="location.href = '@Url.Action("FolderSwitchAccessONOrOff", "Home", new {groupId = ViewBag.GroupsIDs[i]})&folderId='+document.getElementById('Idhidden').value">
+                                                        @*@ViewBag.Flags[i]*@ Allowed
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -322,7 +334,7 @@
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" style="width: 100%">@Resources.Resource.MAKE_PUBLIC</button>
+                <button class="btn btn-warning btn-not-rounded" style="width: 100%" onclick="location.href='@Url.Action("MakeFolderPublicOrPrivate", "Home" )?folderId='+document.getElementById('Idhidden').value;">@ViewBag.ButtonPrivateORPublicMain</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
