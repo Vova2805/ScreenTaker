@@ -293,33 +293,34 @@
 
 <div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 675px">
     <div class="col-md-12">
-        <div class="col-sm-10" style="padding-left:25px;padding-right:25px;">
-            <h2>@Resources.Resource.FOLDERS</h2>
-        </div>
-        <div class="preloader" id="loadingAnimation">
-            <div class="sk-cube-grid preloader-center center-block">
-                <div class="sk-cube sk-cube1"></div>
-                <div class="sk-cube sk-cube2"></div>
-                <div class="sk-cube sk-cube3"></div>
-                <div class="sk-cube sk-cube4"></div>
-                <div class="sk-cube sk-cube5"></div>
-                <div class="sk-cube sk-cube6"></div>
-                <div class="sk-cube sk-cube7"></div>
-                <div class="sk-cube sk-cube8"></div>
-                <div class="sk-cube sk-cube9"></div>
+        <div class="row">
+            <div class="col-sm-6" style="padding-left: 25px; padding-right: 25px;">
+                <h2>@Resources.Resource.FOLDERS</h2>
+            </div>
+            <div class="preloader" id="loadingAnimation">
+                <div class="sk-cube-grid preloader-center center-block">
+                    <div class="sk-cube sk-cube1"></div>
+                    <div class="sk-cube sk-cube2"></div>
+                    <div class="sk-cube sk-cube3"></div>
+                    <div class="sk-cube sk-cube4"></div>
+                    <div class="sk-cube sk-cube5"></div>
+                    <div class="sk-cube sk-cube6"></div>
+                    <div class="sk-cube sk-cube7"></div>
+                    <div class="sk-cube sk-cube8"></div>
+                    <div class="sk-cube sk-cube9"></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top: 20px;" onclick="openNav()">
+                    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                </button>
+                <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align" style="margin-top: 20px; margin-right: -40px; background-color: cornflowerblue">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
             </div>
         </div>
-        <div class="col-sm-2">
-
-            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
-                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-            </button>
-            <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align" style="margin-top:20px;margin-right:-40px;background-color:cornflowerblue">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </button>
-        </div>
         <div class="row">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container">
                 @{
                     int count = ViewBag.Folders.Count;
 
@@ -358,7 +359,7 @@
                        <a href="#" onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink')"
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')">
                             <figure class="@classes" id="@folder_id">
-                                <img src="~/Resources/public.png" />
+                                <img src="~/Resources/public.png" id="folder-icon"/>
                                 <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
                             </figure>
                         </a>
