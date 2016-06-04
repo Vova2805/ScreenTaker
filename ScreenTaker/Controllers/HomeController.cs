@@ -8,6 +8,7 @@ using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq.Expressions;
+using System.Net.Mail;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Image = ScreenTaker.Models.Image;
@@ -90,6 +91,16 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Images", new { id = fId, lang = locale });
         }
 
+        // GET: /Account/ConfirmEmail
+        [AllowAnonymous]
+        public ActionResult Message(string lang = "en")
+        {
+            ViewBag.Localize = locale;
+
+            ViewBag.Email = "";
+            return View();
+        }
+
         [AllowAnonymous]
         public ActionResult About(string lang = "en")
         {
@@ -109,6 +120,29 @@ namespace ScreenTaker.Controllers
 
         #region Library
         public ActionResult Library(string lang = "en")
+        {
+            ViewBag.Localize = locale;
+            ViewBag.Message = "Library page";
+
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+            ViewBag.UserId = user.Id;
+            ViewBag.BaseURL = GetBaseUrl() + "";
+            ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
+            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
+            Folder folder = _entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            ViewBag.CurrentFolderShCode = folder == null ? (
+                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
+                ) : folder.SharedCode;
+
+            ViewBag.CurrentFolderId = (folder == null) ? (
+               ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
+               ) : folder.Id;
+            ViewBag.MessageContent = TempData["MessageContent"];
+            return View();
+        }
+
+        public ActionResult SharedLibrary(string lang = "en")
         {
             ViewBag.Localize = locale;
             ViewBag.Message = "Library page";
@@ -215,12 +249,14 @@ namespace ScreenTaker.Controllers
                     {
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                        var image = new Image();
-                        image.IsPublic = false;
-                        image.FolderId = Int32.Parse(folderId);
-                        image.SharedCode = sharedCode;
-                        image.Name = fileName;
-                        image.PublicationDate = DateTime.Now;
+                        var image = new Image
+                        {
+                            IsPublic = false,
+                            FolderId = Int32.Parse(folderId),
+                            SharedCode = sharedCode,
+                            Name = fileName,
+                            PublicationDate = DateTime.Now
+                        };
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
                         var bitmap = new Bitmap(file.InputStream);
@@ -339,6 +375,14 @@ namespace ScreenTaker.Controllers
             if (ViewBag.Image != null)
             {
                 ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+            }
+            ViewBag.OriginalNameWithoutEx = "";
+            if (ViewBag.Image != null)
+            {
+                int length = ViewBag.Image.Name.Length;
+                int size = length <= 15 ? length : 15;
+                string name = ViewBag.Image.Name.Substring(0, size);
+                ViewBag.OriginalNameWithoutEx = name;
             }
             ViewBag.ImageTitle = "";
             if (ViewBag.Image != null)
@@ -538,6 +582,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (title.Length == 0)
+                        throw new Exception("Title should not be empty.");
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
                     var newolder = new Folder()
@@ -553,9 +599,10 @@ namespace ScreenTaker.Controllers
 
                     transaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    transaction.Rollback();                    
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Library", "Home", new { lang = locale });
@@ -639,6 +686,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult MoveItMoveIt(int folderId,string imageSharedCode)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -659,6 +707,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImagesMoveCreateFolder(string name,int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -690,6 +739,7 @@ namespace ScreenTaker.Controllers
         }
         public ActionResult SingleImageMoveCreateFolder(string name, int folderId,string imageSharedCode)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try

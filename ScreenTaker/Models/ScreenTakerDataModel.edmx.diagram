@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d233c57005544d86a3b9b0669d3fca31" Name="Diagram1">
-        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetRole" Width="1.5" PointX="9.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUser" Width="1.5" PointX="12" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.Folder" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.GroupMember" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.GroupShare" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.Image" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.Person" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.PersonGroup" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.Tag" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.UserShare" Width="1.5" PointX="10.5" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="ScreenTakerDBModel.database_firewall_rules" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="27d1818c2f8746caade14212f611af33" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetRole" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.AspNetUser" Width="1.5" PointX="10" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.Folder" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.GroupMember" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.GroupShare" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.Image" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.Person" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.PersonFriend" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.PersonGroup" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.Tag" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScreenTakerDBModel.UserShare" Width="1.5" PointX="10.5" PointY="7.875" IsExpanded="true" />
         <AssociationConnector Association="ScreenTakerDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.FK_Folder_ToPerson" ManuallyRouted="false" />
@@ -29,6 +29,8 @@
         <AssociationConnector Association="ScreenTakerDBModel.R_22" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.R_24" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.R_26" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.FK_PersonFriend_Friend" ManuallyRouted="false" />
+        <AssociationConnector Association="ScreenTakerDBModel.FK_PersonFriend_Person" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.R_20" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.R_25" ManuallyRouted="false" />
         <AssociationConnector Association="ScreenTakerDBModel.R_35" ManuallyRouted="false" />

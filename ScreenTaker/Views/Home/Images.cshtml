@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Images";
-
+    ViewBag.OriginalName = "Images";
 
     string ShareLink = "";
     string CommpressedLink = "";
@@ -20,10 +20,27 @@
     {
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
+    string ImageName = "";
+    string SharedCode = "";
+    string CurrentID = "";
 
 }
 @section Scripts {
     <script>
+            (function ($) {
+
+                $('#filter').keyup(function () {
+                    var val = $(this).val();
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.searchable div.list-group-item').hide();
+                    $('.searchable div.list-group-item').filter(function () {
+                        var data = this.title;
+                        var result = rex.test(data);
+                        return result;
+                    }).show();
+                })
+
+            }(jQuery));
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
     $(document).ajaxStart(function () {
@@ -42,6 +59,35 @@
     $('form').live("submit", function () {
         ShowProgress();
     });
+
+    function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex) {
+        var classes = "floating-box text-center task active images";
+        document.getElementById("original").value = original;
+        document.getElementById("sharedLink").value = sharedLink;
+        document.getElementById("compressedLink").src = compressed;
+        document.getElementById("compressedName").innerText = name;
+
+        document.getElementById("sharedLinkhidden").value = sharedCode;
+        document.getElementById("Idhidden").value = id;
+        document.getElementById("new-title").value = without_ex;
+       
+        for (var i = 0; i < count; i++) {
+            var ID = "ID" + i;
+            document.getElementById(ID).className = classes;
+        }
+        document.getElementById(image_id).className += " active-image";
+        
+        ImageName = without_ex;
+        SharedCode = sharedCode;
+        CurrentID = id;
+        return false;
+    }
+
+        function openImage(path) {
+            location.href = "/Home/SingleImage?image=" + path;
+            return false;
+        }
+
     </script>
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 }
@@ -59,7 +105,7 @@
                 <form>
                     <div class="form-group">
                         <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE_IMAGE</label>
-                        <input type="text" class="form-control" id="new-title" value="@ViewBag.OriginalName">
+                        <input type="text" class="form-control" id="new-title">
                     </div>
                 </form>
             </div>
@@ -113,7 +159,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
+                                    <input type="text" id="filter" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -124,14 +170,13 @@
                         </div>
                         <div class="row" style="margin-top:10px;">
                             <div class="col-sm-12">
-                                <div class="list-group" style="height:auto;max-height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">                                
+                                <div class="list-group searchable" style="height:auto;height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">                                
                                     @if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
                                     {
                                         for (int i = 0; i < ViewBag.UserFolders.Count; i++)
                                         {
-                                            string itemClass = "list-group-item";
                                             string folderTitle = ViewBag.UserFolders[i].Name;
-                                        <div class="@itemClass">
+                                        <div class="list-group-item" title="@folderTitle">
                                             <div class="media-body" style="vertical-align:middle">
                                                 <h5 class="media-heading">@folderTitle</h5>
                                             </div>
@@ -161,7 +206,7 @@
     },
     success: function (data) {
         $('#areaForFolders').html(data);
-        document.getElementById('newFolderName').value='';
+        document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
         document.getElementById('areaForFolders').scrollTop = 9999;
     }
 });">
@@ -326,7 +371,7 @@
                 <div class="col-sm-5">
                     <h2>@ViewBag.FolderName</h2>
                 </div>
-                <div class="preloader" id="loadingAnimation">
+                <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
                     <div class="sk-cube-grid preloader-center center-block">
                         <div class="sk-cube sk-cube1"></div>
                         <div class="sk-cube sk-cube2"></div>
@@ -377,19 +422,27 @@
                         int size = length <= 15 ? length : 15;
                         name = name.Substring(0, size);
                         string classes = "floating-box text-center task active images";
+                        string without_ex = i.Name;
                         if (index == 0)
                         {
-                            classes += " active-image";
+                            ImageName = i.Name;
+                            <script>
+                                document.getElementById("original").value = original;
+                                document.getElementById("sharedLinkhidden").value = @i.SharedCode;
+                                document.getElementById("Idhidden").value = @i.Id;
+                                document.getElementById("new-title").value = without_ex;
+                            </script>
                         }
                         string image_id = "ID" + index;
 
-                        <a href="#" onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
+                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name','@without_ex')"
+                              ondblclick="openImage('@original')" style="cursor:pointer;">
                             <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                                 </div>
                                 <label class="text-center">@name</label>
                             </div>
-                        </a>
+                        </div>
                         index = index + 1;
                     }
                 }
@@ -398,17 +451,19 @@
     </div>
     <div class="sidenav" id="mySidenav">
         <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-            @if (ViewBag.Images != null && ViewBag.Images.Count > 0)
-            {
-                <input type="text" class="hidden" id="original" value="@ViewBag.Images[0].SharedCode"/>
-            }
-            else
-            {
-                <input type="text" class="hidden" id="original" value="" />
-            }
-            <img src="@CommpressedLink" id="compressedLink"/>
-            <p id="compressedName" style="color: #E0E0E0">@Name</p>
+            <div style="width:100%;height:135px;">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
+                @if (ViewBag.Images != null && ViewBag.Images.Count > 0)
+                {
+                    <input type="text" class="hidden" id="original" value="@ViewBag.Images[0].SharedCode" />
+                }
+                else
+                {
+                    <input type="text" class="hidden" id="original" value="" />
+                }
+                <img src="@CommpressedLink" id="compressedLink" style="max-width:145px;max-height:128px;" />
+                <p id="compressedName" style="color: #E0E0E0">@Name</p>
+            </div>
             <hr />
             <div>
                 <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" onclick="openImage(document.getElementById('original').value)">@Resources.Resource.OPEN</button>

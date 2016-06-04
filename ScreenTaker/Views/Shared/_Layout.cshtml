@@ -7,11 +7,8 @@
     {
         Culture = UICulture = ViewBag.Localize??"en";
     }
-    //if (!ViewBag.Localize.Equals(Culture))
-    //{
-    //    
-    //}
-
+    ViewBag.MessageTitle = "Info";
+    //ViewBag.MessageContent = Resources.Resource.CAPTURING_TEXT;
 }
 <!DOCTYPE html>
 <html>
@@ -44,6 +41,10 @@
                                {
                                }, null)
                             </li>
+                            <li>@Html.ActionLink(Resources.Resource.SHARED_FOLDERS,  "SharedLibrary",  "Home", new
+                               {
+                               }, null)
+                            </li>
                         </ul>
                     }
 
@@ -52,10 +53,38 @@
             </div>
         </div>
     </header>
-<section class="main-content">
-    <div>
-        @RenderBody()
+<section class="main-content">    
+    <div class="modal fade" id="Message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="margin-top:10%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="MessageTitle">@ViewBag.MessageTitle</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img src="~/Resources/error.png" style="width:80%;height:80%"/>
+                            </div>
+                            <div class="col-sm-10" >                                
+                                <p style="word-wrap: break-word;" id="MessageContent">
+                                    @if (@ViewBag.MessageContent != null)
+                                    {
+                                        @ViewBag.MessageContent
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
     </div>
+        @RenderBody()
 </section>
 <footer style="z-index:1510;">
     <div style="background-color: #222; margin-bottom: -20px; bottom: 0px; vertical-align: middle; height: 50px; margin-top: 20px;">
@@ -71,11 +100,14 @@
         </div>
     </div>
 </footer>
-
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
-
+    @if (ViewBag.MessageContent != null)
+    {
+        <script>
+            $('#Message').modal('show');
+        </script>
+    }      
 </body>
-
 </html>

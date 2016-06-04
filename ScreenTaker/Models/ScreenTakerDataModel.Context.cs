@@ -34,6 +34,7 @@ namespace ScreenTaker.Models
         public virtual DbSet<GroupShare> GroupShares { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<PersonFriend> PersonFriends { get; set; }
         public virtual DbSet<PersonGroup> PersonGroups { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<UserShare> UserShares { get; set; }

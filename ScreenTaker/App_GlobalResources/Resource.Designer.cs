@@ -196,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email confirmation.
+        /// </summary>
+        internal static string CONFIRMATION {
+            get {
+                return ResourceManager.GetString("CONFIRMATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm a new password.
         /// </summary>
         internal static string CONFIRM_PASS {
@@ -359,6 +368,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We have sent mail to.
+        /// </summary>
+        internal static string HAVE_SENT {
+            get {
+                return ResourceManager.GetString("HAVE_SENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you not got any mail.
+        /// </summary>
+        internal static string IF_NOT_GOT {
+            get {
+                return ResourceManager.GetString("IF_NOT_GOT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Images.
         /// </summary>
         internal static string IMAGES {
@@ -467,6 +494,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The page you are looking for cannot be found.
+        /// </summary>
+        internal static string NOT_FOUND {
+            get {
+                return ResourceManager.GetString("NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         internal static string OFF {
@@ -566,6 +602,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resend confirmation mail again.
+        /// </summary>
+        internal static string RESEND_AGAIN {
+            get {
+                return ResourceManager.GetString("RESEND_AGAIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SAVE {
@@ -602,6 +647,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shared folder.
+        /// </summary>
+        internal static string SHARED_FOLDERS {
+            get {
+                return ResourceManager.GetString("SHARED_FOLDERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Share folder.
         /// </summary>
         internal static string SHARE_FOLDER {
@@ -629,11 +683,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We&apos;re sorry ....
+        /// </summary>
+        internal static string SORRY {
+            get {
+                return ResourceManager.GetString("SORRY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         internal static string SUBMIT {
             get {
                 return ResourceManager.GetString("SUBMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration.
+        /// </summary>
+        internal static string TO_CONFIRM {
+            get {
+                return ResourceManager.GetString("TO_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to homepage.
+        /// </summary>
+        internal static string TO_MAIN_PAGE {
+            get {
+                return ResourceManager.GetString("TO_MAIN_PAGE", resourceCulture);
             }
         }
         

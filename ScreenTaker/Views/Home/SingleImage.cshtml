@@ -16,6 +16,19 @@
 <script src="~/Scripts/Site.js"></script>
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     <script>
+        (function ($) {
+            $('#filter').keyup(function () {
+                var val = $(this).val();
+                var rex = new RegExp($(this).val(), 'i');
+                $('.searchable div.list-group-item').hide();
+                $('.searchable div.list-group-item').filter(function () {
+                    var data = this.title;
+                    var result = rex.test(data);
+                    return result;
+                }).show();
+            })
+
+        }(jQuery));
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
     $(document).ajaxStart(function () {
@@ -104,7 +117,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
+                                <input id="filter" type="text" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" aria-label="Left Align">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -115,20 +128,18 @@
                     </div>                    
                     <div class="row" style="margin-top:10px;">
                         <div class="col-sm-12">
-                            <div class="list-group" style="height:auto;max-height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">
+                            <div class="list-group searchable" style="height:auto;height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">
                                 @if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
                                 {
                                     for (int i = 0; i < ViewBag.UserFolders.Count; i++)
                                     {
-                                        string itemClass = "list-group-item";
                                         string folderTitle = ViewBag.UserFolders[i].Name;
-                                        <div class="@itemClass">
+                                        <div class="list-group-item" title="@folderTitle">
                                             <div class="media-body" style="vertical-align:middle">
                                                 <h5 class="media-heading">@folderTitle</h5>
                                             </div>
                                             <div class="media-right" style="vertical-align:middle;">
                                                 <button type="button" class="btn right btn-primary btn-not-rounded" aria-label="Left Align" onclick="location.href='@Url.Action("MoveItMoveIt","Home",new {folderId=ViewBag.UserFolders[i].Id, imageSharedCode=ViewBag.Image.SharedCode})'">
-    
                                                     Move here
                                                 </button>
                                             </div>
@@ -153,7 +164,7 @@
     },
     success: function (data) {
         $('#areaForFolders').html(data);
-        document.getElementById('newFolderName').value='';
+        document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
         document.getElementById('areaForFolders').scrollTop = 9999;
     }
 });">
@@ -349,11 +360,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="text-md-center">
                                     <h3 class="text-center">@ViewBag.OriginalName</h3>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="row">
                                 <div class="text-md-center">
                                     <h5 class="text-center">Uploaded @ViewBag.Date</h5>
@@ -387,11 +398,11 @@
         </div>
 
         <div class="sidenav" id="mySidenav">
-            <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-                <p style="color: #E0E0E0; padding-top: 10px">@ViewBag.OriginalName</p>
-                <hr />
-                <div>
+            <div style="margin-left: 10px; margin-right: 10px;">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;top:9%;">×</a>
+                @*<p style="color: #E0E0E0; padding-top: 10px">@ViewBag.OriginalNameWithoutEx</p>
+                <hr />*@
+                <div style="margin-top:63%;">
                     <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">@Resources.Resource.MOVE</button>
                 </div>
                 <br />
@@ -413,7 +424,7 @@
                 <div>
                     <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
                 </div>
-                <hr />
+                @*<hr />*@
             </div>
         </div>
 
@@ -435,7 +446,7 @@
                     <div class="col-md-3">
                         <h5 style="padding-top: 7px; margin:0;">@Resources.Resource.PRIVATE</h5>
                     </div>
-                    <div class="col-md-9">tio
+                    <div class="col-md-9">
                         <div class="btn-group pull-right" id="toggle_event_editing">
                             <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
                             <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
