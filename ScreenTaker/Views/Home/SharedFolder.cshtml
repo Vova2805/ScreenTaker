@@ -22,6 +22,14 @@
     }
 
 }
+@section Scripts {
+    <script>
+        function openImage(path) {
+            location.href = "/Home/SharedImage?i=" + path;
+            return false;
+        }   
+    </script>
+}
 
 <div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 800px">
     <div class="col-md-12">
@@ -38,16 +46,19 @@
             {
                 string original = i.SharedCode;
                 string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                string compressed = ViewBag.BASE_URL+"img/" + i.SharedCode + "_compressed.png";
+                string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
                 string name = i.Name + ".png";
-                    <a href="#" onclick="selectImage('@original', '@sharedLink1', '@compressed', '@name')" ondblclick="openImage('@original')">
-                        <div class="col-md-2 text-center task active images" style="margin-bottom: 60px; padding-top: 10px; " >
-                            <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
-                            </div>
-                            <label class="text-center">@name</label>
+                int length = name.Length;
+                int size = length <= 15 ? length : 15;
+                name = name.Substring(0, size);
+                <div onclick="openImage('@original')" style="cursor:pointer;">
+                    <div class="floating-box text-center task active images" style="padding-top: 10px; ">
+                        <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                         </div>
-                    </a>
-                }
+                        <label class="text-center">@name</label>
+                    </div>
+                </div>
+            }
             </div>
         </div>
     </div>

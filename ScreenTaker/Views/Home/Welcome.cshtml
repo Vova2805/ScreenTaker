@@ -18,14 +18,13 @@
         <div class="jumbotron container" style="padding:30px">
             <h1 class="text-color">ScreenTaker</h1>
             <p class="lead-site">@Resources.Resource.JUMBOTRON_TEXT</p>
-
             <div class="row">
                 <div class="col-md-4">
                 </div>
                 <div class="col-md-4">
                     @using (Html.BeginForm("Welcome", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     { 
-                        <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                        <input id="fileInput" style="visibility:collapse" type="file" accept="image/*" name="file" onchange="document.getElementById('fileSubmit').click();" />
                         <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
                         <input type="button" style="width:270px; height:60px;" class="btn btn-primary btn-lg center-block" id="welcom-upload" value="@Resources.Resource.UPLOAD_IMAGE" onclick="document.getElementById('fileInput').click();" />
                     }

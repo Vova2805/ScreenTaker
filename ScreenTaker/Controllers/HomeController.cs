@@ -130,12 +130,15 @@ namespace ScreenTaker.Controllers
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
             ViewBag.UserId = user.Id;
             ViewBag.BaseURL = GetBaseUrl() + "";
-            ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
-            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-            Folder folder = _entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+           
+            Folder folder = _entities.Folders.ToList().Where(f=> f.OwnerId == user.Id).ToList().First(); 
+            ViewBag.FolderLink = GetBaseUrl() + "Home/SharedFolder?f=" + folder.SharedCode;
             ViewBag.CurrentFolderShCode = folder == null ? (
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
                 ) : folder.SharedCode;
+            ViewBag.ImageSrc = GetBaseUrl() + "Resources/" + (folder.IsPublic?"public.png":"private.png");
+            ViewBag.FolderTitle = folder.Name;
 
             ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
@@ -310,11 +313,10 @@ namespace ScreenTaker.Controllers
             ViewBag.BaseURL = GetBaseUrl() + "";
             ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-            Folder folder = _entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            Folder folder = _entities.Folders.ToList().Where(f =>f.OwnerId == user.Id).FirstOrDefault();
             ViewBag.CurrentFolderShCode = folder == null ? (
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
                 ) : folder.SharedCode;
-
             ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
@@ -346,10 +348,25 @@ namespace ScreenTaker.Controllers
             ViewBag.BASE_URL = GetBaseUrl();
             ViewBag.SharedLinks = _entities.Images.ToList()
                 .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
-
+            ViewBag.Count = "0";
+            if(list.Count>0)
+            ViewBag.Count = list.Count+"";
             ViewBag.FolderId = folderId;
-        }
+            ViewBag.FirstId = list.Count > 0 ? (list.First().Id+"") : "-1";
+            ViewBag.FirstImageName = list.Count > 0 ? (list.First().Name + ".png"): "";
+            ViewBag.FirstWithoutEx = list.Count > 0 ? (list.First().Name+"") : "";
+            int length = ViewBag.FirstImageName.Length;
+            int size = length <= 15 ? length : 15;
+            string name = ViewBag.FirstImageName.Substring(0, size);
+            ViewBag.FirstImageName = name;
 
+            ViewBag.FirstImageId = list.Count > 0 ? list.First().Id:-1;
+            ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
+            ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+list.First().SharedCode+"_compressed.png" : "";
+            ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
+            
+        }
+            
         public ActionResult Images(string id = "-1", string lang = "en")
         {
             ViewBag.Localize = locale;
@@ -562,7 +579,7 @@ namespace ScreenTaker.Controllers
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
-            var folder = _entities.Folders.First(fold => fold.SharedCode == f);
+            var folder = _entities.Folders.FirstOrDefault(fold => fold.SharedCode == f);
             
             bool accessGranted = false;
 
@@ -573,10 +590,7 @@ namespace ScreenTaker.Controllers
 
                 if (accessGranted)
                 {
-                    var images = _entities.Images.Where(i => 
-                        i.FolderId == folderId
-                        && (folder.OwnerId == user.Id || i.IsPublic)
-                    ).ToList();
+                    List<Image> images = SecurityHelper.GetAccessibleImages(user, folder, _entities);
 
 
                     ViewBag.IsEmpty = !images.Any();
@@ -596,7 +610,7 @@ namespace ScreenTaker.Controllers
             {
                 return View("SharedFolder", new { lang = locale });
             }
-                return RedirectToAction("Welcome", new { lang = locale });
+            return View("Message", new { lang = locale });
         }
 
         public string GetBaseUrl()
@@ -633,7 +647,7 @@ namespace ScreenTaker.Controllers
 
             if (!accesGranted)
             {
-                return RedirectToAction("Welcome");
+                return View("Message", new { lang = locale });
             }
 
             if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
@@ -893,18 +907,22 @@ namespace ScreenTaker.Controllers
 
 
             var image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
-            bool accesGranted = false;
+            bool accessGranted = false;
             if (image != null)
             {
-                accesGranted = SecurityHelper.IsImageAccessible(user, image.Folder.Person, image, _entities);
+                accessGranted = SecurityHelper.IsImageAccessible(user, image.Folder.Person, image, _entities);
 
-                if (accesGranted)
+                if (accessGranted)
                 {
                     ViewBag.ImageName = image.Name;
                     ViewBag.ImagePath = SecurityHelper.GetImagePath(GetBaseUrl() + "img", i);
                 }
             }
-            ViewBag.AccessGranted = accesGranted;
+
+            if (!accessGranted)
+                return View("Message", new { lang = locale });
+
+            ViewBag.AccessGranted = accessGranted;
 
             ViewBag.Image = image;
             if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
@@ -1208,6 +1226,11 @@ namespace ScreenTaker.Controllers
                 }
 }
             return PartialView("PartialSingleImageMoveCreateFolder");
+        }
+
+        public FileResult Image(string i)
+        {
+            return File(Request.RawUrl, "image/png");
         }
 
     }
