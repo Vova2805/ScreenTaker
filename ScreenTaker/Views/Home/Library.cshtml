@@ -202,56 +202,24 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
-                                    <div class="list-group-item">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                  @if (ViewBag.FoldersEmails != null)
+                                  {
+                                      for (int i = 0; i < ViewBag.FoldersEmails.Count; i++)
+                                      {
+                                        <div class="list-group-item">
+                                            <div class="media-body" style="vertical-align: middle">
+                                                <h5 class="media-heading">@ViewBag.FoldersEmails[i]</h5>
+                                            </div>
+                                            <div class="media-right" style="vertical-align: middle;" onclick="location.href='@Url.Action("FoldersRemoveUser", "Home", new { userMail=ViewBag.FoldersEmails[i] })&folderId='+document.getElementById('Idhidden').value">
+                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                        </div>
-                                        <div class="media-right" style="vertical-align:middle;">
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </div>
+                                      }
+                                  }
+                               
+                              
                                 </div>
                             </div>
                         </div>
@@ -400,7 +368,7 @@
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%">@Resources.Resource.MAKE_PUBLIC</button>
+                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%"  onclick="location.href='@Url.Action("MakeFolderPublicOrPrivate", "Home" )?folderId='+document.getElementById('Idhidden').value;">@Resources.Resource.MAKE_PUBLIC</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
