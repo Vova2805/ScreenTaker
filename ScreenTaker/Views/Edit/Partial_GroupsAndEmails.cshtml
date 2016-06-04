@@ -23,6 +23,12 @@
                                 },
                                 success: function (data) {
                                     $('#dynamicArea').html(data);
+                                    if(document.getElementById('MessageContentFromPartial').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                    }
                                 }
                             });"                         
                           >+</span>
@@ -48,7 +54,13 @@
                             selectedId: @ViewBag.Groups[i].Id,
                             },
                             success: function (data) {
-                            $('#dynamicArea').html(data);
+                                $('#dynamicArea').html(data);
+                                 if(document.getElementById('MessageContentFromPartial').value!='')
+                                            {
+                                                $('#Message').modal('show');
+                                                document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                            }
                             }});">
                                 <div class="media-body" style="vertical-align:middle">
                                     <h5 class="media-heading">@ViewBag.Groups[i].Name</h5>
@@ -68,6 +80,12 @@
                                             },
                                             success: function (data) {
                                                 $('#dynamicArea').html(data);
+                                                if(document.getElementById('MessageContentFromPartial').value!='')
+                                            {
+                                                $('#Message').modal('show');
+                                                document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                            }
                                             }
                                         });">
                                     <button type="button" class="btn badge right" aria-label="Left Align">
@@ -86,7 +104,7 @@
         <div class="row" style="margin-bottom:10px;">
             <div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput">
+                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
                     <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
                           onclick="$.ajax({
                                         url: 'AddUser',
@@ -96,6 +114,12 @@
                                         },
                                         success: function (data) {
                                             $('#dynamicArea').html(data);
+                                            if(document.getElementById('MessageContentFromPartial').value!='')
+                                            {
+                                                $('#Message').modal('show');
+                                                document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                            }
                                         }
                                     });">+</span>
                 </div>
@@ -125,6 +149,12 @@
                                             },
                                             success: function (data) {                                                
                                                 $('#dynamicArea').html(data);
+                                                if(document.getElementById('MessageContentFromPartial').value!='')
+                                            {
+                                                $('#Message').modal('show');
+                                                document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                            }
                                             }
                                         });">                                   
                                     <button type="button" class="btn badge right" aria-label="Left Align">
@@ -133,20 +163,18 @@
                                 </div>
                             </div>
                         }
-                    }
+                    }                    
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@section Scripts {   
-    <script>
-    $(document).ajaxStart(function () {
-        $('#loadingAnimation').show();
-    });
-    $(document).ajaxStop(function () {
-        $('#loadingAnimation').hide();
-    });
-    </script>
+@if (ViewBag.MessageContent != null)
+{
+    <input type="hidden" id="MessageContentFromPartial" value="@ViewBag.MessageContent" />
 }
+else
+{
+    <input type="hidden" id="MessageContentFromPartial" value="" />
+}
+    

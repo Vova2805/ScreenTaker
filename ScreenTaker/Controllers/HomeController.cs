@@ -138,6 +138,7 @@ namespace ScreenTaker.Controllers
             ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
+            ViewBag.MessageContent = TempData["MessageContent"];
             return View();
         }
 
@@ -573,6 +574,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (title.Length == 0)
+                        throw new Exception("Title should not be empty.");
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
                     var newolder = new Folder()
@@ -588,9 +591,10 @@ namespace ScreenTaker.Controllers
 
                     transaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    transaction.Rollback();                    
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Library", "Home", new { lang = locale });
