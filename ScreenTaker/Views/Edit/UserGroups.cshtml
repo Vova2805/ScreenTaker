@@ -41,7 +41,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Group name" aria-describedby="sizing-addon2" id="GroupNameInput">
                                 <span  class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
-                                      onclick="$.ajax({
+                                      onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                 url: 'CreateGroup',
                                 data: {
                                     name: document.getElementById('GroupNameInput').value,
@@ -71,7 +71,7 @@
                                             itemClass += " active";
                                         }
                                         <div class="@itemClass" 
-                             onclick="$.ajax({
+                             onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                             url: 'Partial_GroupsAndEmails',
                             data: {
                             selectedId: @ViewBag.Groups[i].Id,
@@ -95,7 +95,7 @@
                                                 </button>
                                             </div>
                                             <div class="media-right" style="vertical-align:middle;"
-                                                 onclick="if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;
+                                                 onclick="$('#loadingAnimation').css('visibility', 'visible');if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;
                                         $.ajax({
                                             url: 'RemoveGroup',
                                             data: {
@@ -129,7 +129,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">                                                                
                                 <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
-                                      onclick="$.ajax({
+                                      onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                         url: 'AddUser',
                                         data: {
                                             selectedId: @ViewBag.SelectedId,
@@ -165,7 +165,7 @@
                                                 <h4 class="media-heading">@ViewBag.Emails[i]</h4>
                                             </div>
                                             <div class="media-right" style="vertical-align:middle"
-                                                 onclick="$.ajax({
+                                                 onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                             url: 'RemoveUser',
                                             data: {
                                                 selectedId: @ViewBag.SelectedId,
@@ -215,11 +215,11 @@
     });
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');    
-    $("document:not(#sizing-addon2)").ajaxStart(function () {
-        a.css('visibility', 'visible');
-    });
+    //$('document:not(#AddUserInput)').ajaxStart(function () {
+    //    $('#loadingAnimation').css('visibility', 'visible');
+    //});
     $(document).ajaxStop(function () {
-        a.css('visibility', 'hidden');
+        $('#loadingAnimation').css('visibility', 'hidden');
         $(function () {
             $("[data-autocomplete-source]").each(function () {
                 var target = $(this);
