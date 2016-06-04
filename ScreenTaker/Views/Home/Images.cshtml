@@ -446,7 +446,7 @@
                     foreach (var i in ViewBag.Images)
                     {
                         string original = i.SharedCode;
-                        string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
+                        string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                         string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
                         string name = i.Name + ".png";
                         int length = name.Length;
@@ -465,7 +465,7 @@
                         }
                         string image_id = "IMD" + index;
 
-                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name','@without_ex')"
+                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex')"
                               ondblclick="openImage('@original')" style="cursor:pointer;">
                             <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
