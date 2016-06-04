@@ -1,4 +1,14 @@
-﻿<div class="col-sm-12" style="padding-left:25px;padding-right:10px;">
+﻿@{ 
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+}
+<div class="col-sm-12" style="padding-left:25px;padding-right:10px;">
     <div class="row">
         <div class="col-sm-10">
             <h2 id="OriginalName">@ViewBag.OriginalName</h2>

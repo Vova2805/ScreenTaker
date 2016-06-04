@@ -368,11 +368,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folders.
+        ///   Looks up a localized string similar to My folders.
         /// </summary>
         internal static string FOLDERS {
             get {
                 return ResourceManager.GetString("FOLDERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to folder.
+        /// </summary>
+        internal static string FOLDERY {
+            get {
+                return ResourceManager.GetString("FOLDERY", resourceCulture);
             }
         }
         
@@ -674,7 +683,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shared folder.
+        ///   Looks up a localized string similar to Available to me.
         /// </summary>
         internal static string SHARED_FOLDERS {
             get {

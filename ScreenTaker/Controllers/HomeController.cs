@@ -167,6 +167,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult PartialLibraryAccess(int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -200,6 +201,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessAddUser(string email, int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -260,6 +262,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessRemoveUser(string email, int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -285,6 +288,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessSwitchGroupsAccess(int groupId, int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -311,6 +315,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult PartialImagesAccess(int imageId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -353,6 +358,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImageAccessAddUser(string email, int imageId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -398,6 +404,7 @@ namespace ScreenTaker.Controllers
             
         public ActionResult ImageAccessRemoveUser(string email, int imageId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -423,6 +430,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImageAccessSwitchGroupsAccess(int groupId, int imageId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -581,10 +589,6 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-
-
-           
-
             ViewBag.FolderName = folder.Name;
             FillImagesViewBag(folderId);
             return View("Images", new { lang = locale });
@@ -1295,6 +1299,7 @@ namespace ScreenTaker.Controllers
 
         public FileResult Image(string i)
         {
+            ViewBag.Localize = locale;
             return File(Request.RawUrl, "image/png");
         }
 

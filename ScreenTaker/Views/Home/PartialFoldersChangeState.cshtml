@@ -1,7 +1,12 @@
 ﻿@section Scripts {
-    <script>
-       
-    </script>
+     if (!Request.QueryString["lang"].IsEmpty())
+        {
+            Culture = UICulture = Request.QueryString["lang"];
+        }
+        else
+        {
+            Culture = UICulture = ViewBag.Localize ?? "en";
+        }
 }
 <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
     @{

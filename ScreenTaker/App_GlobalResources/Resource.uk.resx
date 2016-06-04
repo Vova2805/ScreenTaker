@@ -221,7 +221,10 @@
 Розроблений з думкою про досвідчених користувачів, ScreenTaker надає швидке робоче середовище з мінімумом натискань клавіш.</value>
   </data>
   <data name="FOLDERS" xml:space="preserve">
-    <value>Папки</value>
+    <value>Мої папки</value>
+  </data>
+  <data name="FOLDERY" xml:space="preserve">
+    <value>папку</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Групи</value>
@@ -323,7 +326,7 @@
     <value>Шукати за</value>
   </data>
   <data name="SHARED_FOLDERS" xml:space="preserve">
-    <value>Загальна папка</value>
+    <value>Доступне мені</value>
   </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Поділитись папкою</value>

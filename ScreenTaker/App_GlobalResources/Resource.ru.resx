@@ -221,7 +221,10 @@
 Разработан с мыслью об опытных пользователях, ScreenTaker наддаст быструю рабочую среду с минимум нажатий клавиш.</value>
   </data>
   <data name="FOLDERS" xml:space="preserve">
-    <value>Папки</value>
+    <value>Мои папки</value>
+  </data>
+  <data name="FOLDERY" xml:space="preserve">
+    <value>папку</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Групы</value>
@@ -323,7 +326,7 @@
     <value>Искать для</value>
   </data>
   <data name="SHARED_FOLDERS" xml:space="preserve">
-    <value>Публичная папка</value>
+    <value>Доступные мне</value>
   </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Поделиться папкой</value>
@@ -365,7 +368,7 @@
     <value>Используйте свою учетную запись, чтобы войти</value>
   </data>
   <data name="WANT_DELETE" xml:space="preserve">
-    <value>Do you really want to delete </value>
+    <value>Вы действительно хотите удалить</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Да</value>
