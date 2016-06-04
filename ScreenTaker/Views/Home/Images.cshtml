@@ -20,6 +20,7 @@
             document.getElementById("MoveButton").disabled = true;
             document.getElementById("ManageAccessButton").disabled = true;
             document.getElementById("MakePublicButton").disabled = true;
+            document.getElementById("sharedLink").disabled = true;
 
             document.getElementById("IMD0").className += " active-image";
             document.getElementById("RenameButton").disabled = false;
@@ -28,6 +29,7 @@
             document.getElementById("MoveButton").disabled = false;
             document.getElementById("ManageAccessButton").disabled = false;
             document.getElementById("MakePublicButton").disabled = false;
+            document.getElementById("sharedLink").disabled = false;
             document.getElementById("original").value = '@ViewBag.FirstImageShCode';
             document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
             document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
@@ -64,6 +66,7 @@
             document.getElementById("MoveButton").disabled = false;
             document.getElementById("ManageAccessButton").disabled = false;
             document.getElementById("MakePublicButton").disabled = false;
+            document.getElementById("sharedLink").disabled = false;
             return false;
         }
 
