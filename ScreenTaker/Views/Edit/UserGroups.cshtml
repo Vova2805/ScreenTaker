@@ -40,7 +40,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Group name" aria-describedby="sizing-addon2" id="GroupNameInput">
-                                <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
+                                <span id="email-search" class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
                                       onclick="$.ajax({
                                 url: 'CreateGroup',
                                 data: {
@@ -214,7 +214,7 @@
     });
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');    
-    $(document).ajaxStart(function () {
+    $("document:not(#email-search)").ajaxStart(function () {
         a.css('visibility', 'visible');
     });
     $(document).ajaxStop(function () {
