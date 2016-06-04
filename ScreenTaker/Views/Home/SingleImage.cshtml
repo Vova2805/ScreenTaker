@@ -360,11 +360,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="text-md-center">
                                     <h3 class="text-center">@ViewBag.OriginalName</h3>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="row">
                                 <div class="text-md-center">
                                     <h5 class="text-center">Uploaded @ViewBag.Date</h5>
@@ -398,11 +398,11 @@
         </div>
 
         <div class="sidenav" id="mySidenav">
-            <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-                <p style="color: #E0E0E0; padding-top: 10px">@ViewBag.OriginalName</p>
-                <hr />
-                <div>
+            <div style="margin-left: 10px; margin-right: 10px;">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;top:9%;">×</a>
+                @*<p style="color: #E0E0E0; padding-top: 10px">@ViewBag.OriginalNameWithoutEx</p>
+                <hr />*@
+                <div style="margin-top:63%;">
                     <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">@Resources.Resource.MOVE</button>
                 </div>
                 <br />
@@ -424,7 +424,7 @@
                 <div>
                     <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
                 </div>
-                <hr />
+                @*<hr />*@
             </div>
         </div>
 
@@ -446,7 +446,7 @@
                     <div class="col-md-3">
                         <h5 style="padding-top: 7px; margin:0;">@Resources.Resource.PRIVATE</h5>
                     </div>
-                    <div class="col-md-9">tio
+                    <div class="col-md-9">
                         <div class="btn-group pull-right" id="toggle_event_editing">
                             <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
                             <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>

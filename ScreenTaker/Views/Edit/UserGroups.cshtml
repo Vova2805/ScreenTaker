@@ -18,7 +18,7 @@
 <div class="container">
     <div class="row" style="min-height:750px;">
         <h2 class="text-center">@Resources.Resource.EDIT_GROUP</h2>
-        <div class="preloader" id="loadingAnimation">
+        <div class="preloader" id="loadingAnimation" style="visibility:hidden">
             <div class="sk-cube-grid preloader-center center-block">
                 <div class="sk-cube sk-cube1"></div>
                 <div class="sk-cube sk-cube2"></div>
@@ -32,6 +32,7 @@
             </div> 
         </div>  
         <div class="col-sm-1">
+            <button type="button" class="btn btn-primary" onclick="$('#Message').modal('show');">Open modal for mdo</button>
         </div>
         <div class="col-sm-10 account-style shadow center-block" style="height:500px;" id="dynamicArea">
             <div class="row-fluid">
