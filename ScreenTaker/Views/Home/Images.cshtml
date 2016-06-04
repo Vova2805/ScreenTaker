@@ -1,16 +1,6 @@
 ﻿@{
     ViewBag.Title = "Images";
-    ViewBag.OriginalName = "Images";
 
-    string ShareLink = "";
-    string CommpressedLink = "";
-    string Name = "";
-
-    if (ViewBag.IsEmpty!=null&&!ViewBag.IsEmpty)
-    {
-        ShareLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + ViewBag.Images[0].SharedCode;
-        Name = ViewBag.Images[0].Name + ".png";
-    }
     if (!Request.QueryString["lang"].IsEmpty())
     {
         Culture = UICulture = Request.QueryString["lang"];
@@ -19,31 +9,64 @@
     {
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
-    string ImageName = "";
-    string SharedCode = "";
-    string CurrentID = "";
 
 }
 @section Scripts {
     <script>
-        @*document.getElementById("FID0").className += " active-image";
-        var numb = document.getElementById('FID_field').innerText;
-        if(numb=="")numb="0";
-        var image_id = 'FIM'+numb;
-        document.getElementById("RenameButton").disabled = true;
-        document.getElementById("DeleteButton").disabled = true;
-        document.getElementById("ContextRenameButton").disabled = true;
-        document.getElementById("ContextDeleteButton").disabled = true;
-        document.getElementById("ContextDeleteButton").className= "context-menu__link disabled-button";
-        document.getElementById("ContextRenameButton").className= "context-menu__link disabled-button";
-        document.getElementById("OpenButton").disabled = false;
-        document.getElementById("ManageAccessButton").disabled = false;
-        document.getElementById("sharedLink").disabled = false;
-        document.getElementById("MakePublicButton").disabled = false;
-        document.getElementById("folderImage").src= '@ViewBag.ImageSrc';
-        document.getElementById("folderTitle").src= '@ViewBag.FolderTitle';
-        document.getElementById("Idhidden").value = '@ViewBag.CurrentFolderId';
-        document.getElementById("sharedLinkhidden").value = '@ViewBag.CurrentFolderShCode';*@
+
+            document.getElementById("RenameButton").disabled = true;
+            document.getElementById("DeleteButton").disabled = true;
+            document.getElementById("OpenButton").disabled = true;
+            document.getElementById("MoveButton").disabled = true;
+            document.getElementById("ManageAccessButton").disabled = true;
+            document.getElementById("MakePublicButton").disabled = true;
+
+            document.getElementById("IMD0").className += " active-image";
+            document.getElementById("RenameButton").disabled = false;
+            document.getElementById("DeleteButton").disabled = false;
+            document.getElementById("OpenButton").disabled = false;
+            document.getElementById("MoveButton").disabled = false;
+            document.getElementById("ManageAccessButton").disabled = false;
+            document.getElementById("MakePublicButton").disabled = false;
+            document.getElementById("original").value = '@ViewBag.FirstImageShCode';
+            document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
+            document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
+            document.getElementById("compressedName").innerText =  '@ViewBag.FirstImageName';
+
+            document.getElementById("sharedLinkhidden").value = '@ViewBag.FirstImageShCode';
+            document.getElementById("Idhidden").value = '@ViewBag.FirstId';
+            document.getElementById("new-title").value =  '@ViewBag.FirstWithoutEx';
+
+            @*selectImage('@ViewBag.FirstId', "IMD0" , '@ViewBag.Count',  '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShLink', '@ViewBag.FirstImageSrc', '@ViewBag.FirstImageName', '@ViewBag.FirstWithoutEx');*@
+        
+
+        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex) {
+            var classes = "floating-box text-center task active images";
+            document.getElementById("original").value = original;
+            document.getElementById("sharedLink").value = sharedLink;
+            document.getElementById("compressedLink").src = compressed;
+            document.getElementById("compressedName").innerText = name;
+
+            document.getElementById("sharedLinkhidden").value = sharedCode;
+            document.getElementById("Idhidden").value = id;
+            document.getElementById("new-title").value = without_ex;
+
+            for (var i = 0; i < count; i++) {
+                var ID = "IMD" + i;
+                document.getElementById(ID).className = classes;
+            }
+            document.getElementById(image_id).className += " active-image";
+            SharedCode = sharedCode;
+            CurrentID = id;
+            document.getElementById("RenameButton").disabled = false;
+            document.getElementById("DeleteButton").disabled = false;
+            document.getElementById("OpenButton").disabled = false;
+            document.getElementById("MoveButton").disabled = false;
+            document.getElementById("ManageAccessButton").disabled = false;
+            document.getElementById("MakePublicButton").disabled = false;
+            return false;
+        }
+
             (function ($) {
 
                 $('#filter').keyup(function () {
@@ -58,6 +81,7 @@
                 })
 
             }(jQuery));
+
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
     $(document).ajaxStart(function () {
@@ -77,28 +101,7 @@
         ShowProgress();
     });
 
-    function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex) {
-        var classes = "floating-box text-center task active images";
-        document.getElementById("original").value = original;
-        document.getElementById("sharedLink").value = sharedLink;
-        document.getElementById("compressedLink").src = compressed;
-        document.getElementById("compressedName").innerText = name;
 
-        document.getElementById("sharedLinkhidden").value = sharedCode;
-        document.getElementById("Idhidden").value = id;
-        document.getElementById("new-title").value = without_ex;
-
-        for (var i = 0; i < count; i++) {
-            var ID = "ID" + i;
-            document.getElementById(ID).className = classes;
-        }
-        document.getElementById(image_id).className += " active-image";
-
-        ImageName = without_ex;
-        SharedCode = sharedCode;
-        CurrentID = id;
-        return false;
-    }
 
         function openImage(path) {
             location.href = "/Home/SingleImage?image=" + path;
@@ -440,7 +443,6 @@
                         string without_ex = i.Name;
                         if (index == 0)
                         {
-                            ImageName = i.Name;
                             <script>
                                 document.getElementById("original").value = original;
                                 document.getElementById("sharedLinkhidden").value = @i.SharedCode;
@@ -448,7 +450,7 @@
                                 document.getElementById("new-title").value = without_ex;
                             </script>
                         }
-                        string image_id = "ID" + index;
+                        string image_id = "IMD" + index;
 
                         <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name','@without_ex')"
                               ondblclick="openImage('@original')" style="cursor:pointer;">
@@ -474,30 +476,30 @@
             </div>
             <hr />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" onclick="openImage(document.getElementById('original').value)">@Resources.Resource.OPEN</button>
+                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" disabled id="OpenButton" onclick="openImage(document.getElementById('original').value)">@Resources.Resource.OPEN</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">@Resources.Resource.MOVE</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" disabled id="MoveButton" data-target="#MoveImage" style="width: 100%">@Resources.Resource.MOVE</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameImage" style="width: 100%">@Resources.Resource.RENAME</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" disabled id="RenameButton" data-target="#RenameImage" style="width: 100%">@Resources.Resource.RENAME</button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">@Resources.Resource.DELETE</button>
+                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" disabled id="DeleteButton" data-target="#DeleteImage" style="width: 100%">@Resources.Resource.DELETE</button>
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" style="width: 100%">@Resources.Resource.MAKE_PUBLIC</button>
+                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%">@Resources.Resource.MAKE_PUBLIC</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
-            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FirstImageShLink" />
+            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" disabled  onclick="selectText()" value="@ViewBag.FirstImageShLink" />
             <br />
             <div>
-                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
+                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" disabled id="ManageAccessButton" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
             </div>
             <hr />
             <p id="sharedLinkhidden" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.FirstImageShCode</p>

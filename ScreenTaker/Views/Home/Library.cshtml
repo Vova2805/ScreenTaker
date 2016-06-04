@@ -29,10 +29,12 @@
         document.getElementById("sharedLink").disabled = false;
         document.getElementById("MakePublicButton").disabled = false;
         document.getElementById("folderImage").src= '@ViewBag.ImageSrc';
-        document.getElementById("folderTitle").src= '@ViewBag.FolderTitle';
+        document.getElementById("folderTitle").innerText = '@ViewBag.FolderTitle';
         document.getElementById("Idhidden").value = '@ViewBag.CurrentFolderId';
         document.getElementById("sharedLinkhidden").value = '@ViewBag.CurrentFolderShCode';
-        
+
+        document.getElementById("new-title").value = '@ViewBag.FolderTitle';
+
 
         var a = $('#loadingAnimation');
         a.css('visibility', 'hidden');
@@ -61,12 +63,12 @@
             return false;
         }
 
-        function selectFolder(id, folder_id, count, name, sharedLinkValue, sharedCode, image) {
+        function selectFolder(id, folder_id, count, name,full_name, sharedLinkValue, sharedCode, image) {
             document.getElementById("sharedLink").value = sharedLinkValue;
 
             document.getElementById("sharedLinkhidden").value = sharedCode;
             document.getElementById("Idhidden").value = id;
-            document.getElementById("new-title").value = name;
+            document.getElementById("new-title").value = full_name;
 
             document.getElementById("folderImage").src = image;
             document.getElementById("folderTitle").innerText = name;
@@ -360,8 +362,16 @@
                         string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+
+                        string FolderTitle = ViewBag.Folders[i].Name;
+                        int length = FolderTitle.Length;
+                        int size = length <= 20 ? length : 20;
+                        string name = FolderTitle.Substring(0, size);
+                        FolderTitle = name;
+
                         if (i == 0)
                         {
+                            FolderTitle = ViewBag.Folders[i].Name;
                             ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
                             ViewBag.FolderLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                             <script>
@@ -385,11 +395,11 @@
                                 document.getElementById("sharedLink").disabled = true;
                             </script>
                         }
-                       <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink')"
+                        <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink')"
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
                                 <img src="@imageLink" id="img_id"/>
-                                <figcaption class="text-center">@ViewBag.Folders[i].Name</figcaption>
+                                <figcaption class="text-center">@FolderTitle</figcaption>
                             </figure>
                         </div>
                     }
