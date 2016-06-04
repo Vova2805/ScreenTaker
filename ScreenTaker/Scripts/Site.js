@@ -62,8 +62,8 @@ $('#toggle_event_editing button').click(function () {
     $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
 });
 
-function selectText(id) {
-    document.getElementById(id).select();
+function selectText() {
+    document.getElementById('sharedLink').select();
 }
 
 function copyToClipboard(elem) {
