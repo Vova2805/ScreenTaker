@@ -391,7 +391,7 @@
                     @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <div class="pull-right" style="display:inline;height:44px;">
-                            <input id="fileInput" style="visibility:collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                            <input id="fileInput" style="visibility:collapse" type="file" name="file" accept="image/*" onchange="document.getElementById('fileSubmit').click();" />
                             <input id="fileSubmit" style="visibility: collapse" type="submit" value="" onclick="$('#loadingAnimation').css('visibility', 'visible');" />
                             <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
                             <input type="text" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" class="btn btn-primary btn-lg pull-right success btn-not-rounded"
