@@ -138,6 +138,7 @@ namespace ScreenTaker.Controllers
             ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
+            ViewBag.MessageContent = TempData["MessageContent"];
             return View();
         }
 
@@ -375,6 +376,14 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.OriginalName = ViewBag.Image.Name + ".png";
             }
+            ViewBag.OriginalNameWithoutEx = "";
+            if (ViewBag.Image != null)
+            {
+                int length = ViewBag.Image.Name.Length;
+                int size = length <= 15 ? length : 15;
+                string name = ViewBag.Image.Name.Substring(0, size);
+                ViewBag.OriginalNameWithoutEx = name;
+            }
             ViewBag.ImageTitle = "";
             if (ViewBag.Image != null)
             {
@@ -573,6 +582,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (title.Length == 0)
+                        throw new Exception("Title should not be empty.");
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
                     var newolder = new Folder()
@@ -588,9 +599,10 @@ namespace ScreenTaker.Controllers
 
                     transaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    transaction.Rollback();                    
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Library", "Home", new { lang = locale });
@@ -674,6 +686,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult MoveItMoveIt(int folderId,string imageSharedCode)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -694,6 +707,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImagesMoveCreateFolder(string name,int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -725,6 +739,7 @@ namespace ScreenTaker.Controllers
         }
         public ActionResult SingleImageMoveCreateFolder(string name, int folderId,string imageSharedCode)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
