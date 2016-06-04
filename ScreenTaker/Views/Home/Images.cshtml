@@ -414,7 +414,7 @@
     <div class="col-md-12">
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-8">
                     <h2>@ViewBag.FolderName</h2>
                 </div>
                 <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
@@ -430,21 +430,25 @@
                         <div class="sk-cube sk-cube9"></div>
                     </div>
                 </div>
-                <div class="col-sm-7" style="display:inline">
+                <div class="col-sm-4" style="display:inline">
                     <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                     </button>
-                    @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
                         <div class="pull-right" style="display:inline;height:44px;">
+                            @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
                             <input id="fileInput" style="visibility:collapse" type="file" name="file" accept="image/*" onchange="document.getElementById('fileSubmit').click();" />
                             <input id="fileSubmit" style="visibility: collapse" type="submit" value="" onclick="$('#loadingAnimation').css('visibility', 'visible');" />
                             <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
-                            <input type="text" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" class="btn btn-primary btn-lg pull-right success btn-not-rounded"
-                                   style="width:40px; height:34px; margin-top:-5px;padding-top:5px;padding-left:10px; margin-right:-40px;" onclick="document.getElementById('fileInput').click();" />
-                            <span id="UploadImageSpan" class="glyphicon glyphicon-open" aria-hidden="true" style="margin-left:57px;margin-right:-50px;color:white"></span>
+                            <span class="icon-input-btn">
+                                <span class="glyphicon glyphicon-open"  id="UploadImageSpan" >
+                                </span>
+                                <input type="button" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" 
+                                 class="btn btn-primary btn-lg pull-right success btn-not-rounded"
+                                 onclick="document.getElementById('fileInput').click();" />
+                            </span>
+                            } 
                         </div>
-                    }
                 </div>
             </div>
 

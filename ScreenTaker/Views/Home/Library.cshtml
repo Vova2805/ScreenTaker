@@ -28,6 +28,8 @@
         document.getElementById("ManageAccessButton").disabled = false;
         document.getElementById("sharedLink").disabled = false;
         document.getElementById("MakePublicButton").disabled = false;
+        document.getElementById("sharedLink").disabled = false;
+        
         document.getElementById("folderImage").src= '@ViewBag.ImageSrc';
         document.getElementById("folderTitle").innerText = '@ViewBag.FolderTitle';
         document.getElementById("Idhidden").value = '@ViewBag.CurrentFolderId';
@@ -97,6 +99,7 @@
             document.getElementById("ManageAccessButton").disabled = false;
             document.getElementById("sharedLink").disabled = false;
             document.getElementById("MakePublicButton").disabled = false;
+            document.getElementById("sharedLink").disabled = false;
 
 
             var classes = "floating-box text-center task active images folder";
@@ -369,10 +372,10 @@
         </div>
         <div class="col-sm-2">
 
-            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
+            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;margin-right:10px;" onclick="openNav()">
                 <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
             </button>
-            <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align" style="margin-top:20px;margin-right:-40px;background-color:cornflowerblue">
+            <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
         </div>
