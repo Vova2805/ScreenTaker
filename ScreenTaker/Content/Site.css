@@ -572,3 +572,6 @@ textarea {
    right: 10px;
    top: 50%;
 }
+.disabled-button{
+    color:#EBEBEB;
+}

@@ -128,12 +128,15 @@ namespace ScreenTaker.Controllers
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
             ViewBag.UserId = user.Id;
             ViewBag.BaseURL = GetBaseUrl() + "";
-            ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
-            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-            Folder folder = _entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+           
+            Folder folder = _entities.Folders.ToList().Where(f=> f.OwnerId == user.Id).ToList().First(); 
+            ViewBag.FolderLink = GetBaseUrl() + "Home/SharedFolder?f=" + folder.SharedCode;
             ViewBag.CurrentFolderShCode = folder == null ? (
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
                 ) : folder.SharedCode;
+            ViewBag.ImageSrc = GetBaseUrl() + "Resources/" + (folder.IsPublic?"public.png":"private.png");
+            ViewBag.FolderTitle = folder.Name;
 
             ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
@@ -153,11 +156,10 @@ namespace ScreenTaker.Controllers
             ViewBag.BaseURL = GetBaseUrl() + "";
             ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-            Folder folder = _entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            Folder folder = _entities.Folders.ToList().Where(f =>f.OwnerId == user.Id).FirstOrDefault();
             ViewBag.CurrentFolderShCode = folder == null ? (
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
                 ) : folder.SharedCode;
-
             ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
@@ -189,10 +191,25 @@ namespace ScreenTaker.Controllers
             ViewBag.BASE_URL = GetBaseUrl();
             ViewBag.SharedLinks = _entities.Images.ToList()
                 .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
-
+            ViewBag.Count = "0";
+            if(list.Count>0)
+            ViewBag.Count = list.Count+"";
             ViewBag.FolderId = folderId;
-        }
+            ViewBag.FirstId = list.Count > 0 ? (list.First().Id+"") : "-1";
+            ViewBag.FirstImageName = list.Count > 0 ? (list.First().Name + ".png"): "";
+            ViewBag.FirstWithoutEx = list.Count > 0 ? (list.First().Name+"") : "";
+            int length = ViewBag.FirstImageName.Length;
+            int size = length <= 15 ? length : 15;
+            string name = ViewBag.FirstImageName.Substring(0, size);
+            ViewBag.FirstImageName = name;
 
+            ViewBag.FirstImageId = list.Count > 0 ? list.First().Id:-1;
+            ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
+            ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+list.First().SharedCode+"_compressed.png" : "";
+            ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
+            
+        }
+            
         public ActionResult Images(string id = "-1", string lang = "en")
         {
             ViewBag.Localize = locale;
@@ -769,6 +786,11 @@ namespace ScreenTaker.Controllers
                 }
 }
             return PartialView("PartialSingleImageMoveCreateFolder");
+        }
+
+        public FileResult Image(string i)
+        {
+            return File(Request.RawUrl, "image/png");
         }
 
     }
