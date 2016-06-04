@@ -16,6 +16,7 @@
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     
     <script>
+        
         document.getElementById("FID0").className += " active-image";
         var numb = document.getElementById('FID_field').innerText;
         if(numb=="")numb="0";
@@ -346,7 +347,7 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
-            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" disabled />
+            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText('sharedLink')" value="@ViewBag.FolderLink" disabled />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
