@@ -303,7 +303,7 @@ namespace ScreenTaker.Controllers
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
-            var folder = _entities.Folders.First(fold => fold.SharedCode == f);
+            var folder = _entities.Folders.FirstOrDefault(fold => fold.SharedCode == f);
             
             bool accessGranted = false;
 
@@ -314,10 +314,7 @@ namespace ScreenTaker.Controllers
 
                 if (accessGranted)
                 {
-                    var images = _entities.Images.Where(i => 
-                        i.FolderId == folderId
-                        && (folder.OwnerId == user.Id || i.IsPublic)
-                    ).ToList();
+                    List<Image> images = SecurityHelper.GetAccessibleImages(user, folder, _entities);
 
 
                     ViewBag.IsEmpty = !images.Any();
@@ -337,7 +334,7 @@ namespace ScreenTaker.Controllers
             {
                 return View("SharedFolder", new { lang = locale });
             }
-                return RedirectToAction("Welcome", new { lang = locale });
+            return View("Message", new { lang = locale });
         }
 
         public string GetBaseUrl()
@@ -374,7 +371,7 @@ namespace ScreenTaker.Controllers
 
             if (!accesGranted)
             {
-                return RedirectToAction("Welcome");
+                return View("Message", new { lang = locale });
             }
 
             if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
@@ -471,18 +468,22 @@ namespace ScreenTaker.Controllers
 
 
             var image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
-            bool accesGranted = false;
+            bool accessGranted = false;
             if (image != null)
             {
-                accesGranted = SecurityHelper.IsImageAccessible(user, image.Folder.Person, image, _entities);
+                accessGranted = SecurityHelper.IsImageAccessible(user, image.Folder.Person, image, _entities);
 
-                if (accesGranted)
+                if (accessGranted)
                 {
                     ViewBag.ImageName = image.Name;
                     ViewBag.ImagePath = SecurityHelper.GetImagePath(GetBaseUrl() + "img", i);
                 }
             }
-            ViewBag.AccessGranted = accesGranted;
+
+            if (!accessGranted)
+                return View("Message", new { lang = locale });
+
+            ViewBag.AccessGranted = accessGranted;
 
             ViewBag.Image = image;
             if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
