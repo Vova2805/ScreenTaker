@@ -171,19 +171,19 @@
                                     <input type="text" class="form-control" id="newFolderName" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" aria-label="Left Align" onclick=
-"$.ajax({
-    url: 'SingleImageMoveCreateFolder',
-    data: {
-        name: document.getElementById('newFolderName').value,
-        folderId: '@ViewBag.CurrentFolderId',
-        imageSharedCode: '@ViewBag.Image.SharedCode'
-    },
-    success: function (data) {
-        $('#areaForFolders').html(data);
-        document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
-        document.getElementById('areaForFolders').scrollTop = 9999;
-    }
-});">
+                                            "$.ajax({
+                                                url: 'SingleImageMoveCreateFolder',
+                                                data: {
+                                                    name: document.getElementById('newFolderName').value,
+                                                    folderId: '@ViewBag.CurrentFolderId',
+                                                    imageSharedCode: '@ViewBag.Image.SharedCode'
+                                                },
+                                                success: function (data) {
+                                                    $('#areaForFolders').html(data);
+                                                    document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
+                                                    document.getElementById('areaForFolders').scrollTop = 9999;
+                                                }
+                                            });">
                                             @Resources.Resource.CREATE
                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                         </button>
@@ -313,14 +313,14 @@
                 <div>
                     <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%" onclick=
                               "$.ajax({
-    url: 'PartialImagesAccess',
-    data: {
-        imageId: document.getElementById('Idhidden').value,                       
-    },
-    success: function (data) {        
-        $('#ImagesAccessDynamic').html(data);                   
-    }
-}); 
+                            url: 'PartialImagesAccess',
+                            data: {
+                                imageId: document.getElementById('Idhidden').value,                       
+                            },
+                            success: function (data) {        
+                                $('#ImagesAccessDynamic').html(data);                   
+                            }
+                            }); 
                         ">@Resources.Resource.MANAGE_ACCESS</button>
                 </div>
                 @*<hr />*@

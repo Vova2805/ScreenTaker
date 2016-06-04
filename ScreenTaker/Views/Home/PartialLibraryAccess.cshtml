@@ -14,7 +14,7 @@
     <h4 class="modal-title" id="gridSystemModalLabel">@Resources.Resource.MANAGE_ACCESS</h4>
 </div>
 <div class="modal-body">
-    <div class="row" style="margin-bottom:5px;">
+    @*<div class="row" style="margin-bottom:5px;">
         <div class="col-sm-9">
             <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
         </div>
@@ -27,12 +27,12 @@
 
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="row">
         <div class="col-sm-12">
             <div class="input-group">
 
-                <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText()" class="form-control js-copytextarea" value="@ViewBag.FolderLink">
+                <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText()" class="form-control" value="@ViewBag.FolderLink">
                 <span class="input-group-btn" style="height: 30px;">
                     <button class="btn btn-default btn-not-rounded" id="copyButton" style="height: 30px;" type="button">@Resources.Resource.COPY</button>
                 </span>

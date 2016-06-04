@@ -43,21 +43,11 @@
         document.getElementById("new-title").value = '@ViewBag.FolderTitle';
         document.getElementById("folderNameDelete").innerText = '@ViewBag.FolderTitle';
 
-        $.ajax({
-            url: 'PartialLibraryAccess',
-            data: {
-                folderId: document.getElementById('Idhidden').value,       
-            },
-            success: function (data) {        
-                $('#accessDynamic').html(data);                   
-            }
-        });
-
         var a = $('#loadingAnimation');
         a.css('visibility', 'hidden');
-        //$(document).ajaxStart(function () {
-        //    $('#loadingAnimation').css('visibility', 'visible');
-        //});
+        $(document).ajaxStart(function () {
+            $('#loadingAnimation').css('visibility', 'visible');
+        });
         $(document).ajaxStop(function () {
             a.css('visibility', 'hidden');
         });
@@ -127,16 +117,6 @@
             }
             document.getElementById(folder_id).className += " active-image";
             document.getElementById('FID_field').innerText = folder_id.slice(-1);
-
-            $.ajax({
-                url: 'PartialLibraryAccess',
-                data: {
-                    folderId: document.getElementById('Idhidden').value,       
-                },
-                success: function (data) {        
-                    $('#accessDynamic').html(data);                   
-                }
-            });
             return false;
         }
     </script>
@@ -387,22 +367,22 @@
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
-    "$.ajax({
-    url: 'PartialLibraryAccess',
-    data: {
-        folderId: document.getElementById('Idhidden').value,       
-    },
-    success: function (data) {        
-        $('#accessDynamic').html(data);    
-        if(document.getElementById('MessageContentFromPartial').value!='')
-        {
-            $('#Message').modal('show');
-            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
-        }               
-    }
-});">@Resources.Resource.MANAGE_ACCESS</button>
-            </div>
+                "$.ajax({
+                url: 'PartialLibraryAccess',
+                data: {
+                    folderId: document.getElementById('Idhidden').value,       
+                },
+                success: function (data) {        
+                    $('#accessDynamic').html(data);    
+                    if(document.getElementById('MessageContentFromPartial').value!='')
+                    {
+                        $('#Message').modal('show');
+                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                    }               
+                }
+            });">@Resources.Resource.MANAGE_ACCESS</button>
+                        </div>
             <hr />
             <p id="sharedLinkhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderShCode</p>
             <p id="Idhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderId</p>
