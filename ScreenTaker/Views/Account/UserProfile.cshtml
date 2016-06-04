@@ -1,5 +1,4 @@
-﻿@model ScreenTaker.Models.ChangePasswordViewModel
-@{
+﻿@{
     ViewBag.Title = "Profile";
     if (!Request.QueryString["lang"].IsEmpty())
     {
@@ -19,20 +18,9 @@
                     <h4>@Resources.Resource.USE_ACCOUNT</h4>
                     <hr />
                 </div>
-                <div class="col-md-6" style="padding-top: 15px">
-
-                    @*onclick=
-                                                   "$.ajax({
-                            url: 'SetAvatar',
-                            data: {
-                                name: document.getElementById('GroupNameInput').value,
-                            },
-                            success: function (data) {
-                                $('#dynamicArea').html(data);
-                            }
-                        });">*@
-		<div class="col-sm-12  text-center" id="dynamicArea">
-                        <img class="profile-avatar" src="@ViewBag.Avatar_128"/>
+                <div class="col-sm-6" style="padding-top: 15px">
+                    <div class="col-sm-12  text-center" id="dynamicArea">
+                        <img class="profile-avatar" src="@ViewBag.Avatar_128" />
                     </div>
                     <div class="col-sm-12">
                         <div class="text-center">
@@ -46,45 +34,10 @@
                             <input id="fileSubmit" style="visibility: collapse" type="submit" />
                             <div class="form-group">
                                 <div class="col-md-12 login-signup-center">
-                                    <a class="account-link" onclick="document.getElementById('fileInput').click();" > @Resources.Resource.CHANGE_PROFILE_IMG</a>
+                                    <a class="account-link" onclick="document.getElementById('fileInput').click();"> @Resources.Resource.CHANGE_PROFILE_IMG</a>
                                 </div>
                             </div>
                         }
-                </div>
-            </div>
-            <br />
-            <div class="col-md-12">
-                <div class="col-md-6 text-left">
-                    <h4>@Resources.Resource.EMAIL : @ViewBag.Email</h4>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button class="btn btn-default account-button" onclick="location='/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
-                </div>
-            </div>
-            <div>
-                @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post, new { @class = "form-horizontal text-left", @style = "padding-left: 30px", role = "form" }))
-            {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                             
-                    <div class="form-group" style="padding-left: 15px">
-                        <label>@Resources.Resource.YOUR_OLD_PASS</label>
-                        <div>
-                            @Html.PasswordFor(m => m.OldPassword, new { @class = "col-md-4" })
-                          
-                        </div>
-                    </div>
-                    <div class="form-group" style="padding-left: 15px">
-                        <label>@Resources.Resource.ENTER_NEW_PASS</label>
-                        <div>
-                            @Html.PasswordFor(m => m.NewPassword, new { @class = "col-md-4" })
-                        </div>
-                    </div>
-                    <div class="form-group" style="padding-left: 15px">
-                        <label>@Resources.Resource.CONFIRM_PASS</label>
-                        <div>
-                           @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "col-md-4" })
-                        </div>
                     </div>
                     <div class="col-sm-12" style="margin-top: 3px">
                         <div class="form-group">
@@ -101,7 +54,7 @@
                                 <label>@Resources.Resource.YOUR_OLD_PASS</label>
                                 <input type="password" class="form-control btn-not-rounded" placeholder="" />
                                 @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
                             </div>
                         </div>
                         <div class="form-group">
@@ -109,7 +62,7 @@
                                 <label>@Resources.Resource.ENTER_NEW_PASS</label>
                                 <input type="password" class="form-control btn-not-rounded" placeholder="" />
                                 @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
                             </div>
                         </div>
                         <div class="form-group">
@@ -117,7 +70,7 @@
                                 <label>@Resources.Resource.CONFIRM_PASS</label>
                                 <input type="password" class="form-control btn-not-rounded" placeholder="" />
                                 @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
                             </div>
                         </div>
                         <div class="form-group">
