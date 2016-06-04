@@ -756,5 +756,10 @@ namespace ScreenTaker.Controllers
             return PartialView("PartialSingleImageMoveCreateFolder");
         }
 
+        public FileResult Image(string i)
+        {
+            return File(Request.RawUrl, "image/png");
+        }
+
     }
 }
