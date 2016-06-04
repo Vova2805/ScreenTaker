@@ -128,9 +128,10 @@ namespace ScreenTaker.Controllers
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
             ViewBag.UserId = user.Id;
             ViewBag.BaseURL = GetBaseUrl() + "";
-            ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
-            ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-            Folder folder = _entities.Folders.ToList().Where(f=>f.OwnerId == user.Id).First(); //_entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+           
+            Folder folder = _entities.Folders.ToList().Where(f=> f.OwnerId == user.Id).ToList().First(); //_entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            ViewBag.FolderLink = GetBaseUrl() + "Home/SharedFolder?f=" + folder.SharedCode;
             ViewBag.CurrentFolderShCode = folder == null ? (
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
                 ) : folder.SharedCode;
@@ -154,11 +155,10 @@ namespace ScreenTaker.Controllers
             ViewBag.BaseURL = GetBaseUrl() + "";
             ViewBag.Folders = _entities.Folders.Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.FolderLink = GetBaseUrl() + _entities.Folders.ToList().ElementAt(0).SharedCode;
-            Folder folder = _entities.Folders.ToList().Where(f => f.Name.Equals("General") && f.OwnerId == user.Id).FirstOrDefault();
+            Folder folder = _entities.Folders.ToList().Where(f =>f.OwnerId == user.Id).FirstOrDefault();
             ViewBag.CurrentFolderShCode = folder == null ? (
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
                 ) : folder.SharedCode;
-
             ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
@@ -192,6 +192,11 @@ namespace ScreenTaker.Controllers
                 .Select(i => GetBaseUrl() + "Home/SharedImage?i=" + i.SharedCode).ToList();
 
             ViewBag.FolderId = folderId;
+            ViewBag.FirstImageName = list.Count > 0 ? list.First().Name : "";
+            ViewBag.FirstImageId = list.Count > 0 ? list.First().Id:-1;
+            ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
+            ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+list.First().SharedCode+"_compressed.png" : "";
+            ViewBag.FirstImageShLink = GetBaseUrl() + "Home/SharedImage?i=" + (list.Count > 0 ? list.First().SharedCode: ""); 
         }
 
         public ActionResult Images(string id = "-1", string lang = "en")

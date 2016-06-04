@@ -14,9 +14,6 @@
 }
 @section Scripts {
     <script>
-        (function() {
-
-        })();
         document.getElementById("FID0").className += " active-image";
         var numb = document.getElementById('FID_field').innerText;
         if(numb=="")numb="0";
@@ -366,8 +363,9 @@
                         if (i == 0)
                         {
                             ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
+                            ViewBag.FolderLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                             <script>
-                                document.getElementById("sharedLink").value = @sharedLink;
+                                document.getElementById("sharedLink").value = @ViewBag.FolderLink;
 
                                 document.getElementById("sharedLinkhidden").value = '@sharedCode';
                                 document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
@@ -432,14 +430,14 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
-            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="" disabled />
+            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" disabled />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
             </div>
             <hr />
-            <input id="sharedLinkhidden" class="form-control" style="margin-top:-50px;width:0px;height:0px;visibility:collapse" type="text" />
-            <input id="Idhidden" class="form-control" style="margin-top:-50px;width:0px;height:0px;visibility:collapse" type="text" />
+            <p id="sharedLinkhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderShCode</p>
+            <p id="Idhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderId</p>
         </div>
     </div>
 </div>

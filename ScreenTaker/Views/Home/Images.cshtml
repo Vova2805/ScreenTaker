@@ -9,7 +9,6 @@
     if (ViewBag.IsEmpty!=null&&!ViewBag.IsEmpty)
     {
         ShareLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + ViewBag.Images[0].SharedCode;
-        CommpressedLink = ViewBag.BASE_URL + "img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
         Name = ViewBag.Images[0].Name + ".png";
     }
     if (!Request.QueryString["lang"].IsEmpty())
@@ -27,6 +26,24 @@
 }
 @section Scripts {
     <script>
+        @*document.getElementById("FID0").className += " active-image";
+        var numb = document.getElementById('FID_field').innerText;
+        if(numb=="")numb="0";
+        var image_id = 'FIM'+numb;
+        document.getElementById("RenameButton").disabled = true;
+        document.getElementById("DeleteButton").disabled = true;
+        document.getElementById("ContextRenameButton").disabled = true;
+        document.getElementById("ContextDeleteButton").disabled = true;
+        document.getElementById("ContextDeleteButton").className= "context-menu__link disabled-button";
+        document.getElementById("ContextRenameButton").className= "context-menu__link disabled-button";
+        document.getElementById("OpenButton").disabled = false;
+        document.getElementById("ManageAccessButton").disabled = false;
+        document.getElementById("sharedLink").disabled = false;
+        document.getElementById("MakePublicButton").disabled = false;
+        document.getElementById("folderImage").src= '@ViewBag.ImageSrc';
+        document.getElementById("folderTitle").src= '@ViewBag.FolderTitle';
+        document.getElementById("Idhidden").value = '@ViewBag.CurrentFolderId';
+        document.getElementById("sharedLinkhidden").value = '@ViewBag.CurrentFolderShCode';*@
             (function ($) {
 
                 $('#filter').keyup(function () {
@@ -70,13 +87,13 @@
         document.getElementById("sharedLinkhidden").value = sharedCode;
         document.getElementById("Idhidden").value = id;
         document.getElementById("new-title").value = without_ex;
-       
+
         for (var i = 0; i < count; i++) {
             var ID = "ID" + i;
             document.getElementById(ID).className = classes;
         }
         document.getElementById(image_id).className += " active-image";
-        
+
         ImageName = without_ex;
         SharedCode = sharedCode;
         CurrentID = id;
@@ -145,7 +162,7 @@
     </div>
 </div>
 
-    <div class="modal fade" id="MoveImage" tabindex="-1" role="dialog" style="top:150px;">
+<div class="modal fade" id="MoveImage" tabindex="-1" role="dialog" style="top:150px;">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width:500px;">
                 <div class="modal-header">
@@ -227,8 +244,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
     <div class="modal-dialog" role="document">
@@ -453,16 +468,9 @@
         <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
             <div style="width:100%;height:135px;">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-                @if (ViewBag.Images != null && ViewBag.Images.Count > 0)
-                {
-                    <input type="text" class="hidden" id="original" value="@ViewBag.Images[0].SharedCode" />
-                }
-                else
-                {
-                    <input type="text" class="hidden" id="original" value="" />
-                }
-                <img src="@CommpressedLink" id="compressedLink" style="max-width:145px;max-height:128px;" />
-                <p id="compressedName" style="color: #E0E0E0">@Name</p>
+                <input type="text" class="hidden" id="original" value="@ViewBag.FirstImageShCode" />
+                <img src="@ViewBag.FirstImageSrc" id="compressedLink" alt="Image is not found or not selected" style="max-width:145px;max-height:128px;" />
+                <p id="compressedName" style="color: #E0E0E0">@ViewBag.FirstImageName</p>
             </div>
             <hr />
             <div>
@@ -486,14 +494,14 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
-            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ShareLink" />
+            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FirstImageShLink" />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
             </div>
             <hr />
-            <input id="sharedLinkhidden" class="form-control" style="margin-top:-50px ;width: 100%;visibility:collapse" type="text" />
-            <input id="Idhidden" class="form-control" style="margin-top:-50px;width: 100%;visibility:collapse" type="text" />
+            <p id="sharedLinkhidden" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.FirstImageShCode</p>
+            <p id="Idhidden" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.FirstImageId</p>
         </div>
     </div>
 </div>
