@@ -755,6 +755,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete .
+        /// </summary>
+        internal static string WANT_DELETE {
+            get {
+                return ResourceManager.GetString("WANT_DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         internal static string YES {

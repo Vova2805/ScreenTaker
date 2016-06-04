@@ -38,9 +38,10 @@
             document.getElementById("sharedLinkhidden").value = '@ViewBag.FirstImageShCode';
             document.getElementById("Idhidden").value = '@ViewBag.FirstId';
             document.getElementById("new-title").value =  '@ViewBag.FirstWithoutEx';
+            document.getElementById("imageNameDelete").innerText = '@ViewBag.FirstWithoutEx';
 
             @*selectImage('@ViewBag.FirstId', "IMD0" , '@ViewBag.Count',  '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShLink', '@ViewBag.FirstImageSrc', '@ViewBag.FirstImageName', '@ViewBag.FirstWithoutEx');*@
-        
+
 
         function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex) {
             var classes = "floating-box text-center task active images";
@@ -52,7 +53,7 @@
             document.getElementById("sharedLinkhidden").value = sharedCode;
             document.getElementById("Idhidden").value = id;
             document.getElementById("new-title").value = without_ex;
-
+            document.getElementById("imageNameDelete").innerText = without_ex;
             for (var i = 0; i < count; i++) {
                 var ID = "IMD" + i;
                 document.getElementById(ID).className = classes;
@@ -91,7 +92,7 @@
         $('#loadingAnimation').css('visibility', 'visible');
     });
     $(document).ajaxStop(function () {
-        a.css('visibility', 'hidden');
+        $('#loadingAnimation').css('visibility', 'hidden');
     });
 
     function ShowProgress() {
@@ -134,7 +135,19 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImageOutside", "Home")?path='+document.getElementById('original').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" 
+                         onclick="$.ajax({
+                                url: 'RenameImageOutside',
+                                data: {
+                                    path: document.getElementById('original').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicImagesArea').html(data);
+                                    $('#RenameImage').modal('hide');
+                                }
+                            });">
+                @Resources.Resource.SUBMIT</button>
             </div>
         </div>
     </div>
@@ -150,16 +163,28 @@
                 <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_IMAGE</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="new-title" class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
+                <div class="container-fluid">
+                    <div class="row">
+                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
-                </form>
+                    <div class="row">
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="imageNameDelete"></b> image?</p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
-                <button type="button" class="btn btn-primary btn-not-rounded"
-                        onclick="location.href='@Url.Action("DeleteImage", "Home")?path='+document.getElementById('original').value+'&folderId=@ViewBag.CurrentFolderId'">
+                <button type="button" class="btn btn-danger btn-not-rounded"
+                         onclick="$.ajax({
+                                url: 'DeleteImage',
+                                data: {
+                                    path: document.getElementById('original').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicImagesArea').html(data);
+                                    $('#DeleteImage').modal('hide');
+                                }
+                            });">
                     @Resources.Resource.YES
                 </button>
 
@@ -428,7 +453,7 @@
                 <li class="active">@ViewBag.FolderName</li>
             </ol>
         </div>
-        <div class="row">
+        <div class="row" id="dynamicImagesArea">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
                 @{
                     int index = 0;

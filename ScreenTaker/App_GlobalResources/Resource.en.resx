@@ -349,6 +349,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="USE_ACCOUNT" xml:space="preserve">
     <value>Use your account to log in</value>
   </data>
+  <data name="WANT_DELETE" xml:space="preserve">
+    <value>Do you really want to delete </value>
+  </data>
   <data name="YES" xml:space="preserve">
     <value>Yes</value>
   </data>

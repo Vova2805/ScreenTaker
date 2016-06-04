@@ -35,7 +35,7 @@
         $('#loadingAnimation').css('visibility', 'visible');
     });
     $(document).ajaxStop(function () {
-        a.css('visibility', 'hidden');
+        $('#loadingAnimation').css('visibility', 'hidden');
     });
 
     function ShowProgress() {
@@ -63,13 +63,26 @@
                 <form>
                     <div class="form-group">
                         <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE_IMAGE</label>
-                        <input type="text" class="form-control" id="new-title" value="@ViewBag.OriginalName.Substring(0,ViewBag.OriginalName.Length - 4)">
+                        <input type="text" class="form-control" id="new-title" value="@ViewBag.ImageTitle">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImage", "Home" , new {path=@ViewBag.OriginalPath })&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" 
+                        onclick="$.ajax({
+                                url: 'RenameImage',
+                                data: {
+                                    path: '@ViewBag.OriginalPath',
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicSingleImageArea').html(data);
+                                    $('#RenameImage').modal('hide');
+                                    $('#loadingAnimation').css('visibility', 'hidden');
+                                }
+                            });"
+                        >@Resources.Resource.SUBMIT</button>
             </div>
         </div>
     </div>
@@ -85,16 +98,19 @@
                 <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_IMAGE</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="new-title" class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
+                <div class="container-fluid">
+                    <div class="row">
+                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
-                </form>
+                    <div class="row">
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="ImageNameDelete">@ViewBag.ImageTitle</b> image?</p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
-                <button type="button" class="btn btn-primary btn-not-rounded"
-                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath,folderId=ViewBag.CurrentFolderId})'">
+                <button type="button" class="btn btn-danger btn-not-rounded"
+                        onclick="location.href='@Url.Action("DeleteImage", "Home" , new {path=@ViewBag.OriginalPath,redirect="true"})'">
                     @Resources.Resource.YES
                     </button>
 
@@ -185,7 +201,7 @@
         </div>
     </div>
 </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
+<div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -320,7 +336,7 @@
     </div>
 
     <div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
-        <div class="col-md-12">
+        <div class="col-md-12" id="dynamicSingleImageArea">
             <div class="col-sm-12" style="padding-left:25px;padding-right:10px;">
                 <div class="row">
                     <div class="col-sm-10">

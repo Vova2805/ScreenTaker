@@ -1,0 +1,74 @@
+﻿<div class="col-sm-12" style="padding-left:25px;padding-right:10px;">
+    <div class="row">
+        <div class="col-sm-10">
+            <h2 id="OriginalName">@ViewBag.OriginalName</h2>
+        </div>
+
+        <div class="col-sm-2">
+            <button id="openSideMenu" style="margin-top:20px;" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" onclick="openNav()">
+                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="preloader" id="loadingAnimation">
+            <div class="sk-cube-grid preloader-center center-block">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div>
+        </div>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
+        <li><a href=@ViewBag.FolderLink>@ViewBag.FolderName</a></li>
+        <li class="active" id="OriginalName">@ViewBag.OriginalName</li>
+    </ol>
+</div>
+<div class="row">
+    <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+        <div class="row text-center">
+            <img src="@ViewBag.OriginalPath" class="task" style="max-width: 800px; max-height: 600px" />
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @*<div class="row">
+                        <div class="text-md-center">
+                            <h3 class="text-center">@ViewBag.OriginalName</h3>
+                        </div>
+                    </div>*@
+                <div class="row">
+                    <div class="text-md-center">
+                        <h5 class="text-center">Uploaded @ViewBag.Date</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">map</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">favorite</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">earth</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">mine</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">family</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">nature</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
