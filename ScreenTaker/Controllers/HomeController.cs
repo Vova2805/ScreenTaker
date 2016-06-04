@@ -145,18 +145,20 @@ namespace ScreenTaker.Controllers
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
             int currentFolderId = ViewBag.CurrentFolderId;
-            ViewBag.IsFolderPublic = _entities.Folders.Where(f => f.OwnerId == user.Id).Select(w => w.IsPublic).FirstOrDefault();
+            ViewBag.IsFolderPublic = ((folder == null) ? (
+               ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().IsPublic : false
+               ) : folder.IsPublic)+"";
             ViewBag.ButtonPrivateORPublic = "";
             ViewBag.ButtonPrivateORPublicMain = "";
-            if (ViewBag.IsFolderPublic)
+            if (ViewBag.IsFolderPublic=="True")
             {
-                ViewBag.ButtonPrivateORPublic = "Turn Off";
-                ViewBag.ButtonPrivateORPublicMain = "Make private";
+                ViewBag.ButtonPrivateORPublic = Resources.Resource.TURN_OFF ;
+                ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PRIVATE; 
             }
             else
             {
                 ViewBag.ButtonPrivateORPublicMain = @Resources.Resource.MAKE_PUBLIC;
-                ViewBag.ButtonPrivateORPublic = "Torn On";
+                ViewBag.ButtonPrivateORPublic = Resources.Resource.TURN_ON;
             }                           
             return View();
         }
@@ -270,14 +272,13 @@ namespace ScreenTaker.Controllers
             if (result.IsPublic)
 
                 result.IsPublic = false;
-
             else
                 result.IsPublic = true;
-
             _entities.SaveChanges();
-
-
-            return RedirectToAction("Library", new { lang = locale });
+            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
+            ViewBag.BASE_URL = GetBaseUrl() + "";
+            ViewBag.FolderID = folderId;
+            return PartialView("PartialFoldersChangeState");
         }      
 
         public ActionResult SharedLibrary(string lang = "en")
