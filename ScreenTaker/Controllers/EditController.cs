@@ -72,6 +72,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    @ViewBag.MessageContent = ex.Message;
                 }
             }
             return View("UserGroups", new { lang = locale });
@@ -124,6 +125,8 @@ namespace ScreenTaker.Controllers
                 {
                     if (_entities.PersonGroups.Where(w => w.Name == name).Any())
                         throw new Exception("There is alredy a group with this name");
+                    if (name==null||name.Length==0)
+                        throw new Exception("Name can't be empty");
                     var group = new PersonGroup();
                     group.Name = name;                    
 
@@ -143,6 +146,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect, lang = locale  });
@@ -179,6 +183,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect, lang = locale  });
@@ -191,6 +196,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (email == null || email.Length == 0)
+                        throw new Exception("Email can't be empty");
                     if (!_entities.People.Where(s => s.Email.Equals(email)).Any())
                         throw new Exception("There is no user with such e-mail.");
                     if (_entities.People.Where(w => w.Email == email && w.GroupMembers.Where(w2 => w2.GroupId == selectedId).Any()).Any())
@@ -217,7 +224,9 @@ namespace ScreenTaker.Controllers
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    return RedirectToAction("Message","Home",new { });
+                    transaction.Rollback();                    
+                    TempData["MessageContent"]= ex.Message;
                 }
             }
             return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
@@ -238,6 +247,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
@@ -278,13 +288,16 @@ namespace ScreenTaker.Controllers
                             else
                                 avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
                         }
-                        ViewBag.Avatars = avatars;
+                        ViewBag.Avatars = avatars;                        
                     }
+                    if (TempData["MessageContent"] != null)
+                        ViewBag.MessageContent = TempData["MessageContent"];
                     transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
                 }
                 return PartialView("Partial_GroupsAndEmails", new { lang = locale });
 
