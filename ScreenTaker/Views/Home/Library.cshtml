@@ -386,8 +386,22 @@
             <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText('sharedLink')" value="@ViewBag.FolderLink" disabled />
             <br />
             <div>
-                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%">
-                @Resources.Resource.MANAGE_ACCESS</button>
+                <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
+    "$.ajax({
+    url: 'PartialLibraryAccess',
+    data: {
+        folderId: document.getElementById('Idhidden').value,       
+    },
+    success: function (data) {        
+        $('#accessDynamic').html(data);    
+        if(document.getElementById('MessageContentFromPartial').value!='')
+        {
+            $('#Message').modal('show');
+            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+        }               
+    }
+});">@Resources.Resource.MANAGE_ACCESS</button>
             </div>
             <hr />
             <p id="sharedLinkhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderShCode</p>
