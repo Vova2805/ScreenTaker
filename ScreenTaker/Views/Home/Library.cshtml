@@ -325,7 +325,13 @@
         folderId: document.getElementById('Idhidden').value,       
     },
     success: function (data) {        
-        $('#accessDynamic').html(data);                   
+        $('#accessDynamic').html(data);    
+        if(document.getElementById('MessageContentFromPartial').value!='')
+        {
+            $('#Message').modal('show');
+            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+        }               
     }
 });">@Resources.Resource.MANAGE_ACCESS</button>
             </div>

@@ -54,6 +54,12 @@
                                         },
                                         success: function (data) {
                                             $('#ImagesAccessDynamic').html(data);
+                                         if(document.getElementById('MessageContentFromPartial').value!='')
+                                                {
+                                                    $('#Message').modal('show');
+                                                    document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                    document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                                }
                                         }
                                     });">
                                         <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
@@ -69,7 +75,7 @@
             <div class="row" style="margin-bottom:10px;">
                 <div class="col-sm-12">
                     <div class="input-group">
-                        <input type="text" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
+                        <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
                         <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="$.ajax({
     url: 'ImageAccessAddUser',
     data: {
@@ -78,6 +84,11 @@
     },
     success: function (data) {
         $('#ImagesAccessDynamic').html(data);
+        if (document.getElementById('MessageContentFromPartial').value != '') {
+            $('#Message').modal('show');
+            document.getElementById('MessageContent').innerHTML = document.getElementById('MessageContentFromPartial').value;
+            document.getElementById('MessageTitle').innerHTML = 'Error';
+        }
     }
 });">+</span>       
                         @*<span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="location.href='@Url.Action("ImagesAddMail", "Home")?userMail='+document.getElementById('userMail').value+'&imageId='+document.getElementById('Idhidden').value">+</span>*@
@@ -119,6 +130,12 @@
     },
     success: function (data) {
         $('#ImagesAccessDynamic').html(data);
+        if(document.getElementById('MessageContentFromPartial').value!='')
+        {
+            $('#Message').modal('show');
+            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+        }
     }
 });" />
                                     </div>
@@ -134,3 +151,11 @@
 <div class="modal-footer">
     <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">@Resources.Resource.CLOSE</button>
 </div>
+@if (ViewBag.MessageContent != null)
+{
+    <input type="hidden" id="MessageContentFromPartial" value="@ViewBag.MessageContent" />
+}
+else
+{
+    <input type="hidden" id="MessageContentFromPartial" value="" />
+}
