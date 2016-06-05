@@ -132,6 +132,9 @@
   <data name="ADD_NEW_FOLDER" xml:space="preserve">
     <value>Додати папку</value>
   </data>
+  <data name="ALLOWED" xml:space="preserve">
+    <value>Дозволено</value>
+  </data>
   <data name="ALPHABET" xml:space="preserve">
     <value>Алфавіт</value>
   </data>
@@ -163,7 +166,7 @@
     <value>Закрити</value>
   </data>
   <data name="CONFIRMATION" xml:space="preserve">
-    <value>Email confirmation</value>
+    <value>Підтвердження по електронній пошті</value>
   </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Підтвердити пароль</value>
@@ -188,6 +191,9 @@
   </data>
   <data name="DELETE_IMAGE" xml:space="preserve">
     <value>Видалити зображення</value>
+  </data>
+  <data name="DENIED" xml:space="preserve">
+    <value>Заборонено</value>
   </data>
   <data name="DEVELOPED_BY" xml:space="preserve">
     <value>Розроблено</value>
@@ -221,10 +227,10 @@
     <value>Групи</value>
   </data>
   <data name="HAVE_SENT" xml:space="preserve">
-    <value>We have sent mail to</value>
+    <value>Ми надіслали лист</value>
   </data>
   <data name="IF_NOT_GOT" xml:space="preserve">
-    <value>If you not got any mail</value>
+    <value>Якщо ви не отримали лист</value>
   </data>
   <data name="IMAGES" xml:space="preserve">
     <value>Картинки</value>
@@ -237,6 +243,9 @@
   </data>
   <data name="LOGOUT" xml:space="preserve">
     <value>Вийти</value>
+  </data>
+  <data name="MAKE_PRIVATE" xml:space="preserve">
+    <value>Зробити приватною</value>
   </data>
   <data name="MAKE_PUBLIC" xml:space="preserve">
     <value>Зробити доступною</value>
@@ -263,7 +272,7 @@
     <value>Ні</value>
   </data>
   <data name="NOT_FOUND" xml:space="preserve">
-    <value>The page you are looking for cannot be found</value>
+    <value>Сторінка яку ви шукаєте не може бути знайдена</value>
   </data>
   <data name="OFF" xml:space="preserve">
     <value>Вимк</value>
@@ -314,7 +323,7 @@
     <value>Шукати за</value>
   </data>
   <data name="SHARED_FOLDERS" xml:space="preserve">
-    <value>Shared folder</value>
+    <value>Загальна папка</value>
   </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Поділитись папкою</value>
@@ -326,16 +335,22 @@
     <value>Зареєструватись</value>
   </data>
   <data name="SORRY" xml:space="preserve">
-    <value>We're sorry ...</value>
+    <value>Нам шкода ...</value>
   </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Підтвердити</value>
   </data>
   <data name="TO_CONFIRM" xml:space="preserve">
-    <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
+    <value>для підтвердження вашої електронної пошти. Після отримання листа перейдіть за посиланням для завершення реєстрації</value>
   </data>
   <data name="TO_MAIN_PAGE" xml:space="preserve">
-    <value>Return to homepage</value>
+    <value>Повернутися на головну сторінку</value>
+  </data>
+  <data name="TURN_OFF" xml:space="preserve">
+    <value>Викл.</value>
+  </data>
+  <data name="TURN_ON" xml:space="preserve">
+    <value>Вкл.</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Завантажити</value>
@@ -350,7 +365,7 @@
     <value>Використайте ваш обліковий запис щоб увійти</value>
   </data>
   <data name="WANT_DELETE" xml:space="preserve">
-    <value>Do you really want to delete </value>
+    <value>Ви дійсно бажаєте видалити</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Так</value>

@@ -199,21 +199,6 @@ namespace ScreenTaker.Controllers
 
                     //return RedirectToAction("Index", "Home");
 
-                    using (var entities = new ScreenTakerEntities())
-                    {
-                        var defaultFolder = new Folder()
-                        {
-                            IsPublic = true,
-                            OwnerId = user.Id,
-                            SharedCode = _stringGenerator.Next(),
-                            Name = "Public",
-                            CreationDate = DateTime.Now
-                        };
-                        entities.Folders.Add(defaultFolder);
-                        entities.SaveChanges();
-
-                    }
-
                     return View("ConfirmEmailInfo");
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -243,6 +228,20 @@ namespace ScreenTaker.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             if (result.Succeeded)
             {
+                using (var entities = new ScreenTakerEntities())
+                {
+                    var defaultFolder = new Folder()
+                    {
+                        IsPublic = true,
+                        OwnerId = userId,
+                        SharedCode = _stringGenerator.Next(),
+                        Name = "Public",
+                        CreationDate = DateTime.Now
+                    };
+                    entities.Folders.Add(defaultFolder);
+                    entities.SaveChanges();
+
+                }
                 return View("ConfirmEmail");
             }
             AddErrors(result);
@@ -601,7 +600,7 @@ namespace ScreenTaker.Controllers
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
             await UserManager.SendEmailAsync(userID, subject,
-               "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+               $"<h3>ScreenTaker</h3>\nPlease confirm your account by clicking <a href=\"{callbackUrl}\">link</a>");
 
             return callbackUrl;
         }
