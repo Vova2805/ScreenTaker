@@ -1,0 +1,47 @@
+﻿@section Scripts {
+     if (!Request.QueryString["lang"].IsEmpty())
+        {
+            Culture = UICulture = Request.QueryString["lang"];
+        }
+        else
+        {
+            Culture = UICulture = ViewBag.Localize ?? "en";
+        }
+}
+<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+    @{
+        int count = ViewBag.Folders.Count;
+
+        for (int i = 0; i < ViewBag.Folders.Count; i++)
+        {
+            string classes = "floating-box text-center task active images folder";
+            string folder_id = "FID" + i;
+            string img_id = "FIM" + i;
+            string sharedLink = ViewBag.Base_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+            string sharedCode = ViewBag.Folders[i].SharedCode;
+            string imageLink = ViewBag.Base_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+            string FolderTitle = ViewBag.Folders[i].Name;
+            int length = FolderTitle.Length;
+            int size = length <= 20 ? length : 20;
+            string name = FolderTitle.Substring(0, size);
+            FolderTitle = name;
+            string isPublic = ViewBag.Folders[i].IsPublic + "";
+            string id = ViewBag.Folders[i].Id+"";
+            string fId = ViewBag.FolderID + "";
+
+            <div onclick="selectFolder('@id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')"
+                 ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
+                <figure class="@classes" id="@folder_id">
+                    <img src="@imageLink" id="img_id" />
+                    <figcaption class="text-center">@FolderTitle</figcaption>
+                </figure>
+            </div>
+            if (id == fId)
+            {
+                <script>
+                    document.getElementById('@folder_id').click();
+                </script>
+            }
+        }
+    }
+</div>

@@ -7,11 +7,8 @@
     {
         Culture = UICulture = ViewBag.Localize??"en";
     }
-    //if (!ViewBag.Localize.Equals(Culture))
-    //{
-    //    
-    //}
-
+    ViewBag.MessageTitle = "Info";
+    //ViewBag.MessageContent = Resources.Resource.CAPTURING_TEXT;
 }
 <!DOCTYPE html>
 <html>
@@ -25,7 +22,7 @@
 </head>
 
 <body style="background-color: #E0E0E0; overflow-x: hidden">
-    <header>
+    <header style="z-index:1510">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -44,6 +41,10 @@
                                {
                                }, null)
                             </li>
+                            <li>@Html.ActionLink(Resources.Resource.SHARED_FOLDERS,  "SharedLibrary",  "Home", new
+                               {
+                               }, null)
+                            </li>
                         </ul>
                     }
 
@@ -52,30 +53,220 @@
             </div>
         </div>
     </header>
-<section class="main-content">
-    <div>
-        @RenderBody()
-    </div>
-</section>
-<footer style="z-index:200;">
-    <div style="background-color: #222; margin-bottom: -20px; bottom: 0px; vertical-align: middle; height: 50px; margin-top: 20px;">
-        <div class="row">
-            <div class="col-sm-5">
-            </div>
-            <div class="col-sm-3" style="vertical-align: middle; padding-top: 15px; ; font-size: 15px">
-                <span style="color: #929292">@Resources.Resource.DEVELOPED_BY</span>
-                <span style="color: #3D8AF7">DREAM TEAM</span>
-            </div>
-            <div class="col-sm-4">
+<section class="main-content">    
+    <div class="modal fade" id="Message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="margin-top:10%;z-index:10000">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="MessageTitle">@ViewBag.MessageTitle</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img src="~/Resources/error.png" style="width:80%;height:80%"/>
+                            </div>
+                            <div class="col-sm-10" >                                
+                                <p style="word-wrap: break-word;" id="MessageContent">
+                                    @if (@ViewBag.MessageContent != null)
+                                    {
+                                        @ViewBag.MessageContent
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="Summary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="margin-top:10%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="SummaryTitle">@ViewBag.SummaryTitle</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="word-wrap: break-word;" id="SummaryContent">
+                                    You are going to change privacy of your @ViewBag.FolderTitle to <b style="font-size:13px">@ViewBag.AccessValue</b>.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p style="word-wrap: break-word;" id="SummaryContent">
+                                    WARNING. There will be changed attributes of <b style="color:red;text-decoration:underline;font-size:13px">@ViewBag.ChangedCount</b> images.
+                                </p>
+                            </div>
+                        </div>
+                        @{ 
+                            string get_visibility = ViewBag.GET_Visibility == "true" ? "visible" : "collapse";
+                        }
+                        <div class="row" style="visibility:@get_visibility">
+                            <div class="col-sm-10">
+                                <p style="word-wrap: break-word;" id="SummaryContent">
+                                + <b style="color:lightgreen;font-size:13px">13</b> groups and <b style="color:lightgreen;font-size:13px">4</b> people will get access.
+                                </p>
+                            </div>
+                            <div class="col-sm-2">
+                                <button id="buttonGet" onclick="$('#GetSpan').toggleClass('glyphicon-menu-down'); $('#GetSpan').toggleClass('glyphicon-menu-up');" type="button" class="btn btn-primary pull-right" style="background-color:transparent;border:0px;color:black;"
+                                     data-toggle="collapse" data-placement="right" title="Tooltip on right" data-target="#detaildGet">
+                                    <span data-toggle="tooltip" data-placement="right" title="More" class="glyphicon glyphicon-menu-down" id="GetSpan"></span>
+                                </button>
+                            </div>
+                            <div id="detaildGet" class="col-sm-12 collapse">
+                                <div class="col-sm-6">
+                                    <div class="row" style="margin-bottom:10px;">
+                                        <div class="col-sm-12">
+                                            <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.PEOPLE</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
+                                                @if(ViewBag.GetPersons!=null)
+                                                {
+                                                    foreach (var person in ViewBag.GetPersons)
+                                                    {
+                                                    <div class="list-group-item">
+                                                        <div class="media-body" style="vertical-align:middle">
+                                                            <h5 class="media-heading">@person.Email</h5>
+                                                        </div>
+                                                    </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row" style="margin-bottom:10px;">
+                                        <div class="col-sm-12">
+                                            <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.GROUPS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
+                                                @if (ViewBag.GetGroups != null)
+                                                {
+                                                    foreach (var group in ViewBag.GetGroups)
+                                                    {
+                                                        <div class="list-group-item ">
+                                                            <div class="media-body" style="vertical-align:middle">
+                                                                <h5 class="media-heading">@group.Name</h5>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @{
+                            string lose_visibility = ViewBag.LOSE_Visibility == "true" ? "visible" : "collapse";
+                        }
+                        <div class="row"  style="visibility:@lose_visibility">
+                            <div class="col-sm-10">
+                                <p style="word-wrap: break-word;" id="SummaryContent">
+                                - <b style="color:red;font-size:13px">13</b> groups and <b style="color:red;font-size:13px">4</b> people will lose access.
+                                </p>
+                            </div>
+                            <div class="col-sm-2">
+                                <button id="buttonLose" onclick="$('#LoseSpan').toggleClass('glyphicon-menu-down'); $('#LoseSpan').toggleClass('glyphicon-menu-up');" type="button" class="btn btn-primary pull-right"  style="background-color:transparent;border:0px;color:black;" data-toggle="collapse" data-target="#detaildLose">
+                                    <span class="glyphicon glyphicon-menu-down" data-toggle="tooltip" data-placement="right" title="More" id="LoseSpan"></span>
+                                </button>
+                            </div>
+                            <div id="detaildLose" class="col-sm-12 collapse">
+                                <div class="col-sm-6">
+                                    <div class="row" style="margin-bottom:10px;">
+                                        <div class="col-sm-12">
+                                            <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.PEOPLE</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
+                                                @if (ViewBag.LosePersons != null)
+                                                {
+                                                    foreach (var person in ViewBag.LosePersons)
+                                                    {
+                                                        <div class="list-group-item">
+                                                            <div class="media-body" style="vertical-align:middle">
+                                                                <h5 class="media-heading">@person.Email</h5>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row" style="margin-bottom:10px;">
+                                        <div class="col-sm-12">
+                                            <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.GROUPS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
+                                                @if (ViewBag.LoseGroups != null)
+                                                {
+                                                    foreach (var group in ViewBag.LoseGroups)
+                                                    {
+                                                        <div class="list-group-item ">
+                                                            <div class="media-body" style="vertical-align:middle">
+                                                                <h5 class="media-heading">@group.Name</h5>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Resource.CANCEL</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">@Resources.Resource.SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        @RenderBody()
+</section>
+<footer style="z-index:1510;">
+    <div class="footer-style">
+        <div class="col-sm-5"></div>
+        <div class="col-sm-3 footer-text">
+            <span style="color: #929292">@Resources.Resource.DEVELOPED_BY</span>
+            <span style="color: #3D8AF7">DREAM TEAM</span>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
 </footer>
-
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
-
+    @if (ViewBag.MessageContent != null)
+    {
+        <script>
+            $('#Message').modal('show');
+        </script>
+    }      
 </body>
-
 </html>

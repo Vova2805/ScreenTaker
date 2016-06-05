@@ -132,6 +132,9 @@
   <data name="ADD_NEW_FOLDER" xml:space="preserve">
     <value>Добавить новую папку</value>
   </data>
+  <data name="ALLOWED" xml:space="preserve">
+    <value>Разрешено</value>
+  </data>
   <data name="ALPHABET" xml:space="preserve">
     <value>Алфавит</value>
   </data>
@@ -162,6 +165,9 @@
   <data name="CLOSE" xml:space="preserve">
     <value>Закрыть</value>
   </data>
+  <data name="CONFIRMATION" xml:space="preserve">
+    <value>Подтверждение электронной почты</value>
+  </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Подтвердить новый пароль</value>
   </data>
@@ -185,6 +191,9 @@
   </data>
   <data name="DELETE_IMAGE" xml:space="preserve">
     <value>Удалить изображение</value>
+  </data>
+  <data name="DENIED" xml:space="preserve">
+    <value>Запрещено</value>
   </data>
   <data name="DEVELOPED_BY" xml:space="preserve">
     <value>Разработано</value>
@@ -212,13 +221,25 @@
 Разработан с мыслью об опытных пользователях, ScreenTaker наддаст быструю рабочую среду с минимум нажатий клавиш.</value>
   </data>
   <data name="FOLDERS" xml:space="preserve">
-    <value>Папки</value>
+    <value>Мои папки</value>
+  </data>
+  <data name="FOLDERY" xml:space="preserve">
+    <value>папку</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Групы</value>
   </data>
+  <data name="HAVE_SENT" xml:space="preserve">
+    <value>Мы отправили письмо на</value>
+  </data>
+  <data name="IF_NOT_GOT" xml:space="preserve">
+    <value>Если вы не получили никакой почты</value>
+  </data>
   <data name="IMAGES" xml:space="preserve">
     <value>Изображения</value>
+  </data>
+  <data name="IMAGEY" xml:space="preserve">
+    <value>изображение</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>Самый легкий путь, чтобы делиться изображениями.</value>
@@ -228,6 +249,9 @@
   </data>
   <data name="LOGOUT" xml:space="preserve">
     <value>Выйти</value>
+  </data>
+  <data name="MAKE_PRIVATE" xml:space="preserve">
+    <value>Сделать приватной</value>
   </data>
   <data name="MAKE_PUBLIC" xml:space="preserve">
     <value>Сделать публичной</value>
@@ -252,6 +276,9 @@
   </data>
   <data name="NO" xml:space="preserve">
     <value>Нет</value>
+  </data>
+  <data name="NOT_FOUND" xml:space="preserve">
+    <value>Страница, которую вы ищете не найдена</value>
   </data>
   <data name="OFF" xml:space="preserve">
     <value>Выкл</value>
@@ -286,6 +313,9 @@
   <data name="RENAME_TITLE_IMAGE" xml:space="preserve">
     <value>Введите новое имя для изображения</value>
   </data>
+  <data name="RESEND_AGAIN" xml:space="preserve">
+    <value>Resend confirmation mail again</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Сохранить</value>
   </data>
@@ -298,6 +328,9 @@
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Искать для</value>
   </data>
+  <data name="SHARED_FOLDERS" xml:space="preserve">
+    <value>Доступные мне</value>
+  </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Поделиться папкой</value>
   </data>
@@ -307,8 +340,23 @@
   <data name="SIGNIN_LOGOUT" xml:space="preserve">
     <value>Зарегистрироваться</value>
   </data>
+  <data name="SORRY" xml:space="preserve">
+    <value>Нам жаль ...</value>
+  </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Подтвердить</value>
+  </data>
+  <data name="TO_CONFIRM" xml:space="preserve">
+    <value>для подтверждения электронной почты. После получения письма перейдите по ссылке для завершения регистрации</value>
+  </data>
+  <data name="TO_MAIN_PAGE" xml:space="preserve">
+    <value>Вернуться на главную страницу</value>
+  </data>
+  <data name="TURN_OFF" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="TURN_ON" xml:space="preserve">
+    <value>Вкл.</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Загрузить</value>
@@ -321,6 +369,9 @@
   </data>
   <data name="USE_ACCOUNT" xml:space="preserve">
     <value>Используйте свою учетную запись, чтобы войти</value>
+  </data>
+  <data name="WANT_DELETE" xml:space="preserve">
+    <value>Вы действительно хотите удалить</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Да</value>

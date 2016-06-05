@@ -1,0 +1,40 @@
+﻿@{ 
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+}
+<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+    @{
+        int index = 0;
+        int count = ViewBag.Images.Count;
+        foreach (var i in ViewBag.Images)
+        {
+            string original = i.SharedCode;
+            string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
+            string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+            string name = i.Name + ".png";
+            int length = name.Length;
+            int size = length <= 15 ? length : 15;
+            name = name.Substring(0, size);
+            string classes = "floating-box text-center task active images";
+            string without_ex = i.Name;
+            string image_id = "IMD" + index;
+
+            <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name','@without_ex')"
+                 ondblclick="openImage('@original')" style="cursor:pointer;">
+                <div class="@classes" id="@image_id" style="padding-top: 10px; ">
+                    <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
+                    </div>
+                    <label class="text-center">@name</label>
+                </div>
+            </div>
+            index = index + 1;
+        }
+    }
+</div>
+

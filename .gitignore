@@ -245,4 +245,13 @@ ModelManifest.xml
 .fake/
 /ScreenTaker/Models/ImageCompressor.cs
 /ScreenTaker/Models/RandomStringGenerator.cs
+<<<<<<< HEAD
 /ScreenTaker/App_GlobalResources
+*.png
+/ScreenTaker/img/
+/ScreenTaker/Models/C__MigrationHistory.cs
+/ScreenTaker/Models/database_firewall_rules.cs
+/ScreenTaker/Models/PersonFriend.cs
+=======
+*.png
+>>>>>>> 40-email-confirmation

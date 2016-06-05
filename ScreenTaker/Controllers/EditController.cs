@@ -56,14 +56,23 @@ namespace ScreenTaker.Controllers
                     if (emails.Any())
                     {
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
-                        var baseUrl = GetBaseUrl();
-                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile==null? baseUrl + "/Resources/user.png": baseUrl + "/avatars/"+s.AvatarFile + "_128.png")).ToList();
+                        var baseUrl = GetBaseUrl();                        
+                        IList<string> avatars = new List<string>();
+                        foreach (var e in emails)
+                        {
+                            if (e.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + e.AvatarFile + "_50.png"))
+                                avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
+                            else
+                                avatars.Add(baseUrl + "/Resources/user_50.png");
+                        }
+                        ViewBag.Avatars = avatars;
                     }                                                  
                     transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    @ViewBag.MessageContent = ex.Message;
                 }
             }
             return View("UserGroups", new { lang = locale });
@@ -113,13 +122,17 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
+                {                   
+                    if (name==null||name.Length==0)
+                        throw new Exception("Name can't be empty");
                     var group = new PersonGroup();
                     group.Name = name;                    
 
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null)
                     {
+                        if (_entities.PersonGroups.Where(w => w.Name == name&&w.PersonId==user.Id).Any())
+                            throw new Exception("There is alredy a group with this name");
                         var email = user.Email;
                         group.PersonId = _entities.People.Where(w=>w.Email==email).Select(s=>s.Id).FirstOrDefault();
                     }
@@ -133,6 +146,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect, lang = locale  });
@@ -150,25 +164,35 @@ namespace ScreenTaker.Controllers
                     var groupId = selectedId;
 
                     if (_entities.GroupMembers.Where(w => w.GroupId == groupId).Any())
-                    {
-                        var groupMembers = _entities.GroupMembers.Where(w => w.GroupId == groupId).ToList();
-                        for(var i=0;i<groupMembers.Count;i++)                        
-                            _entities.GroupMembers.Remove(groupMembers[i]);                        
-                    }
-                    var group = _entities.PersonGroups.Where(w => w.Id == groupId).FirstOrDefault();
-                    _entities.PersonGroups.Remove(group);
-                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+            {
+                var groupMembers = _entities.GroupMembers.Where(w => w.GroupId == groupId).ToList();
+                for (var i = 0; i < groupMembers.Count; i++)
+                    if (groupMembers[i] != null)
+                        _entities.GroupMembers.Remove(groupMembers[i]);
+            }
+            if (_entities.GroupShares.Where(w => w.GroupId == groupId).Any())
+            {
+                var groupShares= _entities.GroupShares.Where(w => w.GroupId == groupId).ToList();
+                for (var i = 0; i < groupShares.Count; i++)
+                    if (groupShares[i] != null)
+                        _entities.GroupShares.Remove(groupShares[i]);
+            }
+                var group = _entities.PersonGroups.Where(w => w.Id == groupId).FirstOrDefault();
+            if (group != null)
+                _entities.PersonGroups.Remove(group);
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null)
                     {
                         var email = user.Email;
-                        idToRedirect = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
-                    }
+                idToRedirect = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
+            }
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect, lang = locale  });
@@ -181,10 +205,25 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (email == null || email.Length == 0)
+                        throw new Exception("Email can't be empty");
                     if (!_entities.People.Where(s => s.Email.Equals(email)).Any())
                         throw new Exception("There is no user with such e-mail.");
                     if (_entities.People.Where(w => w.Email == email && w.GroupMembers.Where(w2 => w2.GroupId == selectedId).Any()).Any())
-                        throw new Exception("This user is alredy here.");
+                        throw new Exception("This user is alredy here.");                    
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        
+                        if (user != null && email==user.Email)
+                                throw new Exception("You can't add yourself.");
+                        var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
+                        if(friend!=null&&!_entities.PersonFriends.Where(w=>w.PersonId==user.Id&&w.FriendId==friend.Id).Any())
+                        {
+                            var personFriend = new PersonFriend() {PersonId=user.Id,FriendId=friend.Id };
+                            _entities.PersonFriends.Add(personFriend);
+                        }
+                    }
                     var groupMember = new GroupMember();
                     groupMember.GroupId = selectedId;
                     groupMember.PersonId = _entities.People.Where(s => s.Email.Equals(email)).Select(s => s.Id).FirstOrDefault();
@@ -194,7 +233,9 @@ namespace ScreenTaker.Controllers
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    //return RedirectToAction("Message","Home",new { });
+                    transaction.Rollback();                    
+                    TempData["MessageContent"]= ex.Message;
                 }
             }
             return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
@@ -215,6 +256,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
                 }
             }
             return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
@@ -246,18 +288,40 @@ namespace ScreenTaker.Controllers
                     if (emails.Any())
                     {
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
-                        var baseUrl = GetBaseUrl();
-                        ViewBag.Avatars = emails.Select(s => (s.AvatarFile == null ? baseUrl + "/Resources/user.png" : baseUrl + "/avatars/" + s.AvatarFile + "_128.png")).ToList();
+                        var baseUrl = GetBaseUrl();                        
+                        IList<string> avatars = new List<string>();
+                        foreach (var e in emails)
+                        {
+                            if (e.AvatarFile == null || !System.IO.File.Exists(Server.MapPath("/avatars/") + e.AvatarFile + "_50.png"))
+                                avatars.Add(baseUrl + "/Resources/user_50.png");
+                            else
+                                avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
+                        }
+                        ViewBag.Avatars = avatars;                        
                     }
+                    if (TempData["MessageContent"] != null)
+                        ViewBag.MessageContent = TempData["MessageContent"];
                     transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
                 }
                 return PartialView("Partial_GroupsAndEmails", new { lang = locale });
 
             }
-        }       
+        }
+        public ActionResult AutocompleteSearchEmails(string term)
+        {
+            ViewBag.Localize = locale;
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+            if (user != null)
+            {
+                var emails = _entities.People.Where(w => w.Email.Contains(term)&&_entities.PersonFriends.Where(ww=>ww.PersonId==user.Id).Select(s=>s.FriendId).Contains(w.Id)).Select(s => new { value = s.Email }).ToList();
+                return Json(emails, JsonRequestBehavior.AllowGet);
+            }
+            else return null;
+        }
     }
 }

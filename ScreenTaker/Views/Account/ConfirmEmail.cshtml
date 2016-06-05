@@ -1,5 +1,7 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Confirm Email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     if (!Request.QueryString["lang"].IsEmpty())
     {
         Culture = UICulture = Request.QueryString["lang"];
@@ -8,11 +10,12 @@
     {
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
-}
+}    
 
 <h2>@ViewBag.Title.</h2>
 <div>
     <p>
-        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"})
     </p>
 </div>
+

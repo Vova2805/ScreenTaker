@@ -10,16 +10,17 @@ function openNav() {
         }, 200);
     });
 
-    document.getElementById("openSideMenu").style.visibility = "collapse";
-    $('#AddFolderButton').animate({
-        marginRight: "-40px"
-    }, 500);
-    $('#UploadImageButton').animate({
-        marginRight: "-40px"
-    }, 500);
-    $('#UploadImageSpan').animate({
-        marginRight: "-50px"
-    }, 500);
+    document.getElementById("openSideMenu").style.disabled = true;
+    document.getElementById("openSideMenu").style.backgroundColor = "#AAAAAA";
+    //$('#AddFolderButton').animate({
+    //    marginRight: "-40px"
+    //}, 500);
+    //$('#UploadImageButton').animate({
+    //    marginRight: "-40px"
+    //}, 500);
+    //$('#UploadImageSpan').animate({
+    //    marginRight: "-50px"
+    //}, 500);
 }
 
 
@@ -34,16 +35,17 @@ function closeNav() {
         }, 200);
     });
 
-    document.getElementById("openSideMenu").style.visibility = "visible";
-    $('#AddFolderButton').animate({
-        marginRight: "10px"
-    }, 500);
-    $('#UploadImageButton').animate({
-        marginRight: "10px"
-    }, 500);
-    $('#UploadImageSpan').animate({
-        marginRight: "-28px"
-    }, 500);
+    document.getElementById("openSideMenu").style.disabled = false;
+    document.getElementById("openSideMenu").style.backgroundColor = "white";
+    //$('#AddFolderButton').animate({
+    //    marginRight: "10px"
+    //}, 500);
+    //$('#UploadImageButton').animate({
+    //    marginRight: "10px"
+    //}, 500);
+    //$('#UploadImageSpan').animate({
+    //    marginRight: "-28px"
+    //}, 500);
 }
 
 $('#toggle_event_editing button').click(function () {
@@ -64,49 +66,52 @@ function selectText() {
     document.getElementById('sharedLink').select();
 }
 
-function openImage(path) {
-    location.href = "/Home/SingleImage?image=" + path;
-    return false;
-}
-
-function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name) {
-    var classes = "floating-box text-center task active images";
-    document.getElementById("original").value = original;
-    document.getElementById("sharedLink").value = sharedLink;
-    document.getElementById("compressedLink").src = compressed;
-    document.getElementById("compressedName").innerText = name;
-
-    document.getElementById("sharedLinkhidden").value = sharedCode;
-    document.getElementById("Idhidden").value = id;
-    for (var i = 0; i < count; i++) {
-        var ID = "ID" + i;
-        document.getElementById(ID).className = classes;
+function copyToClipboard(elem) {
+    // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
     }
-    document.getElementById(image_id).className += " active-image";
-    return false;
-}
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
 
-function openFolder(i) {
-    var id = document.getElementById("Idhidden").value;
-    if (id != "") i = id;
-    location.href = "/Home/Images?id=" + i;
-    return false;
-}
-
-function selectFolder(id, folder_id, count, name, sharedLinkValue, sharedCode, image) {
-    document.getElementById("sharedLink").value = sharedLinkValue;
-
-    document.getElementById("sharedLinkhidden").value = sharedCode;
-    document.getElementById("Idhidden").value = id;
-
-    document.getElementById("folderImage").src = image;
-    document.getElementById("folderTitle").innerText = name;
-    var classes = "floating-box text-center task active images folder";
-    for (var i = 0; i < count; i++) {
-        var ID = "FID" + i;
-        document.getElementById(ID).className = classes;
+    // copy the selection
+    var succeed;
+    try {
+        succeed = document.execCommand("copy");
+    } catch (e) {
+        succeed = false;
     }
-    document.getElementById(folder_id).className += " active-image";
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
 
-    return false;
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
 }

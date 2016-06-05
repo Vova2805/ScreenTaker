@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Services.Description;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -18,10 +23,44 @@ namespace ScreenTaker
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
+            SendMail(message);
+
             return Task.FromResult(0);
         }
+
+        private void SendMail(IdentityMessage message)
+        {
+            try
+            {
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("screentakertest@mail.ua");
+                msg.To.Add(message.Destination);
+                msg.Subject = message.Subject;
+                msg.Body = message.Body;
+                msg.IsBodyHtml = true;
+
+                SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", Convert.ToInt32(587));
+                System.Net.NetworkCredential credentials = new NetworkCredential("screentakertest@mail.ua",
+                    "abcABC12345");
+                smtpClient.Credentials = credentials;
+                smtpClient.EnableSsl = true;
+
+                //smtpClient.SendCompleted += (s, e) => {
+                //    smtpClient.Dispose();
+                //    msg.Dispose();
+                //};
+
+                smtpClient.Send(msg);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
     }
+
+    
+
 
     public class SmsService : IIdentityMessageService
     {

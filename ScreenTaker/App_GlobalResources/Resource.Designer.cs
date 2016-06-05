@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allowed.
+        /// </summary>
+        internal static string ALLOWED {
+            get {
+                return ResourceManager.GetString("ALLOWED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alphabet.
         /// </summary>
         internal static string ALPHABET {
@@ -196,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email confirmation.
+        /// </summary>
+        internal static string CONFIRMATION {
+            get {
+                return ResourceManager.GetString("CONFIRMATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm a new password.
         /// </summary>
         internal static string CONFIRM_PASS {
@@ -264,6 +282,15 @@ namespace Resources {
         internal static string DELETE_IMAGE {
             get {
                 return ResourceManager.GetString("DELETE_IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denied.
+        /// </summary>
+        internal static string DENIED {
+            get {
+                return ResourceManager.GetString("DENIED", resourceCulture);
             }
         }
         
@@ -341,11 +368,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folders.
+        ///   Looks up a localized string similar to My folders.
         /// </summary>
         internal static string FOLDERS {
             get {
                 return ResourceManager.GetString("FOLDERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to folder.
+        /// </summary>
+        internal static string FOLDERY {
+            get {
+                return ResourceManager.GetString("FOLDERY", resourceCulture);
             }
         }
         
@@ -359,11 +395,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We have sent mail to.
+        /// </summary>
+        internal static string HAVE_SENT {
+            get {
+                return ResourceManager.GetString("HAVE_SENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you not got any mail.
+        /// </summary>
+        internal static string IF_NOT_GOT {
+            get {
+                return ResourceManager.GetString("IF_NOT_GOT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Images.
         /// </summary>
         internal static string IMAGES {
             get {
                 return ResourceManager.GetString("IMAGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to image.
+        /// </summary>
+        internal static string IMAGEY {
+            get {
+                return ResourceManager.GetString("IMAGEY", resourceCulture);
             }
         }
         
@@ -391,6 +454,15 @@ namespace Resources {
         internal static string LOGOUT {
             get {
                 return ResourceManager.GetString("LOGOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make private.
+        /// </summary>
+        internal static string MAKE_PRIVATE {
+            get {
+                return ResourceManager.GetString("MAKE_PRIVATE", resourceCulture);
             }
         }
         
@@ -463,6 +535,15 @@ namespace Resources {
         internal static string NO {
             get {
                 return ResourceManager.GetString("NO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page you are looking for cannot be found.
+        /// </summary>
+        internal static string NOT_FOUND {
+            get {
+                return ResourceManager.GetString("NOT_FOUND", resourceCulture);
             }
         }
         
@@ -566,6 +647,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resend confirmation mail again.
+        /// </summary>
+        internal static string RESEND_AGAIN {
+            get {
+                return ResourceManager.GetString("RESEND_AGAIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SAVE {
@@ -602,6 +692,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available to me.
+        /// </summary>
+        internal static string SHARED_FOLDERS {
+            get {
+                return ResourceManager.GetString("SHARED_FOLDERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Share folder.
         /// </summary>
         internal static string SHARE_FOLDER {
@@ -629,11 +728,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We&apos;re sorry ....
+        /// </summary>
+        internal static string SORRY {
+            get {
+                return ResourceManager.GetString("SORRY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         internal static string SUBMIT {
             get {
                 return ResourceManager.GetString("SUBMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration.
+        /// </summary>
+        internal static string TO_CONFIRM {
+            get {
+                return ResourceManager.GetString("TO_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to homepage.
+        /// </summary>
+        internal static string TO_MAIN_PAGE {
+            get {
+                return ResourceManager.GetString("TO_MAIN_PAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn Off.
+        /// </summary>
+        internal static string TURN_OFF {
+            get {
+                return ResourceManager.GetString("TURN_OFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn On.
+        /// </summary>
+        internal static string TURN_ON {
+            get {
+                return ResourceManager.GetString("TURN_ON", resourceCulture);
             }
         }
         
@@ -670,6 +814,15 @@ namespace Resources {
         internal static string USE_ACCOUNT {
             get {
                 return ResourceManager.GetString("USE_ACCOUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete .
+        /// </summary>
+        internal static string WANT_DELETE {
+            get {
+                return ResourceManager.GetString("WANT_DELETE", resourceCulture);
             }
         }
         

@@ -27,19 +27,19 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-left text-primary" })
                         <div class="form-group">
                             <div class="col-md-12 login-signup-center">
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg", @style = "border-radius: 0", @placeholder = Resources.Resource.EMAIL })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.EMAIL })
                                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-left text-primary" })
                             </div>
                         </div>
                             <div class="form-group ">
                                 <div class="col-md-12 login-signup-center">
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg", @style = "border-radius: 0", @placeholder = Resources.Resource.PASSWORD })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" })
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <div class="col-md-12 login-signup-center">
-                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control input-lg", @style = "border-radius: 0", @placeholder = Resources.Resource.CONFIRM_PASS })
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.CONFIRM_PASS })
                                     @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-left text-primary" })
                                 </div>
                             </div>

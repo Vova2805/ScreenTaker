@@ -132,6 +132,9 @@
   <data name="ADD_NEW_FOLDER" xml:space="preserve">
     <value>Add new folder</value>
   </data>
+  <data name="ALLOWED" xml:space="preserve">
+    <value>Allowed</value>
+  </data>
   <data name="ALPHABET" xml:space="preserve">
     <value>Alphabet</value>
   </data>
@@ -162,6 +165,9 @@
   <data name="CLOSE" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="CONFIRMATION" xml:space="preserve">
+    <value>Email confirmation</value>
+  </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Confirm a new password</value>
   </data>
@@ -185,6 +191,9 @@
   </data>
   <data name="DELETE_IMAGE" xml:space="preserve">
     <value>Delete image</value>
+  </data>
+  <data name="DENIED" xml:space="preserve">
+    <value>Denied</value>
   </data>
   <data name="DEVELOPED_BY" xml:space="preserve">
     <value>Developed by</value>
@@ -212,13 +221,25 @@
 Designed with power-users in mind, ScreenTaker has a fast workflow that requires only the minimum number of keypresses.</value>
   </data>
   <data name="FOLDERS" xml:space="preserve">
-    <value>Folders</value>
+    <value>My folders</value>
+  </data>
+  <data name="FOLDERY" xml:space="preserve">
+    <value>folder</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
   </data>
+  <data name="HAVE_SENT" xml:space="preserve">
+    <value>We have sent mail to</value>
+  </data>
+  <data name="IF_NOT_GOT" xml:space="preserve">
+    <value>If you not got any mail</value>
+  </data>
   <data name="IMAGES" xml:space="preserve">
     <value>Images</value>
+  </data>
+  <data name="IMAGEY" xml:space="preserve">
+    <value>image</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>The easiest way to share your images.</value>
@@ -228,6 +249,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="LOGOUT" xml:space="preserve">
     <value>Log out</value>
+  </data>
+  <data name="MAKE_PRIVATE" xml:space="preserve">
+    <value>Make private</value>
   </data>
   <data name="MAKE_PUBLIC" xml:space="preserve">
     <value>Make public</value>
@@ -252,6 +276,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="NO" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="NOT_FOUND" xml:space="preserve">
+    <value>The page you are looking for cannot be found</value>
   </data>
   <data name="OFF" xml:space="preserve">
     <value>Off</value>
@@ -286,6 +313,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="RENAME_TITLE_IMAGE" xml:space="preserve">
     <value>Enter new title for image</value>
   </data>
+  <data name="RESEND_AGAIN" xml:space="preserve">
+    <value>Resend confirmation mail again</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -298,6 +328,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Search for</value>
   </data>
+  <data name="SHARED_FOLDERS" xml:space="preserve">
+    <value>Available to me</value>
+  </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Share folder</value>
   </data>
@@ -307,8 +340,23 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="SIGNIN_LOGOUT" xml:space="preserve">
     <value>Sign up</value>
   </data>
+  <data name="SORRY" xml:space="preserve">
+    <value>We're sorry ...</value>
+  </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="TO_CONFIRM" xml:space="preserve">
+    <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
+  </data>
+  <data name="TO_MAIN_PAGE" xml:space="preserve">
+    <value>Return to homepage</value>
+  </data>
+  <data name="TURN_OFF" xml:space="preserve">
+    <value>Turn Off</value>
+  </data>
+  <data name="TURN_ON" xml:space="preserve">
+    <value>Turn On</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Upload</value>
@@ -321,6 +369,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="USE_ACCOUNT" xml:space="preserve">
     <value>Use your account to log in</value>
+  </data>
+  <data name="WANT_DELETE" xml:space="preserve">
+    <value>Do you really want to delete </value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Yes</value>
