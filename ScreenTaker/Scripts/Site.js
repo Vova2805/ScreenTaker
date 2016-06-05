@@ -10,16 +10,17 @@ function openNav() {
         }, 200);
     });
 
-    document.getElementById("openSideMenu").style.visibility = "collapse";
-    $('#AddFolderButton').animate({
-        marginRight: "-40px"
-    }, 500);
-    $('#UploadImageButton').animate({
-        marginRight: "-40px"
-    }, 500);
-    $('#UploadImageSpan').animate({
-        marginRight: "-50px"
-    }, 500);
+    document.getElementById("openSideMenu").style.disabled = true;
+    document.getElementById("openSideMenu").style.backgroundColor = "#AAAAAA";
+    //$('#AddFolderButton').animate({
+    //    marginRight: "-40px"
+    //}, 500);
+    //$('#UploadImageButton').animate({
+    //    marginRight: "-40px"
+    //}, 500);
+    //$('#UploadImageSpan').animate({
+    //    marginRight: "-50px"
+    //}, 500);
 }
 
 
@@ -34,16 +35,17 @@ function closeNav() {
         }, 200);
     });
 
-    document.getElementById("openSideMenu").style.visibility = "visible";
-    $('#AddFolderButton').animate({
-        marginRight: "10px"
-    }, 500);
-    $('#UploadImageButton').animate({
-        marginRight: "10px"
-    }, 500);
-    $('#UploadImageSpan').animate({
-        marginRight: "-28px"
-    }, 500);
+    document.getElementById("openSideMenu").style.disabled = false;
+    document.getElementById("openSideMenu").style.backgroundColor = "white";
+    //$('#AddFolderButton').animate({
+    //    marginRight: "10px"
+    //}, 500);
+    //$('#UploadImageButton').animate({
+    //    marginRight: "10px"
+    //}, 500);
+    //$('#UploadImageSpan').animate({
+    //    marginRight: "-28px"
+    //}, 500);
 }
 
 $('#toggle_event_editing button').click(function () {
