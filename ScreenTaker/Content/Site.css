@@ -324,8 +324,13 @@ textarea {
 
 
 @media(max-width:360px ){	
-
-	
+    .welcome-image {
+        width: 320px;
+        height: 120px;
+    }
+	.footer-text {
+        padding-left: 70px;
+    }
 }
 
 
