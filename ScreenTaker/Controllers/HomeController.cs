@@ -202,10 +202,13 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     if (!IsValidEmail(email))
-                        throw new Exception("Email is not valid");
-                    if (email.Length == 0)
-                        throw new Exception("Email shouldn't be empty");
+                        throw new Exception("Email is not valid");                    
                     var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
+                    if (_entities.UserShares.Where(w => (w.Email == email || w.PersonId==personID)&&w.FolderId==folderId).Any())
+                        throw new Exception("This user is alredy here");
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null&& user.Email==email)
+                        throw new Exception("You can't add yourself");
                     if (personID != 0)
                     {
                         UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
@@ -233,9 +236,7 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
-                    if (!IsValidEmail(email))
-                        throw new Exception("Email is not valid");
+                {                   
                     UserShare record;
                     if (_entities.People.Where(w => w.Email == email).Any())
                         record = _entities.UserShares.Where(w => w.Person.Email == email && w.FolderId == folderId).FirstOrDefault();
@@ -328,10 +329,13 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     if (!IsValidEmail(email))
-                        throw new Exception("Email is not valid");
-                    if (email.Length == 0)
-                        throw new Exception("Email shouldn't be empty");
+                        throw new Exception("Email is not valid");                    
                     var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
+                    if (_entities.UserShares.Where(w => (w.Email == email || w.PersonId == personID) && w.ImageId == imageId).Any())
+                        throw new Exception("This user is alredy here");
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null && user.Email == email)
+                        throw new Exception("You can't add yourself");
                     if (personID != 0)
                     {
                         UserShare us = new UserShare { PersonId = personID, ImageId = imageId };
@@ -359,9 +363,7 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
-                    if (!IsValidEmail(email))
-                        throw new Exception("Email is not valid");
+                {                    
                     UserShare record=null;
                     if (_entities.People.Where(w => w.Email == email).Any())
                         record = _entities.UserShares.Where(w => w.Person.Email == email&&w.ImageId==imageId).FirstOrDefault();
