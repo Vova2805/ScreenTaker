@@ -530,13 +530,20 @@ textarea {
 }
 
 #openSideMenu{
-    visibility:collapse;
+    background-color:#AAAAAA;
     cursor:pointer;
 }
 #UploadImageButton{
-    
     vertical-align:middle;
     background-color:cornflowerblue;
+}
+#AddFolderButton{
+    margin-top:20px;
+    background-color:cornflowerblue;
+    color:black;
+    margin-right:22px;
+    width:40px;
+    height:33px;
 }
 
 .floating-box {
@@ -575,3 +582,22 @@ textarea {
 .disabled-button{
     color:#EBEBEB;
 }
+ /*style=""*/
+   .icon-input-btn{
+        display: inline-block;
+        position: relative;
+    }
+    .icon-input-btn input[type="button"]{
+        padding: 8px;
+    }
+    .icon-input-btn .glyphicon{
+        display: inline-block;
+        position: absolute;
+        left: 0.90em;
+        top: 15%;
+    }
+    #UploadImageButton{
+        width:40px;
+        height:33px;
+        margin-top:-5px;
+    }

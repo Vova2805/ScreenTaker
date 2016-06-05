@@ -20,6 +20,7 @@
             document.getElementById("MoveButton").disabled = true;
             document.getElementById("ManageAccessButton").disabled = true;
             document.getElementById("MakePublicButton").disabled = true;
+            document.getElementById("sharedLink").disabled = true;
 
             document.getElementById("IMD0").className += " active-image";
             document.getElementById("RenameButton").disabled = false;
@@ -28,6 +29,7 @@
             document.getElementById("MoveButton").disabled = false;
             document.getElementById("ManageAccessButton").disabled = false;
             document.getElementById("MakePublicButton").disabled = false;
+            document.getElementById("sharedLink").disabled = false;
             document.getElementById("original").value = '@ViewBag.FirstImageShCode';
             document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
             document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
@@ -36,9 +38,10 @@
             document.getElementById("sharedLinkhidden").value = '@ViewBag.FirstImageShCode';
             document.getElementById("Idhidden").value = '@ViewBag.FirstId';
             document.getElementById("new-title").value =  '@ViewBag.FirstWithoutEx';
+            document.getElementById("imageNameDelete").innerText = '@ViewBag.FirstWithoutEx';
 
             @*selectImage('@ViewBag.FirstId', "IMD0" , '@ViewBag.Count',  '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShLink', '@ViewBag.FirstImageSrc', '@ViewBag.FirstImageName', '@ViewBag.FirstWithoutEx');*@
-        
+
 
         function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex) {
             var classes = "floating-box text-center task active images";
@@ -50,7 +53,7 @@
             document.getElementById("sharedLinkhidden").value = sharedCode;
             document.getElementById("Idhidden").value = id;
             document.getElementById("new-title").value = without_ex;
-
+            document.getElementById("imageNameDelete").innerText = without_ex;
             for (var i = 0; i < count; i++) {
                 var ID = "IMD" + i;
                 document.getElementById(ID).className = classes;
@@ -64,6 +67,7 @@
             document.getElementById("MoveButton").disabled = false;
             document.getElementById("ManageAccessButton").disabled = false;
             document.getElementById("MakePublicButton").disabled = false;
+            document.getElementById("sharedLink").disabled = false;
             return false;
         }
 
@@ -88,7 +92,7 @@
         $('#loadingAnimation').css('visibility', 'visible');
     });
     $(document).ajaxStop(function () {
-        a.css('visibility', 'hidden');
+        $('#loadingAnimation').css('visibility', 'hidden');
     });
 
     function ShowProgress() {
@@ -131,7 +135,19 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="location.href='@Url.Action("RenameImageOutside", "Home")?path='+document.getElementById('original').value+'&newName='+document.getElementById('new-title').value">@Resources.Resource.SUBMIT</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" 
+                         onclick="$.ajax({
+                                url: 'RenameImageOutside',
+                                data: {
+                                    path: document.getElementById('original').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicImagesArea').html(data);
+                                    $('#RenameImage').modal('hide');
+                                }
+                            });">
+                @Resources.Resource.SUBMIT</button>
             </div>
         </div>
     </div>
@@ -147,16 +163,28 @@
                 <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_IMAGE</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="new-title" class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
+                <div class="container-fluid">
+                    <div class="row">
+                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
-                </form>
+                    <div class="row">
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="imageNameDelete"></b> image?</p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
-                <button type="button" class="btn btn-primary btn-not-rounded"
-                        onclick="location.href='@Url.Action("DeleteImage", "Home")?path='+document.getElementById('original').value+'&folderId=@ViewBag.CurrentFolderId'">
+                <button type="button" class="btn btn-danger btn-not-rounded"
+                         onclick="$.ajax({
+                                url: 'DeleteImage',
+                                data: {
+                                    path: document.getElementById('original').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicImagesArea').html(data);
+                                    $('#DeleteImage').modal('hide');
+                                }
+                            });">
                     @Resources.Resource.YES
                 </button>
 
@@ -386,7 +414,7 @@
     <div class="col-md-12">
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-8">
                     <h2>@ViewBag.FolderName</h2>
                 </div>
                 <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
@@ -402,21 +430,25 @@
                         <div class="sk-cube sk-cube9"></div>
                     </div>
                 </div>
-                <div class="col-sm-7" style="display:inline">
+                <div class="col-sm-4" style="display:inline">
                     <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                     </button>
-                    @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
                         <div class="pull-right" style="display:inline;height:44px;">
+                            @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
                             <input id="fileInput" style="visibility:collapse" type="file" name="file" accept="image/*" onchange="document.getElementById('fileSubmit').click();" />
                             <input id="fileSubmit" style="visibility: collapse" type="submit" value="" onclick="$('#loadingAnimation').css('visibility', 'visible');" />
                             <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
-                            <input type="text" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" class="btn btn-primary btn-lg pull-right success btn-not-rounded"
-                                   style="width:40px; height:34px; margin-top:-5px;padding-top:5px;padding-left:10px; margin-right:-40px;" onclick="document.getElementById('fileInput').click();" />
-                            <span id="UploadImageSpan" class="glyphicon glyphicon-open" aria-hidden="true" style="margin-left:57px;margin-right:-50px;color:white"></span>
+                            <span class="icon-input-btn">
+                                <span class="glyphicon glyphicon-open"  id="UploadImageSpan" >
+                                </span>
+                                <input type="button" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" 
+                                 class="btn btn-primary btn-lg pull-right success btn-not-rounded"
+                                 onclick="document.getElementById('fileInput').click();" />
+                            </span>
+                            } 
                         </div>
-                    }
                 </div>
             </div>
 
@@ -425,7 +457,7 @@
                 <li class="active">@ViewBag.FolderName</li>
             </ol>
         </div>
-        <div class="row">
+        <div class="row" id="dynamicImagesArea">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
                 @{
                     int index = 0;

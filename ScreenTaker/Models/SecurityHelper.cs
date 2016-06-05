@@ -13,19 +13,12 @@ namespace ScreenTaker.Models
             return folderPath + "/" + imageCode + ".png";
         }
 
-        public static List<Image> GetAccessibleImages(ApplicationUser user, Folder folder, ScreenTakerEntities context)
+        private static List<Image> GetAccessibleImagesInFolder(ApplicationUser user, Folder folder,
+            ScreenTakerEntities context)
         {
-            if (IsFolderAccessible(user, folder.Person, folder, context))
-            {
-                return folder.Images.ToList();
-            }
-            if (user == null)
-            {
-                return null;
-            }
             return ((
-                    from image in context.Images
-                    where image.IsPublic 
+                    from image in folder.Images
+                    where image.IsPublic
                     select image)
                 .Union(
                     from image in context.Images
@@ -44,6 +37,26 @@ namespace ScreenTaker.Models
                     where gm.PersonId == user.Id
                     select im)
             ).ToList();
+        }
+
+        public static List<Image> GetAccessibleImages(ApplicationUser user, Folder folder, ScreenTakerEntities context)
+        {
+            if (user == null)
+            {                
+                // show only public images to unauthorized user
+                return folder.IsPublic ? folder.Images.Where(i => i.IsPublic).ToList() : null;
+            }
+
+            if (folder.IsPublic)
+            {
+                // show all images to authorized user who has access
+                if (IsFolderSharedWithUser(user, folder.Person, folder, context))
+                {
+                    return folder.Images.ToList();
+                }
+            }
+            // folder is private or user has no direct access for folder 
+            return GetAccessibleImagesInFolder(user, folder, context);
         } 
 
         public static bool IsImageAccessible(ApplicationUser user, Person owner, Image image, ScreenTakerEntities context)
@@ -71,17 +84,22 @@ namespace ScreenTaker.Models
                 return true;
             if (user == null)
                 return false;
+            return IsFolderSharedWithUser(user, owner, folder, context);
+        }
+
+        private static bool IsFolderSharedWithUser(ApplicationUser user, Person owner, Folder folder,
+            ScreenTakerEntities context)
+        {
             return folder.OwnerId == user.Id
                    || context.UserShares.Any(us => us.PersonId == user.Id && us.FolderId == folder.Id)
                    || (from gm in context.GroupMembers
                        join pg in context.PersonGroups
-                           on new { pid = gm.PersonId, gid = gm.GroupId } equals new { pid = user.Id, gid = pg.Id }
+                           on new {pid = gm.PersonId, gid = gm.GroupId} equals new {pid = user.Id, gid = pg.Id}
                        join gs in context.GroupShares
                            on pg.Id equals gs.GroupId
                        where gs.FolderId == folder.Id
                        select gm.PersonId).Any();
         }
-
         public static bool IsImageEditable(ApplicationUser user, Person owner, Image image, ScreenTakerEntities context)
         {
             return image.Folder.OwnerId == user?.Id;

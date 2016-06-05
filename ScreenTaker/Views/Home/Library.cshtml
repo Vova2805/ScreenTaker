@@ -28,12 +28,15 @@
         document.getElementById("ManageAccessButton").disabled = false;
         document.getElementById("sharedLink").disabled = false;
         document.getElementById("MakePublicButton").disabled = false;
+        document.getElementById("sharedLink").disabled = false;
+        
         document.getElementById("folderImage").src= '@ViewBag.ImageSrc';
         document.getElementById("folderTitle").innerText = '@ViewBag.FolderTitle';
         document.getElementById("Idhidden").value = '@ViewBag.CurrentFolderId';
         document.getElementById("sharedLinkhidden").value = '@ViewBag.CurrentFolderShCode';
 
         document.getElementById("new-title").value = '@ViewBag.FolderTitle';
+        document.getElementById("folderNameDelete").innerText = '@ViewBag.FolderTitle';
 
 
         var a = $('#loadingAnimation');
@@ -69,6 +72,7 @@
             document.getElementById("sharedLinkhidden").value = sharedCode;
             document.getElementById("Idhidden").value = id;
             document.getElementById("new-title").value = full_name;
+            document.getElementById("folderNameDelete").innerText = full_name;
 
             document.getElementById("folderImage").src = image;
             document.getElementById("folderTitle").innerText = name;
@@ -95,6 +99,7 @@
             document.getElementById("ManageAccessButton").disabled = false;
             document.getElementById("sharedLink").disabled = false;
             document.getElementById("MakePublicButton").disabled = false;
+            document.getElementById("sharedLink").disabled = false;
 
 
             var classes = "floating-box text-center task active images folder";
@@ -154,7 +159,18 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="$('#RenameFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("RenameFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">
+                <button type="button" class="btn btn-primary btn-not-rounded" 
+                         onclick="$.ajax({
+                                url: 'RenameFolder',
+                                data: {
+                                    path: document.getElementById('sharedLinkhidden').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicFoldersArea').html(data);
+                                    $('#RenameFolder').modal('hide');
+                                }
+                            });">
                     @Resources.Resource.SUBMIT
             </button>
         </div>
@@ -172,15 +188,29 @@
                 <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_FOLDER</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="new-title" class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
+                <div class="container-fluid">
+                    <div class="row">
+                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
-                </form>
+                    <div class="row">
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="folderNameDelete"></b> folder?</p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="$('#DeleteFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("DeleteFolder", "Home")?path='+document.getElementById('sharedLinkhidden').value+'&newName='+document.getElementById('new-title').value">
+                <button type="button" class="btn btn-danger btn-not-rounded" 
+                        onclick="$.ajax({
+                                url: 'DeleteFolder',
+                                data: {
+                                    path: document.getElementById('sharedLinkhidden').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicFoldersArea').html(data);
+                                    $('#DeleteFolder').modal('hide');
+                                }
+                            });">
                     @Resources.Resource.YES
             </button>
         </div>
@@ -311,7 +341,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                <div class="col-sm-2">
+            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;margin-right:10px;" onclick="openNav()">
+                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+            </button>
+            <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </div>        </div>
                     </div>
                 </div>
             </div>
@@ -342,16 +379,16 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top: 20px;" onclick="openNav()">
-                    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-                </button>
-                <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align" style="margin-top: 20px; margin-right: -40px; background-color: cornflowerblue">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container">
+            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;margin-right:10px;" onclick="openNav()">
+                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+            		</button>
+            		<button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+           		 </button>
+        	   </div>
+        	</div>
+        <div class="row" id="dynamicFoldersArea">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;id="parent-container"">
                 @{
                     int count = ViewBag.Folders.Count;
 
