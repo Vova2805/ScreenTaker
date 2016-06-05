@@ -457,20 +457,31 @@ namespace ScreenTaker.Controllers
        
         public ActionResult MakeFolderPublicOrPrivate(int folderId, string lang = "en")
         {
-            ViewBag.Localize = locale;
-
-            // var sharedСode = Path.GetFileNameWithoutExtension(path);
-            var result = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
-
-            if (result.IsPublic)
-
-                result.IsPublic = false;
-            else
-                result.IsPublic = true;
-            _entities.SaveChanges();
-            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
-            ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.FolderID = folderId;
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ViewBag.Localize = locale;
+                    var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
+                    if (folder != null)
+                    {
+                        folder.IsPublic = !folder.IsPublic;
+                        var images = _entities.Images.Where(i => i.FolderId == folder.Id).ToList();
+                        foreach (var i in images)
+                            i.IsPublic = folder.IsPublic;
+                    }
+                    _entities.SaveChanges();
+                    ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
+                    ViewBag.BASE_URL = GetBaseUrl() + "";
+                    ViewBag.FolderID = folderId;
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
             return PartialView("PartialFoldersChangeState");
         }      
 
@@ -661,25 +672,60 @@ namespace ScreenTaker.Controllers
 
         public ActionResult MakeImagePublicOrPrivate(int imageId, string lang = "en")
         {
-            ViewBag.Localize = locale;
-
-            // var sharedСode = Path.GetFileNameWithoutExtension(path);
-            var result = _entities.Images.FirstOrDefault(w => w.Id == imageId);
-
-            if (result.IsPublic)
-
-                result.IsPublic = false;
-
-            else
-                result.IsPublic = true;
-
-            _entities.SaveChanges();
-            FillImagesViewBag(current_folder);
-            ViewBag.ImageID = imageId;
-            ViewBag.ImageIsPublic = result.IsPublic+"";
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ViewBag.Localize = locale;
+                    var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);                    
+                    if (image != null)
+                    {
+                        ViewBag.ImageID = imageId;
+                        ViewBag.ImageIsPublic = image.IsPublic + "";
+                        FillImagesViewBag(current_folder);
+                        if (!image.Folder.IsPublic)
+                            throw new Exception("You can't make public image inside private folder");
+                        image.IsPublic = !image.IsPublic;
+                        ViewBag.ImageIsPublic = image.IsPublic + "";
+                        FillImagesViewBag(current_folder);
+                    }                                        
+                    _entities.SaveChanges();                    
+                    transaction.Commit();                    
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
+                }
+            }
             return PartialView("PartialImagesChangeState");
         }
 
+        public JsonResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {                    
+                    ViewBag.Localize = locale;
+                    var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
+                    if (image != null)
+                    {
+                        if (!image.Folder.IsPublic)
+                            throw new Exception("You can't make public image inside private folder");
+                        image.IsPublic = !image.IsPublic;
+                    }
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                    return Json("", JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                }
+            }
+            
         public ActionResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
         {
             ViewBag.Localize = locale;            
