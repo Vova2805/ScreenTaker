@@ -132,6 +132,9 @@
   <data name="ADD_NEW_FOLDER" xml:space="preserve">
     <value>Добавить новую папку</value>
   </data>
+  <data name="ALLOWED" xml:space="preserve">
+    <value>Разрешено</value>
+  </data>
   <data name="ALPHABET" xml:space="preserve">
     <value>Алфавит</value>
   </data>
@@ -163,7 +166,7 @@
     <value>Закрыть</value>
   </data>
   <data name="CONFIRMATION" xml:space="preserve">
-    <value>Email confirmation</value>
+    <value>Подтверждение электронной почты</value>
   </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Подтвердить новый пароль</value>
@@ -188,6 +191,9 @@
   </data>
   <data name="DELETE_IMAGE" xml:space="preserve">
     <value>Удалить изображение</value>
+  </data>
+  <data name="DENIED" xml:space="preserve">
+    <value>Запрещено</value>
   </data>
   <data name="DEVELOPED_BY" xml:space="preserve">
     <value>Разработано</value>
@@ -221,10 +227,10 @@
     <value>Групы</value>
   </data>
   <data name="HAVE_SENT" xml:space="preserve">
-    <value>We have sent mail to</value>
+    <value>Мы отправили письмо на</value>
   </data>
   <data name="IF_NOT_GOT" xml:space="preserve">
-    <value>If you not got any mail</value>
+    <value>Если вы не получили никакой почты</value>
   </data>
   <data name="IMAGES" xml:space="preserve">
     <value>Изображения</value>
@@ -237,6 +243,9 @@
   </data>
   <data name="LOGOUT" xml:space="preserve">
     <value>Выйти</value>
+  </data>
+  <data name="MAKE_PRIVATE" xml:space="preserve">
+    <value>Сделать приватной</value>
   </data>
   <data name="MAKE_PUBLIC" xml:space="preserve">
     <value>Сделать публичной</value>
@@ -263,7 +272,7 @@
     <value>Нет</value>
   </data>
   <data name="NOT_FOUND" xml:space="preserve">
-    <value>The page you are looking for cannot be found</value>
+    <value>Страница, которую вы ищете не найдена</value>
   </data>
   <data name="OFF" xml:space="preserve">
     <value>Выкл</value>
@@ -314,7 +323,7 @@
     <value>Искать для</value>
   </data>
   <data name="SHARED_FOLDERS" xml:space="preserve">
-    <value>Shared folder</value>
+    <value>Публичная папка</value>
   </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Поделиться папкой</value>
@@ -326,16 +335,22 @@
     <value>Зарегистрироваться</value>
   </data>
   <data name="SORRY" xml:space="preserve">
-    <value>We're sorry ...</value>
+    <value>Нам жаль ...</value>
   </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Подтвердить</value>
   </data>
   <data name="TO_CONFIRM" xml:space="preserve">
-    <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
+    <value>для подтверждения электронной почты. После получения письма перейдите по ссылке для завершения регистрации</value>
   </data>
   <data name="TO_MAIN_PAGE" xml:space="preserve">
-    <value>Return to homepage</value>
+    <value>Вернуться на главную страницу</value>
+  </data>
+  <data name="TURN_OFF" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="TURN_ON" xml:space="preserve">
+    <value>Вкл.</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Загрузить</value>

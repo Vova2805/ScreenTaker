@@ -132,6 +132,9 @@
   <data name="ADD_NEW_FOLDER" xml:space="preserve">
     <value>Add new folder</value>
   </data>
+  <data name="ALLOWED" xml:space="preserve">
+    <value>Allowed</value>
+  </data>
   <data name="ALPHABET" xml:space="preserve">
     <value>Alphabet</value>
   </data>
@@ -189,6 +192,9 @@
   <data name="DELETE_IMAGE" xml:space="preserve">
     <value>Delete image</value>
   </data>
+  <data name="DENIED" xml:space="preserve">
+    <value>Denied</value>
+  </data>
   <data name="DEVELOPED_BY" xml:space="preserve">
     <value>Developed by</value>
   </data>
@@ -237,6 +243,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="LOGOUT" xml:space="preserve">
     <value>Log out</value>
+  </data>
+  <data name="MAKE_PRIVATE" xml:space="preserve">
+    <value>Make private</value>
   </data>
   <data name="MAKE_PUBLIC" xml:space="preserve">
     <value>Make public</value>
@@ -336,6 +345,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="TO_MAIN_PAGE" xml:space="preserve">
     <value>Return to homepage</value>
+  </data>
+  <data name="TURN_OFF" xml:space="preserve">
+    <value>Turn Off</value>
+  </data>
+  <data name="TURN_ON" xml:space="preserve">
+    <value>Turn On</value>
   </data>
   <data name="UPLOAD" xml:space="preserve">
     <value>Upload</value>

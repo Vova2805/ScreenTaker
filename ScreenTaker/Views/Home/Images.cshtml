@@ -291,16 +291,18 @@
                         <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
                     </div>
                     <div class="col-sm-3">
-                        <div class="btn-group pull-right" id="toggle_event_editing">
-                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
-                            <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
+                                    onclick="location.href='@Url.Action("MakeImagePublicOrPrivate", "Home" )?imageId='+document.getElementById('Idhidden').value;">
+                                Turn Off
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input type="text" style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
+                            <input type="text" id="sharedLink" style="height:30px;" class="form-control" value="@ViewBag.FirstImageShLink">
                             <span class="input-group-btn" style="height:30px;">
                                 <button class="btn btn-default btn-not-rounded" style="height:30px;" type="button">@Resources.Resource.COPY</button>
                             </span>
@@ -373,8 +375,8 @@
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-sm-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
-                                    <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                                    <input type="text" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
+                                    <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="location.href='@Url.Action("ImagesAddMail", "Home")?userMail='+document.getElementById('userMail').value+'&imageId='+document.getElementById('Idhidden').value">+</span>
                                 </div>
                             </div>
                         </div>
@@ -388,15 +390,23 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="list-group" style="height:auto;height:205px;overflow:auto;border:solid #E0E0E0 1px;">
-                                    <div class="list-group-item ">
-                                        <div class="media-body" style="vertical-align:middle">
-                                            <h5 class="media-heading">Friends</h5>
-                                        </div>
-                                        <div class="material-switch media-right" style="vertical-align:middle">
-                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" />
-                                            <label for="someSwitchOptionInfo" class="label-info"></label>
-                                        </div>
-                                    </div>
+                                    @if (ViewBag.Groups != null)
+                                    {
+                                        for (int i = 0; i < ViewBag.Groups.Count; i++)
+                                        {
+                                            <div class="list-group-item ">
+                                                <div class="media-body" style="vertical-align: middle">
+                                                    <h5 class="media-heading">@ViewBag.Groups[i] @ViewBag.GroupsIDs[i]</h5>
+                                                </div>
+                                                <div class="material-switch media-right" style="vertical-align: middle">
+                                                    <button type="button" class="btn btn-info locked_active btn-not-rounded text-center" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
+                                                            onclick="location.href = '@Url.Action("ImageSwitchAccessONOrOff", "Home", new {groupId = ViewBag.GroupsIDs[i]})&imageId='+document.getElementById('Idhidden').value">
+                                                        @*@ViewBag.Flags[i]*@ Allowed
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -465,7 +475,7 @@
                     foreach (var i in ViewBag.Images)
                     {
                         string original = i.SharedCode;
-                        string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
+                        string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                         string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
                         string name = i.Name + ".png";
                         int length = name.Length;
@@ -484,7 +494,7 @@
                         }
                         string image_id = "IMD" + index;
 
-                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name','@without_ex')"
+                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex')"
                               ondblclick="openImage('@original')" style="cursor:pointer;">
                             <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
@@ -524,11 +534,11 @@
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%">@Resources.Resource.MAKE_PUBLIC</button>
+                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton"  style="width: 100%" onclick="location.href='@Url.Action("MakeImagePublicOrPrivate", "Home" )?imageId='+document.getElementById('Idhidden').value;">@Resources.Resource.MAKE_PUBLIC</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
-            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" disabled  onclick="selectText()" value="@ViewBag.FirstImageShLink" />
+            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" disabled  onclick="selectText('sharedLink')" value="@ViewBag.FirstImageShLink" />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" disabled id="ManageAccessButton" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>

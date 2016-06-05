@@ -70,6 +70,21 @@ textarea {
     color:dimgray;
 }
 
+.footer-style {
+    background-color: #222; 
+    margin-bottom: -20px; 
+    bottom: 0; 
+    vertical-align: middle; 
+    height: 50px; 
+    margin-top: 20px;
+}
+
+.footer-text {
+    vertical-align: middle; 
+    padding-top: 15px; 
+    font-size: 15px
+}
+
 .lead-site{
     margin-bottom:20px;
     font-size:18px;
@@ -229,20 +244,93 @@ textarea {
 }
 
 @media(max-width:480px ){
-
- 
+    .floating-box {
+        float: left;
+        margin-bottom: 5px;
+        width: 80%;
+        height: 80%;    
+    } 
+    .folder {
+        width: 120px;
+        height: 140px;
+    }
 }
-@media(max-width:450px )
+@media all and (max-width:450px )
 {
-.sidenav {padding-top: 15px;}
-.sidenav a {font-size: 18px;}
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    .container {
+        margin: 0 5px;
+    }
+
+    #userProfile {
+        margin: 0 -10px;
+    }
+
+    #openSideMenu {
+        position: absolute;
+        z-index: 1000;
+        top: -65px;
+        right: 10px;
+    }
+
+    #AddFolderButton {
+        position: absolute;
+        z-index: 1000;
+        top: -65px;
+        right: 50px;
+    }
+
+    #folder-icon, figure {
+        width: 120px;
+        height: 120px;
+    }
+
+    .floating-box {
+        float: left;
+        margin-bottom: 5px;  
+    } 
+    div .folder {
+        width: 130px;
+        height: 140px;
+    }
+
+    #parent-container {
+        margin-left: 13px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    .welcome-image {
+        width: 350px;
+        height: 120px;
+    }
+
+    .footer-text {
+        padding-left: 100px;
+    }
 }
 
 
 
 @media(max-width:360px ){	
-
-	
+    .welcome-image {
+        width: 320px;
+        height: 120px;
+    }
+	.footer-text {
+        padding-left: 70px;
+    }
 }
 
 

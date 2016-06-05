@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ScreenTaker.Models
 {
-    public static class SecurityHelper
+    public class SecurityHelper
     {
         public static string GetImagePath(string folderPath, string imageCode)
         {
