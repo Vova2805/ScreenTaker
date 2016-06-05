@@ -219,6 +219,14 @@ namespace ScreenTaker.Controllers
                         UserShare us = new UserShare { FolderId = folderId, Email = email };
                         _entities.UserShares.Add(us);
                     }
+                    var folder = _entities.Folders.Where(w => w.Id == folderId).FirstOrDefault();
+                    if(folder!=null)                   
+                        foreach (var i in folder.Images)
+                        {
+                            var record = _entities.UserShares.Where(w => w.ImageId == i.Id && (w.Email == email || w.Person.Email == email)).FirstOrDefault();
+                            if (record != null)
+                                _entities.UserShares.Remove(record);
+                        }                                                
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
@@ -295,11 +303,13 @@ namespace ScreenTaker.Controllers
                         if (image != null)
                         {
                             ViewBag.ImageSharedLink = GetBaseUrl() + "Home/SharedImage?i=" + image.SharedCode;
-                            ViewBag.AllowedUsers = _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => (s.PersonId != null ? s.Person.Email : s.Email)).ToList();
-                            ViewBag.AllowedUsersIds = _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => s.PersonId != null ? s.Person.Id : s.Id).ToList();
+                            ViewBag.AllowedUsers = _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => (s.PersonId != null ? s.Person.Email : s.Email)).ToList().Concat(_entities.UserShares.Where(w => w.FolderId == image.FolderId).Select(s => (s.PersonId != null ? s.Person.Email : s.Email)).ToList()).ToList();
+                            ViewBag.AllowedUsersIds = _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => s.PersonId != null ? s.Person.Id : s.Id).ToList().Concat(_entities.UserShares.Where(w => w.FolderId == image.FolderId).Select(s => (s.PersonId != null ? s.Person.Id : s.Id)).ToList()).ToList();
+                            ViewBag.AreUserRightsInherited= _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => false).ToList().Concat(_entities.UserShares.Where(w => w.FolderId == image.FolderId).Select(s => true)).ToList<bool>();
                             ViewBag.AllGroups = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => s.Name).ToList();
                             ViewBag.GroupsIDs = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => s.Id).ToList();
                             ViewBag.GroupsAccess = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => (_entities.GroupShares.Where(w => w.GroupId == s.Id && w.ImageId == image.Id).Any()) ? true : false).ToList();
+                            ViewBag.AreGroupRightsInherited= _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => (_entities.GroupShares.Where(w => w.GroupId == s.Id && w.FolderId == image.FolderId).Any()) ? true : false).ToList<bool>();
                         }
                     }
                     if (TempData["MessageContent"] != null)
@@ -333,6 +343,9 @@ namespace ScreenTaker.Controllers
                     var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
                     if (_entities.UserShares.Where(w => (w.Email == email || w.PersonId == personID) && w.ImageId == imageId).Any())
                         throw new Exception("This user is alredy here");
+                    var image = _entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
+                    if(image!=null&&_entities.UserShares.Where(w=>w.FolderId==image.FolderId&&(w.Email==email||w.Person.Email==email)).Any())
+                        throw new Exception("This right is inherited from folder and can't be changed");
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null && user.Email == email)
                         throw new Exception("You can't add yourself");

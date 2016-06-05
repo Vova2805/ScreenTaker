@@ -42,29 +42,38 @@
                         {
                             for (int i = 0; i < ViewBag.AllowedUsers.Count; i++)
                             {
-                                <div class="list-group-item">
+                                <div class="list-group-item" disabled>
                                     <div class="media-body" style="vertical-align: middle">
                                         <h5 class="media-heading">@ViewBag.AllowedUsers[i]</h5>
-                                    </div>
-                                    <div class="media-right" style="vertical-align: middle;" onclick="$.ajax({
-                                        url: 'ImageAccessRemoveUser',
-                                        data: {
-                                            email: '@ViewBag.AllowedUsers[i]',
-                                            imageId: document.getElementById('Idhidden').value,                                            
-                                        },
-                                        success: function (data) {
-                                            $('#ImagesAccessDynamic').html(data);
-                                         if(document.getElementById('MessageContentFromPartial').value!='')
-                                                {
-                                                    $('#Message').modal('show');
-                                                    document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                    document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                    </div>                                                                                                          
+                                    <div  class="media-right" style="vertical-align: middle;" >                                        
+                                    @if (ViewBag.AreUserRightsInherited[i])
+                                    {
+                                            <button disabled type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                            </button>
+                                    }
+                                    else
+                                    {
+                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align" onclick="$.ajax({
+                                                url: 'ImageAccessRemoveUser',
+                                                data: {
+                                                    email: '@ViewBag.AllowedUsers[i]',
+                                                    imageId: document.getElementById('Idhidden').value,
+                                                },
+                                                success: function (data) {
+                                                    $('#ImagesAccessDynamic').html(data);
+                                                 if(document.getElementById('MessageContentFromPartial').value!='')
+                                                        {
+                                                            $('#Message').modal('show');
+                                                            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                            document.getElementById('MessageTitle').innerHTML='Error';
+                                                        }
                                                 }
-                                        }
-                                    });">
-                                        <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                            });">
                                             <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                         </button>
+                                    }
                                     </div>
                                 </div>
                             }
@@ -111,7 +120,7 @@
                             {
                                 <div class="list-group-item ">
                                     <div class="media-body" style="vertical-align: middle">
-                                        <h5 class="media-heading">@ViewBag.AllGroups[i]</h5>
+                                        <h5 class="media-heading">@ViewBag.AllGroups[i] @if (ViewBag.AreGroupRightsInherited[i]) {<span>(disabled)</span> } </h5>
                                     </div>
                                     <div class="material-switch media-right" style="vertical-align: middle">
                                         @if (ViewBag.GroupsAccess[i])
