@@ -352,31 +352,8 @@
                             data: {
                                 imageId: document.getElementById('Idhidden').value,
                             },
-                            success: function (data) {if (document.getElementById('buttonPublicOrPrivate').textContent == '@Resources.Resource.MAKE_PRIVATE')
-                            {
-                            $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
-                            $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
-                            $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
-                            $('#toggle_event_editing button').eq(0).addClass('unlocked_inactive btn-default');
-                            document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PUBLIC';
-                            }
-                             else
-                            {
-                              $('#toggle_event_editing button').eq(0).removeClass('unlocked_inactive btn-default');
-                              $('#toggle_event_editing button').eq(0).addClass('locked_active btn-info');
-                              $('#toggle_event_editing button').eq(1).removeClass('locked_active btn-info');
-                              $('#toggle_event_editing button').eq(1).addClass('unlocked_inactive btn-default');
-                              document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PRIVATE';
-                            }
-                            }
-                            });
-                ">@Resources.Resource.MAKE_PUBLIC</button>
-    url: 'MakeSingleImagePublicOrPrivate',
-    data: {
-        imageId: document.getElementById('Idhidden').value,
-    },
-    success: function (data) {
-                            if(data!='')
+                            success: function (data) {
+                               if(data!='')
                             {
                                 $('#Message').modal('show');
                                 document.getElementById('MessageContent').innerHTML=data;
@@ -384,14 +361,28 @@
                             }
                             else
                             {
-                                if (document.getElementById('buttonPublicOrPrivate').textContent == '@Resources.Resource.MAKE_PRIVATE')
-                                    document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PUBLIC';
-                                else
-                                    document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PRIVATE';
+                                  if (document.getElementById('buttonPublicOrPrivate').textContent == '@Resources.Resource.MAKE_PRIVATE')
+                                {
+                                $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
+                                $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
+                                $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
+                                $('#toggle_event_editing button').eq(0).addClass('unlocked_inactive btn-default');
+                                document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PUBLIC';
+                                }
+                                 else
+                                {
+                                  $('#toggle_event_editing button').eq(0).removeClass('unlocked_inactive btn-default');
+                                  $('#toggle_event_editing button').eq(0).addClass('locked_active btn-info');
+                                  $('#toggle_event_editing button').eq(1).removeClass('locked_active btn-info');
+                                  $('#toggle_event_editing button').eq(1).addClass('unlocked_inactive btn-default');
+                                  document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PRIVATE';
+                                }
                             }
-    }
-    });
-    ">@ViewBag.ButtonPrivateORPublicMain</button>
+
+                          
+                            }
+                            });
+                ">@Resources.Resource.MAKE_PUBLIC</button>
                 </div>
                 <hr />
                 <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>

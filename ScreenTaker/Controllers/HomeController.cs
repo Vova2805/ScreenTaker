@@ -717,6 +717,9 @@ namespace ScreenTaker.Controllers
                     }
                     _entities.SaveChanges();
                     transaction.Commit();
+                    FillImagesViewBag(current_folder);
+                    ViewBag.ImageID = imageId;
+                    ViewBag.ImageIsPublic = image.IsPublic + "";
                     return Json("", JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
@@ -725,19 +728,6 @@ namespace ScreenTaker.Controllers
                     return Json(ex.Message, JsonRequestBehavior.AllowGet);
                 }
             }
-            
-        public ActionResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
-        {
-            ViewBag.Localize = locale;            
-            var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
-            if (image != null)
-                image.IsPublic = !image.IsPublic;                
-            _entities.SaveChanges();
-            FillImagesViewBag(current_folder);
-            ViewBag.ImageID = imageId;
-            ViewBag.ImageIsPublic = image.IsPublic + "";
-            return null;
-        }
 
         [AllowAnonymous]
         public ActionResult SharedFolder(string f, string lang = "en")
