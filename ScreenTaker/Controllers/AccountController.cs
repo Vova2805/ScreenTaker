@@ -16,6 +16,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using System.Collections.Generic;
 
+
 namespace ScreenTaker.Controllers
 {
     [Authorize]
@@ -491,6 +492,28 @@ namespace ScreenTaker.Controllers
                 else
                     ViewBag.Avatar_128 = GetBaseUrl() + "/Resources/user_128.png";
             }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("UserProfile");
+            }
+            AddErrors(result);
             return View();
         }
 
