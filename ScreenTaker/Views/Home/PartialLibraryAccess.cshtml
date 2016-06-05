@@ -107,9 +107,17 @@
                                     <div class="media-body" style="vertical-align: middle">
                                         <h5 class="media-heading">@ViewBag.AllGroups[i]</h5>
                                     </div>
-                                    <div class="material-switch media-right" style="vertical-align: middle">
-                                        <button type="button" class="btn btn-info locked_active btn-not-rounded text-center" style="height: 30px; width: 80px; font-size: 13px; padding: 6px;" onclick=
-                                                 "$.ajax({
+                                    <div class="material-switch media-right" style="vertical-align: middle">                                     
+                                            @if (ViewBag.GroupsAccess[i])
+                                            { 
+                                                <input id="foldersAccessSwitch @i" type="checkbox" checked/>
+                                            }
+                                            else
+                                            {
+                                                <input id="foldersAccessSwitch @i" type="checkbox"  />
+                                            }
+                                            <label for="foldersAccessSwitch @i" class="label-info" onclick=
+                                                   "$.ajax({
     url: 'FolderAccessSwitchGroupsAccess',
     data: {
         groupId: @ViewBag.GroupsIDs[i],
@@ -118,17 +126,7 @@
     success: function (data) {
         $('#accessDynamic').html(data);
     }
-});
-">                                                                                                   
-                                            @if (ViewBag.GroupsAccess[i])
-                                            {
-                                                <span>Allowed</span>
-                                            }
-                                            else
-                                            {
-                                                <span>Restricted</span>
-                                            }
-                                        </button>
+});"/>                                       
                                     </div>
                                 </div>
                             }
