@@ -319,12 +319,12 @@ namespace ScreenTaker.Controllers
 
                     ViewBag.IsEmpty = !images.Any();
                     ViewBag.Images = images;
-                    var pathsList = _entities.Images
+                    var pathsList = images
                         .Select(GetImageLink).ToList();
-
+                    ViewBag.FolderName = folder.Name;
                     ViewBag.Paths = pathsList;
                     ViewBag.BASE_URL = GetBaseUrl();
-                    ViewBag.SharedLinks = _entities.Images
+                    ViewBag.SharedLinks = images
                         .Select(GetSharedImageLink).ToList();
 
                 }
