@@ -349,6 +349,9 @@
   <data name="USE_ACCOUNT" xml:space="preserve">
     <value>Використайте ваш обліковий запис щоб увійти</value>
   </data>
+  <data name="WANT_DELETE" xml:space="preserve">
+    <value>Do you really want to delete </value>
+  </data>
   <data name="YES" xml:space="preserve">
     <value>Так</value>
   </data>
