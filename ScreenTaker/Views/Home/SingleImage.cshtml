@@ -216,10 +216,12 @@
                             <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
                         </div>
                         <div class="col-sm-3">
-                            <div class="btn-group pull-right" id="toggle_event_editing">
-                                <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
-                                <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
-                            </div>
+                             <div class="pull-right">
+                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
+                                    onclick="location.href='@Url.Action("MakeSingleImagePublicOrPrivate", "Home",new { imageId=ViewBag.ImageId} )'">
+                                @ViewBag.ButtonPrivateORPublic
+                            </button>
+                                 </div>
                         </div>
                     </div>
                     <div class="row">
@@ -242,64 +244,34 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
-                                        <div class="list-group-item">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
+                                       @if (ViewBag.Emails != null)
+                                       {
+                                           for (int i = 0; i < ViewBag.Emails.Count; i++)
+                                           {
+                                            <div class="list-group-item">
+                                                <div class="media-body" style="vertical-align: middle">
+                                                    <h5 class="media-heading">@ViewBag.Emails[i]</h5>
+                                                </div>
+                                                <div class="media-right" style="vertical-align: middle;" onclick="location.href='@Url.Action("SingleImageRemoveUser", "Home", new { userMail=ViewBag.Emails[i], imageId=ViewBag.ImageId })'">
+                                                    <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                                        <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="media-right" style="vertical-align:middle;">
-                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="list-group-item ">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                            </div>
-                                            <div class="media-right" style="vertical-align:middle;">
-                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="list-group-item ">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                            </div>
-                                            <div class="media-right" style="vertical-align:middle;">
-                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="list-group-item ">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                            </div>
-                                            <div class="media-right" style="vertical-align:middle;">
-                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="list-group-item ">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">vovadudas@gmail.com</h5>
-                                            </div>
-                                            <div class="media-right" style="vertical-align:middle;">
-                                                <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </div>
+                                           }
+                                       }
+                                       
+                                       
+                                      
+                                       
                                     </div>
                                 </div>
                             </div>
                             <div class="row" style="margin-bottom:10px;">
                                 <div class="col-sm-12">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
-                                        <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2">+</span>
+                                        <input type="text" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
+                                        <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="location.href='@Url.Action("SingleImageAddMail", "Home",new { imageId = ViewBag.ImageId})&userMail='+document.getElementById('userMail').value">+</span>
                                     </div>
                                 </div>
                             </div>
@@ -313,15 +285,23 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="list-group" style="height:auto;height:205px;overflow:auto;border:solid #E0E0E0 1px;">
-                                        <div class="list-group-item ">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">Friends</h5>
+                                       @if (ViewBag.Groups != null)
+                                       {
+                                           for (int i = 0; i < ViewBag.Groups.Count; i++)
+                                           {
+                                            <div class="list-group-item ">
+                                                <div class="media-body" style="vertical-align: middle">
+                                                    <h5 class="media-heading">@ViewBag.Groups[i] @ViewBag.GroupsIDs[i]</h5>
+                                                </div>
+                                                <div class="material-switch media-right" style="vertical-align: middle">
+                                                    <button type="button" class="btn btn-info locked_active btn-not-rounded text-center" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
+                                                            onclick="location.href = '@Url.Action("SingleImageSwitchAccessOnOrOff", "Home", new {groupId = ViewBag.GroupsIDs[i], imageId = ViewBag.ImageId })'">
+                                                        @*@ViewBag.Flags[i]*@ Allowed
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="material-switch media-right" style="vertical-align:middle">
-                                                <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" />
-                                                <label for="someSwitchOptionInfo" class="label-info"></label>
-                                            </div>
-                                        </div>
+                                           }
+                                       }
                                     </div>
                                 </div>
                             </div>
@@ -431,7 +411,7 @@
                 </div>
                 <br />
                 <div>
-                    <button class="btn btn-warning btn-not-rounded" style="width: 100%" onclick="location.href='@Url.Action("MakeSingleImagePublic", "Home" , new {imagestatus=ViewBag.IsPublic,imageId=ViewBag.Id})'">@Resources.Resource.MAKE_PUBLIC</button>
+                    <button class="btn btn-warning btn-not-rounded" style="width: 100%" onclick="location.href='@Url.Action("MakeSingleImagePublicOrPrivate", "Home",new { imageId=ViewBag.ImageId} )'">@ViewBag.ButtonPrivateORPublicMain</button>
                 </div>
                 <hr />
                 <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>

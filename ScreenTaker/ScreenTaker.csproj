@@ -532,6 +532,7 @@
     <Content Include="Views\Home\PartialImagesChangeState.cshtml" />
     <Content Include="Views\Home\PartialFoldersChangeState.cshtml" />
     <Content Include="Views\Home\SingleImageChangeState.cshtml" />
+    <Content Include="Views\Home\PartialLibraryAccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
