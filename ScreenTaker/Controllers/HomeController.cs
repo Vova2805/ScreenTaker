@@ -687,6 +687,9 @@ namespace ScreenTaker.Controllers
             if (image != null)
                 image.IsPublic = !image.IsPublic;                
             _entities.SaveChanges();
+            FillImagesViewBag(current_folder);
+            ViewBag.ImageID = imageId;
+            ViewBag.ImageIsPublic = image.IsPublic + "";
             return null;
         }
 
@@ -787,6 +790,11 @@ namespace ScreenTaker.Controllers
             if (ViewBag.Image != null)
             {
                 ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+            }
+            ViewBag.IsPublic = "False";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.IsPublic = ViewBag.Image.IsPublic + "";
             }
             ViewBag.OriginalNameWithoutEx = "";
             if (ViewBag.Image != null)
