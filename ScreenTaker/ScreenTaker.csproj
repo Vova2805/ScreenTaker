@@ -530,6 +530,7 @@
     <Content Include="Views\Home\Message.cshtml" />
     <Content Include="Views\Home\SharedLibrary.cshtml" />
     <Content Include="Views\Home\PartialLibraryAccess.cshtml" />
+    <Content Include="Views\Home\PartialImagesAccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
