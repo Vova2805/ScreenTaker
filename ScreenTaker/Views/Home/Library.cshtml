@@ -39,6 +39,7 @@
             });
         });  
         $('#toggle_event_editing button').click(function () {
+            $('#MakePublicButton').click();
             if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
                 /* code to do when unlocking */
                 $('#switch_status').html('Switched on.');
