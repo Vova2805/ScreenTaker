@@ -537,9 +537,9 @@ namespace ScreenTaker.Controllers
             ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
             ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+list.First().SharedCode+"_compressed.png" : "";
             ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
-            
+            ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
         }
-            
+        public static int current_folder = -1;
         public ActionResult Images(string id = "-1", string lang = "en")
         {
             ViewBag.Localize = locale;
@@ -547,6 +547,7 @@ namespace ScreenTaker.Controllers
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
             int folderId = Int32.Parse(id);
+            current_folder = folderId;
 
             var folder = _entities.Folders.Find(folderId);
 
@@ -673,9 +674,10 @@ namespace ScreenTaker.Controllers
                 result.IsPublic = true;
 
             _entities.SaveChanges();
-
-
-            return RedirectToAction("Images", new { lang = locale });
+            FillImagesViewBag(current_folder);
+            ViewBag.ImageID = imageId;
+            ViewBag.ImageIsPublic = result.IsPublic+"";
+            return PartialView("PartialImagesChangeState");
         }
 
         public ActionResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")

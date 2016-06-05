@@ -38,36 +38,37 @@
                 });
             });
         });
-            document.getElementById("RenameButton").disabled = true;
-            document.getElementById("DeleteButton").disabled = true;
-            document.getElementById("OpenButton").disabled = true;
-            document.getElementById("MoveButton").disabled = true;
-            document.getElementById("ManageAccessButton").disabled = true;
-            document.getElementById("MakePublicButton").disabled = true;
-            document.getElementById("sharedLink").disabled = true;
+        
+        document.getElementById("RenameButton").disabled = true;
+        document.getElementById("DeleteButton").disabled = true;
+        document.getElementById("OpenButton").disabled = true;
+        document.getElementById("MoveButton").disabled = true;
+        document.getElementById("ManageAccessButton").disabled = true;
+        document.getElementById("MakePublicButton").disabled = true;
+        document.getElementById("sharedLink").disabled = true;
 
-            document.getElementById("IMD0").className += " active-image";
-            document.getElementById("RenameButton").disabled = false;
-            document.getElementById("DeleteButton").disabled = false;
-            document.getElementById("OpenButton").disabled = false;
-            document.getElementById("MoveButton").disabled = false;
-            document.getElementById("ManageAccessButton").disabled = false;
-            document.getElementById("MakePublicButton").disabled = false;
-            document.getElementById("sharedLink").disabled = false;
-            document.getElementById("original").value = '@ViewBag.FirstImageShCode';
-            document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
-            document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
-            document.getElementById("compressedName").innerText =  '@ViewBag.FirstImageName';
+        document.getElementById("IMD0").className += " active-image";
+        document.getElementById("RenameButton").disabled = false;
+        document.getElementById("DeleteButton").disabled = false;
+        document.getElementById("OpenButton").disabled = false;
+        document.getElementById("MoveButton").disabled = false;
+        document.getElementById("ManageAccessButton").disabled = false;
+        document.getElementById("MakePublicButton").disabled = false;
+        document.getElementById("sharedLink").disabled = false;
+        document.getElementById("original").value = '@ViewBag.FirstImageShCode';
+        document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
+        document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
+        document.getElementById("compressedName").innerText =  '@ViewBag.FirstImageName';
 
-            document.getElementById("sharedLinkhidden").value = '@ViewBag.FirstImageShCode';
-            document.getElementById("Idhidden").value = '@ViewBag.FirstId';
-            document.getElementById("new-title").value =  '@ViewBag.FirstWithoutEx';
-            document.getElementById("imageNameDelete").innerText = '@ViewBag.FirstWithoutEx';
+        document.getElementById("sharedLinkhidden").value = '@ViewBag.FirstImageShCode';
+        document.getElementById("Idhidden").value = '@ViewBag.FirstId';
+        document.getElementById("new-title").value =  '@ViewBag.FirstWithoutEx';
+        document.getElementById("imageNameDelete").innerText = '@ViewBag.FirstWithoutEx';
+        var public_private = '@Resources.Resource.MAKE_PRIVATE';
+        if('@ViewBag.ImageIsPublic'=="False")public_private = '@Resources.Resource.MAKE_PUBLIC';
+        document.getElementById("MakePublicButton").innerText = public_private;
 
-            @*selectImage('@ViewBag.FirstId', "IMD0" , '@ViewBag.Count',  '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShLink', '@ViewBag.FirstImageSrc', '@ViewBag.FirstImageName', '@ViewBag.FirstWithoutEx');*@
-
-
-        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex) {
+        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex,isPublic) {
             var classes = "floating-box text-center task active images";
             document.getElementById("original").value = original;
             document.getElementById("sharedLink").value = sharedLink;
@@ -92,41 +93,44 @@
             document.getElementById("ManageAccessButton").disabled = false;
             document.getElementById("MakePublicButton").disabled = false;
             document.getElementById("sharedLink").disabled = false;
+            var public_private = '@Resources.Resource.MAKE_PRIVATE';
+            if(isPublic=="False")public_private = '@Resources.Resource.MAKE_PUBLIC';
+            document.getElementById("MakePublicButton").innerText = public_private;
             return false;
         }
 
-            (function ($) {
+        (function ($) {
 
-                $('#filter').keyup(function () {
-                    var val = $(this).val();
-                    var rex = new RegExp($(this).val(), 'i');
-                    $('.searchable div.list-group-item').hide();
-                    $('.searchable div.list-group-item').filter(function () {
-                        var data = this.title;
-                        var result = rex.test(data);
-                        return result;
-                    }).show();
-                })
+            $('#filter').keyup(function () {
+                var val = $(this).val();
+                var rex = new RegExp($(this).val(), 'i');
+                $('.searchable div.list-group-item').hide();
+                $('.searchable div.list-group-item').filter(function () {
+                    var data = this.title;
+                    var result = rex.test(data);
+                    return result;
+                }).show();
+            })
 
-            }(jQuery));
+        }(jQuery));
 
-    var a = $('#loadingAnimation');
-    a.css('visibility', 'hidden');
-    $(document).ajaxStart(function () {
-        $('#loadingAnimation').css('visibility', 'visible');
-    });
-    $(document).ajaxStop(function () {
-        $('#loadingAnimation').css('visibility', 'hidden');
-    });
-    function ShowProgress() {
-        setTimeout(function () {
-            var a = $('#loadingAnimation');
-            a.css('visibility', 'visible');
-        }, 200);
-    }
-    $('form').live("submit", function () {
-        ShowProgress();
-    });
+        var a = $('#loadingAnimation');
+        a.css('visibility', 'hidden');
+        $(document).ajaxStart(function () {
+            $('#loadingAnimation').css('visibility', 'visible');
+        });
+        $(document).ajaxStop(function () {
+            $('#loadingAnimation').css('visibility', 'hidden');
+        });
+        function ShowProgress() {
+            setTimeout(function () {
+                var a = $('#loadingAnimation');
+                a.css('visibility', 'visible');
+            }, 200);
+        }
+        $('form').live("submit", function () {
+            ShowProgress();
+        });
 
 
 
@@ -366,6 +370,7 @@
                         int length = name.Length;
                         int size = length <= 15 ? length : 15;
                         name = name.Substring(0, size);
+                        string isPublic = i.IsPublic + "";
                         string classes = "floating-box text-center task active images";
                         string without_ex = i.Name;
                         if (index == 0)
@@ -379,7 +384,7 @@
                         }
                         string image_id = "IMD" + index;
 
-                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex')"
+                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex','@isPublic')"
                               ondblclick="openImage('@original')" style="cursor:pointer;">
                             <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
@@ -419,7 +424,18 @@
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton"  style="width: 100%" onclick="location.href='@Url.Action("MakeImagePublicOrPrivate", "Home" )?imageId='+document.getElementById('Idhidden').value;">@Resources.Resource.MAKE_PUBLIC</button>
+                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton"  style="width: 100%" 
+                         onclick="$('#loadingAnimation').css('visibility', 'visible');
+                         $.ajax({
+                            url: 'MakeImagePublicOrPrivate',
+                                data: {
+                                    imageId: document.getElementById('Idhidden').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicImagesArea').html(data);
+                                }
+                            });"
+                        >@Resources.Resource.MAKE_PUBLIC</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
@@ -428,20 +444,20 @@
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
                         "$.ajax({
-    url: 'PartialImagesAccess',
-    data: {
-        imageId: document.getElementById('Idhidden').value,                       
-    },
-    success: function (data) {        
-        $('#ImagesAccessDynamic').html(data);         
-        if(document.getElementById('MessageContentFromPartial').value!='')
-        {
-            $('#Message').modal('show');
-            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
-        }
-    }
-}); 
+                        url: 'PartialImagesAccess',
+                        data: {
+                            imageId: document.getElementById('Idhidden').value,                       
+                        },
+                        success: function (data) {        
+                            $('#ImagesAccessDynamic').html(data);         
+                            if(document.getElementById('MessageContentFromPartial').value!='')
+                            {
+                                $('#Message').modal('show');
+                                document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                            }
+                        }
+                    }); 
                         "
                          >@Resources.Resource.MANAGE_ACCESS</button>
             </div>
