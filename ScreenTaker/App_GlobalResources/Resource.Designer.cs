@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allowed.
+        /// </summary>
+        internal static string ALLOWED {
+            get {
+                return ResourceManager.GetString("ALLOWED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alphabet.
         /// </summary>
         internal static string ALPHABET {
@@ -277,6 +286,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Denied.
+        /// </summary>
+        internal static string DENIED {
+            get {
+                return ResourceManager.GetString("DENIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Developed by.
         /// </summary>
         internal static string DEVELOPED_BY {
@@ -418,6 +436,15 @@ namespace Resources {
         internal static string LOGOUT {
             get {
                 return ResourceManager.GetString("LOGOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make private.
+        /// </summary>
+        internal static string MAKE_PRIVATE {
+            get {
+                return ResourceManager.GetString("MAKE_PRIVATE", resourceCulture);
             }
         }
         
@@ -715,6 +742,24 @@ namespace Resources {
         internal static string TO_MAIN_PAGE {
             get {
                 return ResourceManager.GetString("TO_MAIN_PAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn Off.
+        /// </summary>
+        internal static string TURN_OFF {
+            get {
+                return ResourceManager.GetString("TURN_OFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn On.
+        /// </summary>
+        internal static string TURN_ON {
+            get {
+                return ResourceManager.GetString("TURN_ON", resourceCulture);
             }
         }
         
