@@ -187,114 +187,7 @@
 </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">@Resources.Resource.MANAGE_ACCESS</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row" style="margin-bottom:5px;">
-                        <div class="col-sm-9">
-                            <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
-                        </div>
-                        <div class="col-sm-3">
-                             <div class="pull-right">
-                            <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
-                                    onclick="location.href='@Url.Action("MakeSingleImagePublicOrPrivate", "Home",new { imageId=ViewBag.ImageId} )'">
-                                @ViewBag.ButtonPrivateORPublic
-                            </button>
-                                 </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="input-group">
-                                <input type="text" style="height:30px;" class="form-control" placeholder="http://localhost:56267/img/EvrC9Anhyo.png">
-                                <span class="input-group-btn" style="height:30px;">
-                                    <button class="btn btn-default btn-not-rounded" style="height:30px;" type="button">@Resources.Resource.COPY</button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="row" style="margin-bottom:10px;">
-                                <div class="col-sm-12">
-                                    <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.PEOPLE</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="list-group" style="height:auto;height:150px;overflow:auto;border:solid #E0E0E0 1px;">
-                                       @if (ViewBag.Emails != null)
-                                       {
-                                           for (int i = 0; i < ViewBag.Emails.Count; i++)
-                                           {
-                                            <div class="list-group-item">
-                                                <div class="media-body" style="vertical-align: middle">
-                                                    <h5 class="media-heading">@ViewBag.Emails[i]</h5>
-                                                </div>
-                                                <div class="media-right" style="vertical-align: middle;" onclick="location.href='@Url.Action("SingleImageRemoveUser", "Home", new { userMail=ViewBag.Emails[i], imageId=ViewBag.ImageId })'">
-                                                    <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
-                                                        <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                           }
-                                       }
-                                       
-                                       
-                                      
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="margin-bottom:10px;">
-                                <div class="col-sm-12">
-                                    <div class="input-group">
-                                        <input type="text" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
-                                        <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="location.href='@Url.Action("SingleImageAddMail", "Home",new { imageId = ViewBag.ImageId})&userMail='+document.getElementById('userMail').value">+</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="row" style="margin-bottom:10px;">
-                                <div class="col-sm-12">
-                                    <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.GROUPS</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="list-group" style="height:auto;height:205px;overflow:auto;border:solid #E0E0E0 1px;">
-                                       @if (ViewBag.Groups != null)
-                                       {
-                                           for (int i = 0; i < ViewBag.Groups.Count; i++)
-                                           {
-                                            <div class="list-group-item ">
-                                                <div class="media-body" style="vertical-align: middle">
-                                                    <h5 class="media-heading">@ViewBag.Groups[i] @ViewBag.GroupsIDs[i]</h5>
-                                                </div>
-                                                <div class="material-switch media-right" style="vertical-align: middle">
-                                                    <button type="button" class="btn btn-info locked_active btn-not-rounded text-center" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
-                                                            onclick="location.href = '@Url.Action("SingleImageSwitchAccessOnOrOff", "Home", new {groupId = ViewBag.GroupsIDs[i], imageId = ViewBag.ImageId })'">
-                                                        @*@ViewBag.Flags[i]*@ Allowed
-                                                    </button>
-                                                </div>
-                                            </div>
-                                           }
-                                       }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">@Resources.Resource.SUBMIT</button>
-                </div>
+            <div class="modal-content" id="ImagesAccessDynamic">                
             </div>
         </div>
     </div>
@@ -402,14 +295,24 @@
                 <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.SharedLink" />
                 <br />
                 <div>
-                    <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%">@Resources.Resource.MANAGE_ACCESS</button>
+                    <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%" onclick=
+                              "$.ajax({
+    url: 'PartialImagesAccess',
+    data: {
+        imageId: document.getElementById('Idhidden').value,                       
+    },
+    success: function (data) {        
+        $('#ImagesAccessDynamic').html(data);                   
+    }
+}); 
+                        ">@Resources.Resource.MANAGE_ACCESS</button>
                 </div>
                 @*<hr />*@
             </div>
         </div>
 
     </div>
-
+    <input type="hidden" id="Idhidden" value="@ViewBag.ImageId">
     <nav id="context-menu" class="context-menu">
         <ul class="context-menu__items">
             <li class="context-menu__item">

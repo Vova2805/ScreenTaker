@@ -258,7 +258,7 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("PartialLibraryAccess", new { folderId = folderId });
         }
 
-        public ActionResult PartialImagesAccess(int imageId, bool isSingle)
+        public ActionResult PartialImagesAccess(int imageId)
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
             if (user != null)
@@ -266,21 +266,18 @@ namespace ScreenTaker.Controllers
                 Image image = _entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
                 if (image != null)
                 {
-                    ViewBag.ImageSharedLink = GetBaseUrl() + "Home/SharedImage?f=" + image.SharedCode;
+                    ViewBag.ImageSharedLink = GetBaseUrl() + "Home/SharedImage?i=" + image.SharedCode;
                     ViewBag.AllowedUsers = _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => (s.PersonId != null ? s.Person.Email : s.Email)).ToList();
                     ViewBag.AllowedUsersIds = _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => s.PersonId != null ? s.Person.Id : s.Id).ToList();
                     ViewBag.AllGroups = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => s.Name).ToList();
                     ViewBag.GroupsIDs = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => s.Id).ToList();
                     ViewBag.GroupsAccess = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => (_entities.GroupShares.Where(w => w.GroupId == s.Id && w.ImageId == image.Id).Any()) ? true : false).ToList();
                 }
-            }
-            if (!isSingle)
-                return PartialView("PartialImagesAccess");
-            else
-                return null;
+            }            
+            return PartialView("PartialImagesAccess");            
         }
 
-        public ActionResult ImageAccessAddUser(string email, int imageId, bool isSingle)
+        public ActionResult ImageAccessAddUser(string email, int imageId)
         {
             //using (var transaction = _entities.Database.BeginTransaction())
             //{
@@ -307,10 +304,10 @@ namespace ScreenTaker.Controllers
             //        transaction.Rollback();
             //    }
             //}
-            return RedirectToAction("PartialImagesAccess", new { imageId = imageId,isSingle=isSingle });
+            return RedirectToAction("PartialImagesAccess", new { imageId = imageId });
         }
             
-        public ActionResult ImageAccessRemoveUser(string email, int imageId, bool isSingle)
+        public ActionResult ImageAccessRemoveUser(string email, int imageId)
         {
             //using (var transaction = _entities.Database.BeginTransaction())
             //{
@@ -331,10 +328,10 @@ namespace ScreenTaker.Controllers
             //        transaction.Rollback();
             //    }
             //}
-            return RedirectToAction("PartialImagesAccess", new { imageId = imageId, isSingle = isSingle });
+            return RedirectToAction("PartialImagesAccess", new { imageId = imageId });
         }
 
-        public ActionResult ImageAccessSwitchGroupsAccess(int groupId, int imageId, bool isSingle)
+        public ActionResult ImageAccessSwitchGroupsAccess(int groupId, int imageId)
         {
             //using (var transaction = _entities.Database.BeginTransaction())
             //{
@@ -356,7 +353,7 @@ namespace ScreenTaker.Controllers
             //        transaction.Rollback();
             //    }
             //}
-            return RedirectToAction("PartialImageAccess", new { imageId = imageId, isSingle = isSingle });
+            return RedirectToAction("PartialImageAccess", new { imageId = imageId});
         }
 
         public ActionResult MakeFolderPublicOrPrivate(int folderId, string lang = "en")

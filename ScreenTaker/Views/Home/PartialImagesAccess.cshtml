@@ -50,8 +50,7 @@
                                         url: 'ImageAccessRemoveUser',
                                         data: {
                                             email: '@ViewBag.AllowedUsers[i]',
-                                            imageId: document.getElementById('Idhidden').value,
-                                            isSingle: false,
+                                            imageId: document.getElementById('Idhidden').value,                                            
                                         },
                                         success: function (data) {
                                             $('#ImagesAccessDynamic').html(data);
@@ -75,8 +74,7 @@
     url: 'ImageAccessAddUser',
     data: {
         email: document.getElementById('userMail').value,
-        imageId: document.getElementById('Idhidden').value,
-        isSingle: false,
+        imageId: document.getElementById('Idhidden').value,        
     },
     success: function (data) {
         $('#ImagesAccessDynamic').html(data);
@@ -117,8 +115,7 @@
     url: 'ImageAccessSwitchGroupsAccess',
     data: {
         groupId: @ViewBag.GroupsIDs[i],
-        imageId: document.getElementById('Idhidden').value,
-        isSingle: false,
+        imageId: document.getElementById('Idhidden').value,        
     },
     success: function (data) {
         $('#ImagesAccessDynamic').html(data);
@@ -135,5 +132,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">@Resources.Resource.SUBMIT</button>
+    <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">@Resources.Resource.CLOSE</button>
 </div>
