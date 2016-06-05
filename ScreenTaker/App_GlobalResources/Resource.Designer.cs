@@ -422,6 +422,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to image.
+        /// </summary>
+        internal static string IMAGEY {
+            get {
+                return ResourceManager.GetString("IMAGEY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The easiest way to share your images..
         /// </summary>
         internal static string JUMBOTRON_TEXT {

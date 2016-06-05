@@ -238,6 +238,9 @@
   <data name="IMAGES" xml:space="preserve">
     <value>Изображения</value>
   </data>
+  <data name="IMAGEY" xml:space="preserve">
+    <value>изображение</value>
+  </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>Самый легкий путь, чтобы делиться изображениями.</value>
   </data>

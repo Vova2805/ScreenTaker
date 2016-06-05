@@ -238,6 +238,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="IMAGES" xml:space="preserve">
     <value>Images</value>
   </data>
+  <data name="IMAGEY" xml:space="preserve">
+    <value>image</value>
+  </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>The easiest way to share your images.</value>
   </data>
