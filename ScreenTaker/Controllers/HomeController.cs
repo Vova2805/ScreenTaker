@@ -214,7 +214,7 @@ namespace ScreenTaker.Controllers
                         System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
                     ApplicationUser user = userManager.FindById(User.Identity.GetUserId<int>());
 
-                    if (user != null&& user.Email==email)
+                    if (user != null && user.Email==email)
                         throw new Exception("You can't add yourself");
 
                     var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
@@ -261,10 +261,10 @@ namespace ScreenTaker.Controllers
                 try
                 {                   
                     UserShare record;
-                    if (_entities.People.Where(w => w.Email == email).Any())
-                        record = _entities.UserShares.Where(w => w.Person.Email == email && w.FolderId == folderId).FirstOrDefault();
+                    if (_entities.People.Any(w => w.Email == email))
+                        record = _entities.UserShares.FirstOrDefault(w => w.Person.Email == email && w.FolderId == folderId);
                     else
-                        record = _entities.UserShares.Where(w => w.Email == email && w.FolderId == folderId).FirstOrDefault();
+                        record = _entities.UserShares.FirstOrDefault(w => w.Email == email && w.FolderId == folderId);
                     if (record != null)
                         _entities.UserShares.Remove(record);
                     _entities.SaveChanges();
@@ -285,7 +285,7 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
-                    var result = _entities.GroupShares.Where(w => w.GroupId == groupId && w.FolderId == folderId).FirstOrDefault();
+                    var result = _entities.GroupShares.FirstOrDefault(w => w.GroupId == groupId && w.FolderId == folderId);
                     if (result != null)
                         _entities.GroupShares.Remove(result);
                     else
@@ -314,7 +314,7 @@ namespace ScreenTaker.Controllers
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null)
                     {
-                        Image image = _entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
+                        Image image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
                         if (image != null)
                         {
                             ViewBag.ImageSharedLink = GetBaseUrl() + "Home/SharedImage?i=" + image.SharedCode;
@@ -340,11 +340,18 @@ namespace ScreenTaker.Controllers
             return PartialView("PartialImagesAccess");            
         }
 
-        public bool IsValidEmail(string e_mail)
+        public bool IsValidEmail(string email)
         {
-            string expr = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
-            Match isMatch = Regex.Match(e_mail, expr, RegexOptions.IgnoreCase);
-            return isMatch.Success;
+            try
+            {
+                MailAddress m = new MailAddress(email);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
 
         public ActionResult ImageAccessAddUser(string email, int imageId)
@@ -355,18 +362,30 @@ namespace ScreenTaker.Controllers
                 {
                     if (!IsValidEmail(email))
                         throw new Exception("Email is not valid");                    
-                    var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
-                    if (_entities.UserShares.Where(w => (w.Email == email || w.PersonId == personID) && w.ImageId == imageId).Any())
+                    var person = _entities.People.FirstOrDefault(w => w.Email == email);
+                    if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId == person.Id) && w.ImageId == imageId))
                         throw new Exception("This user is alredy here");
-                    var image = _entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
-                    if(image!=null&&_entities.UserShares.Where(w=>w.FolderId==image.FolderId&&(w.Email==email||w.Person.Email==email)).Any())
+                    var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
+
+                    if (image!=null &&_entities.UserShares.Any(w => w.FolderId == image.FolderId && (w.Email==email || w.Person.Email == email)))
                         throw new Exception("This right is inherited from folder and can't be changed");
-                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+
+                    ApplicationUserManager userManager =
+                        System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    ApplicationUser user = userManager.FindById(User.Identity.GetUserId<int>());
+
                     if (user != null && user.Email == email)
                         throw new Exception("You can't add yourself");
-                    if (personID != 0)
+                    if (person != null)
                     {
-                        UserShare us = new UserShare { PersonId = personID, ImageId = imageId };
+                        userManager.EmailService.SendAsync(new IdentityMessage()
+                        {
+                            Body = $"{user.Email} provided access to image {GetSharedImageLink(image)}",
+                            Destination = email,
+                            Subject = "ScreenTaker image sharing"
+                        });
+
+                        UserShare us = new UserShare { PersonId = person.Id, ImageId = imageId };
                         _entities.UserShares.Add(us);
                     }
                     else
@@ -393,10 +412,10 @@ namespace ScreenTaker.Controllers
                 try
                 {                    
                     UserShare record=null;
-                    if (_entities.People.Where(w => w.Email == email).Any())
-                        record = _entities.UserShares.Where(w => w.Person.Email == email&&w.ImageId==imageId).FirstOrDefault();
+                    if (_entities.People.Any(w => w.Email == email))
+                        record = _entities.UserShares.FirstOrDefault(w => w.Person.Email == email && w.ImageId == imageId);
                     else
-                        record = _entities.UserShares.Where(w => w.Email == email && w.ImageId == imageId).FirstOrDefault();
+                        record = _entities.UserShares.FirstOrDefault(w => w.Email == email && w.ImageId == imageId);
                     if (record != null)
                         _entities.UserShares.Remove(record);
                     _entities.SaveChanges();
@@ -417,7 +436,7 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
-                    var result = _entities.GroupShares.Where(w => w.GroupId == groupId && w.ImageId == imageId).FirstOrDefault();
+                    var result = _entities.GroupShares.FirstOrDefault(w => w.GroupId == groupId && w.ImageId == imageId);
                     if (result != null)
                         _entities.GroupShares.Remove(result);
                     else
