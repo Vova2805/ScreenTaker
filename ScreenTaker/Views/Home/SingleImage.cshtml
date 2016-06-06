@@ -389,7 +389,17 @@
                 </div>
             </li>
             <li class="context-menu__item">
-                <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess">@Resources.Resource.MANAGE_ACCESS</a>
+                <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess" onclick=
+                              "$.ajax({
+                            url: 'PartialImagesAccess',
+                            data: {
+                                imageId: document.getElementById('Idhidden').value,                       
+                            },
+                            success: function (data) {        
+                                $('#ImagesAccessDynamic').html(data);                   
+                            }
+                            }); 
+                        ">@Resources.Resource.MANAGE_ACCESS</a>
             </li>
         </ul>
     </nav>
