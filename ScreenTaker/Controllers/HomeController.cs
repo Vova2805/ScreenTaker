@@ -216,9 +216,13 @@ namespace ScreenTaker.Controllers
 
                     if (user != null&& user.Email==email)
                         throw new Exception("You can't add yourself");
-
                     var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
-
+                    var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
+                    if (user != null&&friend != null && !_entities.PersonFriends.Where(w => w.PersonId == user.Id && w.FriendId == friend.Id).Any())
+                    {
+                        var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
+                        _entities.PersonFriends.Add(personFriend);
+                    }
                     if (personID != 0)
                     {
                         UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
@@ -364,6 +368,12 @@ namespace ScreenTaker.Controllers
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null && user.Email == email)
                         throw new Exception("You can't add yourself");
+                    var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
+                    if (user != null && friend != null && !_entities.PersonFriends.Where(w => w.PersonId == user.Id && w.FriendId == friend.Id).Any())
+                    {
+                        var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
+                        _entities.PersonFriends.Add(personFriend);
+                    }
                     if (personID != 0)
                     {
                         UserShare us = new UserShare { PersonId = personID, ImageId = imageId };
@@ -436,7 +446,7 @@ namespace ScreenTaker.Controllers
             }
             return RedirectToAction("PartialImageAccess", new { imageId = imageId});
         }
-
+       
         public ActionResult MakeFolderPublicOrPrivate(int folderId, string lang = "en")
         {
             ViewBag.Localize = locale;

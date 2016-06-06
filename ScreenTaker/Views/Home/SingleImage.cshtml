@@ -15,7 +15,30 @@
 <script src="~/Scripts/context-menu.js"></script>
 <script src="~/Scripts/Site.js"></script>
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+<link href="@Url.Content("~/Content/themes/base/autocomplete.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/theme.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-ui-1.11.4.min.js")" type="text/javascript"></script>
     <script>
+        $(function () {
+            $("[data-autocomplete-source]").each(function () {
+                var target = $(this);
+                target.autocomplete({ source: target.attr("data-autocomplete-source") });
+            });
+        });
+        var a = $('#loadingAnimation');
+        a.css('visibility', 'hidden');
+        $(document).ajaxStart(function () {
+            $('#loadingAnimation').css('visibility', 'visible');
+        });
+        $(document).ajaxStop(function () {
+            a.css('visibility', 'hidden');
+            $(function () {
+                $("[data-autocomplete-source]").each(function () {
+                    var target = $(this);
+                    target.autocomplete({ source: target.attr("data-autocomplete-source") });
+                });
+            });
+        });
         (function ($) {
             $('#filter').keyup(function () {
                 var val = $(this).val();
@@ -27,7 +50,6 @@
                     return result;
                 }).show();
             })
-
         }(jQuery));
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
@@ -37,7 +59,6 @@
     $(document).ajaxStop(function () {
         $('#loadingAnimation').css('visibility', 'hidden');
     });
-
     function ShowProgress() {
         setTimeout(function () {
             var a = $('#loadingAnimation');
