@@ -347,11 +347,19 @@
         imageId: document.getElementById('Idhidden').value,
     },
     success: function (data) {
-        if (document.getElementById('buttonPublicOrPrivate').textContent == '@Resources.Resource.MAKE_PRIVATE')
-            document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PUBLIC';
-        else
-            document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PRIVATE';
-
+                            if(data!='')
+                            {
+                                $('#Message').modal('show');
+                                document.getElementById('MessageContent').innerHTML=data;
+                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                            }
+                            else
+                            {
+                                if (document.getElementById('buttonPublicOrPrivate').textContent == '@Resources.Resource.MAKE_PRIVATE')
+                                    document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PUBLIC';
+                                else
+                                    document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PRIVATE';
+                            }
     }
     });
     ">@ViewBag.ButtonPrivateORPublicMain</button>

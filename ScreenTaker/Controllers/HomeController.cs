@@ -691,14 +691,31 @@ namespace ScreenTaker.Controllers
             return PartialView("PartialImagesChangeState");
         }
 
-        public ActionResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
+        public JsonResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
         {
-            ViewBag.Localize = locale;            
-            var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
-            if (image != null)
-                image.IsPublic = !image.IsPublic;                
-            _entities.SaveChanges();
-            return null;
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {                    
+                    ViewBag.Localize = locale;
+                    var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
+                    if (image != null)
+                    {
+                        if (!image.Folder.IsPublic)
+                            throw new Exception("You can't make public image inside private folder");
+                        image.IsPublic = !image.IsPublic;
+                    }
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                    return Json("", JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                }
+            }
+            
         }
 
         [AllowAnonymous]
