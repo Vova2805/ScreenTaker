@@ -207,26 +207,38 @@ namespace ScreenTaker.Controllers
                     if (!IsValidEmail(email))
                         throw new Exception("Email is not valid");                    
                     var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
-                    if (_entities.UserShares.Where(w => (w.Email == email || w.PersonId==personID)&&w.FolderId==folderId).Any())
+                    if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId==personID)&&w.FolderId==folderId))
                         throw new Exception("This user is alredy here");
-                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+
+                    ApplicationUserManager userManager =
+                        System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    ApplicationUser user = userManager.FindById(User.Identity.GetUserId<int>());
+
                     if (user != null&& user.Email==email)
                         throw new Exception("You can't add yourself");
+
+                    var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
+
                     if (personID != 0)
                     {
                         UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
                         _entities.UserShares.Add(us);
+                        userManager.EmailService.SendAsync(new IdentityMessage()
+                        {
+                            Body = $"{user.Email} provided access to folder {GetSharedFolderLink(folder)}",
+                            Destination = email,
+                            Subject = "ScreenTaker folder sharing"
+                        });
                     }
                     else
                     {
                         UserShare us = new UserShare { FolderId = folderId, Email = email };
                         _entities.UserShares.Add(us);
                     }
-                    var folder = _entities.Folders.Where(w => w.Id == folderId).FirstOrDefault();
                     if(folder!=null)                   
                         foreach (var i in folder.Images)
                         {
-                            var record = _entities.UserShares.Where(w => w.ImageId == i.Id && (w.Email == email || w.Person.Email == email)).FirstOrDefault();
+                            var record = _entities.UserShares.FirstOrDefault(w => w.ImageId == i.Id && (w.Email == email || w.Person.Email == email));
                             if (record != null)
                                 _entities.UserShares.Remove(record);
                         }                                                
