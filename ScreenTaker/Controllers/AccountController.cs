@@ -177,6 +177,19 @@ namespace ScreenTaker.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> ResendConfirmation(string email)
+        {
+            ViewBag.Localize = locale;
+
+            var user = UserManager.FindByEmail(email);
+            if (user != null)
+            {
+                ViewBag.Email = email;
+                string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+            }
+            return View("ConfirmEmailInfo");
+        }
         //
         // POST: /Account/Register
         [HttpPost]

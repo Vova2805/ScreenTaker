@@ -12,6 +12,8 @@ using System.Net.Mail;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Image = ScreenTaker.Models.Image;
+using System.Text.RegularExpressions;
+
 namespace ScreenTaker.Controllers
 {
     [Authorize]
@@ -24,6 +26,8 @@ namespace ScreenTaker.Controllers
             Chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
             Length = 15
         };
+        int SingleImageId;
+        private SecurityHelper _securityHelper = new SecurityHelper();
 
         [AllowAnonymous]
         public ActionResult Index(string lang = "en")
@@ -131,7 +135,7 @@ namespace ScreenTaker.Controllers
             ViewBag.BaseURL = GetBaseUrl() + "";
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
            
-            Folder folder = _entities.Folders.ToList().Where(f=> f.OwnerId == user.Id).ToList().First(); 
+            Folder folder = _entities.Folders.ToList().Where(f=> f.OwnerId == user.Id).ToList().FirstOrDefault(); 
             ViewBag.FolderLink = GetBaseUrl() + "Home/SharedFolder?f=" + folder.SharedCode;
             ViewBag.CurrentFolderShCode = folder == null ? (
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
@@ -142,9 +146,315 @@ namespace ScreenTaker.Controllers
             ViewBag.CurrentFolderId = (folder == null) ? (
                ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().Id : -1
                ) : folder.Id;
-            ViewBag.MessageContent = TempData["MessageContent"];
+            int currentFolderId = ViewBag.CurrentFolderId;
+            ViewBag.IsFolderPublic = ((folder == null) ? (
+               ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().IsPublic : false
+               ) : folder.IsPublic)+"";
+            ViewBag.ButtonPrivateORPublic = "";
+            ViewBag.ButtonPrivateORPublicMain = "";
+            if (ViewBag.IsFolderPublic=="True")
+            {
+                ViewBag.ButtonPrivateORPublic = Resources.Resource.TURN_OFF ;
+                ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PRIVATE; 
+            }
+            else
+            {
+                ViewBag.ButtonPrivateORPublicMain = @Resources.Resource.MAKE_PUBLIC;
+                ViewBag.ButtonPrivateORPublic = Resources.Resource.TURN_ON;
+            }                           
             return View();
         }
+
+        public ActionResult PartialLibraryAccess(int folderId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        Folder folder = _entities.Folders.ToList().Where(f => f.Id == folderId).ToList().FirstOrDefault();
+                        if (folder != null)
+                        {
+                            ViewBag.FolderLink = GetBaseUrl() + "Home/SharedFolder?f=" + folder.SharedCode;
+                            ViewBag.AllowedUsers = _entities.UserShares.Where(w => w.FolderId == folder.Id).Select(s => (s.PersonId != null ? s.Person.Email : s.Email)).ToList();
+                            ViewBag.AllowedUsersIds = _entities.UserShares.Where(w => w.FolderId == folder.Id).Select(s => s.PersonId != null ? s.Person.Id : s.Id).ToList();
+                            ViewBag.AllGroups = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => s.Name).ToList();
+                            ViewBag.GroupsIDs = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => s.Id).ToList();
+                            ViewBag.GroupsAccess = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => (_entities.GroupShares.Where(w => w.GroupId == s.Id && w.FolderId == folder.Id).Any()) ? true : false).ToList();
+                        }
+                    }
+                    if (TempData["MessageContent"] != null)
+                        ViewBag.MessageContent = TempData["MessageContent"];
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
+                }
+            }
+            return PartialView("PartialLibraryAccess");
+        }
+
+        public ActionResult FolderAccessAddUser(string email, int folderId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (!IsValidEmail(email))
+                        throw new Exception("Email is not valid");                    
+                    var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
+                    if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId==personID)&&w.FolderId==folderId))
+                        throw new Exception("This user is alredy here");
+
+                    ApplicationUserManager userManager =
+                        System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    ApplicationUser user = userManager.FindById(User.Identity.GetUserId<int>());
+
+                    if (user != null&& user.Email==email)
+                        throw new Exception("You can't add yourself");
+
+                    var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
+
+                    if (personID != 0)
+                    {
+                        UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
+                        _entities.UserShares.Add(us);
+                        userManager.EmailService.SendAsync(new IdentityMessage()
+                        {
+                            Body = $"{user.Email} provided access to folder {GetSharedFolderLink(folder)}",
+                            Destination = email,
+                            Subject = "ScreenTaker folder sharing"
+                        });
+                    }
+                    else
+                    {
+                        UserShare us = new UserShare { FolderId = folderId, Email = email };
+                        _entities.UserShares.Add(us);
+                    }
+                    if(folder!=null)                   
+                        foreach (var i in folder.Images)
+                        {
+                            var record = _entities.UserShares.FirstOrDefault(w => w.ImageId == i.Id && (w.Email == email || w.Person.Email == email));
+                            if (record != null)
+                                _entities.UserShares.Remove(record);
+                        }                                                
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
+            return RedirectToAction("PartialLibraryAccess", new { folderId = folderId });
+        }
+
+        public ActionResult FolderAccessRemoveUser(string email, int folderId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {                   
+                    UserShare record;
+                    if (_entities.People.Where(w => w.Email == email).Any())
+                        record = _entities.UserShares.Where(w => w.Person.Email == email && w.FolderId == folderId).FirstOrDefault();
+                    else
+                        record = _entities.UserShares.Where(w => w.Email == email && w.FolderId == folderId).FirstOrDefault();
+                    if (record != null)
+                        _entities.UserShares.Remove(record);
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
+            return RedirectToAction("PartialLibraryAccess", new { folderId = folderId });
+        }
+
+        public ActionResult FolderAccessSwitchGroupsAccess(int groupId, int folderId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var result = _entities.GroupShares.Where(w => w.GroupId == groupId && w.FolderId == folderId).FirstOrDefault();
+                    if (result != null)
+                        _entities.GroupShares.Remove(result);
+                    else
+                    {
+                        GroupShare us = new GroupShare { GroupId = groupId, FolderId = folderId };
+                        _entities.GroupShares.Add(us);
+                    }
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
+            return RedirectToAction("PartialLibraryAccess", new { folderId = folderId });
+        }
+
+        public ActionResult PartialImagesAccess(int imageId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        Image image = _entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
+                        if (image != null)
+                        {
+                            ViewBag.ImageSharedLink = GetBaseUrl() + "Home/SharedImage?i=" + image.SharedCode;
+                            ViewBag.AllowedUsers = _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => (s.PersonId != null ? s.Person.Email : s.Email)).ToList().Concat(_entities.UserShares.Where(w => w.FolderId == image.FolderId).Select(s => (s.PersonId != null ? s.Person.Email : s.Email)).ToList()).ToList();
+                            ViewBag.AllowedUsersIds = _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => s.PersonId != null ? s.Person.Id : s.Id).ToList().Concat(_entities.UserShares.Where(w => w.FolderId == image.FolderId).Select(s => (s.PersonId != null ? s.Person.Id : s.Id)).ToList()).ToList();
+                            ViewBag.AreUserRightsInherited= _entities.UserShares.Where(w => w.ImageId == image.Id).Select(s => false).ToList().Concat(_entities.UserShares.Where(w => w.FolderId == image.FolderId).Select(s => true)).ToList<bool>();
+                            ViewBag.AllGroups = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => s.Name).ToList();
+                            ViewBag.GroupsIDs = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => s.Id).ToList();
+                            ViewBag.GroupsAccess = _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => (_entities.GroupShares.Where(w => w.GroupId == s.Id && w.ImageId == image.Id).Any()) ? true : false).ToList();
+                            ViewBag.AreGroupRightsInherited= _entities.PersonGroups.Where(w => w.PersonId == user.Id).Select(s => (_entities.GroupShares.Where(w => w.GroupId == s.Id && w.FolderId == image.FolderId).Any()) ? true : false).ToList<bool>();
+                        }
+                    }
+                    if (TempData["MessageContent"] != null)
+                        ViewBag.MessageContent = TempData["MessageContent"];
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
+                }
+            }
+            return PartialView("PartialImagesAccess");            
+        }
+
+        public bool IsValidEmail(string e_mail)
+        {
+            string expr = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
+            Match isMatch = Regex.Match(e_mail, expr, RegexOptions.IgnoreCase);
+            return isMatch.Success;
+        }
+
+        public ActionResult ImageAccessAddUser(string email, int imageId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (!IsValidEmail(email))
+                        throw new Exception("Email is not valid");                    
+                    var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
+                    if (_entities.UserShares.Where(w => (w.Email == email || w.PersonId == personID) && w.ImageId == imageId).Any())
+                        throw new Exception("This user is alredy here");
+                    var image = _entities.Images.Where(w => w.Id == imageId).FirstOrDefault();
+                    if(image!=null&&_entities.UserShares.Where(w=>w.FolderId==image.FolderId&&(w.Email==email||w.Person.Email==email)).Any())
+                        throw new Exception("This right is inherited from folder and can't be changed");
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null && user.Email == email)
+                        throw new Exception("You can't add yourself");
+                    if (personID != 0)
+                    {
+                        UserShare us = new UserShare { PersonId = personID, ImageId = imageId };
+                        _entities.UserShares.Add(us);
+                    }
+                    else
+                    {
+                        UserShare us = new UserShare { ImageId = imageId, Email = email };
+                        _entities.UserShares.Add(us);
+                    }
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
+            return RedirectToAction("PartialImagesAccess", new { imageId = imageId });
+        }
+            
+        public ActionResult ImageAccessRemoveUser(string email, int imageId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {                    
+                    UserShare record=null;
+                    if (_entities.People.Where(w => w.Email == email).Any())
+                        record = _entities.UserShares.Where(w => w.Person.Email == email&&w.ImageId==imageId).FirstOrDefault();
+                    else
+                        record = _entities.UserShares.Where(w => w.Email == email && w.ImageId == imageId).FirstOrDefault();
+                    if (record != null)
+                        _entities.UserShares.Remove(record);
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
+            return RedirectToAction("PartialImagesAccess", new { imageId = imageId });
+        }
+
+        public ActionResult ImageAccessSwitchGroupsAccess(int groupId, int imageId)
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var result = _entities.GroupShares.Where(w => w.GroupId == groupId && w.ImageId == imageId).FirstOrDefault();
+                    if (result != null)
+                        _entities.GroupShares.Remove(result);
+                    else
+                    {
+                        GroupShare us = new GroupShare { GroupId = groupId, ImageId = imageId };
+                        _entities.GroupShares.Add(us);
+                    }
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
+            return RedirectToAction("PartialImageAccess", new { imageId = imageId});
+        }
+
+        public ActionResult MakeFolderPublicOrPrivate(int folderId, string lang = "en")
+        {
+            ViewBag.Localize = locale;
+
+            // var sharedСode = Path.GetFileNameWithoutExtension(path);
+            var result = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
+
+            if (result.IsPublic)
+
+                result.IsPublic = false;
+            else
+                result.IsPublic = true;
+            _entities.SaveChanges();
+            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
+            ViewBag.BASE_URL = GetBaseUrl() + "";
+            ViewBag.FolderID = folderId;
+            return PartialView("PartialFoldersChangeState");
+        }      
 
         public ActionResult SharedLibrary(string lang = "en")
         {
@@ -234,6 +544,37 @@ namespace ScreenTaker.Controllers
                 return RedirectToAction("Welcome");
             }
 
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var groups = from p in _entities.PersonGroups
+                                 where p.PersonId == user.Id
+                                 select new { ID = p.Id, Groups = p.Name };
+                    //var flags = from p in _entities.GroupShares
+                    //            where p.FolderId == /*current folderid*/
+                    //            select p;
+
+                    if (groups.Any())
+                    {
+                        ViewBag.Groups = groups.Select(s => s.Groups).ToList();
+                        ViewBag.GroupsIDs = groups.Select(s => s.ID).ToList();
+
+                    }
+                    //if (flags.Any())
+                    //    ViewBag.Flags = groups.Select(w=> flags.Select(s=>s.GroupId).Contains(w.ID)?"Allowed": "Denied").ToList();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+
+
+           
+
             ViewBag.FolderName = folder.Name;
             FillImagesViewBag(folderId);
             return View("Images", new { lang = locale });
@@ -292,11 +633,38 @@ namespace ScreenTaker.Controllers
                     }
                 }
 
+
             }
             FillImagesViewBag(Int32.Parse(folderId));
 
             return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
         }
+
+
+       
+
+
+        public ActionResult MakeImagePublicOrPrivate(int imageId, string lang = "en")
+        {
+            ViewBag.Localize = locale;
+
+            // var sharedСode = Path.GetFileNameWithoutExtension(path);
+            var result = _entities.Images.FirstOrDefault(w => w.Id == imageId);
+
+            if (result.IsPublic)
+
+                result.IsPublic = false;
+
+            else
+                result.IsPublic = true;
+
+            _entities.SaveChanges();
+
+
+            return RedirectToAction("Images", new { lang = locale });
+        }
+
+      
 
         [AllowAnonymous]
         public ActionResult SharedFolder(string f, string lang = "en")
@@ -422,45 +790,86 @@ namespace ScreenTaker.Controllers
                 ViewBag.IsPublic = ViewBag.Image.IsPublic;
             }
 
-            ViewBag.Id = "";
+            ViewBag.ImageId = "";
             if (ViewBag.Image != null)
             {
-                ViewBag.Id = ViewBag.Image.Id;
+                ViewBag.ImageId = ViewBag.Image.Id;
+                SingleImageId = ViewBag.Image.Id;
             }
 
             ViewBag.ButtonPrivateORPublic = "";
             if (ViewBag.Image != null)
             {
-                if (ViewBag.Image.IsPublic) ViewBag.ButtonPrivateORPublic = "Make private";
-                else ViewBag.ButtonPrivateORPublic = "Make public";
+                if (ViewBag.Image.IsPublic)
+                {
+                    ViewBag.ButtonPrivateORPublicMain = "Make private";
+                    ViewBag.ButtonPrivateORPublic = "Turn Off";
+                }
+                else
+                {
+                    ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PUBLIC;
+                    ViewBag.ButtonPrivateORPublic = "Turn On";
+                }
             }
 
             if (ViewBag.Image != null)
             {
                 ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
             }
-            return View("SingleImage", new { lang = locale });
-        }
-
-
-        //для одного зображення зміна доступу
-        public ActionResult MakeSingleImagePublic(bool imagestatus, int imageId, string lang = "en")
-        {
-            ViewBag.Localize = locale;
-            var result = _entities.Images.FirstOrDefault(b => b.Id == imageId);
-            if (result != null)
+            using (var transaction = _entities.Database.BeginTransaction())
             {
-                if (imagestatus)
-                    result.IsPublic = false;
-                else
-                    result.IsPublic = true;
+                try
+                {
+                    var emails = (from p in _entities.UserShares
+                                  join m in _entities.People
+                                      on p.PersonId equals m.Id
+                                  where p.ImageId == SingleImageId && p.Email == null
+                                  select new { Email = m.Email })
+                        .Union
+                        (from n in _entities.UserShares
+                         where n.ImageId == SingleImageId && n.PersonId == null
+                         select new { Email = n.Email });
 
-                _entities.SaveChanges();
+                    if (emails.Any())
+                        ViewBag.Emails = emails.Select(s => s.Email).ToList();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
             }
 
-            return RedirectToAction("SingleImage", new { lang = locale });
-        }
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var groups = from p in _entities.PersonGroups
+                                 where p.PersonId == user.Id
+                                 select new { ID = p.Id, Groups = p.Name };
+                    var flags = from p in _entities.GroupShares
+                                where p.ImageId == SingleImageId
+                                select p;
 
+                    if (groups.Any())
+                    {
+                        ViewBag.Groups = groups.Select(s => s.Groups).ToList();
+                        ViewBag.GroupsIDs = groups.Select(s => s.ID).ToList();
+
+                    }
+                    //if (flags.Any())
+                    //    ViewBag.Flags = groups.Select(w => flags.Select(s => s.GroupId).Contains(w.ID) ? "Allowed" : "Denied").ToList();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return View("SingleImage", new { lang = locale });
+        }                
 
         [AllowAnonymous]
         [HttpGet]

@@ -44,6 +44,12 @@ namespace ScreenTaker
                     "abcABC12345");
                 smtpClient.Credentials = credentials;
                 smtpClient.EnableSsl = true;
+
+                //smtpClient.SendCompleted += (s, e) => {
+                //    smtpClient.Dispose();
+                //    msg.Dispose();
+                //};
+
                 smtpClient.Send(msg);
             }
             catch (Exception e)

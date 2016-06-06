@@ -122,9 +122,7 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
-                    if (_entities.PersonGroups.Where(w => w.Name == name).Any())
-                        throw new Exception("There is alredy a group with this name");
+                {                   
                     if (name==null||name.Length==0)
                         throw new Exception("Name can't be empty");
                     var group = new PersonGroup();
@@ -133,6 +131,8 @@ namespace ScreenTaker.Controllers
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null)
                     {
+                        if (_entities.PersonGroups.Where(w => w.Name == name&&w.PersonId==user.Id).Any())
+                            throw new Exception("There is alredy a group with this name");
                         var email = user.Email;
                         group.PersonId = _entities.People.Where(w=>w.Email==email).Select(s=>s.Id).FirstOrDefault();
                     }
@@ -164,19 +164,28 @@ namespace ScreenTaker.Controllers
                     var groupId = selectedId;
 
                     if (_entities.GroupMembers.Where(w => w.GroupId == groupId).Any())
-                    {
-                        var groupMembers = _entities.GroupMembers.Where(w => w.GroupId == groupId).ToList();
-                        for(var i=0;i<groupMembers.Count;i++)                        
-                            _entities.GroupMembers.Remove(groupMembers[i]);                        
-                    }
-                    var group = _entities.PersonGroups.Where(w => w.Id == groupId).FirstOrDefault();
-                    _entities.PersonGroups.Remove(group);
-                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+            {
+                var groupMembers = _entities.GroupMembers.Where(w => w.GroupId == groupId).ToList();
+                for (var i = 0; i < groupMembers.Count; i++)
+                    if (groupMembers[i] != null)
+                        _entities.GroupMembers.Remove(groupMembers[i]);
+            }
+            if (_entities.GroupShares.Where(w => w.GroupId == groupId).Any())
+            {
+                var groupShares= _entities.GroupShares.Where(w => w.GroupId == groupId).ToList();
+                for (var i = 0; i < groupShares.Count; i++)
+                    if (groupShares[i] != null)
+                        _entities.GroupShares.Remove(groupShares[i]);
+            }
+                var group = _entities.PersonGroups.Where(w => w.Id == groupId).FirstOrDefault();
+            if (group != null)
+                _entities.PersonGroups.Remove(group);
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null)
                     {
                         var email = user.Email;
-                        idToRedirect = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
-                    }
+                idToRedirect = _entities.PersonGroups.Where(w => w.Person.Email == email).Select(s => s.Id).FirstOrDefault();
+            }
                     _entities.SaveChanges();
                     transaction.Commit();
                 }

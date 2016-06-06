@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ScreenTaker.Models
 {
-    public static class SecurityHelper
+    public class SecurityHelper
     {
         public static string GetImagePath(string folderPath, string imageCode)
         {
@@ -46,15 +46,17 @@ namespace ScreenTaker.Models
                 // show only public images to unauthorized user
                 return folder.IsPublic ? folder.Images.Where(i => i.IsPublic).ToList() : null;
             }
-
-            if (folder.IsPublic)
+            // show all images to authorized user who has access
+            if (IsFolderSharedWithUser(user, folder.Person, folder, context))
             {
-                // show all images to authorized user who has access
-                if (IsFolderSharedWithUser(user, folder.Person, folder, context))
-                {
-                    return folder.Images.ToList();
-                }
+                return folder.Images.ToList();
             }
+
+            //if (folder.IsPublic)
+            //{
+                
+                
+            //}
             // folder is private or user has no direct access for folder 
             return GetAccessibleImagesInFolder(user, folder, context);
         } 
