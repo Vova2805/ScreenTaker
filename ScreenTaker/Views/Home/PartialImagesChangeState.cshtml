@@ -1,4 +1,14 @@
-﻿<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+﻿@{ 
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+}
+<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
     @{
         int index = 0;
         int count = ViewBag.Images.Count;
@@ -14,8 +24,11 @@
             string classes = "floating-box text-center task active images";
             string without_ex = i.Name;
             string image_id = "IMD" + index;
+            string isPublic = i.IsPublic + "";
+            string id = i.Id + "";
+            string IId = ViewBag.ImageID + "";
 
-            <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name','@without_ex')"
+            <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name','@without_ex','@isPublic')"
                  ondblclick="openImage('@original')" style="cursor:pointer;">
                 <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                     <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
@@ -24,6 +37,12 @@
                 </div>
             </div>
             index = index + 1;
+            if (id == IId)
+            {
+                <script>
+                    document.getElementById('@image_id').click();
+                </script>
+            }
         }
     }
 </div>

@@ -1,11 +1,30 @@
-﻿<div class="modal-header">
+﻿@{
+    <script>
+        document.getElementById("copyButton").addEventListener("click", function () {
+            copyToClipboard(document.getElementById("sharedLink"));
+            selectText();
+        });
+
+    </script>
+
+        if (!Request.QueryString["lang"].IsEmpty())
+        {
+            Culture = UICulture = Request.QueryString["lang"];
+        }
+        else
+        {
+            Culture = UICulture = ViewBag.Localize ?? "en";
+        }
+    
+}
+<div class="modal-header">
     <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
     <h4 class="modal-title" id="gridSystemModalLabel">@Resources.Resource.MANAGE_ACCESS</h4>
 </div>
 <div class="modal-body">
-    <div class="row" style="margin-bottom:5px;">
+    @*<div class="row" style="margin-bottom:5px;">
         <div class="col-sm-9">
             <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
         </div>
@@ -17,13 +36,13 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="row">
         <div class="col-sm-12">
             <div class="input-group">
-                <input type="text" id="sharedLink" style="height:30px;" class="form-control" value="@ViewBag.ImageSharedLink">
+                <input type="text" id="sharedLink" style="height:30px;" onclick="selectText()" class="form-control" value="@ViewBag.ImageSharedLink">
                 <span class="input-group-btn" style="height:30px;">
-                    <button class="btn btn-default btn-not-rounded" style="height:30px;" type="button">@Resources.Resource.COPY</button>
+                    <button class="btn btn-default btn-not-rounded" id="copyButton" style="height:30px;" type="button">@Resources.Resource.COPY</button>
                 </span>
             </div>
         </div>
@@ -49,13 +68,13 @@
                                     <div  class="media-right" style="vertical-align: middle;" >                                        
                                     @if (ViewBag.AreUserRightsInherited[i])
                                     {
-                                            <button disabled type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                            <button disabled type="button" class="btn badge right" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                             </button>
                                     }
                                     else
                                     {
-                                            <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align" onclick="$.ajax({
+                                            <button type="button" class="btn badge right" aria-label="Left Align" onclick="$.ajax({
                                                 url: 'ImageAccessRemoveUser',
                                                 data: {
                                                     email: '@ViewBag.AllowedUsers[i]',
@@ -84,7 +103,7 @@
             <div class="row" style="margin-bottom:10px;">
                 <div class="col-sm-12">
                     <div class="input-group">
-                        <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
+                        <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
                         <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="$.ajax({
     url: 'ImageAccessAddUser',
     data: {
@@ -118,35 +137,54 @@
                         {
                             for (int i = 0; i < ViewBag.AllGroups.Count; i++)
                             {
-                                <div class="list-group-item ">
+                                string classes = "";
+                                if (ViewBag.AreGroupRightsInherited[i])
+                                {
+                                    classes = "disabled-list-group-item";
+                                }
+                                <div class="list-group-item @classes">
                                     <div class="media-body" style="vertical-align: middle">
-                                        <h5 class="media-heading">@ViewBag.AllGroups[i] @if (ViewBag.AreGroupRightsInherited[i]) {<span>(disabled)</span> } </h5>
+                                        <h5 class="media-heading">@ViewBag.AllGroups[i]</h5>
                                     </div>
                                     <div class="material-switch media-right" style="vertical-align: middle">
-                                        @if (ViewBag.GroupsAccess[i])
+                                        @if (ViewBag.GroupsAccess[i] || ViewBag.AreGroupRightsInherited[i])
                                         {
-                                            <input id="foldersAccessSwitch @i" type="checkbox" checked />
+                                            if (!ViewBag.AreGroupRightsInherited[i])
+                                            {
+                                                <input id="foldersAccessSwitch @i" type="checkbox" checked />
+                                            }
+                                            else
+                                            {
+                                                <input id="foldersAccessSwitch @i" type="checkbox" checked disabled/>
+                                            }
                                         }
                                         else
                                         {
                                             <input id="foldersAccessSwitch @i" type="checkbox" />
                                         }
-                                        <label for="foldersAccessSwitch @i" class="label-info" onclick="$.ajax({
-    url: 'ImageAccessSwitchGroupsAccess',
-    data: {
-        groupId: @ViewBag.GroupsIDs[i],
-        imageId: document.getElementById('Idhidden').value,        
-    },
-    success: function (data) {
-        $('#ImagesAccessDynamic').html(data);
-        if(document.getElementById('MessageContentFromPartial').value!='')
-        {
-            $('#Message').modal('show');
-            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
-        }
-    }
-});" />
+                                        @if (!ViewBag.AreGroupRightsInherited[i]){
+                                        <label for="foldersAccessSwitch @i" class="label-info" 
+                                        onclick="$.ajax({
+                                        url: 'ImageAccessSwitchGroupsAccess',
+                                        data: {
+                                            groupId: @ViewBag.GroupsIDs[i],
+                                            imageId: document.getElementById('Idhidden').value,
+                                        },
+                                        success: function (data) {
+                                            $('#ImagesAccessDynamic').html(data);
+                                            if(document.getElementById('MessageContentFromPartial').value!='')
+                                            {
+                                                $('#Message').modal('show');
+                                                document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                document.getElementById('MessageTitle').innerHTML='Error';
+                                            }
+                                        }
+                                        });" />
+                                        }
+                                        else{
+                                        <label for="foldersAccessSwitch @i" class="label-info" onclick=""/>
+                                        }
+                                      
                                     </div>
                                 </div>
                             }

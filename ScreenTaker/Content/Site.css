@@ -606,3 +606,14 @@ textarea {
         height:33px;
         margin-top:-5px;
     }
+    .disabled-list-group-item{
+        background-color:#AAAAAA;
+        color:#D6D6D6;
+    }
+    .disabled-list-group-item input{
+        pointer-events:none;
+    }
+
+.ui-autocomplete {
+    z-index: 9000;
+}

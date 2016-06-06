@@ -2,10 +2,19 @@
     <script>
         document.getElementById("copyButton").addEventListener("click", function () {
             copyToClipboard(document.getElementById("sharedLink")); 
-            selectText("sharedLink");
+            selectText();
         });
         
     </script>
+
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
 }
 <div class="modal-header">
     <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
@@ -14,7 +23,7 @@
     <h4 class="modal-title" id="gridSystemModalLabel">@Resources.Resource.MANAGE_ACCESS</h4>
 </div>
 <div class="modal-body">
-    <div class="row" style="margin-bottom:5px;">
+    @*<div class="row" style="margin-bottom:5px;">
         <div class="col-sm-9">
             <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
         </div>
@@ -27,12 +36,12 @@
 
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="row">
         <div class="col-sm-12">
             <div class="input-group">
 
-                <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText('sharedLink')" class="form-control js-copytextarea" value="@ViewBag.FolderLink">
+                <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText()" class="form-control" value="@ViewBag.FolderLink">
                 <span class="input-group-btn" style="height: 30px;">
                     <button class="btn btn-default btn-not-rounded" id="copyButton" style="height: 30px;" type="button">@Resources.Resource.COPY</button>
                 </span>
@@ -58,7 +67,8 @@
                                         <h5 class="media-heading">@ViewBag.AllowedUsers[i]</h5>
                                     </div>
                                     <div class="media-right" style="vertical-align: middle;" onclick=
-                                         "$.ajax({
+                                         "$('#loadingAnimation').css('visibility', 'visible');
+                                         $.ajax({
                                         url: 'FolderAccessRemoveUser',
                                         data: {
                                             email: '@ViewBag.AllowedUsers[i]',
@@ -73,25 +83,25 @@
                                                     document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
                                                 }
                                         }
-                                    });">                                   
-                                        <button type="button" class="btn badge right btn-not-rounded" aria-label="Left Align">
+                                        });">                                   
+                                        <button type="button" class="btn badge right" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                         </button>
                                     </div>
                                 </div>
                             }
                         }
-
-
                     </div>
                 </div>
             </div>
             <div class="row" style="margin-bottom:10px;">
                 <div class="col-sm-12">
                     <div class="input-group">
-                        <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
+                        <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
+                        
                         <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick=
-                              "$.ajax({
+                              "$('#loadingAnimation').css('visibility', 'visible');
+                                    $.ajax({
                                         url: 'FolderAccessAddUser',
                                         data: {
                                             email: document.getElementById('userMail').value,
@@ -137,22 +147,23 @@
                                                 <input id="foldersAccessSwitch @i" type="checkbox"  />
                                             }
                                             <label for="foldersAccessSwitch @i" class="label-info" onclick=
-                                                   "$.ajax({
-    url: 'FolderAccessSwitchGroupsAccess',
-    data: {
-        groupId: @ViewBag.GroupsIDs[i],
-        folderId: document.getElementById('Idhidden').value,
-    },
-    success: function (data) {
-        $('#accessDynamic').html(data);
-            if(document.getElementById('MessageContentFromPartial').value!='')
-        {
-            $('#Message').modal('show');
-            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
-        }
-    }
-});"/>                                       
+                                                   "$('#loadingAnimation').css('visibility', 'visible');
+                                                   $.ajax({
+                                                url: 'FolderAccessSwitchGroupsAccess',
+                                                data: {
+                                                    groupId: @ViewBag.GroupsIDs[i],
+                                                    folderId: document.getElementById('Idhidden').value,
+                                                },
+                                                success: function (data) {
+                                                    $('#accessDynamic').html(data);
+                                                        if(document.getElementById('MessageContentFromPartial').value!='')
+                                                    {
+                                                        $('#Message').modal('show');
+                                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                                    }
+                                                }
+                                            });"/>                                       
                                     </div>
                                 </div>
                             }

@@ -314,6 +314,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
+            ViewBag.Localize = locale;
             return code == null ? View("Error") : View();
         }
 
@@ -360,6 +361,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+            ViewBag.Localize = locale;
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
@@ -487,7 +489,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
-            
+            ViewBag.Localize = locale;
             return View();
         }
         
@@ -511,6 +513,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
+            ViewBag.Localize = locale;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -622,7 +625,8 @@ namespace ScreenTaker.Controllers
 
        
         public ActionResult SetAvatar(HttpPostedFileBase file)
-        {            
+        {
+            ViewBag.Localize = locale;
             if (file != null)
             {                
                 using (var transaction = _entities.Database.BeginTransaction())

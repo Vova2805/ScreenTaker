@@ -1,4 +1,14 @@
-﻿<div class="col-sm-12" style="padding-left:25px;padding-right:10px;">
+﻿@{ 
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+}
+<div class="col-sm-12" style="padding-left:25px;padding-right:10px;">
     <div class="row">
         <div class="col-sm-10">
             <h2 id="OriginalName">@ViewBag.OriginalName</h2>
@@ -45,26 +55,6 @@
                 <div class="row">
                     <div class="text-md-center">
                         <h5 class="text-center">Uploaded @ViewBag.Date</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">map</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">favorite</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">earth</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">mine</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">family</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">nature</button>
                     </div>
                 </div>
                 <br />

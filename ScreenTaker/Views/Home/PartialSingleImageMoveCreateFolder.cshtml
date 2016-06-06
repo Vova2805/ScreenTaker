@@ -1,4 +1,14 @@
-﻿@if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
+﻿@{ 
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+}
+@if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
 {
     for (int i = 0; i < ViewBag.UserFolders.Count; i++)
     {

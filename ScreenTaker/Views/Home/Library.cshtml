@@ -14,8 +14,45 @@
 }
 @section Scripts {
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
-    
+<link href="@Url.Content("~/Content/themes/base/autocomplete.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/theme.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-ui-1.11.4.min.js")" type="text/javascript"></script>
     <script>
+        $(function () {
+            $("[data-autocomplete-source]").each(function () {
+                var target = $(this);
+                target.autocomplete({ source: target.attr("data-autocomplete-source") });
+            });
+        });       
+        var a = $('#loadingAnimation');
+        a.css('visibility', 'hidden');
+        //$(document).ajaxStart(function () {
+        //    $('#loadingAnimation').css('visibility', 'visible');
+        //});
+        $(document).ajaxStop(function () {
+            a.css('visibility', 'hidden');
+            $(function () {
+                $("[data-autocomplete-source]").each(function () {
+                    var target = $(this);
+                    target.autocomplete({ source: target.attr("data-autocomplete-source") });
+                });
+            });
+        });  
+        $('#toggle_event_editing button').click(function () {
+            $('#MakePublicButton').click();
+            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
+                /* code to do when unlocking */
+                $('#switch_status').html('Switched on.');
+            } else {
+                /* code to do when locking */
+                $('#switch_status').html('Switched off.');
+            }
+
+            /* reverse locking status */
+            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
+            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
+        });
+
         document.getElementById("FID0").className += " active-image";
         var numb = document.getElementById('FID_field').innerText;
         if (numb == "") numb = "0";
@@ -42,25 +79,6 @@
 
         document.getElementById("new-title").value = '@ViewBag.FolderTitle';
         document.getElementById("folderNameDelete").innerText = '@ViewBag.FolderTitle';
-
-        $.ajax({
-            url: 'PartialLibraryAccess',
-            data: {
-                folderId: document.getElementById('Idhidden').value,       
-            },
-            success: function (data) {        
-                $('#accessDynamic').html(data);                   
-            }
-        });
-
-        var a = $('#loadingAnimation');
-        a.css('visibility', 'hidden');
-        //$(document).ajaxStart(function () {
-        //    $('#loadingAnimation').css('visibility', 'visible');
-        //});
-        $(document).ajaxStop(function () {
-            a.css('visibility', 'hidden');
-        });
 
         function ShowProgress() {
             setTimeout(function () {
@@ -127,22 +145,10 @@
             }
             document.getElementById(folder_id).className += " active-image";
             document.getElementById('FID_field').innerText = folder_id.slice(-1);
-
-            $.ajax({
-                url: 'PartialLibraryAccess',
-                data: {
-                    folderId: document.getElementById('Idhidden').value,       
-                },
-                success: function (data) {        
-                    $('#accessDynamic').html(data);                   
-                }
-            });
             return false;
         }
     </script>
 }
-
-
 <div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -168,7 +174,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">
+<div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">    
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -221,7 +227,7 @@
                         <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
                     <div class="row">
-                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="folderNameDelete"></b> folder?</p>
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="folderNameDelete"></b> @Resources.Resource.FOLDERY ?</p>
                     </div>
                 </div>
             </div>
@@ -247,8 +253,8 @@
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess" style="top:100px" >
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" id="accessDynamic">            
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content" id="accessDynamic" >                        
         </div>
     </div>
 </div>
@@ -257,7 +263,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 25px; padding-right: 25px;">
-                <h2>@Resources.Resource.FOLDERS</h2>
+                <h2 style="margin-left:15px;">@Resources.Resource.FOLDERS</h2>
             </div>
             <div class="preloader" id="loadingAnimation">
                 <div class="sk-cube-grid preloader-center center-block">
@@ -369,7 +375,8 @@
             <br />
             <div>
                 <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%" 
-                         onclick="$.ajax({
+                         onclick="$('#loadingAnimation').css('visibility', 'visible');
+                        $.ajax({
                                 url: 'MakeFolderPublicOrPrivate',
                                 data: {
                                     folderId: document.getElementById('Idhidden').value
@@ -383,26 +390,27 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
-            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText('sharedLink')" value="@ViewBag.FolderLink" disabled />
+            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" disabled />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
-    "$.ajax({
-    url: 'PartialLibraryAccess',
-    data: {
-        folderId: document.getElementById('Idhidden').value,       
-    },
-    success: function (data) {        
-        $('#accessDynamic').html(data);    
-        if(document.getElementById('MessageContentFromPartial').value!='')
-        {
-            $('#Message').modal('show');
-            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
-        }               
-    }
-});">@Resources.Resource.MANAGE_ACCESS</button>
-            </div>
+                "$('#loadingAnimation').css('visibility', 'visible');
+                $.ajax({
+                url: 'PartialLibraryAccess',
+                data: {
+                    folderId: document.getElementById('Idhidden').value,       
+                },
+                success: function (data) {        
+                    $('#accessDynamic').html(data);    
+                    if(document.getElementById('MessageContentFromPartial').value!='')
+                    {
+                        $('#Message').modal('show');
+                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                    }               
+                }
+            });">@Resources.Resource.MANAGE_ACCESS</button>
+                        </div>
             <hr />
             <p id="sharedLinkhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderShCode</p>
             <p id="Idhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderId</p>
@@ -433,7 +441,23 @@
             </div>
         </li>
         <li class="context-menu__item">
-            <a href="" class="context-menu__link" data-toggle="modal" data-target="#FolderManageAccess"> @Resources.Resource.MANAGE_ACCESS</a>
+            <a href="" class="context-menu__link" data-toggle="modal" data-target="#FolderManageAccess" onclick=
+                "$('#loadingAnimation').css('visibility', 'visible');
+                $.ajax({
+                url: 'PartialLibraryAccess',
+                data: {
+                    folderId: document.getElementById('Idhidden').value,       
+                },
+                success: function (data) {        
+                    $('#accessDynamic').html(data);    
+                    if(document.getElementById('MessageContentFromPartial').value!='')
+                    {
+                        $('#Message').modal('show');
+                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                    }               
+                }
+            });" > @Resources.Resource.MANAGE_ACCESS</a>
         </li>
     </ul>
 </nav>

@@ -167,6 +167,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult PartialLibraryAccess(int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -200,6 +201,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessAddUser(string email, int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -216,9 +218,13 @@ namespace ScreenTaker.Controllers
 
                     if (user != null && user.Email==email)
                         throw new Exception("You can't add yourself");
-
                     var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
-
+                    var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
+                    if (user != null&&friend != null && !_entities.PersonFriends.Where(w => w.PersonId == user.Id && w.FriendId == friend.Id).Any())
+                    {
+                        var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
+                        _entities.PersonFriends.Add(personFriend);
+                    }
                     if (personID != 0)
                     {
                         UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
@@ -256,6 +262,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessRemoveUser(string email, int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -281,6 +288,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessSwitchGroupsAccess(int groupId, int folderId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -307,6 +315,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult PartialImagesAccess(int imageId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -356,6 +365,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImageAccessAddUser(string email, int imageId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -376,7 +386,13 @@ namespace ScreenTaker.Controllers
 
                     if (user != null && user.Email == email)
                         throw new Exception("You can't add yourself");
-                    if (person != null)
+                    var friend = _entities.People.FirstOrDefault(w => w.Email == email);
+                    if (user != null && friend != null && !_entities.PersonFriends.Any(w => w.PersonId == user.Id && w.FriendId == friend.Id))
+                    {
+                        var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
+                        _entities.PersonFriends.Add(personFriend);
+                    }
+                    if (person.Id != 0)
                     {
                         userManager.EmailService.SendAsync(new IdentityMessage()
                         {
@@ -407,6 +423,7 @@ namespace ScreenTaker.Controllers
             
         public ActionResult ImageAccessRemoveUser(string email, int imageId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -432,6 +449,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImageAccessSwitchGroupsAccess(int groupId, int imageId)
         {
+            ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -455,23 +473,34 @@ namespace ScreenTaker.Controllers
             }
             return RedirectToAction("PartialImageAccess", new { imageId = imageId});
         }
-
+       
         public ActionResult MakeFolderPublicOrPrivate(int folderId, string lang = "en")
         {
-            ViewBag.Localize = locale;
-
-            // var sharedСode = Path.GetFileNameWithoutExtension(path);
-            var result = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
-
-            if (result.IsPublic)
-
-                result.IsPublic = false;
-            else
-                result.IsPublic = true;
-            _entities.SaveChanges();
-            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
-            ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.FolderID = folderId;
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ViewBag.Localize = locale;
+                    var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
+                    if (folder != null)
+                    {
+                        folder.IsPublic = !folder.IsPublic;
+                        var images = _entities.Images.Where(i => i.FolderId == folder.Id).ToList();
+                        foreach (var i in images)
+                            i.IsPublic = folder.IsPublic;
+                    }
+                    _entities.SaveChanges();
+                    ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
+                    ViewBag.BASE_URL = GetBaseUrl() + "";
+                    ViewBag.FolderID = folderId;
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
             return PartialView("PartialFoldersChangeState");
         }      
 
@@ -488,16 +517,21 @@ namespace ScreenTaker.Controllers
                 Id = 1,
                 OwnerId = user.Id,
                 SharedCode = "img",
-                IsPublic = true
+                IsPublic = true,
+                Name = "Images"
             };
             var sharedFolders = 
-                (new[] { imagesFolder}).Concat(
+                (new[] { imagesFolder})
+                .Concat(
                 _entities.UserShares
                 .Where(us => us.PersonId == user.Id && us.FolderId != null)
-                .Select(us => us.Folder)).ToList();
+                .Select(us => us.Folder)
+                ).ToList();
 
-            ViewBag.SharedFolderLinks = sharedFolders.Select(GetSharedFolderLink);
-            ViewBag.ImageLinks = sharedFolders.Select(GetFolderImageLink);
+            ViewBag.FolderLinks = sharedFolders.Select(GetSharedFolderLink).ToList();
+            ViewBag.FolderImageLinks = sharedFolders.Select(GetFolderImageLink).ToList();
+            ViewBag.Folders = sharedFolders;
+
             ViewBag.UserId = user.Id;
 
             return View();
@@ -551,9 +585,9 @@ namespace ScreenTaker.Controllers
             ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
             ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+list.First().SharedCode+"_compressed.png" : "";
             ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
-            
+            ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
         }
-            
+        public static int current_folder = -1;
         public ActionResult Images(string id = "-1", string lang = "en")
         {
             ViewBag.Localize = locale;
@@ -561,6 +595,7 @@ namespace ScreenTaker.Controllers
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
             int folderId = Int32.Parse(id);
+            current_folder = folderId;
 
             var folder = _entities.Folders.Find(folderId);
 
@@ -603,10 +638,6 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                 }
             }
-
-
-           
-
             ViewBag.FolderName = folder.Name;
             FillImagesViewBag(folderId);
             return View("Images", new { lang = locale });
@@ -691,12 +722,38 @@ namespace ScreenTaker.Controllers
                 result.IsPublic = true;
 
             _entities.SaveChanges();
-
-
-            return RedirectToAction("Images", new { lang = locale });
+            FillImagesViewBag(current_folder);
+            ViewBag.ImageID = imageId;
+            ViewBag.ImageIsPublic = result.IsPublic+"";
+            return PartialView("PartialImagesChangeState");
         }
 
-      
+        public JsonResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
+        {
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {                    
+                    ViewBag.Localize = locale;
+                    var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
+                    if (image != null)
+                    {
+                        if (!image.Folder.IsPublic)
+                            throw new Exception("You can't make public image inside private folder");
+                        image.IsPublic = !image.IsPublic;
+                    }
+                    _entities.SaveChanges();
+                    transaction.Commit();
+                    return Json("", JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                }
+            }
+            
+        }
 
         [AllowAnonymous]
         public ActionResult SharedFolder(string f, string lang = "en")
@@ -828,26 +885,19 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Date = ViewBag.Image.PublicationDate;
             }
-
-            ViewBag.IsPublic = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.IsPublic = ViewBag.Image.IsPublic;
-            }
-
+            
             ViewBag.ImageId = "";
             if (ViewBag.Image != null)
             {
                 ViewBag.ImageId = ViewBag.Image.Id;
                 SingleImageId = ViewBag.Image.Id;
             }
-
-            ViewBag.ButtonPrivateORPublic = "";
-            if (ViewBag.Image != null)
+           
+            if (im != null)
             {
-                if (ViewBag.Image.IsPublic)
+                if (im.IsPublic)
                 {
-                    ViewBag.ButtonPrivateORPublicMain = "Make private";
+                    ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PRIVATE;
                     ViewBag.ButtonPrivateORPublic = "Turn Off";
                 }
                 else
@@ -855,7 +905,7 @@ namespace ScreenTaker.Controllers
                     ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PUBLIC;
                     ViewBag.ButtonPrivateORPublic = "Turn On";
                 }
-            }
+            }           
 
             if (ViewBag.Image != null)
             {
@@ -1330,6 +1380,7 @@ namespace ScreenTaker.Controllers
 
         public FileResult Image(string i)
         {
+            ViewBag.Localize = locale;
             return File(Request.RawUrl, "image/png");
         }
 

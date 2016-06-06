@@ -15,7 +15,30 @@
 <script src="~/Scripts/context-menu.js"></script>
 <script src="~/Scripts/Site.js"></script>
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+<link href="@Url.Content("~/Content/themes/base/autocomplete.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/base/theme.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-ui-1.11.4.min.js")" type="text/javascript"></script>
     <script>
+        $(function () {
+            $("[data-autocomplete-source]").each(function () {
+                var target = $(this);
+                target.autocomplete({ source: target.attr("data-autocomplete-source") });
+            });
+        });
+        var a = $('#loadingAnimation');
+        a.css('visibility', 'hidden');
+        $(document).ajaxStart(function () {
+            $('#loadingAnimation').css('visibility', 'visible');
+        });
+        $(document).ajaxStop(function () {
+            a.css('visibility', 'hidden');
+            $(function () {
+                $("[data-autocomplete-source]").each(function () {
+                    var target = $(this);
+                    target.autocomplete({ source: target.attr("data-autocomplete-source") });
+                });
+            });
+        });
         (function ($) {
             $('#filter').keyup(function () {
                 var val = $(this).val();
@@ -27,8 +50,22 @@
                     return result;
                 }).show();
             })
-
         }(jQuery));
+        $('#toggle_event_editing button').click(function () {
+            $('#MakePublicButton').click();
+            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
+                /* code to do when unlocking */
+                $('#switch_status').html('Switched on.');
+            } else {
+                /* code to do when locking */
+                $('#switch_status').html('Switched off.');
+            }
+
+            /* reverse locking status */
+            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
+            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
+        });
+
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
     $(document).ajaxStart(function () {
@@ -37,7 +74,6 @@
     $(document).ajaxStop(function () {
         $('#loadingAnimation').css('visibility', 'hidden');
     });
-
     function ShowProgress() {
         setTimeout(function () {
             var a = $('#loadingAnimation');
@@ -103,7 +139,7 @@
                         <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
                     <div class="row">
-                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="ImageNameDelete">@ViewBag.ImageTitle</b> image?</p>
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="ImageNameDelete">@ViewBag.ImageTitle</b> @Resources.Resource.IMAGEY?</p>
                     </div>
                 </div>
             </div>
@@ -171,19 +207,19 @@
                                     <input type="text" class="form-control" id="newFolderName" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" aria-label="Left Align" onclick=
-"$.ajax({
-    url: 'SingleImageMoveCreateFolder',
-    data: {
-        name: document.getElementById('newFolderName').value,
-        folderId: '@ViewBag.CurrentFolderId',
-        imageSharedCode: '@ViewBag.Image.SharedCode'
-    },
-    success: function (data) {
-        $('#areaForFolders').html(data);
-        document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
-        document.getElementById('areaForFolders').scrollTop = 9999;
-    }
-});">
+                                            "$.ajax({
+                                                url: 'SingleImageMoveCreateFolder',
+                                                data: {
+                                                    name: document.getElementById('newFolderName').value,
+                                                    folderId: '@ViewBag.CurrentFolderId',
+                                                    imageSharedCode: '@ViewBag.Image.SharedCode'
+                                                },
+                                                success: function (data) {
+                                                    $('#areaForFolders').html(data);
+                                                    document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
+                                                    document.getElementById('areaForFolders').scrollTop = 9999;
+                                                }
+                                            });">
                                             @Resources.Resource.CREATE
                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                         </button>
@@ -259,7 +295,7 @@
                                     <h5 class="text-center">Uploaded @ViewBag.Date</h5>
                                 </div>
                             </div>
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="col-md-2">
                                     <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">map</button>
                                 </div>
@@ -278,7 +314,7 @@
                                 <div class="col-md-2">
                                     <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">nature</button>
                                 </div>
-                            </div>
+                            </div>*@
                             <br />
                         </div>
                     </div>
@@ -303,24 +339,46 @@
                     <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">@Resources.Resource.DELETE</button>
                 </div>
                 <br />
-                <div>
-                    <button class="btn btn-warning btn-not-rounded" style="width: 100%" onclick="location.href='@Url.Action("MakeSingleImagePublicOrPrivate", "Home",new { imageId=ViewBag.ImageId} )'">@ViewBag.ButtonPrivateORPublicMain</button>
+                <div>                    
+                    <button class="btn btn-warning btn-not-rounded" style="width: 100%" id="buttonPublicOrPrivate" onclick=
+                            "$.ajax({
+    url: 'MakeSingleImagePublicOrPrivate',
+    data: {
+        imageId: document.getElementById('Idhidden').value,
+    },
+    success: function (data) {
+                            if(data!='')
+                            {
+                                $('#Message').modal('show');
+                                document.getElementById('MessageContent').innerHTML=data;
+                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                            }
+                            else
+                            {
+                                if (document.getElementById('buttonPublicOrPrivate').textContent == '@Resources.Resource.MAKE_PRIVATE')
+                                    document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PUBLIC';
+                                else
+                                    document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PRIVATE';
+                            }
+    }
+    });
+    ">@ViewBag.ButtonPrivateORPublicMain</button>
                 </div>
                 <hr />
                 <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
-                <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText('sharedLink')" value="@ViewBag.SharedLink" />
+                <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.SharedLink" />
                 <br />
                 <div>
                     <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%" onclick=
                               "$.ajax({
-    url: 'PartialImagesAccess',
-    data: {
-        imageId: document.getElementById('Idhidden').value,                       
-    },
-    success: function (data) {        
-        $('#ImagesAccessDynamic').html(data);                   
-    }
-}); 
+                            url: 'PartialImagesAccess',
+                            data: {
+                                imageId: document.getElementById('Idhidden').value,                       
+                            },
+                            success: function (data) {        
+                                $('#ImagesAccessDynamic').html(data);                   
+                            }
+                            }); 
                         ">@Resources.Resource.MANAGE_ACCESS</button>
                 </div>
                 @*<hr />*@
@@ -354,7 +412,17 @@
                 </div>
             </li>
             <li class="context-menu__item">
-                <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess">@Resources.Resource.MANAGE_ACCESS</a>
+                <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess" onclick=
+                              "$.ajax({
+                            url: 'PartialImagesAccess',
+                            data: {
+                                imageId: document.getElementById('Idhidden').value,                       
+                            },
+                            success: function (data) {        
+                                $('#ImagesAccessDynamic').html(data);                   
+                            }
+                            }); 
+                        ">@Resources.Resource.MANAGE_ACCESS</a>
             </li>
         </ul>
     </nav>

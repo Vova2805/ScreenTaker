@@ -313,7 +313,8 @@ namespace ScreenTaker.Controllers
             }
         }
         public ActionResult AutocompleteSearchEmails(string term)
-        {            
+        {
+            ViewBag.Localize = locale;
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
             if (user != null)
             {

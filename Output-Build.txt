@@ -1,7 +1,12 @@
-﻿------ Build started: Project: ScreenTaker, Configuration: Debug Any CPU ------
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(25,20,25,28): error CS0101: The namespace 'Resources' already contains a definition for 'Resource'
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(22,6,22,60): error CS0579: Duplicate 'global::System.CodeDom.Compiler.GeneratedCodeAttribute' attribute
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(23,6,23,61): error CS0579: Duplicate 'global::System.Diagnostics.DebuggerNonUserCodeAttribute' attribute
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(24,6,24,72): error CS0579: Duplicate 'global::System.Runtime.CompilerServices.CompilerGeneratedAttribute' attribute
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_GlobalResources\Resource1.designer.cs(32,18,32,26): error CS0111: Type 'Resource' already defines a member called '.ctor' with the same parameter types
-========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+﻿------ Rebuild All started: Project: ScreenTaker, Configuration: Debug Any CPU ------
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\AccountController.cs(677,23,677,33): warning CS0108: 'AccountController.GetBaseUrl()' hides inherited member 'GeneralController.GetBaseUrl()'. Use the new keyword if hiding was intended.
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(724,23,724,33): warning CS0108: 'HomeController.GetBaseUrl()' hides inherited member 'GeneralController.GetBaseUrl()'. Use the new keyword if hiding was intended.
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\EditController.cs(80,23,80,33): warning CS0108: 'EditController.GetBaseUrl()' hides inherited member 'GeneralController.GetBaseUrl()'. Use the new keyword if hiding was intended.
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_Start\IdentityConfig.cs(55,30,55,31): warning CS0168: The variable 'e' is declared but never used
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(89,38,89,39): warning CS0168: The variable 'e' is declared but never used
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(587,34,587,36): warning CS0168: The variable 'ex' is declared but never used
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(644,38,644,39): warning CS0168: The variable 'e' is declared but never used
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(852,34,852,36): warning CS0168: The variable 'ex' is declared but never used
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(880,34,880,36): warning CS0168: The variable 'ex' is declared but never used
+  ScreenTaker -> C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\bin\ScreenTaker.dll
+========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
