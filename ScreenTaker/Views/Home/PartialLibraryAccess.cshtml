@@ -80,7 +80,8 @@
             <div class="row" style="margin-bottom:10px;">
                 <div class="col-sm-12">
                     <div class="input-group">
-                        <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2">
+                        <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
+                        
                         <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick=
                               "$.ajax({
                                         url: 'FolderAccessAddUser',

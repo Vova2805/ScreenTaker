@@ -492,3 +492,7 @@ textarea {
 .disabled-button{
     color:#EBEBEB;
 }
+
+.ui-autocomplete {
+    z-index: 9000;
+}
