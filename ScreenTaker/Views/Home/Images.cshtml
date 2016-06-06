@@ -412,9 +412,8 @@
 
 <div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
     <div class="col-md-12">
-        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-6" style="padding-left: 40px;">
                     <h2>@ViewBag.FolderName</h2>
                 </div>
                 <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
@@ -430,28 +429,28 @@
                         <div class="sk-cube sk-cube9"></div>
                     </div>
                 </div>
-                <div class="col-sm-4" style="display:inline">
+                <div class="col-sm-6">
                     <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                     </button>
                         <div class="pull-right" style="display:inline;height:44px;">
                             @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
-                            <input id="fileInput" style="visibility:collapse" type="file" name="file" accept="image/*" onchange="document.getElementById('fileSubmit').click();" />
-                            <input id="fileSubmit" style="visibility: collapse" type="submit" value="" onclick="$('#loadingAnimation').css('visibility', 'visible');" />
-                            <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
-                            <span class="icon-input-btn">
-                                <span class="glyphicon glyphicon-open"  id="UploadImageSpan" >
-                                </span>
-                                <input type="button" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" 
+                            <input id="fileInput" style="visibility: collapse; display: none" type="file" name="file" accept="image/*" onchange="document.getElementById('fileSubmit').click();" />
+                            <input id="fileSubmit" style="visibility: collapse; display: none" type="submit" value="" onclick="$('#loadingAnimation').css('visibility', 'visible');" />
+                            <input id="fake" style="visibility: collapse; display: none" type="text" name="folderId" value="@ViewBag.FolderId" />
+                            <span class="icon-input-btn" id="UploadImage">
+                                <button type="button" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" 
                                  class="btn btn-primary btn-lg pull-right success btn-not-rounded"
-                                 onclick="document.getElementById('fileInput').click();" />
+                                 onclick="document.getElementById('fileInput').click();">
+                                    <span class="glyphicon glyphicon-open" style="margin-left: -5px"></span>
+                                </button>
                             </span>
                             } 
                         </div>
                 </div>
             </div>
-
+        <div class="row-fluid" style="margin-left: 10px;">
             <ol class="breadcrumb">
                 <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                 <li class="active">@ViewBag.FolderName</li>
