@@ -672,22 +672,32 @@ namespace ScreenTaker.Controllers
 
         public ActionResult MakeImagePublicOrPrivate(int imageId, string lang = "en")
         {
-            ViewBag.Localize = locale;
-
-            // var sharedСode = Path.GetFileNameWithoutExtension(path);
-            var result = _entities.Images.FirstOrDefault(w => w.Id == imageId);
-
-            if (result.IsPublic)
-
-                result.IsPublic = false;
-
-            else
-                result.IsPublic = true;
-
-            _entities.SaveChanges();
-            FillImagesViewBag(current_folder);
-            ViewBag.ImageID = imageId;
-            ViewBag.ImageIsPublic = result.IsPublic+"";
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ViewBag.Localize = locale;
+                    var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);                    
+                    if (image != null)
+                    {
+                        ViewBag.ImageID = imageId;
+                        ViewBag.ImageIsPublic = image.IsPublic + "";
+                        FillImagesViewBag(current_folder);
+                        if (!image.Folder.IsPublic)
+                            throw new Exception("You can't make public image inside private folder");
+                        image.IsPublic = !image.IsPublic;
+                        ViewBag.ImageIsPublic = image.IsPublic + "";
+                        FillImagesViewBag(current_folder);
+                    }                                        
+                    _entities.SaveChanges();                    
+                    transaction.Commit();                    
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
+                }
+            }
             return PartialView("PartialImagesChangeState");
         }
 
