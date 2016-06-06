@@ -252,14 +252,14 @@
 
     <div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
         <div class="col-md-12" id="dynamicSingleImageArea">
-            <div class="col-sm-12" style="padding-left:25px;padding-right:10px;">
+            
                 <div class="row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-6" style="padding-left: 40px;">
                         <h2>@ViewBag.OriginalName</h2>
                     </div>
 
-                    <div class="col-sm-2">
-                        <button id="openSideMenu" style="margin-top:20px;" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
+                    <div class="col-sm-6">
+                        <button id="openSideMenu" style="margin-top:20px;" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" onclick="openNav()">
                             <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -277,7 +277,7 @@
                         </div>
                     </div>
                 </div>
-
+            <div class="row-fluid" style="padding-left:25px;padding-right:10px;">
                 <ol class="breadcrumb">
                     <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                     <li><a href=@ViewBag.FolderLink>@ViewBag.FolderName</a></li>

@@ -264,8 +264,8 @@
 <div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 675px">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-sm-6" style="padding-left: 25px; padding-right: 25px;">
-                <h2 style="margin-left:15px;">@Resources.Resource.FOLDERS</h2>
+            <div class="col-sm-6" style="padding-left: 40px;">
+                <h2>@Resources.Resource.FOLDERS</h2>
             </div>
             <div class="preloader" id="loadingAnimation">
                 <div class="sk-cube-grid preloader-center center-block">
@@ -281,16 +281,16 @@
                 </div>
             </div>
             <div class="col-sm-6">
-            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;margin-right:10px;" onclick="openNav()">
+            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                 <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
             		</button>
-            		<button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
+            		<button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn btn-primary btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
            		 </button>
         	   </div>
         	</div>
         <div class="row" id="dynamicFoldersArea">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;id="parent-container"">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container">
                 @{
                     int count = ViewBag.Folders.Count;
 

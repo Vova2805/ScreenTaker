@@ -270,20 +270,20 @@ textarea {
     #openSideMenu {
         position: absolute;
         z-index: 1000;
-        top: -65px;
+        top: -60px;
         right: 10px;
     }
 
     #AddFolderButton {
         position: absolute;
         z-index: 1000;
-        top: -65px;
+        top: -60px;
         right: 50px;
     }
 
     #folder-icon, figure {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
     }
 
     .floating-box {
@@ -292,11 +292,11 @@ textarea {
     } 
     div .folder {
         width: 130px;
-        height: 140px;
+        height: 150px;
     }
 
     #parent-container {
-        margin-left: 13px;
+        margin-left: 10px;
     }
 
     h1 {
@@ -331,11 +331,60 @@ textarea {
 	.footer-text {
         padding-left: 70px;
     }
+    #parent-container {
+        margin-left: 25px;
+    }
+    div #folder-icon, div figure {
+        width: 95px;
+        height: 95px;
+    }
+    div .folder {
+        width: 130px;
+        height: 150px; 
+    }
+    div .user-icon-nav {
+        width: 30px;
+        height: 30px;
+        margin-left: 85px;
+        margin-top: -35px;
+    }
+    div .user-name-nav {
+        margin-left: 15px;
+    }
+    #openSideMenu {
+        position: absolute;
+        z-index: 1000;
+        top: -55px;
+        right: 10px;
+    }
+
+    #AddFolderButton {
+        position: absolute;
+        z-index: 1000;
+        top: -55px;
+        right: 40px;
+    }
+
+    #UploadImageButton {
+        position: absolute;
+        z-index: 1000;
+        top: -55px;
+        right: 30px;
+    }
 }
 
 
 @media(max-width:320px ){
 
+}
+
+
+.user-icon-nav {
+    z-index:5000;
+    margin-top: 6px; 
+    width: 40px; 
+    height: 40px; 
+    margin-left: -20px;
 }
 
 .shadow {
@@ -542,11 +591,17 @@ textarea {
     vertical-align:middle;
     background-color:cornflowerblue;
 }
+
+#UploadImage {
+    margin-top:25px; 
+    margin-right: 20px;
+}
+
 #AddFolderButton{
     margin-top:20px;
     background-color:cornflowerblue;
     color:black;
-    margin-right:22px;
+    margin-right:20px;
     width:40px;
     height:33px;
 }
