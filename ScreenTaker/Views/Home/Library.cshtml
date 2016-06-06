@@ -40,17 +40,6 @@
         });  
         $('#toggle_event_editing button').click(function () {
             $('#MakePublicButton').click();
-            if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
-                /* code to do when unlocking */
-                $('#switch_status').html('Switched on.');
-            } else {
-                /* code to do when locking */
-                $('#switch_status').html('Switched off.');
-            }
-
-            /* reverse locking status */
-            $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
-            $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
         });
 
         document.getElementById("FID0").className += " active-image";
@@ -109,8 +98,21 @@
 
             document.getElementById("folderImage").src = image;
             document.getElementById("folderTitle").innerText = name;
-            var public_private = '@Resources.Resource.MAKE_PRIVATE';
-            if(isPublic=="False")public_private = '@Resources.Resource.MAKE_PUBLIC';
+            
+            if(isPublic=="False"){
+                public_private = '@Resources.Resource.MAKE_PUBLIC';
+                $('#toggle_event_editing button').eq(0).removeClass('unlocked_inactive btn-default');
+                $('#toggle_event_editing button').eq(0).addClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(1).removeClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(1).addClass('unlocked_inactive btn-default');
+
+            }
+            else{
+                $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
+                $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(0).addClass('unlocked_inactive btn-default');
+            }
             document.getElementById("MakePublicButton").innerText = public_private;
 
 
@@ -434,8 +436,8 @@
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
-                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
-                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:50px;font-size:12px;">@Resources.Resource.ON</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:50px;font-size:12px;">@Resources.Resource.OFF</button>
                     </div>
                 </div>
             </div>
