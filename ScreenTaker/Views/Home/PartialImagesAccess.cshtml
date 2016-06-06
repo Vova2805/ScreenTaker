@@ -6,6 +6,16 @@
         });
 
     </script>
+
+        if (!Request.QueryString["lang"].IsEmpty())
+        {
+            Culture = UICulture = Request.QueryString["lang"];
+        }
+        else
+        {
+            Culture = UICulture = ViewBag.Localize ?? "en";
+        }
+    
 }
 <div class="modal-header">
     <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">

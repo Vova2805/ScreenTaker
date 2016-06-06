@@ -221,7 +221,10 @@
 Designed with power-users in mind, ScreenTaker has a fast workflow that requires only the minimum number of keypresses.</value>
   </data>
   <data name="FOLDERS" xml:space="preserve">
-    <value>Folders</value>
+    <value>My folders</value>
+  </data>
+  <data name="FOLDERY" xml:space="preserve">
+    <value>folder</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
@@ -234,6 +237,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="IMAGES" xml:space="preserve">
     <value>Images</value>
+  </data>
+  <data name="IMAGEY" xml:space="preserve">
+    <value>image</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>The easiest way to share your images.</value>
@@ -323,7 +329,7 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
     <value>Search for</value>
   </data>
   <data name="SHARED_FOLDERS" xml:space="preserve">
-    <value>Shared folder</value>
+    <value>Available to me</value>
   </data>
   <data name="SHARE_FOLDER" xml:space="preserve">
     <value>Share folder</value>

@@ -26,9 +26,9 @@
         });       
         var a = $('#loadingAnimation');
         a.css('visibility', 'hidden');
-        $(document).ajaxStart(function () {
-            $('#loadingAnimation').css('visibility', 'visible');
-        });
+        //$(document).ajaxStart(function () {
+        //    $('#loadingAnimation').css('visibility', 'visible');
+        //});
         $(document).ajaxStop(function () {
             a.css('visibility', 'hidden');
             $(function () {
@@ -64,15 +64,6 @@
 
         document.getElementById("new-title").value = '@ViewBag.FolderTitle';
         document.getElementById("folderNameDelete").innerText = '@ViewBag.FolderTitle';
-
-        var a = $('#loadingAnimation');
-        a.css('visibility', 'hidden');
-        $(document).ajaxStart(function () {
-            $('#loadingAnimation').css('visibility', 'visible');
-        });
-        $(document).ajaxStop(function () {
-            a.css('visibility', 'hidden');
-        });
 
         function ShowProgress() {
             setTimeout(function () {
@@ -221,7 +212,7 @@
                         <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
                     </div>
                     <div class="row">
-                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="folderNameDelete"></b> folder?</p>
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="folderNameDelete"></b> @Resources.Resource.FOLDERY ?</p>
                     </div>
                 </div>
             </div>
@@ -257,7 +248,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 25px; padding-right: 25px;">
-                <h2>@Resources.Resource.FOLDERS</h2>
+                <h2 style="margin-left:15px;">@Resources.Resource.FOLDERS</h2>
             </div>
             <div class="preloader" id="loadingAnimation">
                 <div class="sk-cube-grid preloader-center center-block">
@@ -369,7 +360,8 @@
             <br />
             <div>
                 <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%" 
-                         onclick="$.ajax({
+                         onclick="$('#loadingAnimation').css('visibility', 'visible');
+                        $.ajax({
                                 url: 'MakeFolderPublicOrPrivate',
                                 data: {
                                     folderId: document.getElementById('Idhidden').value
@@ -387,7 +379,8 @@
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
-                "$.ajax({
+                "$('#loadingAnimation').css('visibility', 'visible');
+                $.ajax({
                 url: 'PartialLibraryAccess',
                 data: {
                     folderId: document.getElementById('Idhidden').value,       

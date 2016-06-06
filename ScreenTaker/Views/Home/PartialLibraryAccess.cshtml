@@ -6,6 +6,15 @@
         });
         
     </script>
+
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
 }
 <div class="modal-header">
     <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
@@ -58,7 +67,8 @@
                                         <h5 class="media-heading">@ViewBag.AllowedUsers[i]</h5>
                                     </div>
                                     <div class="media-right" style="vertical-align: middle;" onclick=
-                                         "$.ajax({
+                                         "$('#loadingAnimation').css('visibility', 'visible');
+                                         $.ajax({
                                         url: 'FolderAccessRemoveUser',
                                         data: {
                                             email: '@ViewBag.AllowedUsers[i]',
@@ -73,7 +83,7 @@
                                                     document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
                                                 }
                                         }
-                                    });">                                   
+                                        });">                                   
                                         <button type="button" class="btn badge right" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                         </button>
@@ -81,8 +91,6 @@
                                 </div>
                             }
                         }
-
-
                     </div>
                 </div>
             </div>
@@ -92,7 +100,8 @@
                         <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
                         
                         <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick=
-                              "$.ajax({
+                              "$('#loadingAnimation').css('visibility', 'visible');
+                                    $.ajax({
                                         url: 'FolderAccessAddUser',
                                         data: {
                                             email: document.getElementById('userMail').value,
@@ -138,22 +147,23 @@
                                                 <input id="foldersAccessSwitch @i" type="checkbox"  />
                                             }
                                             <label for="foldersAccessSwitch @i" class="label-info" onclick=
-                                                   "$.ajax({
-    url: 'FolderAccessSwitchGroupsAccess',
-    data: {
-        groupId: @ViewBag.GroupsIDs[i],
-        folderId: document.getElementById('Idhidden').value,
-    },
-    success: function (data) {
-        $('#accessDynamic').html(data);
-            if(document.getElementById('MessageContentFromPartial').value!='')
-        {
-            $('#Message').modal('show');
-            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
-        }
-    }
-});"/>                                       
+                                                   "$('#loadingAnimation').css('visibility', 'visible');
+                                                   $.ajax({
+                                                url: 'FolderAccessSwitchGroupsAccess',
+                                                data: {
+                                                    groupId: @ViewBag.GroupsIDs[i],
+                                                    folderId: document.getElementById('Idhidden').value,
+                                                },
+                                                success: function (data) {
+                                                    $('#accessDynamic').html(data);
+                                                        if(document.getElementById('MessageContentFromPartial').value!='')
+                                                    {
+                                                        $('#Message').modal('show');
+                                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                                    }
+                                                }
+                                            });"/>                                       
                                     </div>
                                 </div>
                             }
