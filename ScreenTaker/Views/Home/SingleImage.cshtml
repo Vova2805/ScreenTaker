@@ -324,8 +324,22 @@
                     <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteImage" style="width: 100%">@Resources.Resource.DELETE</button>
                 </div>
                 <br />
-                <div>
-                    <button class="btn btn-warning btn-not-rounded" style="width: 100%" onclick="location.href='@Url.Action("MakeSingleImagePublicOrPrivate", "Home",new { imageId=ViewBag.ImageId} )'">@ViewBag.ButtonPrivateORPublicMain</button>
+                <div>                    
+                    <button class="btn btn-warning btn-not-rounded" style="width: 100%" id="buttonPublicOrPrivate" onclick=
+                            "$.ajax({
+    url: 'MakeSingleImagePublicOrPrivate',
+    data: {
+        imageId: document.getElementById('Idhidden').value,
+    },
+    success: function (data) {
+        if (document.getElementById('buttonPublicOrPrivate').textContent == '@Resources.Resource.MAKE_PRIVATE')
+            document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PUBLIC';
+        else
+            document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PRIVATE';
+
+    }
+    });
+    ">@ViewBag.ButtonPrivateORPublicMain</button>
                 </div>
                 <hr />
                 <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>

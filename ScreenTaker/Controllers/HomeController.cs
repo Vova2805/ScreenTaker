@@ -674,7 +674,15 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Images", new { lang = locale });
         }
 
-      
+        public ActionResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
+        {
+            ViewBag.Localize = locale;            
+            var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
+            if (image != null)
+                image.IsPublic = !image.IsPublic;                
+            _entities.SaveChanges();
+            return null;
+        }
 
         [AllowAnonymous]
         public ActionResult SharedFolder(string f, string lang = "en")
@@ -793,26 +801,19 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Date = ViewBag.Image.PublicationDate;
             }
-
-            ViewBag.IsPublic = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.IsPublic = ViewBag.Image.IsPublic;
-            }
-
+            
             ViewBag.ImageId = "";
             if (ViewBag.Image != null)
             {
                 ViewBag.ImageId = ViewBag.Image.Id;
                 SingleImageId = ViewBag.Image.Id;
             }
-
-            ViewBag.ButtonPrivateORPublic = "";
-            if (ViewBag.Image != null)
+           
+            if (im != null)
             {
-                if (ViewBag.Image.IsPublic)
+                if (im.IsPublic)
                 {
-                    ViewBag.ButtonPrivateORPublicMain = "Make private";
+                    ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PRIVATE;
                     ViewBag.ButtonPrivateORPublic = "Turn Off";
                 }
                 else
@@ -820,7 +821,7 @@ namespace ScreenTaker.Controllers
                     ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PUBLIC;
                     ViewBag.ButtonPrivateORPublic = "Turn On";
                 }
-            }
+            }           
 
             if (ViewBag.Image != null)
             {
