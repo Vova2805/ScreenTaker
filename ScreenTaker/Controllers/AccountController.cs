@@ -516,7 +516,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Localize = locale;
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("UserProfile");
             }
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
@@ -529,7 +529,7 @@ namespace ScreenTaker.Controllers
                 return RedirectToAction("UserProfile");
             }
             AddErrors(result);
-            return View();
+            return View("UserProfile");
         }
 
         protected override void Dispose(bool disposing)

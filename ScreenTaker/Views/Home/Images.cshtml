@@ -38,36 +38,40 @@
                 });
             });
         });
-            document.getElementById("RenameButton").disabled = true;
-            document.getElementById("DeleteButton").disabled = true;
-            document.getElementById("OpenButton").disabled = true;
-            document.getElementById("MoveButton").disabled = true;
-            document.getElementById("ManageAccessButton").disabled = true;
-            document.getElementById("MakePublicButton").disabled = true;
-            document.getElementById("sharedLink").disabled = true;
+        $('#toggle_event_editing button').click(function () {
+            $('#MakePublicButton').click();
+         });
 
-            document.getElementById("IMD0").className += " active-image";
-            document.getElementById("RenameButton").disabled = false;
-            document.getElementById("DeleteButton").disabled = false;
-            document.getElementById("OpenButton").disabled = false;
-            document.getElementById("MoveButton").disabled = false;
-            document.getElementById("ManageAccessButton").disabled = false;
-            document.getElementById("MakePublicButton").disabled = false;
-            document.getElementById("sharedLink").disabled = false;
-            document.getElementById("original").value = '@ViewBag.FirstImageShCode';
-            document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
-            document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
-            document.getElementById("compressedName").innerText =  '@ViewBag.FirstImageName';
+        document.getElementById("RenameButton").disabled = true;
+        document.getElementById("DeleteButton").disabled = true;
+        document.getElementById("OpenButton").disabled = true;
+        document.getElementById("MoveButton").disabled = true;
+        document.getElementById("ManageAccessButton").disabled = true;
+        document.getElementById("MakePublicButton").disabled = true;
+        document.getElementById("sharedLink").disabled = true;
 
-            document.getElementById("sharedLinkhidden").value = '@ViewBag.FirstImageShCode';
-            document.getElementById("Idhidden").value = '@ViewBag.FirstId';
-            document.getElementById("new-title").value =  '@ViewBag.FirstWithoutEx';
-            document.getElementById("imageNameDelete").innerText = '@ViewBag.FirstWithoutEx';
+        document.getElementById("IMD0").className += " active-image";
+        document.getElementById("RenameButton").disabled = false;
+        document.getElementById("DeleteButton").disabled = false;
+        document.getElementById("OpenButton").disabled = false;
+        document.getElementById("MoveButton").disabled = false;
+        document.getElementById("ManageAccessButton").disabled = false;
+        document.getElementById("MakePublicButton").disabled = false;
+        document.getElementById("sharedLink").disabled = false;
+        document.getElementById("original").value = '@ViewBag.FirstImageShCode';
+        document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
+        document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
+        document.getElementById("compressedName").innerText =  '@ViewBag.FirstImageName';
 
-            @*selectImage('@ViewBag.FirstId', "IMD0" , '@ViewBag.Count',  '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShCode', '@ViewBag.FirstImageShLink', '@ViewBag.FirstImageSrc', '@ViewBag.FirstImageName', '@ViewBag.FirstWithoutEx');*@
+        document.getElementById("sharedLinkhidden").value = '@ViewBag.FirstImageShCode';
+        document.getElementById("Idhidden").value = '@ViewBag.FirstId';
+        document.getElementById("new-title").value =  '@ViewBag.FirstWithoutEx';
+        document.getElementById("imageNameDelete").innerText = '@ViewBag.FirstWithoutEx';
+        var public_private = '@Resources.Resource.MAKE_PRIVATE';
+        if('@ViewBag.ImageIsPublic'=="False")public_private = '@Resources.Resource.MAKE_PUBLIC';
+        document.getElementById("MakePublicButton").innerText = public_private;
 
-
-        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex) {
+        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex,isPublic) {
             var classes = "floating-box text-center task active images";
             document.getElementById("original").value = original;
             document.getElementById("sharedLink").value = sharedLink;
@@ -92,41 +96,59 @@
             document.getElementById("ManageAccessButton").disabled = false;
             document.getElementById("MakePublicButton").disabled = false;
             document.getElementById("sharedLink").disabled = false;
+            var public_private = '@Resources.Resource.MAKE_PRIVATE';
+            if(isPublic=="False"){
+                public_private = '@Resources.Resource.MAKE_PUBLIC';
+                $('#toggle_event_editing button').eq(0).removeClass('unlocked_inactive btn-default');
+                $('#toggle_event_editing button').eq(0).addClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(1).removeClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(1).addClass('unlocked_inactive btn-default');
+
+            }
+            else{
+                $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
+                $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(0).addClass('unlocked_inactive btn-default');
+            }
+            document.getElementById("MakePublicButton").innerText = public_private;
+
+
             return false;
         }
 
-            (function ($) {
+        (function ($) {
 
-                $('#filter').keyup(function () {
-                    var val = $(this).val();
-                    var rex = new RegExp($(this).val(), 'i');
-                    $('.searchable div.list-group-item').hide();
-                    $('.searchable div.list-group-item').filter(function () {
-                        var data = this.title;
-                        var result = rex.test(data);
-                        return result;
-                    }).show();
-                })
+            $('#filter').keyup(function () {
+                var val = $(this).val();
+                var rex = new RegExp($(this).val(), 'i');
+                $('.searchable div.list-group-item').hide();
+                $('.searchable div.list-group-item').filter(function () {
+                    var data = this.title;
+                    var result = rex.test(data);
+                    return result;
+                }).show();
+            })
 
-            }(jQuery));
+        }(jQuery));
 
-    var a = $('#loadingAnimation');
-    a.css('visibility', 'hidden');
-    $(document).ajaxStart(function () {
-        $('#loadingAnimation').css('visibility', 'visible');
-    });
-    $(document).ajaxStop(function () {
-        $('#loadingAnimation').css('visibility', 'hidden');
-    });
-    function ShowProgress() {
-        setTimeout(function () {
-            var a = $('#loadingAnimation');
-            a.css('visibility', 'visible');
-        }, 200);
-    }
-    $('form').live("submit", function () {
-        ShowProgress();
-    });
+        var a = $('#loadingAnimation');
+        a.css('visibility', 'hidden');
+        $(document).ajaxStart(function () {
+            $('#loadingAnimation').css('visibility', 'visible');
+        });
+        $(document).ajaxStop(function () {
+            $('#loadingAnimation').css('visibility', 'hidden');
+        });
+        function ShowProgress() {
+            setTimeout(function () {
+                var a = $('#loadingAnimation');
+                a.css('visibility', 'visible');
+            }, 200);
+        }
+        $('form').live("submit", function () {
+            ShowProgress();
+        });
 
 
 
@@ -307,9 +329,8 @@
 
 <div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
     <div class="col-md-12">
-        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-6" style="padding-left: 40px;">
                     <h2>@ViewBag.FolderName</h2>
                 </div>
                 <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
@@ -325,28 +346,28 @@
                         <div class="sk-cube sk-cube9"></div>
                     </div>
                 </div>
-                <div class="col-sm-4" style="display:inline">
+                <div class="col-sm-6">
                     <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                     </button>
                         <div class="pull-right" style="display:inline;height:44px;">
                             @using (Html.BeginForm("Images", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
-                            <input id="fileInput" style="visibility:collapse" type="file" name="file" accept="image/*" onchange="document.getElementById('fileSubmit').click();" />
-                            <input id="fileSubmit" style="visibility: collapse" type="submit" value="" onclick="$('#loadingAnimation').css('visibility', 'visible');" />
-                            <input id="fake" style="visibility: collapse" type="text" name="folderId" value="@ViewBag.FolderId" />
-                            <span class="icon-input-btn">
-                                <span class="glyphicon glyphicon-open"  id="UploadImageSpan" >
-                                </span>
-                                <input type="button" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" 
+                            <input id="fileInput" style="visibility: collapse; display: none" type="file" name="file" accept="image/*" onchange="document.getElementById('fileSubmit').click();" />
+                            <input id="fileSubmit" style="visibility: collapse; display: none" type="submit" value="" onclick="$('#loadingAnimation').css('visibility', 'visible');" />
+                            <input id="fake" style="visibility: collapse; display: none" type="text" name="folderId" value="@ViewBag.FolderId" />
+                            <span class="icon-input-btn" id="UploadImage">
+                                <button type="button" value="" id="UploadImageButton" data-placement="bottom" title="@Resources.Resource.UPLOAD_NEW_IMAGE" 
                                  class="btn btn-primary btn-lg pull-right success btn-not-rounded"
-                                 onclick="document.getElementById('fileInput').click();" />
+                                 onclick="document.getElementById('fileInput').click();">
+                                    <span class="glyphicon glyphicon-open" style="margin-left: -5px"></span>
+                                </button>
                             </span>
                             } 
                         </div>
                 </div>
             </div>
-
+        <div class="row-fluid" style="margin-left: 10px;">
             <ol class="breadcrumb">
                 <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                 <li class="active">@ViewBag.FolderName</li>
@@ -366,6 +387,7 @@
                         int length = name.Length;
                         int size = length <= 15 ? length : 15;
                         name = name.Substring(0, size);
+                        string isPublic = i.IsPublic + "";
                         string classes = "floating-box text-center task active images";
                         string without_ex = i.Name;
                         if (index == 0)
@@ -379,7 +401,7 @@
                         }
                         string image_id = "IMD" + index;
 
-                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex')"
+                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex','@isPublic')"
                               ondblclick="openImage('@original')" style="cursor:pointer;">
                             <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
@@ -419,7 +441,25 @@
             </div>
             <br />
             <div>
-                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton"  style="width: 100%" onclick="location.href='@Url.Action("MakeImagePublicOrPrivate", "Home" )?imageId='+document.getElementById('Idhidden').value;">@Resources.Resource.MAKE_PUBLIC</button>
+                <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton"  style="width: 100%" 
+                         onclick="$('#loadingAnimation').css('visibility', 'visible');
+                         $.ajax({
+                            url: 'MakeImagePublicOrPrivate',
+                                data: {
+                                    imageId: document.getElementById('Idhidden').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicImagesArea').html(data);
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                    }
+
+                                }
+                            });"
+                        >@Resources.Resource.MAKE_PUBLIC</button>
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
@@ -428,20 +468,20 @@
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
                         "$.ajax({
-    url: 'PartialImagesAccess',
-    data: {
-        imageId: document.getElementById('Idhidden').value,                       
-    },
-    success: function (data) {        
-        $('#ImagesAccessDynamic').html(data);         
-        if(document.getElementById('MessageContentFromPartial').value!='')
-        {
-            $('#Message').modal('show');
-            document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-            document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
-        }
-    }
-}); 
+                        url: 'PartialImagesAccess',
+                        data: {
+                            imageId: document.getElementById('Idhidden').value,                       
+                        },
+                        success: function (data) {        
+                            $('#ImagesAccessDynamic').html(data);         
+                            if(document.getElementById('MessageContentFromPartial').value!='')
+                            {
+                                $('#Message').modal('show');
+                                document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                            }
+                        }
+                    }); 
                         "
                          >@Resources.Resource.MANAGE_ACCESS</button>
             </div>
@@ -470,14 +510,30 @@
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
-                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
-                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:50px;font-size:12px;">@Resources.Resource.ON</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:50px;font-size:12px;">@Resources.Resource.OFF</button>
                     </div>
                 </div>
             </div>
         </li>
         <li class="context-menu__item">
-            <a class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess">@Resources.Resource.MANAGE_ACCESS</a>
+            <a class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess" onclick=
+                        "$.ajax({
+                        url: 'PartialImagesAccess',
+                        data: {
+                            imageId: document.getElementById('Idhidden').value,                       
+                        },
+                        success: function (data) {        
+                            $('#ImagesAccessDynamic').html(data);         
+                            if(document.getElementById('MessageContentFromPartial').value!='')
+                            {
+                                $('#Message').modal('show');
+                                document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                            }
+                        }
+                    }); 
+                        ">@Resources.Resource.MANAGE_ACCESS</a>
         </li>
     </ul>
 </nav>

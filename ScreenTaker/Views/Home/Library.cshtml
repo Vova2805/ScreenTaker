@@ -37,7 +37,11 @@
                     target.autocomplete({ source: target.attr("data-autocomplete-source") });
                 });
             });
-        });            
+        });  
+        $('#toggle_event_editing button').click(function () {
+            $('#MakePublicButton').click();
+        });
+
         document.getElementById("FID0").className += " active-image";
         var numb = document.getElementById('FID_field').innerText;
         if (numb == "") numb = "0";
@@ -94,8 +98,21 @@
 
             document.getElementById("folderImage").src = image;
             document.getElementById("folderTitle").innerText = name;
-            var public_private = '@Resources.Resource.MAKE_PRIVATE';
-            if(isPublic=="False")public_private = '@Resources.Resource.MAKE_PUBLIC';
+            
+            if(isPublic=="False"){
+                public_private = '@Resources.Resource.MAKE_PUBLIC';
+                $('#toggle_event_editing button').eq(0).removeClass('unlocked_inactive btn-default');
+                $('#toggle_event_editing button').eq(0).addClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(1).removeClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(1).addClass('unlocked_inactive btn-default');
+
+            }
+            else{
+                $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
+                $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
+                $('#toggle_event_editing button').eq(0).addClass('unlocked_inactive btn-default');
+            }
             document.getElementById("MakePublicButton").innerText = public_private;
 
 
@@ -247,8 +264,8 @@
 <div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 675px">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-sm-6" style="padding-left: 25px; padding-right: 25px;">
-                <h2 style="margin-left:15px;">@Resources.Resource.FOLDERS</h2>
+            <div class="col-sm-6" style="padding-left: 40px;">
+                <h2>@Resources.Resource.FOLDERS</h2>
             </div>
             <div class="preloader" id="loadingAnimation">
                 <div class="sk-cube-grid preloader-center center-block">
@@ -264,16 +281,16 @@
                 </div>
             </div>
             <div class="col-sm-6">
-            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;margin-right:10px;" onclick="openNav()">
+            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
                 <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
             		</button>
-            		<button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn-primary btn btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
+            		<button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn btn-primary btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
            		 </button>
         	   </div>
         	</div>
         <div class="row" id="dynamicFoldersArea">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;id="parent-container"">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container">
                 @{
                     int count = ViewBag.Folders.Count;
 
@@ -419,14 +436,30 @@
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
-                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.ON</button>
-                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:60px;font-size:12px;">@Resources.Resource.OFF</button>
+                        <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height:30px;width:50px;font-size:12px;">@Resources.Resource.ON</button>
+                        <button type="button" class="btn btn-info locked_active btn-not-rounded" style="height:30px;width:50px;font-size:12px;">@Resources.Resource.OFF</button>
                     </div>
                 </div>
             </div>
         </li>
         <li class="context-menu__item">
-            <a href="" class="context-menu__link" data-toggle="modal" data-target="#FolderManageAccess"> @Resources.Resource.MANAGE_ACCESS</a>
+            <a href="" class="context-menu__link" data-toggle="modal" data-target="#FolderManageAccess" onclick=
+                "$('#loadingAnimation').css('visibility', 'visible');
+                $.ajax({
+                url: 'PartialLibraryAccess',
+                data: {
+                    folderId: document.getElementById('Idhidden').value,       
+                },
+                success: function (data) {        
+                    $('#accessDynamic').html(data);    
+                    if(document.getElementById('MessageContentFromPartial').value!='')
+                    {
+                        $('#Message').modal('show');
+                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
+                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                    }               
+                }
+            });" > @Resources.Resource.MANAGE_ACCESS</a>
         </li>
     </ul>
 </nav>
