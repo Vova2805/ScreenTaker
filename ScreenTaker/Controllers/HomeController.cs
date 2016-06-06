@@ -457,20 +457,31 @@ namespace ScreenTaker.Controllers
        
         public ActionResult MakeFolderPublicOrPrivate(int folderId, string lang = "en")
         {
-            ViewBag.Localize = locale;
-
-            // var sharedСode = Path.GetFileNameWithoutExtension(path);
-            var result = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
-
-            if (result.IsPublic)
-
-                result.IsPublic = false;
-            else
-                result.IsPublic = true;
-            _entities.SaveChanges();
-            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
-            ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.FolderID = folderId;
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ViewBag.Localize = locale;
+                    var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
+                    if (folder != null)
+                    {
+                        folder.IsPublic = !folder.IsPublic;
+                        var images = _entities.Images.Where(i => i.FolderId == folder.Id).ToList();
+                        foreach (var i in images)
+                            i.IsPublic = folder.IsPublic;
+                    }
+                    _entities.SaveChanges();
+                    ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
+                    ViewBag.BASE_URL = GetBaseUrl() + "";
+                    ViewBag.FolderID = folderId;
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["MessageContent"] = ex.Message;
+                }
+            }
             return PartialView("PartialFoldersChangeState");
         }      
 
