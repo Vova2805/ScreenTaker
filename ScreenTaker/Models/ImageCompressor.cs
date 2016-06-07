@@ -27,5 +27,26 @@ namespace ScreenTaker.Models
             g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel);
             return bmp;
         }
+
+        public bool IsValid(object value)
+        {
+            var file = value as HttpPostedFileBase;
+            if (file == null)            
+                return false;                        
+            try
+            {
+                var allowedFormats = new[]
+                {
+                    ImageFormat.Jpeg,
+                    ImageFormat.Png,
+                    ImageFormat.Gif,
+                    ImageFormat.Bmp
+                };
+                using (var img =  System.Drawing.Image.FromStream(file.InputStream))                
+                    return allowedFormats.Contains(img.RawFormat);                
+            }
+            catch { }
+            return false;
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Welcome to ScreenTaker";
     int counter = 0;
@@ -24,9 +24,17 @@
                 <div class="col-md-4">
                     @using (Html.BeginForm("Welcome", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     { 
-                        <input id="fileInput" style="visibility:collapse" type="file" accept="image/*" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                        <input id="fileInput" style="visibility:collapse" type="file" accept="image/jpeg,image/png,image/gif,image/bmp" name="file" onchange="document.getElementById('fileSubmit').click();" />
                         <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
-                        <input type="button" style="width:270px; height:60px;" class="btn btn-primary btn-lg center-block btn-not-rounded" id="welcom-upload" value="@Resources.Resource.UPLOAD_IMAGE" onclick="document.getElementById('fileInput').click();" />
+                        if (User.Identity.GetUserName() == "")
+                        { 
+                            <input type="button" style="width:270px; height:60px;" class="btn btn-primary btn-lg center-block btn-not-rounded" id="welcom-upload" value="@Resources.Resource.UPLOAD_IMAGE" onclick="location.href='@Url.Action("Register", "Account")'"/>
+                        }
+                        else
+                        {
+                            <input type="button" style="width:270px; height:60px;" class="btn btn-primary btn-lg center-block btn-not-rounded" id="welcom-upload" value="@Resources.Resource.UPLOAD_IMAGE" onclick="document.getElementById('fileInput').click();" />
+                        }
+
                     }
                 </div>
                 <div class="col-md-4">

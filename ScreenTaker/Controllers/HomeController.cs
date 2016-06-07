@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Image = ScreenTaker.Models.Image;
 using System.Text.RegularExpressions;
+using System.Net.Mime;
 
 namespace ScreenTaker.Controllers
 {
@@ -640,6 +641,11 @@ namespace ScreenTaker.Controllers
             }
             ViewBag.FolderName = folder.Name;
             FillImagesViewBag(folderId);
+            if (TempData["MessageContent"] != null)
+            {
+                ViewBag.MessageTitle = "Error";
+                ViewBag.MessageContent = TempData["MessageContent"];
+            }
             return View("Images", new { lang = locale });
         }
 
@@ -669,7 +675,11 @@ namespace ScreenTaker.Controllers
                 using (var transaction = _entities.Database.BeginTransaction())
                 {
                     try
-                    {
+                    {                        
+                        if (!_imageCompressor.IsValid(file))
+                            throw new Exception("Image is not valid");
+                        if(file.ContentLength>1024*1024*4)
+                            throw new Exception("Image is too large");                        
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         var image = new Image
@@ -690,16 +700,16 @@ namespace ScreenTaker.Controllers
                         compressedBitmap.Save(path, ImageFormat.Png);
                         transaction.Commit();
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
+                        TempData["MessageContent"] = ex.Message;
                     }
                 }
 
 
             }
             FillImagesViewBag(Int32.Parse(folderId));
-
             return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
         }
 
