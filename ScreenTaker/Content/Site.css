@@ -70,6 +70,12 @@ textarea {
     color:dimgray;
 }
 
+.footer-text {
+    vertical-align: middle; 
+    top: 15px;
+    font-size: 15px;
+}
+
 .footer-style {
     background-color: #222; 
     margin-bottom: -20px; 
@@ -77,12 +83,6 @@ textarea {
     vertical-align: middle; 
     height: 50px; 
     margin-top: 20px;
-}
-
-.footer-text {
-    vertical-align: middle; 
-    top: 15px; 
-    font-size: 15px
 }
 
 .lead-site{
