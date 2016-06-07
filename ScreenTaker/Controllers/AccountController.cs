@@ -117,7 +117,7 @@ namespace ScreenTaker.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
-                //default:
+                default:
                 //    ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }

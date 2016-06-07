@@ -55,7 +55,7 @@ namespace ScreenTaker.Controllers
                 using (var transaction = _entities.Database.BeginTransaction())
                 {
                     try
-                    {
+                    {                       
                         ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                            .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                         if (user == null)
@@ -68,7 +68,11 @@ namespace ScreenTaker.Controllers
                             return RedirectToAction("Account/Register", new { lang = locale });
                         if (!accesGranted)                
                             return RedirectToAction("Welcome", new { lang = locale });
-                        fId = folder.Id;               
+                        fId = folder.Id;
+                        if (!_imageCompressor.IsValid(file))
+                            throw new Exception("Image is not valid");
+                        if (file.ContentLength > 1024 * 1024 * 4)
+                            throw new Exception("Image is loo large");
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         var image = new Image();
@@ -87,9 +91,13 @@ namespace ScreenTaker.Controllers
                         compressedBitmap.Save(path, ImageFormat.Png);
                         transaction.Commit();
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
+                        ViewBag.MessageContent= ex.Message;
+                        ViewBag.MessageTitle = "Error";
+                        ViewBag.Localize = locale;
+                        return View("Welcome", new { lang = locale });
                     }
                 }
             }
@@ -1266,7 +1274,7 @@ namespace ScreenTaker.Controllers
         public ActionResult DeleteFolder(string path, string lang = "en")
         {
             ViewBag.Localize = locale;
-            
+
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
