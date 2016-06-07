@@ -76,7 +76,7 @@
                         int size = length <= 20 ? length : 20;
                         string name = FolderTitle.Substring(0, size);
                         FolderTitle = name;
-                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+                        string imageLink = ViewBag.FolderImageLinks[i];
                         <div onclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
                                 <img src="@imageLink" />
