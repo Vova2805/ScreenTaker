@@ -243,10 +243,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/ScreenTaker/Models/ImageCompressor.cs
-/ScreenTaker/Models/RandomStringGenerator.cs
-/ScreenTaker/App_GlobalResources
-/ScreenTaker/img/
 /ScreenTaker/Models/C__MigrationHistory.cs
 /ScreenTaker/Models/database_firewall_rules.cs
 /ScreenTaker/Models/PersonFriend.cs
