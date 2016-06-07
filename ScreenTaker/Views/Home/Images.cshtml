@@ -383,7 +383,7 @@
                         string original = i.SharedCode;
                         string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                         string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
-                        string name = i.Name + ".png";
+                        string name = i.Name;
                         int length = name.Length;
                         int size = length <= 15 ? length : 15;
                         name = name.Substring(0, size);
