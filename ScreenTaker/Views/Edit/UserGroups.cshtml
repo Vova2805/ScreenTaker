@@ -60,7 +60,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="list-group" style="height:auto;max-height:450px;overflow:auto;">
+                            <div class="list-group" style="height:auto;max-height:440px;overflow:auto;">
                                 @if (ViewBag.Groups != null)
                                 {
                                     for (int i = 0; i < ViewBag.Groups.Count; i++)
@@ -86,15 +86,7 @@
                                             }
 
                             }});">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">@ViewBag.Groups[i].Name</h5>
-                                            </div>
-                                            <div class="media-right" style="vertical-align:middle;">
-                                                <button type="button" class="btn badge right" aria-label="Left Align">
-                                                    <span aria-hidden="true">@ViewBag.GroupMemberCounts[i]</span>
-                                                </button>
-                                            </div>
-                                            <div class="media-right" style="vertical-align:middle;"
+                                            <div class="media-left" style="vertical-align:middle;"
                                                  onclick="$('#loadingAnimation').css('visibility', 'visible');if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;
                                         $.ajax({
                                             url: 'RemoveGroup',
@@ -107,13 +99,21 @@
                                             {
                                                 $('#Message').modal('show');
                                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                                document.getElementById('MessageTitle').innerHTML='Error';
                                             }
                                             }
                                         });">
                                                 <button type="button" class="btn badge right" aria-label="Left Align">
                                                     <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                                 </button>
+                                            </div>
+                                            <div class="media-left" style="vertical-align:middle;">
+                                                <button type="button" class="btn badge right" aria-label="Left Align">
+                                                    <span aria-hidden="true">@ViewBag.GroupMemberCounts[i]</span>
+                                                </button>
+                                            </div>
+                                            <div class="media-left" style="vertical-align:middle">
+                                                <h5 class="media-heading" style="color: #444444">@ViewBag.Groups[i].Name</h5>
                                             </div>
                                         </div>
                                     }
@@ -150,40 +150,25 @@
                     </div>                    
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="list-group respo" style="height:auto;max-height:450px;overflow:auto;">
+                            <div class="list-group respo" style="height:auto;max-height:435px;overflow:auto;">
                                 @if (ViewBag.Emails != null)
                                 {
                                     for (int i = 0; i < ViewBag.Emails.Count; i++)
                                     {
                                         <div class="list-group-item">
+                                            <div class="media-left" style="vertical-align: middle"
+                                                 onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({ url: 'RemoveUser', data: { selectedId: @ViewBag.SelectedId, email: '@ViewBag.Emails[i]', }, success: function(data) { $('#dynamicArea').html(data); if (document.getElementById('MessageContentFromPartial').value != '') { $('#Message').modal('show'); document.getElementById('MessageContent').innerHTML = document.getElementById('MessageContentFromPartial').value; document.getElementById('MessageTitle').innerHTML = 'Error'; } } });">
+                                                <button type="button" class="btn badge right" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
                                             <div class="media-left">
                                                 <div style="background:url(@ViewBag.Avatars[i]) no-repeat center center;height:50px;width:50px;"
                                                      class="media-object img-circle zoom_img">
                                                 </div>
                                             </div>
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h4 class="media-heading">@ViewBag.Emails[i]</h4>
-                                            </div>
-                                            <div class="media-right" style="vertical-align:middle"
-                                                 onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                            url: 'RemoveUser',
-                                            data: {
-                                                selectedId: @ViewBag.SelectedId,
-                                                email: '@ViewBag.Emails[i]',
-                                            },
-                                            success: function (data) {
-                                                $('#dynamicArea').html(data);
-                                                 if(document.getElementById('MessageContentFromPartial').value!='')
-                                                {
-                                                    $('#Message').modal('show');
-                                                    document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                    document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
-                                                }
-                                            }
-                                        });">
-                                                <button type="button" class="btn badge right" aria-label="Left Align">
-                                                    <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
-                                                </button>
+                                            <div class="media-left" style="vertical-align:middle">
+                                                <h4 class="media-heading" style="color: #444444">@ViewBag.Emails[i]</h4>
                                             </div>
                                         </div>
                                     }
