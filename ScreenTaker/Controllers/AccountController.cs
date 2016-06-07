@@ -671,7 +671,7 @@ namespace ScreenTaker.Controllers
                 }
                 
             }
-            return View("UserProfile");
+            return RedirectToAction("UserProfile");
         }
 
         public string GetBaseUrl()
