@@ -316,6 +316,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="RESEND_AGAIN" xml:space="preserve">
     <value>Resend confirmation mail again</value>
   </data>
+  <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
+    <value>Click this {0}</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
   </data>

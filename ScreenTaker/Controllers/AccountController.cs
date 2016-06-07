@@ -292,7 +292,7 @@ namespace ScreenTaker.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", String.Format(Resources.Resource.RESET_PASSWORD_EMAIL, callbackUrl));
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
