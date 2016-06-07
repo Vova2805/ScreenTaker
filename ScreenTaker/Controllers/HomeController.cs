@@ -594,7 +594,8 @@ namespace ScreenTaker.Controllers
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
-            int folderId = Int32.Parse(id);
+            int folderId = -1;
+            Int32.TryParse(id, out folderId);
             current_folder = folderId;
 
             var folder = _entities.Folders.Find(folderId);

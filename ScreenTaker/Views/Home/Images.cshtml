@@ -26,9 +26,6 @@
         });
         var a = $('#loadingAnimation');
         a.css('visibility', 'hidden');
-        $(document).ajaxStart(function () {
-            $('#loadingAnimation').css('visibility', 'visible');
-        });
         $(document).ajaxStop(function () {
             a.css('visibility', 'hidden');
             $(function () {
@@ -132,25 +129,12 @@
 
         }(jQuery));
 
-        var a = $('#loadingAnimation');
-        a.css('visibility', 'hidden');
-        $(document).ajaxStart(function () {
-            $('#loadingAnimation').css('visibility', 'visible');
-        });
-        $(document).ajaxStop(function () {
-            $('#loadingAnimation').css('visibility', 'hidden');
-        });
         function ShowProgress() {
             setTimeout(function () {
                 var a = $('#loadingAnimation');
                 a.css('visibility', 'visible');
             }, 200);
         }
-        $('form').live("submit", function () {
-            ShowProgress();
-        });
-
-
 
         function openImage(path) {
             location.href = "/Home/SingleImage?image=" + path;
@@ -180,7 +164,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
                 <button type="button" class="btn btn-primary btn-not-rounded" 
-                         onclick="$.ajax({
+                         onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                 url: 'RenameImageOutside',
                                 data: {
                                     path: document.getElementById('original').value,
@@ -219,7 +203,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
                 <button type="button" class="btn btn-danger btn-not-rounded"
-                         onclick="$.ajax({
+                         onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                 url: 'DeleteImage',
                                 data: {
                                     path: document.getElementById('original').value
@@ -290,7 +274,7 @@
                                     <input type="text" class="form-control" id="newFolderName" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" aria-label="Left Align" onclick=
-                                    "$.ajax({
+                                    "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                         url: 'ImagesMoveCreateFolder',
                                         data: {
                                             name: document.getElementById('newFolderName').value,
@@ -467,7 +451,7 @@
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
-                        "$.ajax({
+                        "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                         url: 'PartialImagesAccess',
                         data: {
                             imageId: document.getElementById('Idhidden').value,                       
@@ -518,7 +502,7 @@
         </li>
         <li class="context-menu__item">
             <a class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess" onclick=
-                        "$.ajax({
+                        "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                         url: 'PartialImagesAccess',
                         data: {
                             imageId: document.getElementById('Idhidden').value,                       
