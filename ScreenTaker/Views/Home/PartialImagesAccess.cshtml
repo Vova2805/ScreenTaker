@@ -40,11 +40,8 @@
                                 {
                                     classes += " disabled-list-group-item";
                                 }
-                                <div class="@classes">
-                                    <div class="media-body" style="vertical-align: middle">
-                                        <h5 class="media-heading">@ViewBag.AllowedUsers[i]</h5>
-                                    </div>                                                                                                          
-                                    <div  class="media-right" style="vertical-align: middle;" >                                        
+                                <div class="@classes">                                                                                                        
+                                    <div  class="media-left" style="vertical-align: middle;" >                                        
                                     @if (ViewBag.AreUserRightsInherited[i])
                                     {
                                             <button disabled type="button" class="btn badge right" aria-label="Left Align">
@@ -73,6 +70,9 @@
                                         </button>
                                     }
                                     </div>
+                                    <div class="media-body" style="vertical-align: middle">
+                                        <h5 class="media-heading">@ViewBag.AllowedUsers[i]</h5>
+                                    </div> 
                                 </div>
                             }
                         }                                            
@@ -122,10 +122,7 @@
                                     classes = "disabled-list-group-item";
                                 }
                                 <div class="list-group-item @classes">
-                                    <div class="media-body" style="vertical-align: middle">
-                                        <h5 class="media-heading">@ViewBag.AllGroups[i]</h5>
-                                    </div>
-                                    <div class="material-switch media-right" style="vertical-align: middle">
+                                    <div class="material-switch media-left" style="vertical-align: middle">
                                         @if (ViewBag.GroupsAccess[i] || ViewBag.AreGroupRightsInherited[i])
                                         {
                                             if (!ViewBag.AreGroupRightsInherited[i])
@@ -163,7 +160,9 @@
                                         else{
                                         <label for="foldersAccessSwitch @i" class="label-info" onclick=""/>
                                         }
-                                      
+                                    </div>
+                                    <div class="media-body" style="vertical-align: middle">
+                                        <h5 class="media-heading">@ViewBag.AllGroups[i]</h5>
                                     </div>
                                 </div>
                             }

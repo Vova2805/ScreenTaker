@@ -35,10 +35,7 @@
                             for (int i = 0; i < ViewBag.AllowedUsers.Count; i++)
                             {
                                 <div class="list-group-item">
-                                    <div class="media-body" style="vertical-align: middle">
-                                        <h5 class="media-heading">@ViewBag.AllowedUsers[i]</h5>
-                                    </div>
-                                    <div class="media-right" style="vertical-align: middle;" onclick=
+                                    <div class="media-left" style="vertical-align: middle;" onclick=
                                          "$('#loadingAnimation').css('visibility', 'visible');
                                          $.ajax({
                                         url: 'FolderAccessRemoveUser',
@@ -59,6 +56,9 @@
                                         <button type="button" class="btn badge right" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                         </button>
+                                    </div>
+                                    <div class="media-body" style="vertical-align: middle">
+                                        <h5 class="media-heading">@ViewBag.AllowedUsers[i]</h5>
                                     </div>
                                 </div>
                             }
@@ -106,10 +106,7 @@
                             for (int i = 0; i < ViewBag.AllGroups.Count; i++)
                             {
                                 <div class="list-group-item ">
-                                    <div class="media-body" style="vertical-align: middle">
-                                        <h5 class="media-heading">@ViewBag.AllGroups[i]</h5>
-                                    </div>
-                                    <div class="material-switch media-right" style="vertical-align: middle">                                     
+                                    <div class="material-switch media-left" style="vertical-align: middle">                                     
                                             @if (ViewBag.GroupsAccess[i])
                                             { 
                                                 <input id="foldersAccessSwitch @i" type="checkbox" checked/>
@@ -136,6 +133,9 @@
                                                     }
                                                 }
                                             });"/>                                       
+                                    </div>
+                                    <div class="media-body" style="vertical-align: middle">
+                                        <h5 class="media-heading">@ViewBag.AllGroups[i]</h5>
                                     </div>
                                 </div>
                             }
