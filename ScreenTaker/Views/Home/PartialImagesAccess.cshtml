@@ -1,12 +1,4 @@
 ﻿@{
-    <script>
-        document.getElementById("copyButton").addEventListener("click", function () {
-            copyToClipboard(document.getElementById("sharedLink"));
-            selectText();
-        });
-
-    </script>
-
         if (!Request.QueryString["lang"].IsEmpty())
         {
             Culture = UICulture = Request.QueryString["lang"];
@@ -39,12 +31,7 @@
     </div>*@
     <div class="row">
         <div class="col-sm-12">
-            <div class="input-group">
-                <input type="text" id="sharedLink" style="height:30px;" onclick="selectText()" class="form-control" value="@ViewBag.ImageSharedLink">
-                <span class="input-group-btn" style="height:30px;">
-                    <button class="btn btn-default btn-not-rounded" id="copyButton" style="height:30px;" type="button">@Resources.Resource.COPY</button>
-                </span>
-            </div>
+            <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText()" class="form-control" value="@ViewBag.ImageSharedLink">
         </div>
     </div>
     <div class="row">
