@@ -50,7 +50,8 @@
                                     }
                                     else
                                     {
-                                            <button type="button" class="btn badge right" aria-label="Left Align" onclick="$.ajax({
+                                            <button type="button" class="btn badge right" aria-label="Left Align" 
+                                                onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                                 url: 'ImageAccessRemoveUser',
                                                 data: {
                                                     email: '@ViewBag.AllowedUsers[i]',
@@ -83,7 +84,9 @@
                 <div class="col-sm-12">
                     <div class="input-group">
                         <input type="email" id="userMail" class="form-control" placeholder="@Resources.Resource.EMAIL" aria-describedby="sizing-addon2" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
-                        <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="$.ajax({
+                        <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" 
+                              onclick="$('#loadingAnimation').css('visibility', 'visible');
+                              $.ajax({
                             url: 'ImageAccessAddUser',
                             data: {
                                 email: document.getElementById('userMail').value,
@@ -140,7 +143,7 @@
                                         }
                                         @if (!ViewBag.AreGroupRightsInherited[i]){
                                         <label for="foldersAccessSwitch @i" class="label-info" 
-                                        onclick="$.ajax({
+                                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                         url: 'ImageAccessSwitchGroupsAccess',
                                         data: {
                                             groupId: @ViewBag.GroupsIDs[i],
