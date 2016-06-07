@@ -706,7 +706,7 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {                    
+                {
                     ViewBag.Localize = locale;
                     var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
                     if (image != null)
@@ -728,6 +728,7 @@ namespace ScreenTaker.Controllers
                     return Json(ex.Message, JsonRequestBehavior.AllowGet);
                 }
             }
+        }
 
         [AllowAnonymous]
         public ActionResult SharedFolder(string f, string lang = "en")
