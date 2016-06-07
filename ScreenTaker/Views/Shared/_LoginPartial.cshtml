@@ -17,15 +17,15 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
     string localization = ViewBag.Localize ?? "en";
-    string Loc = "ENG";
+    string Loc = "English";
     if (localization.Equals("uk"))
     {
-        Loc = "UKR";
+        Loc = "Українська";
     }
     else
     if (localization.Equals("ru"))
     {
-        Loc = "RUS";
+        Loc = "Русский";
     }
     if (Request.IsAuthenticated)
     {
@@ -37,9 +37,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization0">@Loc<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
-                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
-                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">Українська</a></li>
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">Русский</a></li>
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">English</a></li>
                     </ul>
                 </li>
                 @{
