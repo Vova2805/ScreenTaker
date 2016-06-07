@@ -26,9 +26,6 @@
         });       
         var a = $('#loadingAnimation');
         a.css('visibility', 'hidden');
-        //$(document).ajaxStart(function () {
-        //    $('#loadingAnimation').css('visibility', 'visible');
-        //});
         $(document).ajaxStop(function () {
             a.css('visibility', 'hidden');
             $(function () {
@@ -392,7 +389,7 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
-            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" disabled />
+            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.FolderLink" disabled readonly />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
@@ -414,7 +411,7 @@
             });">@Resources.Resource.MANAGE_ACCESS</button>
                         </div>
             <hr />
-            <p id="sharedLinkhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse" readonly="readonly">@ViewBag.CurrentFolderShCode</p>
+            <p id="sharedLinkhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse" readonly>@ViewBag.CurrentFolderShCode</p>
             <p id="Idhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderId</p>
         </div>
     </div>
