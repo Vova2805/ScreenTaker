@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Image = ScreenTaker.Models.Image;
 using System.Text.RegularExpressions;
+using System.Net.Mime;
 
 namespace ScreenTaker.Controllers
 {
@@ -54,7 +55,7 @@ namespace ScreenTaker.Controllers
                 using (var transaction = _entities.Database.BeginTransaction())
                 {
                     try
-                    {
+                    {                       
                         ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                            .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                         if (user == null)
@@ -67,7 +68,11 @@ namespace ScreenTaker.Controllers
                             return RedirectToAction("Account/Register", new { lang = locale });
                         if (!accesGranted)                
                             return RedirectToAction("Welcome", new { lang = locale });
-                        fId = folder.Id;               
+                        fId = folder.Id;
+                        if (!_imageCompressor.IsValid(file))
+                            throw new Exception("Image is not valid");
+                        if (file.ContentLength > 1024 * 1024 * 4)
+                            throw new Exception("Image is loo large");
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         var image = new Image();
@@ -86,9 +91,13 @@ namespace ScreenTaker.Controllers
                         compressedBitmap.Save(path, ImageFormat.Png);
                         transaction.Commit();
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
+                        ViewBag.MessageContent= ex.Message;
+                        ViewBag.MessageTitle = "Error";
+                        ViewBag.Localize = locale;
+                        return View("Welcome", new { lang = locale });
                     }
                 }
             }
@@ -641,6 +650,11 @@ namespace ScreenTaker.Controllers
             }
             ViewBag.FolderName = folder.Name;
             FillImagesViewBag(folderId);
+            if (TempData["MessageContent"] != null)
+            {
+                ViewBag.MessageTitle = "Error";
+                ViewBag.MessageContent = TempData["MessageContent"];
+            }
             return View("Images", new { lang = locale });
         }
 
@@ -670,7 +684,11 @@ namespace ScreenTaker.Controllers
                 using (var transaction = _entities.Database.BeginTransaction())
                 {
                     try
-                    {
+                    {                        
+                        if (!_imageCompressor.IsValid(file))
+                            throw new Exception("Image is not valid");
+                        if(file.ContentLength>1024*1024*4)
+                            throw new Exception("Image is too large");                        
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         var image = new Image
@@ -691,16 +709,16 @@ namespace ScreenTaker.Controllers
                         compressedBitmap.Save(path, ImageFormat.Png);
                         transaction.Commit();
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
+                        TempData["MessageContent"] = ex.Message;
                     }
                 }
 
 
             }
             FillImagesViewBag(Int32.Parse(folderId));
-
             return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
         }
 
@@ -1073,7 +1091,7 @@ namespace ScreenTaker.Controllers
         {
             ViewBag.Localize = locale;
             int folderId = 0;
-           
+
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1083,11 +1101,18 @@ namespace ScreenTaker.Controllers
                     var sharedDode = Path.GetFileNameWithoutExtension(path);             
                     folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    var userShare = obj.UserShares;
+                    while (userShare.Count > 0)
+                        _entities.UserShares.Remove(userShare.ElementAt(0));
+                    var groupShare = obj.GroupShares;
+                    while (groupShare.Count > 0)
+                        _entities.GroupShares.Remove(groupShare.ElementAt(0));
                     _entities.Images.Remove(obj);
                     _entities.SaveChanges();
-                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
-                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
-
+                    try { 
+                        System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
+                        System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
+                    }catch { }
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -1257,23 +1282,37 @@ namespace ScreenTaker.Controllers
         public ActionResult DeleteFolder(string path, string lang = "en")
         {
             ViewBag.Localize = locale;
-            
+
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
                     var sharedСode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedСode);
-                    var images = obj.Images;
+                    var images = obj.Images;                    
                     while (images.Count > 0)
                     {
-                        System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + ".png");
-                        System.IO.File.Delete(Server.MapPath("~aa/img/") + images.ElementAt(0).SharedCode + "_compressed.png");
-                        _entities.Images.Remove(images.ElementAt(0));
-                        _entities.SaveChanges();
+                        try {
+                            System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + ".png");
+                            System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + "_compressed.png");
+                        }catch { }
+                        var im = images.ElementAt(0);
+                        var userShareIm = im.UserShares;
+                        while (userShareIm.Count > 0)
+                            _entities.UserShares.Remove(userShareIm.ElementAt(0));
+                        var groupShareIm = im.GroupShares;
+                        while (groupShareIm.Count > 0)
+                            _entities.GroupShares.Remove(groupShareIm.ElementAt(0));
+                        _entities.Images.Remove(im);                        
                     }
+                    var userShare = obj.UserShares;
+                    while (userShare.Count > 0)
+                        _entities.UserShares.Remove(userShare.ElementAt(0));
+                    var groupShare = obj.GroupShares;
+                    while (groupShare.Count > 0)
+                        _entities.GroupShares.Remove(groupShare.ElementAt(0));
                     _entities.Folders.Remove(obj);
-                    _entities.SaveChanges();
+                            _entities.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception)
