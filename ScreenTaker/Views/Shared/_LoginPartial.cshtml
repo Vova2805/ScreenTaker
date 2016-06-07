@@ -17,15 +17,15 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
     string localization = ViewBag.Localize ?? "en";
-    string Loc = "ENG";
+    string Loc = "English";
     if (localization.Equals("uk"))
     {
-        Loc = "UKR";
+        Loc = "Українська";
     }
     else
     if (localization.Equals("ru"))
     {
-        Loc = "RUS";
+        Loc = "Русский";
     }
     if (Request.IsAuthenticated)
     {
