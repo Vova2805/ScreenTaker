@@ -1090,7 +1090,7 @@ namespace ScreenTaker.Controllers
         {
             ViewBag.Localize = locale;
             int folderId = 0;
-           
+
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1100,11 +1100,18 @@ namespace ScreenTaker.Controllers
                     var sharedDode = Path.GetFileNameWithoutExtension(path);             
                     folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    var userShare = obj.UserShares;
+                    while (userShare.Count > 0)
+                        _entities.UserShares.Remove(userShare.ElementAt(0));
+                    var groupShare = obj.GroupShares;
+                    while (groupShare.Count > 0)
+                        _entities.GroupShares.Remove(groupShare.ElementAt(0));
                     _entities.Images.Remove(obj);
                     _entities.SaveChanges();
-                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
-                    System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
-
+                    try { 
+                        System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
+                        System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
+                    }catch { }
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -1281,16 +1288,30 @@ namespace ScreenTaker.Controllers
                 {
                     var sharedСode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedСode);
-                    var images = obj.Images;
+                    var images = obj.Images;                    
                     while (images.Count > 0)
                     {
-                        System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + ".png");
-                        System.IO.File.Delete(Server.MapPath("~aa/img/") + images.ElementAt(0).SharedCode + "_compressed.png");
-                        _entities.Images.Remove(images.ElementAt(0));
-                        _entities.SaveChanges();
+                        try {
+                            System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + ".png");
+                            System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + "_compressed.png");
+                        }catch { }
+                        var im = images.ElementAt(0);
+                        var userShareIm = im.UserShares;
+                        while (userShareIm.Count > 0)
+                            _entities.UserShares.Remove(userShareIm.ElementAt(0));
+                        var groupShareIm = im.GroupShares;
+                        while (groupShareIm.Count > 0)
+                            _entities.GroupShares.Remove(groupShareIm.ElementAt(0));
+                        _entities.Images.Remove(im);                        
                     }
+                    var userShare = obj.UserShares;
+                    while (userShare.Count > 0)
+                        _entities.UserShares.Remove(userShare.ElementAt(0));
+                    var groupShare = obj.GroupShares;
+                    while (groupShare.Count > 0)
+                        _entities.GroupShares.Remove(groupShare.ElementAt(0));
                     _entities.Folders.Remove(obj);
-                    _entities.SaveChanges();
+                            _entities.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception)
