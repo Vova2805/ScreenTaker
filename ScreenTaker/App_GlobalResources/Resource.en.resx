@@ -151,7 +151,7 @@
     <value>Capturing full screen</value>
   </data>
   <data name="CAPTURING_TEXT" xml:space="preserve">
-    <value>The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere - you don’t need the Snaggy website open. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image.</value>
+    <value>The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image.</value>
   </data>
   <data name="CHANGE_PASS" xml:space="preserve">
     <value>Change password</value>
@@ -265,6 +265,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="MOVE" xml:space="preserve">
     <value>Move</value>
   </data>
+  <data name="MOVE_HERE" xml:space="preserve">
+    <value>Move here</value>
+  </data>
   <data name="MOVE_IMAGE" xml:space="preserve">
     <value>Move image to</value>
   </data>
@@ -300,6 +303,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="PRIVATE" xml:space="preserve">
     <value>Private</value>
+  </data>
+  <data name="PROFILE_HEAD" xml:space="preserve">
+    <value>Profile settings</value>
   </data>
   <data name="REMOVE" xml:space="preserve">
     <value>Remove</value>

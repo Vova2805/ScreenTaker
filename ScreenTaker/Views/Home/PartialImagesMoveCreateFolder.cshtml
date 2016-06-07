@@ -19,7 +19,7 @@
             </div>
             <div class="media-right" style="vertical-align:middle;">
                 <button type="button" class="btn right btn-primary btn-not-rounded" aria-label="Left Align" onclick="location.href='@Url.Action("MoveItMoveIt","Home",new {folderId=ViewBag.UserFolders[i].Id})&imageSharedCode='+document.getElementById('original').value">
-                    Move here
+                    @Resources.Resource.MOVE_HERE
                 </button>
             </div>
         </div>

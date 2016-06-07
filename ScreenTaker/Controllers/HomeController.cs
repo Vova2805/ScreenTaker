@@ -895,7 +895,7 @@ namespace ScreenTaker.Controllers
             ViewBag.OriginalName = "";
             if (ViewBag.Image != null)
             {
-                ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+                ViewBag.OriginalName = ViewBag.Image.Name;
             }
             ViewBag.IsPublic = "False";
             if (ViewBag.Image != null)

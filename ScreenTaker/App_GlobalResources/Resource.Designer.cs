@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere - you don’t need the Snaggy website open. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image..
+        ///   Looks up a localized string similar to The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image..
         /// </summary>
         internal static string CAPTURING_TEXT {
             get {
@@ -503,6 +503,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move here.
+        /// </summary>
+        internal static string MOVE_HERE {
+            get {
+                return ResourceManager.GetString("MOVE_HERE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move image to.
         /// </summary>
         internal static string MOVE_IMAGE {
@@ -607,6 +616,15 @@ namespace Resources {
         internal static string PRIVATE {
             get {
                 return ResourceManager.GetString("PRIVATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile settings.
+        /// </summary>
+        internal static string PROFILE_HEAD {
+            get {
+                return ResourceManager.GetString("PROFILE_HEAD", resourceCulture);
             }
         }
         

@@ -265,6 +265,9 @@
   <data name="MOVE" xml:space="preserve">
     <value>Переместить</value>
   </data>
+  <data name="MOVE_HERE" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
   <data name="MOVE_IMAGE" xml:space="preserve">
     <value>Переместить изображение в </value>
   </data>
@@ -300,6 +303,9 @@
   </data>
   <data name="PRIVATE" xml:space="preserve">
     <value>Приватное</value>
+  </data>
+  <data name="PROFILE_HEAD" xml:space="preserve">
+    <value>Настройки учетной записи</value>
   </data>
   <data name="REMOVE" xml:space="preserve">
     <value>Удалить</value>
