@@ -1,4 +1,4 @@
-﻿
+﻿    
 function openNav() {
    
     $('#mySidenav').animate({
@@ -114,4 +114,35 @@ function copyToClipboard(elem) {
         target.textContent = "";
     }
     return succeed;
+}
+function emailValidation(email) {
+    var pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/;
+    if (email == '' || !pattern.test(email))
+    {
+    return false;
+    }
+    return true;
+}
+
+function passwordValidation(pass) {
+    var pattern = /(?=.*[a-zA-Z0-9]).{6,}/;
+    if (pass == '' || !pattern.test(pass)) {
+        return false;
+    }
+    return true;
+}
+
+function ConfirmPasswordValidation(confirmed, pass) {
+    if (confirmed == pass) return true;
+    return false;
+}
+function setClasses(id, respond) {
+    if (respond == false) {
+        $(id).removeClass('field-success');
+        $(id).addClass('field-error');
+    }
+    else {
+        $(id).removeClass('field-error');
+        $(id).addClass('field-success');
+    }
 }

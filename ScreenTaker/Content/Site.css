@@ -672,3 +672,15 @@ textarea {
 .ui-autocomplete {
     z-index: 9000;
 }
+.field-success {
+     border: 2px solid #45cb18; 
+}
+.field-error{
+    border: 2px solid #ed1e1e; 
+}
+.field-success:focus {
+     border: 2px solid #45cb18; 
+}
+.field-error:focus{
+    border: 2px solid #ed1e1e; 
+}
