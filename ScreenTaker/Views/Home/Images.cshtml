@@ -290,18 +290,18 @@
                                     <input type="text" class="form-control" id="newFolderName" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" aria-label="Left Align" onclick=
-"$.ajax({
-    url: 'ImagesMoveCreateFolder',
-    data: {
-        name: document.getElementById('newFolderName').value,
-        folderId: @ViewBag.FolderId
-    },
-    success: function (data) {
-        $('#areaForFolders').html(data);
-        document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
-        document.getElementById('areaForFolders').scrollTop = 9999;
-    }
-});">
+                                    "$.ajax({
+                                        url: 'ImagesMoveCreateFolder',
+                                        data: {
+                                            name: document.getElementById('newFolderName').value,
+                                            folderId: @ViewBag.FolderId
+                                        },
+                                        success: function (data) {
+                                            $('#areaForFolders').html(data);
+                                            document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
+                                            document.getElementById('areaForFolders').scrollTop = 9999;
+                                        }
+                                    });">
                                             @Resources.Resource.CREATE
                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                         </button>
@@ -486,7 +486,7 @@
                          >@Resources.Resource.MANAGE_ACCESS</button>
             </div>
             <hr />
-            <p id="sharedLinkhidden" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.FirstImageShCode</p>
+            <p id="sharedLinkhidden" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse" readonly="readonly">@ViewBag.FirstImageShCode</p>
             <p id="Idhidden" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.FirstImageId</p>
         </div>
     </div>
