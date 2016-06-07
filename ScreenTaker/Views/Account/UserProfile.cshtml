@@ -1,5 +1,4 @@
-﻿@model ScreenTaker.Models.ChangePasswordViewModel
-@{
+﻿@{
     ViewBag.Title = "Profile";
     if (!Request.QueryString["lang"].IsEmpty())
     {
@@ -15,13 +14,17 @@
         <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class="col-sm-8 account-style shadow center-block">
+                <div class="text-center">
+                    <h4>@Resources.Resource.USE_ACCOUNT</h4>
+                    <hr />
+                </div>
                 <div class="col-sm-6" style="padding-top: 15px">
                     <div class="col-sm-12  text-center" id="dynamicArea">
-                        <img class="profile-avatar" src="@ViewBag.Avatar_128" />
-                    </div>
+                        <div style="width: 128px; height: 128px; background: url(@ViewBag.Avatar_128) no-repeat center center;" class="center-block"></div>
+                    </div><br />
                     <div class="col-sm-12">
                         <div class="text-center">
-                            <h4>@ViewBag.Email</h4>
+                            <h4>Email: @ViewBag.Email</h4>
                         </div>
                     </div>
                     <div class="col-sm-12 text-center" style="margin-top: -35px">
@@ -43,38 +46,31 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post, new { @class = "col-sm-12 text-left form-horizontal", role = "form" }))
+                    @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { @class = "col-sm-12 text-left form-horizontal", role = "form" }))
                     {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true,"", new { @class = "text-danger" })
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
                         <div class="form-group">
                             <div class="col-md-12 login-signup-center">
                                 <label>@Resources.Resource.YOUR_OLD_PASS</label>
-                               @* <input type="password" class="form-control btn-not-rounded" placeholder="" />*@
+                                <input type="password" class="form-control btn-not-rounded" placeholder="" />
                                 @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
-                                @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control btn-not-rounded" })
-                                @Html.ValidationMessageFor(m => m.OldPassword, "", new { @class = "text-left text-primary" })
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 login-signup-center">
                                 <label>@Resources.Resource.ENTER_NEW_PASS</label>
-                               @* <input type="password" class="form-control btn-not-rounded" placeholder="" />*@
+                                <input type="password" class="form-control btn-not-rounded" placeholder="" />
                                 @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
-                                @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control btn-not-rounded" })
-                                @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-left text-primary" })
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 login-signup-centers">
                                 <label>@Resources.Resource.CONFIRM_PASS</label>
-                               @* <input type="password" class="form-control btn-not-rounded" placeholder="" />*@
+                                <input type="password" class="form-control btn-not-rounded" placeholder="" />
                                 @* @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-left text-primary" }) *@
-                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control btn-not-rounded" })
-                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-left text-primary" })
                             </div>
                         </div>
                         <div class="form-group">
