@@ -18,16 +18,14 @@
                     <h4>@Resources.Resource.USE_ACCOUNT</h4>
                     <hr />
                 </div>
-                <div class="col-sm-6" style="padding-top: 15px">
-                    <div class="col-sm-12  text-center" id="dynamicArea">
+                <div class="col-sm-6" style="margin-top: -15px;">
+                    <div class="text-center" id="dynamicArea">
                         <div style="width: 128px; height: 128px; background: url(@ViewBag.Avatar_128) no-repeat center center;" class="center-block"></div>
-                    </div><br />
-                    <div class="col-sm-12">
-                        <div class="text-center">
-                            <h4>Email: @ViewBag.Email</h4>
-                        </div>
                     </div>
-                    <div class="col-sm-12 text-center" style="margin-top: -35px">
+                    <div class="text-center">
+                            <h4>Email: @ViewBag.Email</h4>
+                    </div>
+                    <div class="text-center" style="margin-top: -50px">
                         @using (Html.BeginForm("SetAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-sm-12 form-horizontal text-center" }))
                         {
                             <input id="fileInput" style="visibility: collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
@@ -39,14 +37,12 @@
                             </div>
                         }
                     </div>
-                    <div class="col-sm-12" style="margin-top: 3px">
-                        <div class="form-group">
-                            <button class="btn btn-default btn-block account-button" style="width: 100%" onclick="location = '/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
-                        </div>
+                    <div class="form-group" style="margin-top: 130px">
+                            <button class="btn btn-default btn-block account-button" style="width: 100%;" onclick="location = '/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { @class = "col-sm-12 text-left form-horizontal", role = "form" }))
+                <div class="col-sm-6" style="margin-top: -15px; bottom: -5px">
+                    @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { @class = "text-left form-horizontal", role = "form" }))
                     {
                         @Html.ValidationSummary("", new { @class = "text-danger" })
                         <div class="form-group">
@@ -75,7 +71,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 login-signup-center">
-                                <input type="submit" class="btn btn-default btn-block account-button" value="@Resources.Resource.CHANGE_PASS" />
+                                <input type="submit" class="btn btn-default btn-block account-button" value="@Resources.Resource.CHANGE_PASS"/>
                             </div>
                         </div>
                     }
