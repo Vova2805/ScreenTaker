@@ -662,8 +662,8 @@ textarea {
         margin-top:-5px;
     }
     .disabled-list-group-item{
-        background-color:#AAAAAA;
-        color:#D6D6D6;
+        background-color:#eee;
+        color:#686868;
     }
     .disabled-list-group-item input{
         pointer-events:none;
@@ -683,4 +683,8 @@ textarea {
 }
 .field-error:focus{
     border: 2px solid #ed1e1e; 
+}
+
+.default-text-color{
+    color:#9d9d9d;
 }
