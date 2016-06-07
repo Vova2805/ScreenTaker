@@ -26,9 +26,6 @@
         });       
         var a = $('#loadingAnimation');
         a.css('visibility', 'hidden');
-        //$(document).ajaxStart(function () {
-        //    $('#loadingAnimation').css('visibility', 'visible');
-        //});
         $(document).ajaxStop(function () {
             a.css('visibility', 'hidden');
             $(function () {

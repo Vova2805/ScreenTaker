@@ -35,7 +35,7 @@
             $('#toggle_event_editing button').eq(0).addClass('unlocked_inactive btn-default');
         }
         document.getElementById("buttonPublicOrPrivate").innerText = public_private;
-
+        $('#ImageNameDelete').value = '@ViewBag.ImageTitle';
         $(function () {
             $("[data-autocomplete-source]").each(function () {
                 var target = $(this);
@@ -43,7 +43,7 @@
             });
         });
         var a = $('#loadingAnimation');
-        a.css('visibility', 'hidden');
+        $('#loadingAnimation').css('visibility', 'hidden');
         $(document).ajaxStop(function () {
             a.css('visibility', 'hidden');
             $(function () {
@@ -68,24 +68,15 @@
         $('#toggle_event_editing button').click(function () {
             $('#MakePublicButton').click();
         });
-
-        var a = $('#loadingAnimation');
-        a.css('visibility', 'hidden');
-        $(document).ajaxStart(function () {
-            $('#loadingAnimation').css('visibility', 'visible');
-        });
-        $(document).ajaxStop(function () {
-            $('#loadingAnimation').css('visibility', 'hidden');
-        });
         function ShowProgress() {
             setTimeout(function () {
                 var a = $('#loadingAnimation');
                 a.css('visibility', 'visible');
             }, 200);
         }
-        //$('form').live("submit", function () {
-        //    ShowProgress();
-        //});
+        $('form').live("submit", function () {
+            ShowProgress();
+        });
     </script>
 }
 
@@ -109,7 +100,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
                 <button type="button" class="btn btn-primary btn-not-rounded" 
-                        onclick="$.ajax({
+                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                 url: 'RenameImage',
                                 data: {
                                     path: '@ViewBag.OriginalPath',
@@ -119,6 +110,7 @@
                                     $('#dynamicSingleImageArea').html(data);
                                     $('#RenameImage').modal('hide');
                                     $('#loadingAnimation').css('visibility', 'hidden');
+                                    $('#ImageNameDelete').innerText = document.getElementById('new-title').value;
                                 }
                             });"
                         >@Resources.Resource.SUBMIT</button>
@@ -210,7 +202,7 @@
                                     <input type="text" class="form-control" id="newFolderName" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" aria-label="Left Align" onclick=
-                                            "$.ajax({
+                                            "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                                 url: 'SingleImageMoveCreateFolder',
                                                 data: {
                                                     name: document.getElementById('newFolderName').value,
@@ -288,36 +280,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            @*<div class="row">
-                                <div class="text-md-center">
-                                    <h3 class="text-center">@ViewBag.OriginalName</h3>
-                                </div>
-                            </div>*@
                             <div class="row">
                                 <div class="text-md-center">
                                     <h5 class="text-center">Uploaded @ViewBag.Date</h5>
                                 </div>
                             </div>
-                            @*<div class="row">
-                                <div class="col-md-2">
-                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">map</button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">favorite</button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">earth</button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">mine</button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">family</button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-warning btn-not-rounded" style="width: 100%; background-color: #686868; color: white">nature</button>
-                                </div>
-                            </div>*@
                             <br />
                         </div>
                     </div>
@@ -328,8 +295,6 @@
         <div class="sidenav" id="mySidenav">
             <div style="margin-left: 10px; margin-right: 10px;">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;top:9%;">×</a>
-                @*<p style="color: #E0E0E0; padding-top: 10px">@ViewBag.OriginalNameWithoutEx</p>
-                <hr />*@
                 <div style="margin-top:63%;">
                     <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">@Resources.Resource.MOVE</button>
                 </div>
@@ -344,7 +309,7 @@
                 <br />
                 <div>                    
                     <button class="btn btn-warning btn-not-rounded" style="width: 100%" id="buttonPublicOrPrivate" onclick=
-                            "$.ajax({
+                            "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                             url: 'MakeSingleImagePublicOrPrivate',
                             data: {
                                 imageId: document.getElementById('Idhidden').value,
@@ -387,7 +352,7 @@
                 <br />
                 <div>
                     <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%" onclick=
-                              "$.ajax({
+                              "$('#loadingAnimation').css('visibility', 'visible'); $.ajax({
                             url: 'PartialImagesAccess',
                             data: {
                                 imageId: document.getElementById('Idhidden').value,                       
@@ -429,7 +394,7 @@
             </li>
             <li class="context-menu__item">
                 <a href="#" class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess" onclick=
-                              "$.ajax({
+                              "$('#loadingAnimation').css('visibility', 'visible'); $.ajax({
                             url: 'PartialImagesAccess',
                             data: {
                                 imageId: document.getElementById('Idhidden').value,                       
