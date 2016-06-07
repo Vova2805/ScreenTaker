@@ -15,23 +15,9 @@
     <h4 class="modal-title" id="gridSystemModalLabel">@Resources.Resource.MANAGE_ACCESS</h4>
 </div>
 <div class="modal-body">
-    @*<div class="row" style="margin-bottom:5px;">
-        <div class="col-sm-9">
-            <h5 style="vertical-align:middle;margin:0;margin-top:5px;">@Resources.Resource.ACCESS_BY_LINK</h5>
-        </div>
-        <div class="col-sm-3">
-            <div class="pull-right">
-                <button type="button" class="btn btn-default unlocked_inactive btn-not-rounded" style="height: 30px; width: 60px; font-size: 13px; padding: 6px;"
-                        onclick="location.href='@Url.Action("MakeFolderPublicOrPrivate", "Home" )?folderId='+document.getElementById('Idhidden').value;">
-                    Turn Off
-                </button>
-
-            </div>
-        </div>
-    </div>*@
     <div class="row">
         <div class="col-sm-12">
-            <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText()" class="form-control" value="@ViewBag.FolderLink">
+            <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText()" class="form-control" value="@ViewBag.FolderLink" readonly>
         </div>
     </div>
     <div class="row">
