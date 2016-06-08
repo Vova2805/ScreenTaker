@@ -1153,18 +1153,22 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
+                {                    
                     ViewBag.ImageTitle = newName;
                     var sharedDode = Path.GetFileNameWithoutExtension(path);
-                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
-                    obj.Name = newName;
+                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);                    
                     ViewBag.Image = obj;
+                    if (newName.Length == 0)
+                        throw new Exception("Field should not be empty");
+                    ViewBag.Image = obj;
+                    obj.Name = newName;
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
                 }
             }
             if (ViewBag.Image != null)
@@ -1276,6 +1280,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (newName.Length == 0)
+                        throw new Exception("Field should not be empty");
                     ViewBag.ImageTitle = newName;
                     var sharedCode = Path.GetFileNameWithoutExtension(path);                  
                     var obj = _entities.Images.Where(w=>w.SharedCode == sharedCode).FirstOrDefault();
@@ -1286,9 +1292,10 @@ namespace ScreenTaker.Controllers
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
                 }
             }
             return PartialView("PartialImagesChangeState");

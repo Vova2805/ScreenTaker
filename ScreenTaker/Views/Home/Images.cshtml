@@ -173,6 +173,12 @@
                                 success: function (data) {
                                     $('#dynamicImagesArea').html(data);
                                     $('#RenameImage').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                    }    
                                 }
                             });">
                 @Resources.Resource.SUBMIT</button>
@@ -211,6 +217,12 @@
                                 success: function (data) {
                                     $('#dynamicImagesArea').html(data);
                                     $('#DeleteImage').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                    }                                        
                                 }
                             });">
                     @Resources.Resource.YES
