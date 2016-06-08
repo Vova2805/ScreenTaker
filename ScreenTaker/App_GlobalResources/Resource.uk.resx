@@ -210,6 +210,12 @@
   <data name="EMAIL" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="EMAIL_LINK" xml:space="preserve">
+    <value>Ввести пошту</value>
+  </data>
+  <data name="ENTER_EMAIL" xml:space="preserve">
+    <value>Введіть вашу електронну пошту</value>
+  </data>
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Введіть новий пароль</value>
   </data>
@@ -225,6 +231,9 @@
   </data>
   <data name="FOLDERY" xml:space="preserve">
     <value>папку</value>
+  </data>
+  <data name="FORGOT" xml:space="preserve">
+    <value>Забули пароль?</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Групи</value>
@@ -333,6 +342,9 @@
   </data>
   <data name="RESEND_AGAIN" xml:space="preserve">
     <value>Надіслати заново</value>
+  </data>
+  <data name="RESET_PASSWORD" xml:space="preserve">
+    <value>Скиньте ваш пароль</value>
   </data>
   <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
     <value>Click this {0} UA</value>

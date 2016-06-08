@@ -210,6 +210,12 @@
   <data name="EMAIL" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="EMAIL_LINK" xml:space="preserve">
+    <value>Email Link</value>
+  </data>
+  <data name="ENTER_EMAIL" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Enter a new password</value>
   </data>
@@ -225,6 +231,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="FOLDERY" xml:space="preserve">
     <value>folder</value>
+  </data>
+  <data name="FORGOT" xml:space="preserve">
+    <value>Forgot password?</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
@@ -333,6 +342,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="RESEND_AGAIN" xml:space="preserve">
     <value>Resend confirmation mail again</value>
+  </data>
+  <data name="RESET_PASSWORD" xml:space="preserve">
+    <value>Reset your password</value>
   </data>
   <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
     <value>Click this {0} default</value>
