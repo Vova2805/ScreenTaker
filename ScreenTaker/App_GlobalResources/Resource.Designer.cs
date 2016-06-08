@@ -106,6 +106,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please activate your account by confirming this email address.
+        /// </summary>
+        internal static string ACTIVATE {
+            get {
+                return ResourceManager.GetString("ACTIVATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate now.
+        /// </summary>
+        internal static string ACTIVATE_NOW {
+            get {
+                return ResourceManager.GetString("ACTIVATE_NOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string ADD {
@@ -151,11 +169,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alternative :.
+        /// </summary>
+        internal static string ALTERNATIVE {
+            get {
+                return ResourceManager.GetString("ALTERNATIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register as a new user.
         /// </summary>
         internal static string AS_NEW_USER {
             get {
                 return ResourceManager.GetString("AS_NEW_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is an automated email. .
+        /// </summary>
+        internal static string AUTO {
+            get {
+                return ResourceManager.GetString("AUTO", resourceCulture);
             }
         }
         
@@ -967,6 +1003,15 @@ namespace Resources {
         internal static string WANT_DELETE {
             get {
                 return ResourceManager.GetString("WANT_DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        internal static string WELCOME {
+            get {
+                return ResourceManager.GetString("WELCOME", resourceCulture);
             }
         }
         

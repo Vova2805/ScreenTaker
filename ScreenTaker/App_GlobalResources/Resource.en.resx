@@ -132,6 +132,12 @@
   <data name="ACC_DENIED_DESCR" xml:space="preserve">
     <value>Image owner has restricted access to this resource</value>
   </data>
+  <data name="ACTIVATE" xml:space="preserve">
+    <value>Please activate your account by confirming this email address</value>
+  </data>
+  <data name="ACTIVATE_NOW" xml:space="preserve">
+    <value>Activate now</value>
+  </data>
   <data name="ADD" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -147,8 +153,14 @@
   <data name="ALREADY_HAVE_ACC" xml:space="preserve">
     <value>Already have an account?</value>
   </data>
+  <data name="ALTERNATIVE" xml:space="preserve">
+    <value>Alternative :</value>
+  </data>
   <data name="AS_NEW_USER" xml:space="preserve">
     <value>Register as a new user</value>
+  </data>
+  <data name="AUTO" xml:space="preserve">
+    <value>This is an automated email. </value>
   </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Cancel</value>
@@ -420,6 +432,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="WANT_DELETE" xml:space="preserve">
     <value>Do you really want to delete </value>
+  </data>
+  <data name="WELCOME" xml:space="preserve">
+    <value>Welcome</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Yes</value>
