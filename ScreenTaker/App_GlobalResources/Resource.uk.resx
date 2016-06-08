@@ -292,6 +292,9 @@
   <data name="OPEN" xml:space="preserve">
     <value>Відкрити</value>
   </data>
+  <data name="OWNER" xml:space="preserve">
+    <value>Власник</value>
+  </data>
   <data name="PASSWORD" xml:space="preserve">
     <value>Пароль</value>
   </data>

@@ -593,6 +593,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        internal static string OWNER {
+            get {
+                return ResourceManager.GetString("OWNER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string PASSWORD {

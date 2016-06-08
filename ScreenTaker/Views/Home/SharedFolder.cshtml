@@ -48,23 +48,41 @@
         </div>
         <div class="row">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
-            @foreach (var i in ViewBag.Images)
-            {
-                string original = i.SharedCode;
-                string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
-                string name = i.Name + ".png";
-                int length = name.Length;
-                int size = length <= 15 ? length : 15;
-                name = name.Substring(0, size);
-                <div onclick="openImage('@original')" style="cursor:pointer;">
-                    <div class="floating-box text-center task active images" style="padding-top: 10px; ">
-                        <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
-                        </div>
-                        <label class="text-center">@name</label>
-                    </div>
-                </div>
-            }
+            @{ 
+                int index = 0;
+                int count = ViewBag.Images.Count;
+                foreach (var i in ViewBag.Images)
+                {
+                    string original = i.SharedCode;
+                    string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
+                    string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+                    string isPublic = i.IsPublic + "";
+                    string classes = "floating-box text-center task active images";
+                    string without_ex = i.Name;
+                    string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
+                    string name = i.Name + ".png";
+                    int length = name.Length;
+                    int size = length <= 15 ? length : 15;
+                    string image_id = "IMD" + index;
+                    name = name.Substring(0, size);
+                        string AvatarPath = ViewBag.BaseURL + "avatars/" + (ViewBag.Owners[index] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[index].AvatarFile + "_50.png") : "user.png");
+                        string OwnerEmail = ViewBag.Owners[index].Email;
+                        string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
+                        string popover_template =
+                        "<div class='popover' role='tooltip'><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-25px;margin-top:10px;\"></a></div></div></div></div></div>";
+
+                    <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
+                            ondblclick="openImage('@original')" style="cursor:pointer;"
+                            onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex','@isPublic')">
+                            <figure class="@classes" id="@image_id">
+                                <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
+                                </div>
+                                <figcaption class="text-center">@name</figcaption>
+                          </figure>
+                    </button>
+                    index = index + 1;
+                }
+                }
             </div>
         </div>
     </div>
