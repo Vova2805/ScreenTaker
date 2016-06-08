@@ -1176,7 +1176,9 @@ namespace ScreenTaker.Controllers
                 }
             }
             var list = _entities.Images.Where(i => i.FolderId == FolderId).ToList();
-            ViewBag.ImageID = _entities.Images.Where(i => i.FolderId == FolderId).ToList().First().Id;
+            if (list.Count > 0)
+                ViewBag.ImageID = list.First().Id;
+            else ViewBag.ImageID = -1;
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.IsEmpty = !list.Any();
             ViewBag.Images = list;
