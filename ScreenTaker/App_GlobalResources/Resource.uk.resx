@@ -171,6 +171,9 @@
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Підтвердити пароль</value>
   </data>
+  <data name="CONF_PASS" xml:space="preserve">
+    <value>Підтвердіть пароль</value>
+  </data>
   <data name="COPY" xml:space="preserve">
     <value>Скопіювати</value>
   </data>
@@ -286,6 +289,9 @@
   <data name="NEW_FOLDER_TITLE" xml:space="preserve">
     <value>Введіть назву нової папки</value>
   </data>
+  <data name="NEW_PASS" xml:space="preserve">
+    <value>Новий пароль</value>
+  </data>
   <data name="NO" xml:space="preserve">
     <value>Ні</value>
   </data>
@@ -294,6 +300,9 @@
   </data>
   <data name="OFF" xml:space="preserve">
     <value>Вимк</value>
+  </data>
+  <data name="OLD_PASS" xml:space="preserve">
+    <value>Старий пароль</value>
   </data>
   <data name="ON" xml:space="preserve">
     <value>Увімк</value>
