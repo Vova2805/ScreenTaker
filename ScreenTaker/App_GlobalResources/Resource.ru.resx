@@ -371,10 +371,10 @@
     <value>Пароль</value>
   </data>
   <data name="PASSWORD_CHANGE" xml:space="preserve">
-    <value>Password change</value>
+    <value>Пароль изменен</value>
   </data>
   <data name="PASSWORD_CHANGE_SUCCESS" xml:space="preserve">
-    <value>Your password has been successfully changed.</value>
+    <value>Ваш пароль был успешно изменен.</value>
   </data>
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Подтвердить пароль</value>

@@ -818,7 +818,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password change.
+        ///   Looks up a localized string similar to Password changed.
         /// </summary>
         internal static string PASSWORD_CHANGE {
             get {

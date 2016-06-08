@@ -371,7 +371,7 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
     <value>Password</value>
   </data>
   <data name="PASSWORD_CHANGE" xml:space="preserve">
-    <value>Password change</value>
+    <value>Password changed</value>
   </data>
   <data name="PASSWORD_CHANGE_SUCCESS" xml:space="preserve">
     <value>Your password has been successfully changed.</value>
