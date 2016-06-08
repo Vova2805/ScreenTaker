@@ -103,11 +103,13 @@
 
             }
             else{
+                public_private = '@Resources.Resource.MAKE_PRIVATE';
                 $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
                 $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
                 $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
                 $('#toggle_event_editing button').eq(0).addClass('unlocked_inactive btn-default');
             }
+
             document.getElementById("MakePublicButton").innerText = public_private;
 
 

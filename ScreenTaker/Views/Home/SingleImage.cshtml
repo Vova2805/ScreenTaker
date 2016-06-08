@@ -20,7 +20,7 @@
 <script src="@Url.Content("~/Scripts/jquery-ui-1.11.4.min.js")" type="text/javascript"></script>
     <script>
         var public_private = '@Resources.Resource.MAKE_PRIVATE';
-        if ('@ViewBag.ImageIsPublics' == "False") {
+        if ('@ViewBag.ImageIsPublic' == "False") {
             public_private = '@Resources.Resource.MAKE_PUBLIC';
             $('#toggle_event_editing button').eq(0).removeClass('unlocked_inactive btn-default');
             $('#toggle_event_editing button').eq(0).addClass('locked_active btn-info');
@@ -29,6 +29,7 @@
 
         }
         else {
+            public_private = '@Resources.Resource.MAKE_PRIVATE';
             $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
             $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
             $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
@@ -375,8 +376,6 @@
                                   document.getElementById('buttonPublicOrPrivate').textContent = '@Resources.Resource.MAKE_PRIVATE';
                                 }
                             }
-
-                          
                             }
                             });
                 ">@Resources.Resource.MAKE_PUBLIC</button>

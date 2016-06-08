@@ -949,10 +949,10 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.OriginalName = ViewBag.Image.Name;
             }
-            ViewBag.IsPublic = "False";
+            ViewBag.ImageIsPublic = "False";
             if (ViewBag.Image != null)
             {
-                ViewBag.IsPublic = ViewBag.Image.IsPublic + "";
+                ViewBag.ImageIsPublic = ViewBag.Image.IsPublic + "";
             }
             ViewBag.OriginalNameWithoutEx = "";
             if (ViewBag.Image != null)
