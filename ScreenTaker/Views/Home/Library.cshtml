@@ -332,7 +332,13 @@
                         string img_id = "FIM" + i;
                         string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
-                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+                        bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0:false;
+                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
+                        if (isFull)
+                        {
+                            imageLink += "_full";
+                        }
+                        imageLink += ".png";
                         string isPublic = ViewBag.Folders[i].IsPublic+"";
                         string FolderTitle = ViewBag.Folders[i].Name;
                         int length = FolderTitle.Length;
