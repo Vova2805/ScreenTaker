@@ -1,12 +1,12 @@
 ﻿@{
-     if (!Request.QueryString["lang"].IsEmpty())
-        {
-            Culture = UICulture = Request.QueryString["lang"];
-        }
-        else
-        {
-            Culture = UICulture = ViewBag.Localize ?? "en";
-        }
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
 }
 <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
     @{
@@ -19,7 +19,7 @@
             string img_id = "FIM" + i;
             string sharedLink = ViewBag.Base_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
             string sharedCode = ViewBag.Folders[i].SharedCode;
-            bool isFull = ViewBag.Folders[i].Images!=null?ViewBag.Folders[i].Images.Count > 0:false;
+            bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0 : false;
             string imageLink = ViewBag.Base_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
             if (isFull)
             {
@@ -32,7 +32,7 @@
             string name = FolderTitle.Substring(0, size);
             FolderTitle = name;
             string isPublic = ViewBag.Folders[i].IsPublic + "";
-            string id = ViewBag.Folders[i].Id+"";
+            string id = ViewBag.Folders[i].Id + "";
             string fId = ViewBag.FolderID + "";
 
             <div onclick="selectFolder('@id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')"
@@ -48,14 +48,17 @@
                     document.getElementById('@folder_id').click();
                 </script>
             }
-        }   
+        }
     }
 </div>
-@if (ViewBag.MessageContent != null)
-{
+@{
+
+    if (ViewBag.MessageContent != null)
+    {
     <input type="hidden" id="MessageContentFromPartialChangeState" value="@ViewBag.MessageContent" />
-}
-else
-{
+    }
+    else
+    {
     <input type="hidden" id="MessageContentFromPartialChangeState" value="" />
+    }
 }

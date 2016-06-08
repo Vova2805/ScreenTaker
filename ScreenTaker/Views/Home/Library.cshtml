@@ -421,15 +421,23 @@
             <br />
             <div>
                 <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%" 
-                         onclick="$('#loadingAnimation').css('visibility', 'visible');
-                        $.ajax({
-                                url: 'MakeFolderPublicOrPrivate',
-                                data: {
-                                    folderId: document.getElementById('Idhidden').value
-                                },
-                                success: function (data) {
-                                    $('#dynamicFoldersArea').html(data);
+                         onclick=
+                          "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                            url: 'MakeFolderPublicOrPrivate',
+                            data: {
+                                folderId: document.getElementById('Idhidden').value,
+                            },
+                            success: function (data) {
+                                if (document.getElementById('MakePublicButton').innerHTML == '@Resources.Resource.MAKE_PRIVATE')
+                                {
+                                document.getElementById('MakePublicButton').innerHTML = '@Resources.Resource.MAKE_PUBLIC';
                                 }
+                                 else
+                                {
+                                  document.getElementById('MakePublicButton').innerHTML = '@Resources.Resource.MAKE_PRIVATE';
+                                }
+                                $('#dynamicFoldersArea').html(data);       
+                            }
                             });">
                 @Resources.Resource.MAKE_PUBLIC
                 </button>
