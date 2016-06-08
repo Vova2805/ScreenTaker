@@ -315,6 +315,12 @@
     <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-6" style="padding-left: 40px;">
+                    @{
+                        int flength = ViewBag.FolderName.Length;
+                        int fsize = flength <= 20 ? flength : 20;
+                        string fname = ViewBag.FolderName.Substring(0, fsize);
+                        ViewBag.FolderName = fname;
+                    }
                     <h2>@ViewBag.FolderName</h2>
                 </div>
                 <div class="preloader" id="loadingAnimation"  style="visibility:hidden">

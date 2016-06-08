@@ -244,6 +244,12 @@
             
                 <div class="row">
                     <div class="col-sm-6" style="padding-left: 40px;">
+                        @{
+                            int length = ViewBag.OriginalName.Length;
+                            int size = length <= 20 ? length : 20;
+                            string name = ViewBag.OriginalName.Substring(0, size);
+                            ViewBag.OriginalName = name;
+                        }
                         <h2>@ViewBag.OriginalName</h2>
                     </div>
 
