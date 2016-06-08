@@ -34,7 +34,10 @@
             string isPublic = ViewBag.Folders[i].IsPublic + "";
             string id = ViewBag.Folders[i].Id + "";
             string fId = ViewBag.FolderID + "";
-
+            if (id == fId)
+            {
+                string a = isPublic;
+            }
             <div onclick="selectFolder('@id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')"
                  ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                 <figure class="@classes" id="@folder_id">

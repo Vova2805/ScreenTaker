@@ -23,7 +23,7 @@
                 var target = $(this);
                 target.autocomplete({ source: target.attr("data-autocomplete-source") });
             });
-        });       
+        });
         var a = $('#loadingAnimation');
         a.css('visibility', 'hidden');
         $(document).ajaxStop(function () {
@@ -34,7 +34,7 @@
                     target.autocomplete({ source: target.attr("data-autocomplete-source") });
                 });
             });
-        });  
+        });
         $('#toggle_event_editing button').click(function () {
             $('#MakePublicButton').click();
         });
@@ -95,7 +95,7 @@
 
             document.getElementById("folderImage").src = image;
             document.getElementById("folderTitle").innerText = name;
-            
+
             if(isPublic=="False"){
                 public_private = '@Resources.Resource.MAKE_PUBLIC';
                 $('#toggle_event_editing button').eq(0).removeClass('unlocked_inactive btn-default');
@@ -105,6 +105,7 @@
 
             }
             else{
+                public_private = '@Resources.Resource.MAKE_PRIVATE';
                 $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
                 $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
                 $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
@@ -428,14 +429,6 @@
                                 folderId: document.getElementById('Idhidden').value,
                             },
                             success: function (data) {
-                                if (document.getElementById('MakePublicButton').innerHTML == '@Resources.Resource.MAKE_PRIVATE')
-                                {
-                                document.getElementById('MakePublicButton').innerHTML = '@Resources.Resource.MAKE_PUBLIC';
-                                }
-                                 else
-                                {
-                                  document.getElementById('MakePublicButton').innerHTML = '@Resources.Resource.MAKE_PRIVATE';
-                                }
                                 $('#dynamicFoldersArea').html(data);       
                             }
                             });">
