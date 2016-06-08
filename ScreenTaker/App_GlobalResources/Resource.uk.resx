@@ -126,6 +126,12 @@
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Доступ за посиланням</value>
   </data>
+  <data name="ACCESS_DENIED" xml:space="preserve">
+    <value>Доступ заборонено</value>
+  </data>
+  <data name="ACC_DENIED_DESCR" xml:space="preserve">
+    <value>Власник обмежив доступ до цього ресурсу</value>
+  </data>
   <data name="ADD" xml:space="preserve">
     <value>Додати</value>
   </data>

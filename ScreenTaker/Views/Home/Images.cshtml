@@ -352,7 +352,7 @@
                 <div class="col-sm-6" style="padding-left: 40px;">
                     @{
                         int flength = ViewBag.FolderName.Length;
-                        int fsize = flength <= 20 ? flength : 20;
+                        int fsize = flength <= 50 ? flength : 50;
                         string fname = ViewBag.FolderName.Substring(0, fsize);
                         ViewBag.FolderName = fname;
                     }
@@ -392,7 +392,7 @@
                         </div>
                 </div>
             </div>
-        <div class="row-fluid" style="margin-left: 10px;">
+        <div class="row-fluid" style="margin-left: 25px;">
             <ol class="breadcrumb">
                 <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                 <li class="active">@ViewBag.FolderName</li>

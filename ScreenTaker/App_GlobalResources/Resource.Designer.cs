@@ -88,6 +88,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied.
+        /// </summary>
+        internal static string ACCESS_DENIED {
+            get {
+                return ResourceManager.GetString("ACCESS_DENIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image owner has restricted access to this resource.
+        /// </summary>
+        internal static string ACC_DENIED_DESCR {
+            get {
+                return ResourceManager.GetString("ACC_DENIED_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string ADD {

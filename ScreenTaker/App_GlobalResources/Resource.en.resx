@@ -126,6 +126,12 @@
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Access by link</value>
   </data>
+  <data name="ACCESS_DENIED" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="ACC_DENIED_DESCR" xml:space="preserve">
+    <value>Image owner has restricted access to this resource</value>
+  </data>
   <data name="ADD" xml:space="preserve">
     <value>Add</value>
   </data>
