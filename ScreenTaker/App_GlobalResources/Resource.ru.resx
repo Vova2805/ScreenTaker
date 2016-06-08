@@ -262,6 +262,9 @@
   <data name="MANAGE_GROUPS" xml:space="preserve">
     <value>Управление группами</value>
   </data>
+  <data name="MAX_NAME_LENGTH" xml:space="preserve">
+    <value>Максимальная длина: 20 символов</value>
+  </data>
   <data name="MOVE" xml:space="preserve">
     <value>Переместить</value>
   </data>
@@ -301,6 +304,12 @@
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Подтвердить пароль</value>
   </data>
+  <data name="PASSWORD_FORGOT" xml:space="preserve">
+    <value>Пожалуйста, проверьте вашу почту, чтобы сбросить пароль</value>
+  </data>
+  <data name="PASSWORD_RESET" xml:space="preserve">
+    <value>Ваш пароль был сброшен</value>
+  </data>
   <data name="PEOPLE" xml:space="preserve">
     <value>Люди</value>
   </data>
@@ -327,6 +336,9 @@
   </data>
   <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
     <value>Click this {0} RU</value>
+  </data>
+  <data name="RETURN_TO_LOGIN" xml:space="preserve">
+    <value>Вернуться к окну входа</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>Сохранить</value>

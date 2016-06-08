@@ -304,6 +304,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Password confirm</value>
   </data>
+  <data name="PASSWORD_FORGOT" xml:space="preserve">
+    <value>Please check your email to reset your password</value>
+  </data>
+  <data name="PASSWORD_RESET" xml:space="preserve">
+    <value>Your password has been reset</value>
+  </data>
   <data name="PEOPLE" xml:space="preserve">
     <value>People</value>
   </data>
@@ -330,6 +336,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
     <value>Click this {0} default</value>
+  </data>
+  <data name="RETURN_TO_LOGIN" xml:space="preserve">
+    <value>Return to Log in</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>

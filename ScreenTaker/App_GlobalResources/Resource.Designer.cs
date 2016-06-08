@@ -620,6 +620,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please check your email to reset your password.
+        /// </summary>
+        internal static string PASSWORD_FORGOT {
+            get {
+                return ResourceManager.GetString("PASSWORD_FORGOT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been reset.
+        /// </summary>
+        internal static string PASSWORD_RESET {
+            get {
+                return ResourceManager.GetString("PASSWORD_RESET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to People.
         /// </summary>
         internal static string PEOPLE {
@@ -697,6 +715,15 @@ namespace Resources {
         internal static string RESET_PASSWORD_EMAIL {
             get {
                 return ResourceManager.GetString("RESET_PASSWORD_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to Log in.
+        /// </summary>
+        internal static string RETURN_TO_LOGIN {
+            get {
+                return ResourceManager.GetString("RETURN_TO_LOGIN", resourceCulture);
             }
         }
         

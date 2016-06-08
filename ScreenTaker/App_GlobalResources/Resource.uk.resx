@@ -262,6 +262,9 @@
   <data name="MANAGE_GROUPS" xml:space="preserve">
     <value>Керувати групами</value>
   </data>
+  <data name="MAX_NAME_LENGTH" xml:space="preserve">
+    <value>Максимальна довжина: 20 символів</value>
+  </data>
   <data name="MOVE" xml:space="preserve">
     <value>Перемістити</value>
   </data>
@@ -301,6 +304,12 @@
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Підтвердити пароль</value>
   </data>
+  <data name="PASSWORD_FORGOT" xml:space="preserve">
+    <value>Будь ласка, перевірте пошту, щоб скинути пароль</value>
+  </data>
+  <data name="PASSWORD_RESET" xml:space="preserve">
+    <value>Ваш пароль скинуто</value>
+  </data>
   <data name="PEOPLE" xml:space="preserve">
     <value>Люди</value>
   </data>
@@ -327,6 +336,9 @@
   </data>
   <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
     <value>Click this {0} UA</value>
+  </data>
+  <data name="RETURN_TO_LOGIN" xml:space="preserve">
+    <value>Повернутися на вікно входу</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>Зберегти</value>
