@@ -126,6 +126,12 @@
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Доступ за посиланням</value>
   </data>
+  <data name="ACCESS_DENIED" xml:space="preserve">
+    <value>Доступ заборонено</value>
+  </data>
+  <data name="ACC_DENIED_DESCR" xml:space="preserve">
+    <value>Власник обмежив доступ до цього ресурсу</value>
+  </data>
   <data name="ADD" xml:space="preserve">
     <value>Додати</value>
   </data>
@@ -171,6 +177,9 @@
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Підтвердити пароль</value>
   </data>
+  <data name="CONF_PASS" xml:space="preserve">
+    <value>Підтвердіть пароль</value>
+  </data>
   <data name="COPY" xml:space="preserve">
     <value>Скопіювати</value>
   </data>
@@ -210,6 +219,9 @@
   <data name="EMAIL" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="ENTER_EMAIL" xml:space="preserve">
+    <value>Введіть адресу електронної пошти</value>
+  </data>
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Введіть новий пароль</value>
   </data>
@@ -225,6 +237,9 @@
   </data>
   <data name="FOLDERY" xml:space="preserve">
     <value>папку</value>
+  </data>
+  <data name="FORGOT_PASS" xml:space="preserve">
+    <value>Забули пароль?</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Групи</value>
@@ -262,6 +277,9 @@
   <data name="MANAGE_GROUPS" xml:space="preserve">
     <value>Керувати групами</value>
   </data>
+  <data name="MAX_NAME_LENGTH" xml:space="preserve">
+    <value>Максимальна довжина: 20 символів</value>
+  </data>
   <data name="MOVE" xml:space="preserve">
     <value>Перемістити</value>
   </data>
@@ -277,6 +295,9 @@
   <data name="NEW_FOLDER_TITLE" xml:space="preserve">
     <value>Введіть назву нової папки</value>
   </data>
+  <data name="NEW_PASS" xml:space="preserve">
+    <value>Новий пароль</value>
+  </data>
   <data name="NO" xml:space="preserve">
     <value>Ні</value>
   </data>
@@ -285,6 +306,9 @@
   </data>
   <data name="OFF" xml:space="preserve">
     <value>Вимк</value>
+  </data>
+  <data name="OLD_PASS" xml:space="preserve">
+    <value>Старий пароль</value>
   </data>
   <data name="ON" xml:space="preserve">
     <value>Увімк</value>
@@ -300,6 +324,12 @@
   </data>
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Підтвердити пароль</value>
+  </data>
+  <data name="PASSWORD_FORGOT" xml:space="preserve">
+    <value>Будь ласка, перевірте пошту, щоб скинути пароль</value>
+  </data>
+  <data name="PASSWORD_RESET" xml:space="preserve">
+    <value>Ваш пароль скинуто</value>
   </data>
   <data name="PEOPLE" xml:space="preserve">
     <value>Люди</value>
@@ -328,6 +358,9 @@
   <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
     <value>Click this {0} UA</value>
   </data>
+  <data name="RETURN_TO_LOGIN" xml:space="preserve">
+    <value>Повернутися на вікно входу</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Зберегти</value>
   </data>
@@ -339,6 +372,9 @@
   </data>
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Шукати за</value>
+  </data>
+  <data name="SEND" xml:space="preserve">
+    <value>Відіслати</value>
   </data>
   <data name="SHARED_FOLDERS" xml:space="preserve">
     <value>Доступне мені</value>

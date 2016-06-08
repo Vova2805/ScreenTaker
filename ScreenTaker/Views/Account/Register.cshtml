@@ -56,7 +56,7 @@
         </div>
     </div>
 </div>
-
+<script src="~/Scripts/Site.js"></script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -124,7 +124,7 @@
                 $(id).addClass('field-error');
             }
             else {
-                if (type == 'pass') emailError = 0;
+                if (type == 'email') emailError = 0;
                 else if (type == 'pass') passError = 0;
                 else confirmPassError = 0;
                 $(id).removeClass('field-error');
@@ -132,4 +132,4 @@
             }
         }
     </script>
-}
+    }

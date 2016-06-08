@@ -434,6 +434,7 @@
     <Content Include="Resources\error.png" />
     <Content Include="Resources\info.png" />
     <Content Include="Resources\loadingAnimation.gif" />
+    <Content Include="Resources\Ok.png" />
     <Content Include="Resources\printscreen.png" />
     <Content Include="Resources\private.png" />
     <Content Include="Resources\public.png" />

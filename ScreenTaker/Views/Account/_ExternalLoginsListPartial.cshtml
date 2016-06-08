@@ -1,6 +1,17 @@
 ﻿@model ScreenTaker.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
+@{
+
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+}
 <h4>Use another service to log in.</h4>
 <hr />
 @{

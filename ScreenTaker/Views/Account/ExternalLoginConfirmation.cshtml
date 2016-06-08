@@ -1,6 +1,14 @@
 ﻿@model ScreenTaker.Models.ExternalLoginConfirmationViewModel
 @{
     ViewBag.Title = "Register";
+        if (!Request.QueryString["lang"].IsEmpty())
+        {
+            Culture = UICulture = Request.QueryString["lang"];
+        }
+        else
+        {
+            Culture = UICulture = ViewBag.Localize ?? "en";
+        }
 }
 <h2>@ViewBag.Title.</h2>
 <h3>Associate your @ViewBag.LoginProvider account.</h3>

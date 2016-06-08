@@ -141,6 +141,29 @@
             return false;
         }
 
+        var emailError = 1;
+        function CheckEmail(email) {
+            var changedText = $(email).val();
+            var respond = emailValidation(changedText);
+            setClasses('#userMail', respond, 'email');
+        }
+        function setClasses(id, respond, type) {
+            if (respond == false) {
+                if (type == 'email') emailError = 1;
+                else passError = 1;
+                $(id).removeClass('field-success');
+                $(id).addClass('field-error');
+                $("#sizing-addon2").disabled = true;
+            }
+            else {
+                if (type == 'pass') emailError = 0;
+                else passError = 0;
+                $(id).removeClass('field-error');
+                $(id).addClass('field-success');
+                $("#sizing-addon2").disabled = false;
+            }
+        }
+
     </script>
 }
 
@@ -173,6 +196,12 @@
                                 success: function (data) {
                                     $('#dynamicImagesArea').html(data);
                                     $('#RenameImage').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                    }    
                                 }
                             });">
                 @Resources.Resource.SUBMIT</button>
@@ -211,6 +240,12 @@
                                 success: function (data) {
                                     $('#dynamicImagesArea').html(data);
                                     $('#DeleteImage').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                    }                                        
                                 }
                             });">
                     @Resources.Resource.YES
@@ -317,7 +352,7 @@
                 <div class="col-sm-6" style="padding-left: 40px;">
                     @{
                         int flength = ViewBag.FolderName.Length;
-                        int fsize = flength <= 20 ? flength : 20;
+                        int fsize = flength <= 50 ? flength : 50;
                         string fname = ViewBag.FolderName.Substring(0, fsize);
                         ViewBag.FolderName = fname;
                     }
@@ -357,7 +392,7 @@
                         </div>
                 </div>
             </div>
-        <div class="row-fluid" style="margin-left: 10px;">
+        <div class="row-fluid" style="margin-left: 25px;">
             <ol class="breadcrumb">
                 <li><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                 <li class="active">@ViewBag.FolderName</li>

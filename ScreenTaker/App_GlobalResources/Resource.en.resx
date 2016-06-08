@@ -126,6 +126,12 @@
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Access by link</value>
   </data>
+  <data name="ACCESS_DENIED" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="ACC_DENIED_DESCR" xml:space="preserve">
+    <value>Image owner has restricted access to this resource</value>
+  </data>
   <data name="ADD" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -171,6 +177,9 @@
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Confirm a new password</value>
   </data>
+  <data name="CONF_PASS" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
   <data name="COPY" xml:space="preserve">
     <value>Copy</value>
   </data>
@@ -210,6 +219,9 @@
   <data name="EMAIL" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="ENTER_EMAIL" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Enter a new password</value>
   </data>
@@ -225,6 +237,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="FOLDERY" xml:space="preserve">
     <value>folder</value>
+  </data>
+  <data name="FORGOT_PASS" xml:space="preserve">
+    <value>Forgot password?</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
@@ -262,6 +277,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="MANAGE_GROUPS" xml:space="preserve">
     <value>Manage groups</value>
   </data>
+  <data name="MAX_NAME_LENGTH" xml:space="preserve">
+    <value>Maximum lenght: 20 symbols</value>
+  </data>
   <data name="MOVE" xml:space="preserve">
     <value>Move</value>
   </data>
@@ -277,6 +295,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="NEW_FOLDER_TITLE" xml:space="preserve">
     <value>Enter a title for new folder</value>
   </data>
+  <data name="NEW_PASS" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="NO" xml:space="preserve">
     <value>No</value>
   </data>
@@ -285,6 +306,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="OFF" xml:space="preserve">
     <value>Off</value>
+  </data>
+  <data name="OLD_PASS" xml:space="preserve">
+    <value>Old password</value>
   </data>
   <data name="ON" xml:space="preserve">
     <value>On</value>
@@ -300,6 +324,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Password confirm</value>
+  </data>
+  <data name="PASSWORD_FORGOT" xml:space="preserve">
+    <value>Please check your email to reset your password</value>
+  </data>
+  <data name="PASSWORD_RESET" xml:space="preserve">
+    <value>Your password has been reset</value>
   </data>
   <data name="PEOPLE" xml:space="preserve">
     <value>People</value>
@@ -328,6 +358,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
     <value>Click this {0}</value>
   </data>
+  <data name="RETURN_TO_LOGIN" xml:space="preserve">
+    <value>Return to Log in</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -339,6 +372,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Search for</value>
+  </data>
+  <data name="SEND" xml:space="preserve">
+    <value>Send</value>
   </data>
   <data name="SHARED_FOLDERS" xml:space="preserve">
     <value>Available to me</value>

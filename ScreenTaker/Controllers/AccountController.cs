@@ -177,7 +177,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Localize = locale;
             return View();
         }
-
+        string EMAIL = "";
         [AllowAnonymous]
         public async Task<ActionResult> ResendConfirmation(string email)
         {
@@ -187,6 +187,7 @@ namespace ScreenTaker.Controllers
             if (user != null)
             {
                 ViewBag.Email = email;
+                EMAIL = ViewBag.Email;
                 string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
             }
             return View("ConfirmEmailInfo");
@@ -210,7 +211,7 @@ namespace ScreenTaker.Controllers
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
 
                     ViewBag.Email = user.Email;
-
+                    EMAIL = ViewBag.Email;
                     //return RedirectToAction("Index", "Home");
 
                     return View("ConfirmEmailInfo");
@@ -253,6 +254,13 @@ namespace ScreenTaker.Controllers
                         CreationDate = DateTime.Now
                     };
                     entities.Folders.Add(defaultFolder);
+                    var user = entities.People.Where(w => w.Id == userId).FirstOrDefault();
+                    if (user != null)
+                    {
+                        var userShares = entities.UserShares.Where(w => w.Email == user.Email);
+                        foreach (var u in userShares)
+                            u.PersonId = user.Id;
+                    }                    
                     entities.SaveChanges();
 
                 }
@@ -260,6 +268,7 @@ namespace ScreenTaker.Controllers
             }
             AddErrors(result);
             ViewBag.Email = UserManager.FindById(userId);
+            EMAIL = ViewBag.Email;
             return View();
         }
 
@@ -530,6 +539,8 @@ namespace ScreenTaker.Controllers
                 return RedirectToAction("UserProfile");
             }
             AddErrors(result);
+            ViewBag.Email = EMAIL;
+            ViewBag.Avatar_128 = AVATAR;
             return View("UserProfile");
         }
 
@@ -624,7 +635,7 @@ namespace ScreenTaker.Controllers
         #endregion
 
 
-       
+        string AVATAR = "/avatars/user_128.png";
         public ActionResult SetAvatar(HttpPostedFileBase file)
         {
             ViewBag.Localize = locale;
@@ -672,6 +683,8 @@ namespace ScreenTaker.Controllers
                 }
                 
             }
+            ViewBag.Email = EMAIL;
+            AVATAR = ViewBag.Avatar_128;
             return RedirectToAction("UserProfile");
         }
 

@@ -127,7 +127,8 @@
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">                                                                
+                                <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")"
+                                                   onkeyup="CheckEmail(this)" onblur="CheckEmail(this)" onfocus="CheckEmail(this)" onchange="CheckEmail(this)" onmouseover="CheckEmail(this)">                                                                
                                 <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
                                       onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                         url: 'AddUser',
@@ -184,7 +185,7 @@
     </div>    
 </div>
 
-
+<script src="~/Scripts/Site.js"></script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")    
@@ -211,7 +212,36 @@
                 target.autocomplete({ source: target.attr("data-autocomplete-source") });
             });
         });
-    });    
+    });
+
+    var emailError = 1;
+        $("#sizing-addon2").click(function (e) {
+            if (emailError === 1) {
+                e.preventDefault();
+            }
+        });
+    function CheckEmail(email) {
+        var changedText = $(email).val();
+        var respond = emailValidation(changedText);
+        setClasses('#AddUserInput', respond, 'email');
+    }
+    function setClasses(id, respond, type) {
+        if (respond == false) {
+            if (type == 'email') emailError = 1;
+            else passError = 1;
+            $(id).removeClass('field-success');
+            $(id).addClass('field-error');
+            $("#sizing-addon2").disabled = true;
+        }
+        else {
+            if (type == 'pass') emailError = 0;
+            else passError = 0;
+            $(id).removeClass('field-error');
+            $(id).addClass('field-success');
+            $("#sizing-addon2").disabled = false;
+        }
+    }
+
 </script>
 }
 

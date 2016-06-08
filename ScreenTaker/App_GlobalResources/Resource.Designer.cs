@@ -88,6 +88,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied.
+        /// </summary>
+        internal static string ACCESS_DENIED {
+            get {
+                return ResourceManager.GetString("ACCESS_DENIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image owner has restricted access to this resource.
+        /// </summary>
+        internal static string ACC_DENIED_DESCR {
+            get {
+                return ResourceManager.GetString("ACC_DENIED_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string ADD {
@@ -223,6 +241,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        internal static string CONF_PASS {
+            get {
+                return ResourceManager.GetString("CONF_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         internal static string COPY {
@@ -340,6 +367,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter your email.
+        /// </summary>
+        internal static string ENTER_EMAIL {
+            get {
+                return ResourceManager.GetString("ENTER_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a new password.
         /// </summary>
         internal static string ENTER_NEW_PASS {
@@ -382,6 +418,15 @@ namespace Resources {
         internal static string FOLDERY {
             get {
                 return ResourceManager.GetString("FOLDERY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot password?.
+        /// </summary>
+        internal static string FORGOT_PASS {
+            get {
+                return ResourceManager.GetString("FORGOT_PASS", resourceCulture);
             }
         }
         
@@ -548,6 +593,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        internal static string NEW_PASS {
+            get {
+                return ResourceManager.GetString("NEW_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string NO {
@@ -571,6 +625,15 @@ namespace Resources {
         internal static string OFF {
             get {
                 return ResourceManager.GetString("OFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old password.
+        /// </summary>
+        internal static string OLD_PASS {
+            get {
+                return ResourceManager.GetString("OLD_PASS", resourceCulture);
             }
         }
         
@@ -616,6 +679,24 @@ namespace Resources {
         internal static string PASSWORD_CONFIRM {
             get {
                 return ResourceManager.GetString("PASSWORD_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check your email to reset your password.
+        /// </summary>
+        internal static string PASSWORD_FORGOT {
+            get {
+                return ResourceManager.GetString("PASSWORD_FORGOT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been reset.
+        /// </summary>
+        internal static string PASSWORD_RESET {
+            get {
+                return ResourceManager.GetString("PASSWORD_RESET", resourceCulture);
             }
         }
         
@@ -701,6 +782,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Return to Log in.
+        /// </summary>
+        internal static string RETURN_TO_LOGIN {
+            get {
+                return ResourceManager.GetString("RETURN_TO_LOGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SAVE {
@@ -733,6 +823,15 @@ namespace Resources {
         internal static string SEARCH_FOR {
             get {
                 return ResourceManager.GetString("SEARCH_FOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        internal static string SEND {
+            get {
+                return ResourceManager.GetString("SEND", resourceCulture);
             }
         }
         
