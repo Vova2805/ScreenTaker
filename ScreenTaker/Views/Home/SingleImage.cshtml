@@ -134,6 +134,12 @@
                                     $('#RenameImage').modal('hide');
                                     $('#loadingAnimation').css('visibility', 'hidden');
                                     $('#ImageNameDelete').innerText = document.getElementById('new-title').value;
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                    }    
                                 }
                             });"
                         >@Resources.Resource.SUBMIT</button>

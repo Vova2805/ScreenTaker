@@ -62,3 +62,12 @@
         </div>
     </div>
 </div>
+@if (ViewBag.MessageContent != null)
+{
+    <input type="hidden" id="MessageContentFromPartialChangeState" value="@ViewBag.MessageContent" />
+}
+else
+{
+    <input type="hidden" id="MessageContentFromPartialChangeState" value="" />
+}
+
