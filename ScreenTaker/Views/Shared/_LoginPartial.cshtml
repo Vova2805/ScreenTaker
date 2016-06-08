@@ -31,7 +31,7 @@
             @Html.AntiForgeryToken()
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" onmouseover="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization0">@Loc<span class="caret"></span></a>
+                    <a href="" dropdown-toggle" onmouseover="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization0">@Loc<span class="caret"></span></a>
                     <ul class="dropdown-menu"  id="dropdown-menu"  onmouseleave="localizationLeave()">
                         <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">Українська</a></li>
                         <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">Русский</a></li>
@@ -89,7 +89,7 @@
                     {
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" id="dropdown-li" >
-                <a class="dropdown-toggle" onmouseover="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">@Loc<span class="caret"></span></a>
+                <a href="" class="dropdown-toggle" onmouseover="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">@Loc<span class="caret"></span></a>
                 <ul class="dropdown-menu" id="dropdown-menu" onmouseleave="localizationLeave()">
                     <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">Українська</a></li>
                     <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">Русский</a></li>
