@@ -223,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        internal static string CONF_PASS {
+            get {
+                return ResourceManager.GetString("CONF_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         internal static string COPY {
@@ -566,6 +575,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        internal static string NEW_PASS {
+            get {
+                return ResourceManager.GetString("NEW_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string NO {
@@ -589,6 +607,15 @@ namespace Resources {
         internal static string OFF {
             get {
                 return ResourceManager.GetString("OFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old password.
+        /// </summary>
+        internal static string OLD_PASS {
+            get {
+                return ResourceManager.GetString("OLD_PASS", resourceCulture);
             }
         }
         

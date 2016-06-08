@@ -42,11 +42,10 @@
                             <button class="btn btn-default btn-block account-button" style="width: 100%;" onclick="location = '/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
                     </div>
                 </div>
-                <div class="col-sm-6" style="margin-top: -15px; bottom: -5px">
+                <div class="col-sm-6" style="margin-top: -15px; bottom: -5px" id="PassDinamicArea">
                     @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post, new { @class = "text-left form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                           @* цей блок треба вставити туди де будуть виводитись повідомлення про помилки
                             @Html.ValidationMessageFor(m => m.OldPassword, "", new { @class = "text-left text-primary" })
@@ -56,14 +55,14 @@
                         <div class="form-group">
                             <div class="col-md-12 login-signup-center">
                                 <label>@Resources.Resource.YOUR_OLD_PASS</label>
-                           @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
+                           @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control btn-not-rounded", @placeholder = Resources.Resource.OLD_PASS, id = "old-password-input" })
                                    
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 login-signup-center">
                                 <label>@Resources.Resource.ENTER_NEW_PASS</label>
-                              @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
+                              @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control btn-not-rounded", @placeholder = Resources.Resource.NEW_PASS, id = "password-input" })
                                
                                 
                             </div>
@@ -71,14 +70,14 @@
                         <div class="form-group">
                             <div class="col-md-12 login-signup-centers">
                                 <label>@Resources.Resource.CONFIRM_PASS</label>
-                           @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control btn-not-rounded", @placeholder = Resources.Resource.PASSWORD })
+                           @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control btn-not-rounded", @placeholder = Resources.Resource.CONF_PASS, id = "confirm-password-input" })
                              
                                 
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 login-signup-center">
-                                <input type="submit" class="btn btn-default btn-block account-button" value="@Resources.Resource.CHANGE_PASS"/>
+                                <input id="submit-button" type="submit" class="btn btn-default btn-block account-button" value="@Resources.Resource.CHANGE_PASS"/>
                             </div>
                         </div>
                     }
@@ -87,3 +86,79 @@
         </div>
     </div>
 </div>
+<script src="~/Scripts/Site.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var oldError = 1;
+        var passError = 1;
+        var confirmPassError = 1;
+        $(function () {
+
+                $('#old-password-input').keyup(function () {
+                    var changedText = $(this).val();
+                    var respond = passwordValidation(changedText);
+                    setClasses('#old-password-input', respond, 'email');
+                });
+                $('#password-input').keyup(function () {
+                    var changedText = $(this).val();
+                    var respond = passwordValidation(changedText);
+                    setClasses('#password-input', respond, 'pass');
+                    $('#confirm-password-input').keyup();
+                });
+                $('#confirm-password-input').keyup(function () {
+                    var changedText = $(this).val();
+                    var respond1 = passwordValidation(changedText);
+                    var respond2 = ConfirmPasswordValidation(changedText, $('#password-input').val());
+                    var respond = respond1 && respond2;
+                    setClasses('#confirm-password-input', respond, 'confirm-pass');
+                });
+                $('#old-password-input').focus(function () {
+                    $('#old-password-input').keyup();
+                    $('#password-input').keyup();
+                    $('#confirm-password-input').keyup();
+                });
+                $('#password-input').focus(function () {
+                    $('#password-input').keyup();
+                });
+                $('#confirm-password-input').focus(function () {
+                    $('#confirm-password-input').keyup();
+                });
+                $('#old-password-input').change(function () {
+                    $('#old-password-input').keyup();
+                });
+                $('#password-input').change(function () {
+                    $('#password-input').keyup();
+                    $('#confirm-password-input').keyup();
+                });
+                $('#confirm-password-input').change(function () {
+                    $('#confirm-password-input').keyup();
+                });
+                $('#old-password-input,#submit-button,#password-input,#confirm-password-input').mouseover(function () {
+                    $('#old-password-input').keyup();
+                });
+        });
+        $("#submit-button").click(function (e) {
+            if (passError === 1 || emailError === 1 || confirmPassError === 1) {
+                e.preventDefault();
+            }
+        });
+        function setClasses(id,respond,type)
+        {
+            if (respond == false) {
+                if (type == 'email') emailError = 1;
+                else if (type == 'pass') passError = 1;
+                else confirmPassError = 1;
+                $(id).removeClass('field-success');
+                $(id).addClass('field-error');
+            }
+            else {
+                if (type == 'email') emailError = 0;
+                else if (type == 'pass') passError = 0;
+                else confirmPassError = 0;
+                $(id).removeClass('field-error');
+                $(id).addClass('field-success');
+            }
+        }
+    </script>
+}
