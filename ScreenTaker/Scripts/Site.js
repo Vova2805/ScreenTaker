@@ -114,3 +114,9 @@ function setClasses(id, respond) {
         $(id).addClass('field-success');
     }
 }
+function localizationOver() {
+    $('#dropdown-menu').slideDown();
+}
+function localizationLeave() {
+    $('#dropdown-menu').slideUp();
+}
