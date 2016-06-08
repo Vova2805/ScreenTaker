@@ -340,24 +340,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email Link.
-        /// </summary>
-        internal static string EMAIL_LINK {
-            get {
-                return ResourceManager.GetString("EMAIL_LINK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter your email.
-        /// </summary>
-        internal static string ENTER_EMAIL {
-            get {
-                return ResourceManager.GetString("ENTER_EMAIL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter a new password.
         /// </summary>
         internal static string ENTER_NEW_PASS {
@@ -400,15 +382,6 @@ namespace Resources {
         internal static string FOLDERY {
             get {
                 return ResourceManager.GetString("FOLDERY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forgot password?.
-        /// </summary>
-        internal static string FORGOT {
-            get {
-                return ResourceManager.GetString("FORGOT", resourceCulture);
             }
         }
         
@@ -733,15 +706,6 @@ namespace Resources {
         internal static string RESEND_AGAIN {
             get {
                 return ResourceManager.GetString("RESEND_AGAIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset your password.
-        /// </summary>
-        internal static string RESET_PASSWORD {
-            get {
-                return ResourceManager.GetString("RESET_PASSWORD", resourceCulture);
             }
         }
         
