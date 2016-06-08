@@ -24,10 +24,23 @@
 }
 @section Scripts {
     <script>
+        $('[data-toggle="popover"]').popover()
         function openImage(path) {
             location.href = "/Home/SharedImage?i=" + path;
             return false;
-        }   
+        }
+        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex, isPublic) {
+            var classes = "floating-box text-center task active images";
+            for (var i = 0; i < count; i++) {
+                var ID = "IMD" + i;
+                document.getElementById(ID).className = classes;
+            }
+            document.getElementById(image_id).className += " active-image";
+
+
+            return false;
+        }
+
     </script>
 }
 
@@ -65,11 +78,12 @@
                     int size = length <= 15 ? length : 15;
                     string image_id = "IMD" + index;
                     name = name.Substring(0, size);
-                        string AvatarPath = ViewBag.BaseURL + "avatars/" + (ViewBag.Owners[index] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[index].AvatarFile + "_50.png") : "user.png");
-                        string OwnerEmail = ViewBag.Owners[index].Email;
-                        string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
-                        string popover_template =
-                        "<div class='popover' role='tooltip'><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-25px;margin-top:10px;\"></a></div></div></div></div></div>";
+                    string temp = ((ViewBag.Owners[index] != null && ViewBag.Owners[index].AvatarFile != null) ? (ViewBag.Owners[index].AvatarFile) : "user");
+                    string AvatarPath = ViewBag.BASE_URL + "avatars/" +temp+"_50.png";
+                    string OwnerEmail = ViewBag.Owners[index].Email;
+                    string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
+                    string popover_template =
+                    "<div class='popover' role='tooltip'><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-25px;margin-top:10px;\"></a></div></div></div></div></div>";
 
                     <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
                             ondblclick="openImage('@original')" style="cursor:pointer;"
