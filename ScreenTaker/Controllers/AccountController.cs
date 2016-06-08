@@ -194,7 +194,7 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Email = email;
                 EMAIL = ViewBag.Email;
-                string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                string callbackUrl = await SendEmailConfirmationTokenAsync(user, "Confirm your account");
             }
             return View("ConfirmEmailInfo");
         }
@@ -216,7 +216,7 @@ namespace ScreenTaker.Controllers
                 {
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user, "Confirm your account");
 
                     ViewBag.Email = user.Email;
                     EMAIL = ViewBag.Email;
@@ -312,7 +312,12 @@ namespace ScreenTaker.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", String.Format(Resources.Resource.RESET_PASSWORD_EMAIL, callbackUrl));
+
+                await UserManager.SendEmailAsync(user.Id, "Password Reset",
+                    String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ResetPassword.html")),
+                            callbackUrl, user.Email));
+
+//                await UserManager.SendEmailAsync(user.Id, "Password Reset", String.Format(Resources.Resource.RESET_PASSWORD_EMAIL, callbackUrl));
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -641,13 +646,14 @@ namespace ScreenTaker.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        private async Task<string> SendEmailConfirmationTokenAsync(int userID, string subject)
+        private async Task<string> SendEmailConfirmationTokenAsync(ApplicationUser user, string subject)
         {
-            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
-               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(userID, subject,
-               String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/Confirmation.html")), callbackUrl));
+               new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(user.Id, subject,
+               String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/Confirmation.html")), 
+                            callbackUrl, user.Email));
 
             return callbackUrl;
         }
