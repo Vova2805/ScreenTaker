@@ -77,7 +77,30 @@
         $('form').live("submit", function () {
             ShowProgress();
         });
-    </script>
+    var emailError = 1;
+    function CheckEmail(email) {
+        var changedText = $(email).val();
+        var respond = emailValidation(changedText);
+        setClasses('#userMail', respond, 'email');
+    }
+    function setClasses(id, respond, type) {
+        if (respond == false) {
+            if (type == 'email') emailError = 1;
+            else passError = 1;
+            $(id).removeClass('field-success');
+            $(id).addClass('field-error');
+            $("#sizing-addon2").disabled = true;
+        }
+        else {
+            if (type == 'pass') emailError = 0;
+            else passError = 0;
+            $(id).removeClass('field-error');
+            $(id).addClass('field-success');
+            $("#sizing-addon2").disabled = false;
+        }
+    }
+
+</script>
 }
 
 <div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px">
@@ -413,3 +436,4 @@
             </li>
         </ul>
     </nav>
+<script src="~/Scripts/Site.js"></script>

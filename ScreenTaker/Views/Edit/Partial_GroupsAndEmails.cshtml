@@ -8,6 +8,7 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
+
 <div class="row-fluid">
     <div class="col-sm-4" style="padding:5px;">
         <div class="row" style="margin-bottom:10px;">
@@ -101,7 +102,8 @@
         <div class="row" style="margin-bottom:10px;">
             <div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
+                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")" 
+            onkeyup="CheckEmail(this)" onblur="CheckEmail(this)" onfocus="CheckEmail(this)" onchange="CheckEmail(this)" onmouseover="CheckEmail(this)">
                     <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
                           onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                         url: 'AddUser',
@@ -168,6 +170,7 @@
         </div>
     </div>
 </div>
+<script src="~/Scripts/Site.js"></script>
 
 @if (ViewBag.MessageContent != null)
 {
@@ -177,4 +180,3 @@ else
 {
     <input type="hidden" id="MessageContentFromPartial" value="" />
 }
-    

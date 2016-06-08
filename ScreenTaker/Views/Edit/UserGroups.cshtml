@@ -127,7 +127,8 @@
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">                                                                
+                                <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")"
+                                                   onkeyup="CheckEmail(this)" onblur="CheckEmail(this)" onfocus="CheckEmail(this)" onchange="CheckEmail(this)" onmouseover="CheckEmail(this)">                                                                
                                 <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
                                       onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                         url: 'AddUser',
@@ -214,56 +215,30 @@
     });
 
     var emailError = 1;
-    var passError = 1;
-    $(function () {
-
-        $('#email-input').keyup(function () {
-            var changedText = $(this).val();
-            var respond = emailValidation(changedText);
-            setClasses('#email-input', respond, 'email');
+        $("#sizing-addon2").click(function (e) {
+            if (emailError === 1) {
+                e.preventDefault();
+            }
         });
-        $('#password-input').keyup(function () {
-            var changedText = $(this).val();
-            var respond = passwordValidation(changedText);
-            setClasses('#password-input', respond, 'pass');
-        });
-        $('#email-input').focus(function () {
-            $('#email-input').keyup();
-            $('#password-input').keyup();
-        });
-        $('#password-input').focus(function () {
-            $('#password-input').keyup();
-        });
-        $('#email-input').change(function () {
-            $('#email-input').keyup();
-        });
-        $('#email-input').blur(function () {
-            $('#email-input').keyup();
-        });
-        $('#email-input,#submit-button,#password-input').mouseover(function () {
-            $('#email-input').keyup();
-        });
-        $('#password-input').change(function () {
-            $('#password-input').keyup();
-        });
-    });
-    $("#submit-button").click(function (e) {
-        if (passError === 1 || emailError === 1) {
-            e.preventDefault();
-        }
-    });
+    function CheckEmail(email) {
+        var changedText = $(email).val();
+        var respond = emailValidation(changedText);
+        setClasses('#AddUserInput', respond, 'email');
+    }
     function setClasses(id, respond, type) {
         if (respond == false) {
             if (type == 'email') emailError = 1;
             else passError = 1;
             $(id).removeClass('field-success');
             $(id).addClass('field-error');
+            $("#sizing-addon2").disabled = true;
         }
         else {
             if (type == 'pass') emailError = 0;
             else passError = 0;
             $(id).removeClass('field-error');
             $(id).addClass('field-success');
+            $("#sizing-addon2").disabled = false;
         }
     }
 
