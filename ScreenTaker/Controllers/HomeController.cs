@@ -170,7 +170,12 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.ButtonPrivateORPublicMain = @Resources.Resource.MAKE_PUBLIC;
                 ViewBag.ButtonPrivateORPublic = Resources.Resource.TURN_ON;
-            }                           
+            }
+            if (TempData["MessageContent"] != null)
+            {
+                ViewBag.MessageContent = TempData["MessageContent"];
+                ViewBag.MessageTitle = "Error";
+            }
             return View();
         }
 
@@ -215,6 +220,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (email.Length == 0)
+                        throw new Exception("Email field can't be empty");
                     if (!IsValidEmail(email))
                         throw new Exception("Email is not valid");                    
                     var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
@@ -379,6 +386,8 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (email.Length == 0)
+                        throw new Exception("Email field can't be empty");
                     if (!IsValidEmail(email))
                         throw new Exception("Email is not valid");                    
                     var person = _entities.People.FirstOrDefault(w => w.Email == email);
@@ -1228,7 +1237,8 @@ namespace ScreenTaker.Controllers
                     if (title.Length == 0)
                         throw new Exception("Title should not be empty.");
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-
+                    if (user != null && _entities.Folders.Where(w => w.Name == title && w.OwnerId == user.Id).Any())
+                        throw new Exception("There is alredy a folder with this name");                    
                     var newolder = new Folder()
                     {
                         IsPublic = true,
@@ -1335,15 +1345,21 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    if (newName.Length == 0)
+                        throw new Exception("Name field should not be empty");
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null && _entities.Folders.Where(w => w.Name == newName && w.OwnerId == user.Id).Any())
+                        throw new Exception("There is alredy a folder with this name");
                     var sharedCode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedCode);
                     obj.Name = newName;
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
+                    ViewBag.MessageContent = ex.Message;
                 }
             }
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
