@@ -254,6 +254,13 @@ namespace ScreenTaker.Controllers
                         CreationDate = DateTime.Now
                     };
                     entities.Folders.Add(defaultFolder);
+                    var user = entities.People.Where(w => w.Id == userId).FirstOrDefault();
+                    if (user != null)
+                    {
+                        var userShares = entities.UserShares.Where(w => w.Email == user.Email);
+                        foreach (var u in userShares)
+                            u.PersonId = user.Id;
+                    }                    
                     entities.SaveChanges();
 
                 }
