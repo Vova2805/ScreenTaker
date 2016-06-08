@@ -149,7 +149,14 @@ namespace ScreenTaker.Controllers
             ViewBag.CurrentFolderShCode = folder == null ? (
                 ViewBag.Folders.Count > 0 ? _entities.Folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode : null
                 ) : folder.SharedCode;
-            ViewBag.ImageSrc = GetBaseUrl() + "Resources/" + (folder.IsPublic?"public.png":"private.png");
+            bool isFull = folder.Images != null ? folder.Images.Count > 0 : false;
+            string imageLink = GetBaseUrl() + "Resources/" + (folder.IsPublic ? "public" : "private");
+            if (isFull)
+            {
+                imageLink += "_full";
+            }
+            imageLink += ".png";
+            ViewBag.ImageSrc = imageLink;
             ViewBag.FolderTitle = folder.Name;
 
             ViewBag.CurrentFolderId = (folder == null) ? (
