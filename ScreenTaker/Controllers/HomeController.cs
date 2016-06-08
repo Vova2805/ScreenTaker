@@ -530,6 +530,10 @@ namespace ScreenTaker.Controllers
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
+            if (user == null)
+            {
+                return View("Message");
+            }
             var imagesFolder = new Folder()
             {
                 Id = 1,
@@ -538,13 +542,24 @@ namespace ScreenTaker.Controllers
                 IsPublic = true,
                 Name = "Images"
             };
-            var sharedFolders = 
-                (new[] { imagesFolder})
-                .Concat(
-                _entities.UserShares
-                .Where(us => us.PersonId == user.Id && us.FolderId != null)
-                .Select(us => us.Folder)
-                ).ToList();
+            List<Folder> sharedFolders =
+                (new[] {imagesFolder})
+                    .Concat(
+                        from userShare in _entities.UserShares
+                        where userShare.PersonId == user.Id && userShare.FolderId != null
+                        select userShare.Folder
+                    ).Union(
+                        from folder in _entities.Folders
+                        join groupShare in _entities.GroupShares
+                            on folder.Id equals groupShare.FolderId
+                        join pGroup in _entities.PersonGroups
+                            on groupShare.GroupId equals  pGroup.Id
+                        join member in _entities.GroupMembers
+                            on pGroup.Id equals member.GroupId
+                        where member.PersonId == user.Id
+                        select folder
+                )
+                .ToList();
 
             ViewBag.FolderLinks = sharedFolders.Select(GetSharedFolderLink).ToList();
             ViewBag.FolderImageLinks = sharedFolders.Select(GetFolderImageLink).ToList();
@@ -812,10 +827,21 @@ namespace ScreenTaker.Controllers
                 if (user != null)
                 {
                     accessGranted = true;
-                    images = _entities.UserShares
-                        .Where(us => us.PersonId == user.Id && us.ImageId != null)
-                        .Select(us => us.Image)
-                        .ToList();
+                    images = (
+                            from userShare in _entities.UserShares
+                            where userShare.PersonId == user.Id && userShare.ImageId != null
+                            select userShare.Image
+                        ).Union(
+                            from image in _entities.Images
+                            join groupShare in _entities.GroupShares
+                                on image.Id equals groupShare.ImageId
+                            join pGroup in _entities.PersonGroups
+                                on groupShare.GroupId equals pGroup.Id
+                            join member in _entities.GroupMembers
+                                on pGroup.Id equals member.GroupId
+                            where member.PersonId == user.Id
+                            select image
+                        ).ToList();
 
                     ViewBag.FolderName = "Shared images";
                 }
