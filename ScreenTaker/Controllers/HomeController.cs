@@ -1168,6 +1168,7 @@ namespace ScreenTaker.Controllers
                 }
             }
             var list = _entities.Images.Where(i => i.FolderId == FolderId).ToList();
+            ViewBag.ImageID = _entities.Images.Where(i => i.FolderId == FolderId).ToList().First().Id;
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.IsEmpty = !list.Any();
             ViewBag.Images = list;
@@ -1194,6 +1195,7 @@ namespace ScreenTaker.Controllers
                     if (newName.Length == 0)
                         throw new Exception("Field should not be empty");
                     ViewBag.Image = obj;
+                    ViewBag.ImageID = obj.Id;
                     obj.Name = newName;
                     _entities.SaveChanges();
                     transaction.Commit();
@@ -1263,6 +1265,7 @@ namespace ScreenTaker.Controllers
                 if (ViewBag.Image.IsPublic) ViewBag.ButtonPrivateORPublic = "Make private";
                 else ViewBag.ButtonPrivateORPublic = "Make public";
             }
+
             return PartialView("SingleImageChangeState");
         }
 
@@ -1377,10 +1380,11 @@ namespace ScreenTaker.Controllers
             }
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
+            ViewBag.FolderID = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList().First().Id;
             return PartialView("PartialFoldersChangeState");
         }
 
-        public ActionResult RenameFolder(string path, string newName, string lang = "en")
+        public ActionResult RenameFolder(int folderId, string path, string newName, string lang = "en")
         {
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
@@ -1406,6 +1410,7 @@ namespace ScreenTaker.Controllers
             }
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == UserID).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
+            ViewBag.FolderID = folderId;
             return PartialView("PartialFoldersChangeState");
         }
 

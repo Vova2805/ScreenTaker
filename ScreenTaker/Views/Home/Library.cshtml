@@ -218,6 +218,7 @@
                          onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                 url: 'RenameFolder',
                                 data: {
+                                    folderId: document.getElementById('Idhidden').value,
                                     path: document.getElementById('sharedLinkhidden').value,
                                     newName:document.getElementById('new-title').value
                                 },
