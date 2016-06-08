@@ -692,6 +692,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click this {0} default.
+        /// </summary>
+        internal static string RESET_PASSWORD_EMAIL {
+            get {
+                return ResourceManager.GetString("RESET_PASSWORD_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SAVE {
