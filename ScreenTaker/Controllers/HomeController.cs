@@ -542,6 +542,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Folders = sharedFolders;
 
             ViewBag.UserId = user.Id;
+            ViewBag.BaseURL = GetBaseUrl() + "";
 
             return View();
         }

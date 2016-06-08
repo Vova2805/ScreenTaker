@@ -14,6 +14,7 @@
 }
 @section Scripts {
     <script>
+    $('[data-toggle="popover"]').popover()
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
     $(document).ajaxStart(function () {
@@ -35,6 +36,17 @@
 
     function openFolder(i) {
         location.href = "/Home/SharedFolder?f=" + i;
+        return false;
+    }
+
+    function selectFolder(id, folder_id, count, name, full_name, sharedLinkValue, sharedCode, image, isPublic) {
+
+        var classes = "floating-box text-center task active images folder";
+        for (var i = 0; i < count; i++) {
+            var ID = "FID" + i;
+            document.getElementById(ID).className = classes;
+        }
+        document.getElementById(folder_id).className += " active-image";
         return false;
     }
     </script>
@@ -76,13 +88,22 @@
                         int size = length <= 20 ? length : 20;
                         string name = FolderTitle.Substring(0, size);
                         FolderTitle = name;
+                        string userURL = ViewBag.BaseURL + "avatars/1LiJTYdAm2VAKNZ_50.png";
+                        string image = "<img class=\"pull - left\" src=\"" + userURL + "\" class=\"img-circle user-icon-nav\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;\"/>";
+                        string popover_template =
+                        "<div class='popover' role='tooltip'><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image+ "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
+                        string isPublic = ViewBag.Folders[i].IsPublic + "";
                         string imageLink = ViewBag.FolderImageLinks[i];
-                        <div onclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;">
+                        
+                        <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="Owner" data-template="@popover_template" data-content="vovadudas@gmail.com" 
+                             ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
+                             onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')" >
                             <figure class="@classes" id="@folder_id">
                                 <img src="@imageLink" />
                                 <figcaption class="text-center">@FolderTitle</figcaption>
                             </figure>
-                        </div>
+                        </button>
+                        
                     }
                 }
             </div>

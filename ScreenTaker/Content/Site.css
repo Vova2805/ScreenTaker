@@ -688,3 +688,8 @@ textarea {
 .default-text-color{
     color:#9d9d9d;
 }
+.transparent-btn{
+    background-color:transparent;
+    border:0px;
+    padding:0px;
+}
