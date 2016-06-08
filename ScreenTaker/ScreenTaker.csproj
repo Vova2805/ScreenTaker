@@ -302,6 +302,8 @@
     <Content Include="avatars\sUZjQ7mnndxDo28_50.png" />
     <Content Include="avatars\TEhGzEVel9PLBRW_128.png" />
     <Content Include="avatars\TEhGzEVel9PLBRW_50.png" />
+    <Content Include="avatars\user_128.png" />
+    <Content Include="avatars\user_50.png" />
     <Content Include="avatars\uve8edsJFyZgcLZ_128.png" />
     <Content Include="avatars\uve8edsJFyZgcLZ_50.png" />
     <Content Include="Content\bootstrap-switch.css" />
@@ -436,6 +438,9 @@
     <Content Include="Resources\private.png" />
     <Content Include="Resources\public.png" />
     <Content Include="Resources\sad.png" />
+    <Content Include="Resources\user.png" />
+    <Content Include="Resources\user_128.png" />
+    <Content Include="Resources\user_50.png" />
     <Content Include="Resources\warning.png" />
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />

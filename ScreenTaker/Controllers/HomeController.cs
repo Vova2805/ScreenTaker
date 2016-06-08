@@ -555,6 +555,7 @@ namespace ScreenTaker.Controllers
             ViewBag.FolderLinks = sharedFolders.Select(GetSharedFolderLink).ToList();
             ViewBag.FolderImageLinks = sharedFolders.Select(GetFolderImageLink).ToList();
             ViewBag.Folders = sharedFolders;
+            ViewBag.Owners = sharedFolders.Select(o => o.Person).ToList();
 
             ViewBag.UserId = user.Id;
             ViewBag.BaseURL = GetBaseUrl() + "";
@@ -855,10 +856,11 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.IsEmpty = !images.Any();
                 ViewBag.Images = images;
+                ViewBag.Owners = images.Select(i=>i.Folder.Person).ToList();
                 var pathsList = images
                     .Select(GetImageLink).ToList();
                 ViewBag.Paths = pathsList;
-                ViewBag.BASE_URL = GetBaseUrl();
+                ViewBag.BASE_URL = GetBaseUrl()+"";
                 ViewBag.SharedLinks = images
                     .Select(GetSharedImageLink).ToList();
 
