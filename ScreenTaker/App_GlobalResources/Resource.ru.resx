@@ -322,6 +322,9 @@
   <data name="RESEND_AGAIN" xml:space="preserve">
     <value>Resend confirmation mail again</value>
   </data>
+  <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
+    <value>Click this {0} RU</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Сохранить</value>
   </data>
