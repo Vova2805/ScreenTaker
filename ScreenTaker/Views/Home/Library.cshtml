@@ -186,7 +186,7 @@
                 <form>
                     <div class="form-group">
                         <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE</label>
-                        <input type="text" class="form-control" id="new-title">
+                        <input type="text" class="form-control" id="new-title" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.MAX_NAME_LENGTH">
                     </div>
                 </form>
             </div>
@@ -361,15 +361,21 @@
             </div>
             <hr />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" disabled id="OpenButton" onclick="openFolder('@ViewBag.CurrentFolderId')">@Resources.Resource.OPEN</button>
+                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" disabled id="OpenButton" onclick="openFolder('@ViewBag.CurrentFolderId')">
+                    @Resources.Resource.OPEN
+                </button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameFolder" id="RenameButton" disabled style="width: 100%">@Resources.Resource.RENAME</button>
+                <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#RenameFolder" id="RenameButton" disabled style="width: 100%">
+                    @Resources.Resource.RENAME
+                </button>
             </div>
             <br />
             <div>
-                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteFolder" disabled id="DeleteButton" style="width: 100%">@Resources.Resource.DELETE</button>
+                <button type="button" class="btn btn-danger btn-not-rounded" data-toggle="modal" data-target="#DeleteFolder" disabled id="DeleteButton" style="width: 100%">
+                    @Resources.Resource.DELETE
+                </button>
             </div>
             <br />
             <div>

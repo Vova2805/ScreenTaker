@@ -494,6 +494,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum lenght: 20 symbols.
+        /// </summary>
+        internal static string MAX_NAME_LENGTH {
+            get {
+                return ResourceManager.GetString("MAX_NAME_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move.
         /// </summary>
         internal static string MOVE {
