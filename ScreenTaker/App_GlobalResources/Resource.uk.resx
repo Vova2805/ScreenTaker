@@ -237,6 +237,36 @@
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Введіть новий пароль</value>
   </data>
+  <data name="ERR_ADD_YOURSELF" xml:space="preserve">
+    <value>Ви не можете додавати себе</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_EXIST" xml:space="preserve">
+    <value>Користувача з таким Email не існує</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_VALID" xml:space="preserve">
+    <value>Email має неправильний формат</value>
+  </data>
+  <data name="ERR_EMPTY_FIELD" xml:space="preserve">
+    <value>Поле не повинно бути порожнім</value>
+  </data>
+  <data name="ERR_FOLDER_ALREDY" xml:space="preserve">
+    <value>Тут вже є папка з такою назвою</value>
+  </data>
+  <data name="ERR_GROUP_ALREDY" xml:space="preserve">
+    <value>Тут вже є група з такою назвою</value>
+  </data>
+  <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
+    <value>Файл повинен бути картинкою (BMP, JPEG, PNG або GIF) і його розмір повинен бути менше 4 мегабайт</value>
+  </data>
+  <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
+    <value>Ви не можете робити картинки публічними всередині приватних папок</value>
+  </data>
+  <data name="ERR_TITLE" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="ERR_USER_ALREDY" xml:space="preserve">
+    <value>Цей користувач вже тут</value>
+  </data>
   <data name="FEATURES" xml:space="preserve">
     <value>Функції</value>
   </data>
@@ -267,6 +297,12 @@
   </data>
   <data name="IMAGEY" xml:space="preserve">
     <value>картинку</value>
+  </data>
+  <data name="INCORRECT_PASSWORD" xml:space="preserve">
+    <value>Неправильний пароль</value>
+  </data>
+  <data name="INVALID_LOGIN_ATTEMPT" xml:space="preserve">
+    <value>Invalid login attempt</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>Найлегший спосіб ділитись зображеннями.</value>
@@ -333,6 +369,12 @@
   </data>
   <data name="PASSWORD" xml:space="preserve">
     <value>Пароль</value>
+  </data>
+  <data name="PASSWORD_CHANGE" xml:space="preserve">
+    <value>Зміна пароля</value>
+  </data>
+  <data name="PASSWORD_CHANGE_SUCCESS" xml:space="preserve">
+    <value>Ваш пароль було успішно змінено.</value>
   </data>
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Підтвердити пароль</value>

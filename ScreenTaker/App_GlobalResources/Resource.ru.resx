@@ -237,6 +237,36 @@
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Введите новый пароль</value>
   </data>
+  <data name="ERR_ADD_YOURSELF" xml:space="preserve">
+    <value>Вы не можете добавлять себя</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_EXIST" xml:space="preserve">
+    <value>Нет пользователя с таким Email</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_VALID" xml:space="preserve">
+    <value>Email имеет неверный формат</value>
+  </data>
+  <data name="ERR_EMPTY_FIELD" xml:space="preserve">
+    <value>Поле не должно быть пустым</value>
+  </data>
+  <data name="ERR_FOLDER_ALREDY" xml:space="preserve">
+    <value>Здесь уже есть папка с таким названием</value>
+  </data>
+  <data name="ERR_GROUP_ALREDY" xml:space="preserve">
+    <value>Здесь уже есть группа с таким названием</value>
+  </data>
+  <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
+    <value>Файл должен быть картинкой (BMP, JPEG, PNG или GIF) и его размер должен быть меньше 4 мегабайт</value>
+  </data>
+  <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
+    <value>Вы не можете делать картинки публичными внутри приватной папки</value>
+  </data>
+  <data name="ERR_TITLE" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="ERR_USER_ALREDY" xml:space="preserve">
+    <value>Этот пользователь уже здесь</value>
+  </data>
   <data name="FEATURES" xml:space="preserve">
     <value>Функции</value>
   </data>
@@ -267,6 +297,12 @@
   </data>
   <data name="IMAGEY" xml:space="preserve">
     <value>изображение</value>
+  </data>
+  <data name="INCORRECT_PASSWORD" xml:space="preserve">
+    <value>The password is incorrect</value>
+  </data>
+  <data name="INVALID_LOGIN_ATTEMPT" xml:space="preserve">
+    <value>Invalid login attempt</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>Самый легкий путь, чтобы делиться изображениями.</value>
@@ -333,6 +369,12 @@
   </data>
   <data name="PASSWORD" xml:space="preserve">
     <value>Пароль</value>
+  </data>
+  <data name="PASSWORD_CHANGE" xml:space="preserve">
+    <value>Password change</value>
+  </data>
+  <data name="PASSWORD_CHANGE_SUCCESS" xml:space="preserve">
+    <value>Your password has been successfully changed.</value>
   </data>
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Подтвердить пароль</value>
@@ -434,7 +476,7 @@
     <value>Вы действительно хотите удалить</value>
   </data>
   <data name="WELCOME" xml:space="preserve">
-    <value>Добро пожаловат</value>
+    <value>Добро пожаловать</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Да</value>

@@ -421,6 +421,96 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t add yourself.
+        /// </summary>
+        internal static string ERR_ADD_YOURSELF {
+            get {
+                return ResourceManager.GetString("ERR_ADD_YOURSELF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no user with such email.
+        /// </summary>
+        internal static string ERR_EMAIL_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("ERR_EMAIL_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is not valid.
+        /// </summary>
+        internal static string ERR_EMAIL_NOT_VALID {
+            get {
+                return ResourceManager.GetString("ERR_EMAIL_NOT_VALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field should not be empty.
+        /// </summary>
+        internal static string ERR_EMPTY_FIELD {
+            get {
+                return ResourceManager.GetString("ERR_EMPTY_FIELD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is alredy a folder with this name.
+        /// </summary>
+        internal static string ERR_FOLDER_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_FOLDER_ALREDY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is alredy a group with this name.
+        /// </summary>
+        internal static string ERR_GROUP_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_GROUP_ALREDY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading file should be image (BMP, JPEG, PNG or GIF) and it&apos;s size shoud be up to 4 megabytes.
+        /// </summary>
+        internal static string ERR_IMAGE_NOT_VALID {
+            get {
+                return ResourceManager.GetString("ERR_IMAGE_NOT_VALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t make public image in private folder.
+        /// </summary>
+        internal static string ERR_PUBLIC_IN_PRIVATE {
+            get {
+                return ResourceManager.GetString("ERR_PUBLIC_IN_PRIVATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ERR_TITLE {
+            get {
+                return ResourceManager.GetString("ERR_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user is alredy here.
+        /// </summary>
+        internal static string ERR_USER_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_USER_ALREDY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Features.
         /// </summary>
         internal static string FEATURES {
@@ -508,6 +598,24 @@ namespace Resources {
         internal static string IMAGEY {
             get {
                 return ResourceManager.GetString("IMAGEY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password is incorrect.
+        /// </summary>
+        internal static string INCORRECT_PASSWORD {
+            get {
+                return ResourceManager.GetString("INCORRECT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid login attempt.
+        /// </summary>
+        internal static string INVALID_LOGIN_ATTEMPT {
+            get {
+                return ResourceManager.GetString("INVALID_LOGIN_ATTEMPT", resourceCulture);
             }
         }
         
@@ -706,6 +814,24 @@ namespace Resources {
         internal static string PASSWORD {
             get {
                 return ResourceManager.GetString("PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password change.
+        /// </summary>
+        internal static string PASSWORD_CHANGE {
+            get {
+                return ResourceManager.GetString("PASSWORD_CHANGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been successfully changed..
+        /// </summary>
+        internal static string PASSWORD_CHANGE_SUCCESS {
+            get {
+                return ResourceManager.GetString("PASSWORD_CHANGE_SUCCESS", resourceCulture);
             }
         }
         

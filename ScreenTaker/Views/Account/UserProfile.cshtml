@@ -9,14 +9,20 @@
     {
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
+
+    if (ViewBag.ErrorTitle == null)
+    {
+        ViewBag.ErrorTitle = Resources.Resource.PROFILE_HEAD;
+    }
 }
+
 <div class="container" id="userProfile">
     <div class="row" style="margin-top: 20px;">
         <div class="col-sm-12">
             <div class="col-sm-2"></div>
             <div class="col-sm-8 account-style shadow center-block">
                 <div class="text-center">
-                    <h4>@Resources.Resource.PROFILE_HEAD</h4>
+                    <h4>@ViewBag.ErrorTitle</h4>
                     <hr />
                 </div>
                 <div class="col-sm-6" style="margin-top: -15px;">

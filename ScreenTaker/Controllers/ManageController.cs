@@ -309,6 +309,7 @@ namespace ScreenTaker.Controllers
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
 
+        [AllowAnonymous]
         public ActionResult EmailConfirmation()
         {
             return View();

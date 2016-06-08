@@ -103,11 +103,13 @@
 
             }
             else{
+                public_private = '@Resources.Resource.MAKE_PRIVATE';
                 $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
                 $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
                 $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
                 $('#toggle_event_editing button').eq(0).addClass('unlocked_inactive btn-default');
             }
+
             document.getElementById("MakePublicButton").innerText = public_private;
 
 
@@ -200,7 +202,7 @@
                                     {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                     }    
                                 }
                             });">
@@ -244,7 +246,7 @@
                                     {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                     }                                        
                                 }
                             });">
@@ -479,7 +481,7 @@
                                     {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                     }
                                 }
                             });"
@@ -502,7 +504,7 @@
                             {
                                 $('#Message').modal('show');
                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                             }
                         }
                     }); 
@@ -553,7 +555,7 @@
                             {
                                 $('#Message').modal('show');
                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                             }
                         }
                     }); 
