@@ -1,5 +1,13 @@
 ﻿@{
     ViewBag.Title = "Login Failure";
+        if (!Request.QueryString["lang"].IsEmpty())
+        {
+            Culture = UICulture = Request.QueryString["lang"];
+        }
+        else
+        {
+            Culture = UICulture = ViewBag.Localize ?? "en";
+        }
 }
 
 <hgroup>

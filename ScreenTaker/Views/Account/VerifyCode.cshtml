@@ -1,8 +1,16 @@
 ﻿@model ScreenTaker.Models.VerifyCodeViewModel
 @{
     ViewBag.Title = "Verify";
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
+    ViewBag.ErrorTitle = Resources.Resource.USE_ACCOUNT;
 }
-
 <h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {

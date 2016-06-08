@@ -1,12 +1,10 @@
 ﻿------ Rebuild All started: Project: ScreenTaker, Configuration: Debug Any CPU ------
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\AccountController.cs(677,23,677,33): warning CS0108: 'AccountController.GetBaseUrl()' hides inherited member 'GeneralController.GetBaseUrl()'. Use the new keyword if hiding was intended.
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(724,23,724,33): warning CS0108: 'HomeController.GetBaseUrl()' hides inherited member 'GeneralController.GetBaseUrl()'. Use the new keyword if hiding was intended.
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\AccountController.cs(678,23,678,33): warning CS0108: 'AccountController.GetBaseUrl()' hides inherited member 'GeneralController.GetBaseUrl()'. Use the new keyword if hiding was intended.
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(856,23,856,33): warning CS0108: 'HomeController.GetBaseUrl()' hides inherited member 'GeneralController.GetBaseUrl()'. Use the new keyword if hiding was intended.
 C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\EditController.cs(80,23,80,33): warning CS0108: 'EditController.GetBaseUrl()' hides inherited member 'GeneralController.GetBaseUrl()'. Use the new keyword if hiding was intended.
 C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\App_Start\IdentityConfig.cs(55,30,55,31): warning CS0168: The variable 'e' is declared but never used
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(89,38,89,39): warning CS0168: The variable 'e' is declared but never used
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(587,34,587,36): warning CS0168: The variable 'ex' is declared but never used
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(644,38,644,39): warning CS0168: The variable 'e' is declared but never used
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(852,34,852,36): warning CS0168: The variable 'ex' is declared but never used
-C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(880,34,880,36): warning CS0168: The variable 'ex' is declared but never used
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(657,34,657,36): warning CS0168: The variable 'ex' is declared but never used
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(982,34,982,36): warning CS0168: The variable 'ex' is declared but never used
+C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\Controllers\HomeController.cs(1010,34,1010,36): warning CS0168: The variable 'ex' is declared but never used
   ScreenTaker -> C:\Users\Dudas\Documents\ScreenTaker\ScreenTaker\bin\ScreenTaker.dll
 ========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
