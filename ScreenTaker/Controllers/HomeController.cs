@@ -825,6 +825,7 @@ namespace ScreenTaker.Controllers
                     }
                 }
             }
+            ViewBag.BASE_URL = GetBaseUrl() ;
             ViewBag.AccessGranted = accessGranted;
             if (accessGranted)
             {
@@ -834,7 +835,7 @@ namespace ScreenTaker.Controllers
                 var pathsList = images
                     .Select(GetImageLink).ToList();
                 ViewBag.Paths = pathsList;
-                ViewBag.BASE_URL = GetBaseUrl()+"";
+                
                 ViewBag.SharedLinks = images
                     .Select(GetSharedImageLink).ToList();
 
@@ -1037,6 +1038,7 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Image = _entities.Images.ToList().First();
             }
+            ViewBag.Owner = ViewBag.Image == null ? null : ViewBag.Image.Folder.Person;
             ViewBag.OriginalPath = "";
             if (ViewBag.Image != null)
             {
