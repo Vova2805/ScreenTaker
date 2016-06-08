@@ -1,8 +1,15 @@
 ﻿@model ScreenTaker.Models.SendCodeViewModel
 @{
     ViewBag.Title = "Send";
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
 }
-
 <h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
