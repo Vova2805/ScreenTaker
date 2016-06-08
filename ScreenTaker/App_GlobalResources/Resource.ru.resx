@@ -132,6 +132,12 @@
   <data name="ACC_DENIED_DESCR" xml:space="preserve">
     <value>Владелец ограничил доступ к этому ресурсу</value>
   </data>
+  <data name="ACTIVATE" xml:space="preserve">
+    <value>Пожалуйста, активируйте свой аккаунт, подтвердив этот адрес электронной почты</value>
+  </data>
+  <data name="ACTIVATE_NOW" xml:space="preserve">
+    <value>Активировать</value>
+  </data>
   <data name="ADD" xml:space="preserve">
     <value>Добавить</value>
   </data>
@@ -147,8 +153,14 @@
   <data name="ALREADY_HAVE_ACC" xml:space="preserve">
     <value>У Вас уже есть аккаунт?</value>
   </data>
+  <data name="ALTERNATIVE" xml:space="preserve">
+    <value>Альтернатива:</value>
+  </data>
   <data name="AS_NEW_USER" xml:space="preserve">
     <value>Зарегистрироваться как новый пользователь</value>
+  </data>
+  <data name="AUTO" xml:space="preserve">
+    <value>Это автоматическое письмо.</value>
   </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Отмена</value>
@@ -420,6 +432,9 @@
   </data>
   <data name="WANT_DELETE" xml:space="preserve">
     <value>Вы действительно хотите удалить</value>
+  </data>
+  <data name="WELCOME" xml:space="preserve">
+    <value>Добро пожаловат</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Да</value>
