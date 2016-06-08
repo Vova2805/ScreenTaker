@@ -262,6 +262,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="MANAGE_GROUPS" xml:space="preserve">
     <value>Manage groups</value>
   </data>
+  <data name="MAX_NAME_LENGTH" xml:space="preserve">
+    <value>Maximum lenght: 20 symbols</value>
+  </data>
   <data name="MOVE" xml:space="preserve">
     <value>Move</value>
   </data>

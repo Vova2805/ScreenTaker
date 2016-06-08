@@ -25,6 +25,12 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="text-md-center">
+                                    @{
+                                        int length = ViewBag.OriginalName.Length;
+                                        int size = length <= 20 ? length : 20;
+                                        string name = ViewBag.OriginalName.Substring(0, size);
+                                        ViewBag.OriginalName = name;
+                                    }
                                     <h3 class="text-center">@ViewBag.OriginalName</h3>
                                 </div>
                             </div>

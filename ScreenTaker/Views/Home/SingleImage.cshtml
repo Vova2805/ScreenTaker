@@ -93,7 +93,7 @@
                 <form>
                     <div class="form-group">
                         <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE_IMAGE</label>
-                        <input type="text" class="form-control" id="new-title" value="@ViewBag.ImageTitle">
+                        <input type="text" class="form-control" id="new-title" value="@ViewBag.ImageTitle" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.MAX_NAME_LENGTH">
                     </div>
                 </form>
             </div>
@@ -244,6 +244,12 @@
             
                 <div class="row">
                     <div class="col-sm-6" style="padding-left: 40px;">
+                        @{
+                            int length = ViewBag.OriginalName.Length;
+                            int size = length <= 20 ? length : 20;
+                            string name = ViewBag.OriginalName.Substring(0, size);
+                            ViewBag.OriginalName = name;
+                        }
                         <h2>@ViewBag.OriginalName</h2>
                     </div>
 

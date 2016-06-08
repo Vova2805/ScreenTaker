@@ -157,7 +157,7 @@
                 <form>
                     <div class="form-group">
                         <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE_IMAGE</label>
-                        <input type="text" class="form-control" id="new-title">
+                        <input type="text" class="form-control" id="new-title" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.MAX_NAME_LENGTH">
                     </div>
                 </form>
             </div>
@@ -165,7 +165,7 @@
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
                 <button type="button" class="btn btn-primary btn-not-rounded" 
                          onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                url: 'RenameImageOutside',
+                                url: '@Url.Action("RenameImageOutside","Home")',
                                 data: {
                                     path: document.getElementById('original').value,
                                     newName:document.getElementById('new-title').value
@@ -204,7 +204,7 @@
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
                 <button type="button" class="btn btn-danger btn-not-rounded"
                          onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                url: 'DeleteImage',
+                                url: '@Url.Action("DeleteImage","Home")',
                                 data: {
                                     path: document.getElementById('original').value
                                 },
@@ -275,7 +275,7 @@
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" aria-label="Left Align" onclick=
                                     "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                        url: 'ImagesMoveCreateFolder',
+                                        url: '@Url.Action("ImagesMoveCreateFolder","Home")',
                                         data: {
                                             name: document.getElementById('newFolderName').value,
                                             folderId: @ViewBag.FolderId
@@ -315,6 +315,12 @@
     <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-6" style="padding-left: 40px;">
+                    @{
+                        int flength = ViewBag.FolderName.Length;
+                        int fsize = flength <= 20 ? flength : 20;
+                        string fname = ViewBag.FolderName.Substring(0, fsize);
+                        ViewBag.FolderName = fname;
+                    }
                     <h2>@ViewBag.FolderName</h2>
                 </div>
                 <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
@@ -428,7 +434,7 @@
                 <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton"  style="width: 100%" 
                          onclick="$('#loadingAnimation').css('visibility', 'visible');
                          $.ajax({
-                            url: 'MakeImagePublicOrPrivate',
+                            url:'@Url.Action("MakeImagePublicOrPrivate","Home")',
                                 data: {
                                     imageId: document.getElementById('Idhidden').value
                                 },
@@ -452,7 +458,7 @@
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=
                         "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                        url: 'PartialImagesAccess',
+                        url: '@Url.Action("PartialImagesAccess","Home")',
                         data: {
                             imageId: document.getElementById('Idhidden').value,                       
                         },
@@ -503,7 +509,7 @@
         <li class="context-menu__item">
             <a class="context-menu__link" data-toggle="modal" data-target="#ImageManageAccess" onclick=
                         "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                        url: 'PartialImagesAccess',
+                        url: '@Url.Action("PartialImagesAccess","Home")',
                         data: {
                             imageId: document.getElementById('Idhidden').value,                       
                         },
