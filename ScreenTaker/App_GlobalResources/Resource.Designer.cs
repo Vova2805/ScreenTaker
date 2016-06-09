@@ -512,6 +512,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid login attempt.
+        /// </summary>
+        internal static string INVALID_LOGIN_ATTEMPT {
+            get {
+                return ResourceManager.GetString("INVALID_LOGIN_ATTEMPT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The easiest way to share your images..
         /// </summary>
         internal static string JUMBOTRON_TEXT {

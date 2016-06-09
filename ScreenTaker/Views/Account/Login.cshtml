@@ -11,7 +11,10 @@
     {
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
-    ViewBag.ErrorTitle = Resources.Resource.USE_ACCOUNT;
+    if (ViewBag.ErrorTitle == null)
+    {
+        ViewBag.ErrorTitle = Resources.Resource.USE_ACCOUNT;
+    }
 }
 
 
