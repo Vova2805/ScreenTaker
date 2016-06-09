@@ -70,6 +70,12 @@ textarea {
     color:dimgray;
 }
 
+.footer-text {
+    vertical-align: middle; 
+    top: 15px;
+    font-size: 15px;
+}
+
 .footer-style {
     background-color: #222; 
     margin-bottom: -20px; 
@@ -77,12 +83,6 @@ textarea {
     vertical-align: middle; 
     height: 50px; 
     margin-top: 20px;
-}
-
-.footer-text {
-    vertical-align: middle; 
-    padding-top: 15px; 
-    font-size: 15px
 }
 
 .lead-site{
@@ -662,8 +662,8 @@ textarea {
         margin-top:-5px;
     }
     .disabled-list-group-item{
-        background-color:#AAAAAA;
-        color:#D6D6D6;
+        background-color:#eee;
+        color:#686868;
     }
     .disabled-list-group-item input{
         pointer-events:none;
@@ -671,4 +671,36 @@ textarea {
 
 .ui-autocomplete {
     z-index: 9000;
+}
+.field-success {
+     border: 2px solid #45cb18; 
+}
+.field-error{
+    border: 2px solid #ed1e1e; 
+}
+.field-success:focus {
+     border: 2px solid #45cb18; 
+}
+.field-error:focus{
+    border: 2px solid #ed1e1e; 
+}
+
+.default-text-color{
+    color:#9d9d9d;
+}
+.transparent-btn{
+    background-color:transparent;
+    border:0px;
+    padding:0px;
+}
+.text-overflowed{
+    max-width: 200px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.transparent-btn:active,
+.transparent-btn:focus {
+    outline: none;
 }

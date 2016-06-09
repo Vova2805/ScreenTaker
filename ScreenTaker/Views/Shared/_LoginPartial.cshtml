@@ -1,11 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @using System.Globalization
 @using System.Threading;
-@section Scripts
-{
-    <script>
-    </script>
-}
+
 @{
     if (!Request.QueryString["lang"].IsEmpty())
     {
@@ -17,15 +13,15 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
     string localization = ViewBag.Localize ?? "en";
-    string Loc = "ENG";
+    string Loc = "English";
     if (localization.Equals("uk"))
     {
-        Loc = "UKR";
+        Loc = "Українська";
     }
     else
     if (localization.Equals("ru"))
     {
-        Loc = "RUS";
+        Loc = "Русский";
     }
     if (Request.IsAuthenticated)
     {
@@ -35,11 +31,11 @@
             @Html.AntiForgeryToken()
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization0">@Loc<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
-                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
-                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+                    <a href="" dropdown-toggle" onmouseover="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization0">@Loc<span class="caret"></span></a>
+                    <ul class="dropdown-menu"  id="dropdown-menu"  onmouseleave="localizationLeave()">
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">Українська</a></li>
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">Русский</a></li>
+                        <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">English</a></li>
                     </ul>
                 </li>
                 @{
@@ -92,12 +88,12 @@
                     else
                     {
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">@Loc<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">UKR</a></li>
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">RUS</a></li>
-                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">ENG</a></li>
+            <li class="dropdown" id="dropdown-li" >
+                <a href="" class="dropdown-toggle" onmouseover="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">@Loc<span class="caret"></span></a>
+                <ul class="dropdown-menu" id="dropdown-menu" onmouseleave="localizationLeave()">
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">Українська</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">Русский</a></li>
+                    <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">English</a></li>
                 </ul>
             </li>
             <li>@Html.ActionLink(@Resources.Resource.LOGIN_EMAIL, "Login", "Account")</li>
@@ -106,3 +102,4 @@
     }
 }
 <script src="~/Scripts/Site.js"></script>
+

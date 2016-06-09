@@ -1,4 +1,4 @@
-﻿
+﻿    
 function openNav() {
    
     $('#mySidenav').animate({
@@ -12,15 +12,6 @@ function openNav() {
 
     document.getElementById("openSideMenu").style.disabled = true;
     document.getElementById("openSideMenu").style.backgroundColor = "#AAAAAA";
-    //$('#AddFolderButton').animate({
-    //    marginRight: "-40px"
-    //}, 500);
-    //$('#UploadImageButton').animate({
-    //    marginRight: "-40px"
-    //}, 500);
-    //$('#UploadImageSpan').animate({
-    //    marginRight: "-50px"
-    //}, 500);
 }
 
 
@@ -37,30 +28,7 @@ function closeNav() {
 
     document.getElementById("openSideMenu").style.disabled = false;
     document.getElementById("openSideMenu").style.backgroundColor = "white";
-    //$('#AddFolderButton').animate({
-    //    marginRight: "10px"
-    //}, 500);
-    //$('#UploadImageButton').animate({
-    //    marginRight: "10px"
-    //}, 500);
-    //$('#UploadImageSpan').animate({
-    //    marginRight: "-28px"
-    //}, 500);
 }
-
-$('#toggle_event_editing button').click(function () {
-    if ($(this).hasClass('locked_active') || $(this).hasClass('unlocked_inactive')) {
-        /* code to do when unlocking */
-        $('#switch_status').html('Switched on.');
-    } else {
-        /* code to do when locking */
-        $('#switch_status').html('Switched off.');
-    }
-
-    /* reverse locking status */
-    $('#toggle_event_editing button').eq(0).toggleClass('locked_inactive locked_active btn-default btn-info');
-    $('#toggle_event_editing button').eq(1).toggleClass('unlocked_inactive unlocked_active btn-info btn-default');
-});
 
 function selectText() {
     document.getElementById('sharedLink').select();
@@ -114,4 +82,41 @@ function copyToClipboard(elem) {
         target.textContent = "";
     }
     return succeed;
+}
+function emailValidation(email) {
+    var pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/;
+    if (email == ''|| !pattern.test(email))
+    {
+    return false;
+    }
+    return true;
+}
+
+function passwordValidation(pass) {
+    var pattern = /(?=.*[a-zA-Z0-9]).{6,}/;
+    if (pass == '' || !pattern.test(pass)) {
+        return false;
+    }
+    return true;
+}
+
+function ConfirmPasswordValidation(confirmed, pass) {
+    if (confirmed == pass) return true;
+    return false;
+}
+function setClasses(id, respond) {
+    if (respond == false) {
+        $(id).removeClass('field-success');
+        $(id).addClass('field-error');
+    }
+    else {
+        $(id).removeClass('field-error');
+        $(id).addClass('field-success');
+    }
+}
+function localizationOver() {
+    $('#dropdown-menu').slideDown();
+}
+function localizationLeave() {
+    $('#dropdown-menu').slideUp();
 }

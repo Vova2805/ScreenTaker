@@ -8,6 +8,7 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
+
 <div class="row-fluid">
     <div class="col-sm-4" style="padding:5px;">
         <div class="row" style="margin-bottom:10px;">
@@ -25,7 +26,7 @@
                                     if (document.getElementById('MessageContentFromPartial').value != '') {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML = document.getElementById('MessageContentFromPartial').value;
-                                        document.getElementById('MessageTitle').innerHTML = 'Error';
+                                        document.getElementById('MessageTitle').innerHTML = '@Resources.Resource.ERR_TITLE';
                                     }
                                 }
                             });">+</span>
@@ -34,7 +35,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <div class="list-group" style="height:auto;max-height:450px;overflow:auto;">
+                <div class="list-group" style="height:auto;max-height:435px;overflow:auto;">
                     @if (ViewBag.Groups != null)
                     {
                         for (int i = 0; i < ViewBag.Groups.Count; i++)
@@ -56,19 +57,11 @@
                                             {
                                                 $('#Message').modal('show');
                                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                document.getElementById('MessageTitle').innerHTML='Error';
+                                                document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
                                             }
 
                             }});">
-                                <div class="media-body" style="vertical-align:middle">
-                                    <h5 class="media-heading">@ViewBag.Groups[i].Name</h5>
-                                </div>
-                                <div class="media-right" style="vertical-align:middle;">
-                                    <button type="button" class="btn badge right" aria-label="Left Align">
-                                        <span aria-hidden="true">@ViewBag.GroupMemberCounts[i]</span>
-                                    </button>
-                                </div>
-                                <div class="media-right" style="vertical-align:middle;"
+                                <div class="media-left" style="vertical-align:middle;"
                                      onclick="$('#loadingAnimation').css('visibility', 'visible');if(event.stopPropagation){event.stopPropagation();}event.cancelBubble=true;
                                         $.ajax({
                                             url: 'RemoveGroup',
@@ -81,13 +74,21 @@
                                             {
                                                 $('#Message').modal('show');
                                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                document.getElementById('MessageTitle').innerHTML='Error';
+                                                document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
                                             }
                                             }
                                         });">
                                     <button type="button" class="btn badge right" aria-label="Left Align">
                                         <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                     </button>
+                                </div>
+                                <div class="media-left" style="vertical-align:middle;">
+                                    <button type="button" class="btn badge right" aria-label="Left Align">
+                                        <span aria-hidden="true">@ViewBag.GroupMemberCounts[i]</span>
+                                    </button>
+                                </div>
+                                <div class="media-left" style="vertical-align:middle">
+                                    <h5 class="media-heading" style="color: #444444">@ViewBag.Groups[i].Name</h5>
                                 </div>
                             </div>
                         }
@@ -101,7 +102,8 @@
         <div class="row" style="margin-bottom:10px;">
             <div class="col-sm-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")">
+                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon2" id="AddUserInput" data-autocomplete-source="@Url.Action("AutocompleteSearchEmails", "Edit")" 
+            onkeyup="CheckEmail(this)" onblur="CheckEmail(this)" onfocus="CheckEmail(this)" onchange="CheckEmail(this)" onmouseover="CheckEmail(this)">
                     <span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
                           onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                         url: 'AddUser',
@@ -115,7 +117,7 @@
                                             {
                                                 $('#Message').modal('show');
                                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                document.getElementById('MessageTitle').innerHTML='Error';
+                                                document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
                                             }
                                         }
                                     });">+</span>
@@ -124,21 +126,13 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <div class="list-group respo" style="height:auto;max-height:450px;overflow:auto;">
+                <div class="list-group respo" style="height:auto;max-height:435px;overflow:auto;">
                     @if (ViewBag.Emails != null)
                     {
                         for (int i = 0; i < ViewBag.Emails.Count; i++)
                         {
                             <div class="list-group-item">
-                                <div class="media-left">
-                                    <div style="background:url(@ViewBag.Avatars[i]) no-repeat center center;height:50px;width:50px;"
-                                         class="media-object img-circle zoom_img">
-                                    </div>
-                                </div>
-                                <div class="media-body" style="vertical-align:middle">
-                                    <h4 class="media-heading">@ViewBag.Emails[i]</h4>
-                                </div>
-                                <div class="media-right" style="vertical-align:middle"
+                                <div class="media-left" style="vertical-align:middle"
                                      onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                             url: 'RemoveUser',
                                             data: {
@@ -151,7 +145,7 @@
                                                 {
                                                     $('#Message').modal('show');
                                                     document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                    document.getElementById('MessageTitle').innerHTML='Error';
+                                                    document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
                                                 }
                                             }
                                         });">
@@ -159,6 +153,15 @@
                                         <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                     </button>
                                 </div>
+                                <div class="media-left">
+                                    <div style="background: url(@ViewBag.Avatars[i]) no-repeat center center; height: 50px; width: 50px;"
+                                         class="media-object img-circle zoom_img">
+                                    </div>
+                                </div>
+                                <div class="media-left" style="vertical-align: middle">
+                                    <h4 class="media-heading" style="color: #444444">@ViewBag.Emails[i]</h4>
+                                </div>
+
                             </div>
                         }
                     }
@@ -167,6 +170,7 @@
         </div>
     </div>
 </div>
+<script src="~/Scripts/Site.js"></script>
 
 @if (ViewBag.MessageContent != null)
 {
@@ -176,4 +180,3 @@ else
 {
     <input type="hidden" id="MessageContentFromPartial" value="" />
 }
-    

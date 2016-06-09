@@ -302,6 +302,8 @@
     <Content Include="avatars\sUZjQ7mnndxDo28_50.png" />
     <Content Include="avatars\TEhGzEVel9PLBRW_128.png" />
     <Content Include="avatars\TEhGzEVel9PLBRW_50.png" />
+    <Content Include="avatars\user_128.png" />
+    <Content Include="avatars\user_50.png" />
     <Content Include="avatars\uve8edsJFyZgcLZ_128.png" />
     <Content Include="avatars\uve8edsJFyZgcLZ_50.png" />
     <Content Include="Content\bootstrap-switch.css" />
@@ -330,6 +332,10 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Emails\Confirmation.html" />
+    <Content Include="Emails\FolderSharing.html" />
+    <Content Include="Emails\ImageSharing.html" />
+    <Content Include="Emails\ResetPassword.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="For Database\dbo.AspNetRoles.sql" />
@@ -356,15 +362,12 @@
     <Content Include="img\8668mvgPAdFM1Yj.png" />
     <Content Include="img\amnt07rVTYK9yJA.png" />
     <Content Include="img\amnt07rVTYK9yJA_compressed.png" />
-    <Content Include="img\BihjUDubPXHDbgb.png" />
-    <Content Include="img\BihjUDubPXHDbgb_compressed.png" />
     <Content Include="img\bxv9G8IiCDFt2mR.png" />
     <Content Include="img\bxv9G8IiCDFt2mR_compressed.png" />
     <Content Include="img\D7rDY5Afq5pBjwl.png" />
     <Content Include="img\f03qxsnsHz.png" />
     <Content Include="img\f03qxsnsHz_compressed.png" />
     <Content Include="img\Fj5B7hEnjOai7kZ.png" />
-    <Content Include="img\Fj5B7hEnjOai7kZ_compressed.png" />
     <Content Include="img\gF0XOa3BiaLa5AW.png" />
     <Content Include="img\hgZejvnOsRrJ5fo.png" />
     <Content Include="img\hgZejvnOsRrJ5fo_compressed.png" />
@@ -384,7 +387,6 @@
     <Content Include="img\msS38oK0OU_compressed.png" />
     <Content Include="img\MV1b8kZAkuS11hd.png" />
     <Content Include="img\MV1b8kZAkuS11hd_compressed.png" />
-    <Content Include="img\NI6me1zui72xo2s.png" />
     <Content Include="img\NI6me1zui72xo2s_compressed.png" />
     <Content Include="img\OmJAcoCowJ7mjJA.png" />
     <Content Include="img\ON0YJ2fo5A.png" />
@@ -436,10 +438,19 @@
     <Content Include="Resources\error.png" />
     <Content Include="Resources\info.png" />
     <Content Include="Resources\loadingAnimation.gif" />
+    <Content Include="Resources\logo.png" />
+    <Content Include="Resources\Ok.png" />
     <Content Include="Resources\printscreen.png" />
     <Content Include="Resources\private.png" />
+    <Content Include="Resources\private_full.png" />
+    <Content Include="Resources\private_shared.png" />
     <Content Include="Resources\public.png" />
+    <Content Include="Resources\public_full.png" />
+    <Content Include="Resources\public_shared.png" />
     <Content Include="Resources\sad.png" />
+    <Content Include="Resources\user.png" />
+    <Content Include="Resources\user_128.png" />
+    <Content Include="Resources\user_50.png" />
     <Content Include="Resources\warning.png" />
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
@@ -541,6 +552,7 @@
     <Content Include="Views\Home\SingleImageChangeState.cshtml" />
     <Content Include="Views\Home\PartialLibraryAccess.cshtml" />
     <Content Include="Views\Home\PartialImagesAccess.cshtml" />
+    <Content Include="Views\Manage\EmailConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

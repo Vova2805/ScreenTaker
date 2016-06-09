@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ScreenTaker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid" style="background-color:white">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <img class="center-block" style="width:200px; height:150px;" src="~/Resources/logo.png" />
+                </div>
+                <div class="row">
+                    <p class="lead-site text-center"><b>@Resources.Resource.WELCOME</b></p>
+                </div>
+                <div class="row">
+                    <p class="text-center" style="overflow-wrap:break-word">@Resources.Resource.ACTIVATE</p>
+                </div>
+                <div class="row">
+                    <input type="button" style="padding-left:15%;padding-right:15%; height:50px;" class="btn btn-primary btn-lg center-block" id="welcom-upload" value="@Resources.Resource.ACTIVATE_NOW" onclick="" />
+                </div>
+                <div class="row">
+                    <p class="text-center" style="overflow-wrap:break-word;margin-top:10px; color:#8b8686">@Resources.Resource.ALTERNATIVE</p>
+                </div>
+                <div class="row" style="padding-left:15%;padding-right:15%;">
+                    <a class="text-center" href="@Resources.Resource.CAPTURING_TEXT " style="overflow-wrap:break-word;">@Resources.Resource.CAPTURING_TEXT</a>
+                </div>
+                <div class="row">
+                    <p class="text-center" style="overflow-wrap:break-word; color:#8b8686">@Resources.Resource.AUTO</p>
+                </div>
+                </div>
+                
+                <div class="col-sm-2"></div>
+            </div>
+    </div>
+</body>
+</html>

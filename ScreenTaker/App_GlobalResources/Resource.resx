@@ -126,6 +126,18 @@
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Access by link</value>
   </data>
+  <data name="ACCESS_DENIED" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="ACC_DENIED_DESCR" xml:space="preserve">
+    <value>Image owner has restricted access to this resource</value>
+  </data>
+  <data name="ACTIVATE" xml:space="preserve">
+    <value>Please activate your account by confirming this email address</value>
+  </data>
+  <data name="ACTIVATE_NOW" xml:space="preserve">
+    <value>Activate now</value>
+  </data>
   <data name="ADD" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -141,8 +153,14 @@
   <data name="ALREADY_HAVE_ACC" xml:space="preserve">
     <value>Already have an account?</value>
   </data>
+  <data name="ALTERNATIVE" xml:space="preserve">
+    <value>Alternative :</value>
+  </data>
   <data name="AS_NEW_USER" xml:space="preserve">
     <value>Register as a new user</value>
+  </data>
+  <data name="AUTO" xml:space="preserve">
+    <value>This is an automated email. </value>
   </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Cancel</value>
@@ -151,7 +169,7 @@
     <value>Capturing full screen</value>
   </data>
   <data name="CAPTURING_TEXT" xml:space="preserve">
-    <value>The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere - you don’t need the Snaggy website open. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image.</value>
+    <value>The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image.</value>
   </data>
   <data name="CHANGE_PASS" xml:space="preserve">
     <value>Change password</value>
@@ -170,6 +188,9 @@
   </data>
   <data name="CONFIRM_PASS" xml:space="preserve">
     <value>Confirm a new password</value>
+  </data>
+  <data name="CONF_PASS" xml:space="preserve">
+    <value>Confirm password</value>
   </data>
   <data name="COPY" xml:space="preserve">
     <value>Copy</value>
@@ -210,8 +231,41 @@
   <data name="EMAIL" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="ENTER_EMAIL" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Enter a new password</value>
+  </data>
+  <data name="ERR_ADD_YOURSELF" xml:space="preserve">
+    <value>You can't add yourself</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_EXIST" xml:space="preserve">
+    <value>There is no user with such email</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_VALID" xml:space="preserve">
+    <value>Email is not valid</value>
+  </data>
+  <data name="ERR_EMPTY_FIELD" xml:space="preserve">
+    <value>Field should not be empty</value>
+  </data>
+  <data name="ERR_FOLDER_ALREDY" xml:space="preserve">
+    <value>There is alredy a folder with this name</value>
+  </data>
+  <data name="ERR_GROUP_ALREDY" xml:space="preserve">
+    <value>There is alredy a group with this name</value>
+  </data>
+  <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
+    <value>Uploading file should be image (BMP, JPEG, PNG or GIF) and it's size shoud be up to 4 megabytes</value>
+  </data>
+  <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
+    <value>You can't make public image in private folder</value>
+  </data>
+  <data name="ERR_TITLE" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ERR_USER_ALREDY" xml:space="preserve">
+    <value>This user is alredy here</value>
   </data>
   <data name="FEATURES" xml:space="preserve">
     <value>Features</value>
@@ -225,6 +279,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="FOLDERY" xml:space="preserve">
     <value>folder</value>
+  </data>
+  <data name="FORGOT_PASS" xml:space="preserve">
+    <value>Forgot password?</value>
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
@@ -240,6 +297,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="IMAGEY" xml:space="preserve">
     <value>image</value>
+  </data>
+  <data name="INCORRECT_PASSWORD" xml:space="preserve">
+    <value>The password is incorrect</value>
+  </data>
+  <data name="INVALID_LOGIN_ATTEMPT" xml:space="preserve">
+    <value>Invalid login attempt</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>The easiest way to share your images.</value>
@@ -262,8 +325,14 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="MANAGE_GROUPS" xml:space="preserve">
     <value>Manage groups</value>
   </data>
+  <data name="MAX_NAME_LENGTH" xml:space="preserve">
+    <value>Maximum lenght: 20 symbols</value>
+  </data>
   <data name="MOVE" xml:space="preserve">
     <value>Move</value>
+  </data>
+  <data name="MOVE_HERE" xml:space="preserve">
+    <value>Move here</value>
   </data>
   <data name="MOVE_IMAGE" xml:space="preserve">
     <value>Move image to</value>
@@ -274,6 +343,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="NEW_FOLDER_TITLE" xml:space="preserve">
     <value>Enter a title for new folder</value>
   </data>
+  <data name="NEW_PASS" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="NO" xml:space="preserve">
     <value>No</value>
   </data>
@@ -283,23 +355,44 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="OFF" xml:space="preserve">
     <value>Off</value>
   </data>
+  <data name="OLD_PASS" xml:space="preserve">
+    <value>Old password</value>
+  </data>
   <data name="ON" xml:space="preserve">
     <value>On</value>
   </data>
   <data name="OPEN" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="OWNER" xml:space="preserve">
+    <value>Owner</value>
+  </data>
   <data name="PASSWORD" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="PASSWORD_CHANGE" xml:space="preserve">
+    <value>Password changed</value>
+  </data>
+  <data name="PASSWORD_CHANGE_SUCCESS" xml:space="preserve">
+    <value>Your password has been successfully changed.</value>
+  </data>
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Password confirm</value>
+  </data>
+  <data name="PASSWORD_FORGOT" xml:space="preserve">
+    <value>Please check your email to reset your password</value>
+  </data>
+  <data name="PASSWORD_RESET" xml:space="preserve">
+    <value>Your password has been reset</value>
   </data>
   <data name="PEOPLE" xml:space="preserve">
     <value>People</value>
   </data>
   <data name="PRIVATE" xml:space="preserve">
     <value>Private</value>
+  </data>
+  <data name="PROFILE_HEAD" xml:space="preserve">
+    <value>Profile settings</value>
   </data>
   <data name="REMOVE" xml:space="preserve">
     <value>Remove</value>
@@ -316,6 +409,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="RESEND_AGAIN" xml:space="preserve">
     <value>Resend confirmation mail again</value>
   </data>
+  <data name="RESET_PASSWORD_EMAIL" xml:space="preserve">
+    <value>Click this {0} default</value>
+  </data>
+  <data name="RETURN_TO_LOGIN" xml:space="preserve">
+    <value>Return to Log in</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -327,6 +426,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="SEARCH_FOR" xml:space="preserve">
     <value>Search for</value>
+  </data>
+  <data name="SEND" xml:space="preserve">
+    <value>Send</value>
   </data>
   <data name="SHARED_FOLDERS" xml:space="preserve">
     <value>Available to me</value>
@@ -372,6 +474,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="WANT_DELETE" xml:space="preserve">
     <value>Do you really want to delete </value>
+  </data>
+  <data name="WELCOME" xml:space="preserve">
+    <value>Welcome</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Yes</value>

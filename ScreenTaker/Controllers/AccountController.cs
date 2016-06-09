@@ -86,8 +86,11 @@ namespace ScreenTaker.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             ViewBag.Localize = locale;
+            ViewBag.ErrorTitle = null;
             if (!ModelState.IsValid)
             {
+                ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
+
                 return View(model);
             }
 
@@ -97,9 +100,10 @@ namespace ScreenTaker.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+//                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
 
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
+
                     return View("Error");
                 }
             }
@@ -118,8 +122,11 @@ namespace ScreenTaker.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                { }
+
+                ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
+                    //    ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
             }
         }
 
@@ -176,7 +183,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Localize = locale;
             return View();
         }
-
+        string EMAIL = "";
         [AllowAnonymous]
         public async Task<ActionResult> ResendConfirmation(string email)
         {
@@ -186,7 +193,8 @@ namespace ScreenTaker.Controllers
             if (user != null)
             {
                 ViewBag.Email = email;
-                string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                EMAIL = ViewBag.Email;
+                string callbackUrl = await SendEmailConfirmationTokenAsync(user, "Confirm your account");
             }
             return View("ConfirmEmailInfo");
         }
@@ -198,6 +206,8 @@ namespace ScreenTaker.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             ViewBag.Localize = locale;
+            ViewBag.ErrorTitle = null;
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
@@ -206,10 +216,10 @@ namespace ScreenTaker.Controllers
                 {
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user, "Confirm your account");
 
                     ViewBag.Email = user.Email;
-
+                    EMAIL = ViewBag.Email;
                     //return RedirectToAction("Index", "Home");
 
                     return View("ConfirmEmailInfo");
@@ -220,6 +230,8 @@ namespace ScreenTaker.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                 }
+                if (result.Errors.Any())
+                    ViewBag.ErrorTitle = result.Errors.FirstOrDefault();
                 AddErrors(result);
             }
 
@@ -252,6 +264,13 @@ namespace ScreenTaker.Controllers
                         CreationDate = DateTime.Now
                     };
                     entities.Folders.Add(defaultFolder);
+                    var user = entities.People.Find(userId);
+                    if (user != null)
+                    {
+                        var userShares = entities.UserShares.Where(w => w.Email == user.Email);
+                        foreach (var u in userShares)
+                            u.PersonId = user.Id;
+                    }                    
                     entities.SaveChanges();
 
                 }
@@ -259,6 +278,7 @@ namespace ScreenTaker.Controllers
             }
             AddErrors(result);
             ViewBag.Email = UserManager.FindById(userId);
+            EMAIL = ViewBag.Email;
             return View();
         }
 
@@ -284,16 +304,21 @@ namespace ScreenTaker.Controllers
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
+//                    Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+                await UserManager.SendEmailAsync(user.Id, "Password Reset",
+                    String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ResetPassword.html")),
+                            callbackUrl, user.Email));
+
+//                await UserManager.SendEmailAsync(user.Id, "Password Reset", String.Format(Resources.Resource.RESET_PASSWORD_EMAIL, callbackUrl));
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -514,8 +539,11 @@ namespace ScreenTaker.Controllers
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             ViewBag.Localize = locale;
+            ViewBag.ErrorTitle = null;
+
             if (!ModelState.IsValid)
             {
+                ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
                 return View("UserProfile");
             }
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
@@ -525,10 +553,18 @@ namespace ScreenTaker.Controllers
                 if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    ViewBag.Title = Resources.Resource.PASSWORD_CHANGE;
+                    ViewBag.Message = Resources.Resource.PASSWORD_CHANGE_SUCCESS;
+                    return View("Info");
                 }
-                return RedirectToAction("UserProfile");
+            }
+            if (result.Errors.Any())
+            {
+                ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
             }
             AddErrors(result);
+            ViewBag.Email = EMAIL;
+            ViewBag.Avatar_128 = AVATAR;
             return View("UserProfile");
         }
 
@@ -610,20 +646,21 @@ namespace ScreenTaker.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        private async Task<string> SendEmailConfirmationTokenAsync(int userID, string subject)
+        private async Task<string> SendEmailConfirmationTokenAsync(ApplicationUser user, string subject)
         {
-            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
-               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(userID, subject,
-               $"<h3>ScreenTaker</h3>\nPlease confirm your account by clicking <a href=\"{callbackUrl}\">link</a>");
+               new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(user.Id, subject,
+               String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/Confirmation.html")), 
+                            callbackUrl, user.Email));
 
             return callbackUrl;
         }
         #endregion
 
 
-       
+        string AVATAR = "/avatars/user_128.png";
         public ActionResult SetAvatar(HttpPostedFileBase file)
         {
             ViewBag.Localize = locale;
@@ -671,7 +708,9 @@ namespace ScreenTaker.Controllers
                 }
                 
             }
-            return View("UserProfile");
+            ViewBag.Email = EMAIL;
+            AVATAR = ViewBag.Avatar_128;
+            return RedirectToAction("UserProfile");
         }
 
         public string GetBaseUrl()

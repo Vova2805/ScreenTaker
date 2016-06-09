@@ -88,6 +88,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied.
+        /// </summary>
+        internal static string ACCESS_DENIED {
+            get {
+                return ResourceManager.GetString("ACCESS_DENIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image owner has restricted access to this resource.
+        /// </summary>
+        internal static string ACC_DENIED_DESCR {
+            get {
+                return ResourceManager.GetString("ACC_DENIED_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please activate your account by confirming this email address.
+        /// </summary>
+        internal static string ACTIVATE {
+            get {
+                return ResourceManager.GetString("ACTIVATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate now.
+        /// </summary>
+        internal static string ACTIVATE_NOW {
+            get {
+                return ResourceManager.GetString("ACTIVATE_NOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string ADD {
@@ -133,11 +169,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alternative :.
+        /// </summary>
+        internal static string ALTERNATIVE {
+            get {
+                return ResourceManager.GetString("ALTERNATIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register as a new user.
         /// </summary>
         internal static string AS_NEW_USER {
             get {
                 return ResourceManager.GetString("AS_NEW_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is an automated email. .
+        /// </summary>
+        internal static string AUTO {
+            get {
+                return ResourceManager.GetString("AUTO", resourceCulture);
             }
         }
         
@@ -160,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere - you don’t need the Snaggy website open. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image..
+        ///   Looks up a localized string similar to The Print Screen key is your universal screen capture button. It’s located near the top right area of your keyboard, and is sometimes abbreviated to something like “Prt Scr”. You can use it anywhere. Just press it once and it’ll take a snapshot of whatever is curently on your screen and store it in your clipboard. Then, save it just open up ScreenTaker and paste it by pressing Upload image..
         /// </summary>
         internal static string CAPTURING_TEXT {
             get {
@@ -219,6 +273,15 @@ namespace Resources {
         internal static string CONFIRM_PASS {
             get {
                 return ResourceManager.GetString("CONFIRM_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        internal static string CONF_PASS {
+            get {
+                return ResourceManager.GetString("CONF_PASS", resourceCulture);
             }
         }
         
@@ -340,11 +403,110 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter your email.
+        /// </summary>
+        internal static string ENTER_EMAIL {
+            get {
+                return ResourceManager.GetString("ENTER_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a new password.
         /// </summary>
         internal static string ENTER_NEW_PASS {
             get {
                 return ResourceManager.GetString("ENTER_NEW_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t add yourself.
+        /// </summary>
+        internal static string ERR_ADD_YOURSELF {
+            get {
+                return ResourceManager.GetString("ERR_ADD_YOURSELF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no user with such email.
+        /// </summary>
+        internal static string ERR_EMAIL_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("ERR_EMAIL_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is not valid.
+        /// </summary>
+        internal static string ERR_EMAIL_NOT_VALID {
+            get {
+                return ResourceManager.GetString("ERR_EMAIL_NOT_VALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field should not be empty.
+        /// </summary>
+        internal static string ERR_EMPTY_FIELD {
+            get {
+                return ResourceManager.GetString("ERR_EMPTY_FIELD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is alredy a folder with this name.
+        /// </summary>
+        internal static string ERR_FOLDER_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_FOLDER_ALREDY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is alredy a group with this name.
+        /// </summary>
+        internal static string ERR_GROUP_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_GROUP_ALREDY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading file should be image (BMP, JPEG, PNG or GIF) and it&apos;s size shoud be up to 4 megabytes.
+        /// </summary>
+        internal static string ERR_IMAGE_NOT_VALID {
+            get {
+                return ResourceManager.GetString("ERR_IMAGE_NOT_VALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t make public image in private folder.
+        /// </summary>
+        internal static string ERR_PUBLIC_IN_PRIVATE {
+            get {
+                return ResourceManager.GetString("ERR_PUBLIC_IN_PRIVATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ERR_TITLE {
+            get {
+                return ResourceManager.GetString("ERR_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user is alredy here.
+        /// </summary>
+        internal static string ERR_USER_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_USER_ALREDY", resourceCulture);
             }
         }
         
@@ -382,6 +544,15 @@ namespace Resources {
         internal static string FOLDERY {
             get {
                 return ResourceManager.GetString("FOLDERY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot password?.
+        /// </summary>
+        internal static string FORGOT_PASS {
+            get {
+                return ResourceManager.GetString("FORGOT_PASS", resourceCulture);
             }
         }
         
@@ -427,6 +598,24 @@ namespace Resources {
         internal static string IMAGEY {
             get {
                 return ResourceManager.GetString("IMAGEY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password is incorrect.
+        /// </summary>
+        internal static string INCORRECT_PASSWORD {
+            get {
+                return ResourceManager.GetString("INCORRECT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid login attempt.
+        /// </summary>
+        internal static string INVALID_LOGIN_ATTEMPT {
+            get {
+                return ResourceManager.GetString("INVALID_LOGIN_ATTEMPT", resourceCulture);
             }
         }
         
@@ -494,11 +683,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum lenght: 20 symbols.
+        /// </summary>
+        internal static string MAX_NAME_LENGTH {
+            get {
+                return ResourceManager.GetString("MAX_NAME_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move.
         /// </summary>
         internal static string MOVE {
             get {
                 return ResourceManager.GetString("MOVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move here.
+        /// </summary>
+        internal static string MOVE_HERE {
+            get {
+                return ResourceManager.GetString("MOVE_HERE", resourceCulture);
             }
         }
         
@@ -530,6 +737,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        internal static string NEW_PASS {
+            get {
+                return ResourceManager.GetString("NEW_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string NO {
@@ -557,6 +773,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Old password.
+        /// </summary>
+        internal static string OLD_PASS {
+            get {
+                return ResourceManager.GetString("OLD_PASS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to On.
         /// </summary>
         internal static string ON {
@@ -575,6 +800,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        internal static string OWNER {
+            get {
+                return ResourceManager.GetString("OWNER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string PASSWORD {
@@ -584,11 +818,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password changed.
+        /// </summary>
+        internal static string PASSWORD_CHANGE {
+            get {
+                return ResourceManager.GetString("PASSWORD_CHANGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been successfully changed..
+        /// </summary>
+        internal static string PASSWORD_CHANGE_SUCCESS {
+            get {
+                return ResourceManager.GetString("PASSWORD_CHANGE_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password confirm.
         /// </summary>
         internal static string PASSWORD_CONFIRM {
             get {
                 return ResourceManager.GetString("PASSWORD_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check your email to reset your password.
+        /// </summary>
+        internal static string PASSWORD_FORGOT {
+            get {
+                return ResourceManager.GetString("PASSWORD_FORGOT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been reset.
+        /// </summary>
+        internal static string PASSWORD_RESET {
+            get {
+                return ResourceManager.GetString("PASSWORD_RESET", resourceCulture);
             }
         }
         
@@ -607,6 +877,15 @@ namespace Resources {
         internal static string PRIVATE {
             get {
                 return ResourceManager.GetString("PRIVATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile settings.
+        /// </summary>
+        internal static string PROFILE_HEAD {
+            get {
+                return ResourceManager.GetString("PROFILE_HEAD", resourceCulture);
             }
         }
         
@@ -656,6 +935,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click this {0} default.
+        /// </summary>
+        internal static string RESET_PASSWORD_EMAIL {
+            get {
+                return ResourceManager.GetString("RESET_PASSWORD_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to Log in.
+        /// </summary>
+        internal static string RETURN_TO_LOGIN {
+            get {
+                return ResourceManager.GetString("RETURN_TO_LOGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SAVE {
@@ -688,6 +985,15 @@ namespace Resources {
         internal static string SEARCH_FOR {
             get {
                 return ResourceManager.GetString("SEARCH_FOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        internal static string SEND {
+            get {
+                return ResourceManager.GetString("SEND", resourceCulture);
             }
         }
         
@@ -823,6 +1129,15 @@ namespace Resources {
         internal static string WANT_DELETE {
             get {
                 return ResourceManager.GetString("WANT_DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        internal static string WELCOME {
+            get {
+                return ResourceManager.GetString("WELCOME", resourceCulture);
             }
         }
         

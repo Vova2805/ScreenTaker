@@ -14,6 +14,7 @@
 }
 @section Scripts {
     <script>
+    $('[data-toggle="popover"]').popover()
     var a = $('#loadingAnimation');
     a.css('visibility', 'hidden');
     $(document).ajaxStart(function () {
@@ -37,10 +38,21 @@
         location.href = "/Home/SharedFolder?f=" + i;
         return false;
     }
+
+    function selectFolder(id, folder_id, count, name, full_name, sharedLinkValue, sharedCode, image, isPublic) {
+
+        var classes = "floating-box text-center task active images folder";
+        for (var i = 0; i < count; i++) {
+            var ID = "FID" + i;
+            document.getElementById(ID).className = classes;
+        }
+        document.getElementById(folder_id).className += " active-image";
+        return false;
+    }
     </script>
 }
 
-<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 675px">
+<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative;  height: 100%">
     <div class="col-md-12">
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <h2>@Resources.Resource.SHARED_FOLDERS</h2>
@@ -73,16 +85,43 @@
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string FolderTitle = ViewBag.Folders[i].Name;
                         int length = FolderTitle.Length;
-                        int size = length <= 20 ? length : 20;
+                        int size = length <= 50 ? length : 50;
                         string name = FolderTitle.Substring(0, size);
+                        string isPublic = ViewBag.Folders[i].IsPublic + "";
+                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
                         FolderTitle = name;
-                        string imageLink = ViewBag.FolderImageLinks[i];
-                        <div onclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;">
-                            <figure class="@classes" id="@folder_id">
-                                <img src="@imageLink" />
-                                <figcaption class="text-center">@FolderTitle</figcaption>
-                            </figure>
-                        </div>
+                        if (i > 0)
+                        {
+                            imageLink += "_shared.png";
+                            string AvatarPath = ViewBag.BaseURL + "avatars/" + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile+"_50.png") : "user.png");
+                            string OwnerEmail = ViewBag.Owners[i].Email;
+                            string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
+                            string popover_template =
+                            "<div class='popover' role='tooltip' style=\"width:500px;\"><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"word-wrap: break-word;vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
+
+                            <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
+                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
+                                    onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')">
+                                <figure class="@classes" id="@folder_id">
+                                    <img src="@imageLink" />
+                                    <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
+                                </figure>
+                            </button>
+                        }
+                        else
+                        {
+                            imageLink += ".png";
+                            <button type="button" class="transparent-btn" 
+                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
+                                    onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')">
+                                <figure class="@classes" id="@folder_id">
+                                    <img src="@imageLink" />
+                                    <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
+                                </figure>
+                            </button>
+                        }
+
+
                     }
                 }
             </div>

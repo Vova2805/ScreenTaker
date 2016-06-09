@@ -14,8 +14,13 @@ namespace ScreenTaker.Controllers
         public static string locale = "en";
         public GeneralController()
         {
-            var _entities = new ScreenTakerEntities();            
-            ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();            
+            var _entities = new ScreenTakerEntities();
+            try
+            {
+                ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();
+            }
+            catch (Exception e) { }  
+                       
         }
         public string GetBaseUrl()
         {
