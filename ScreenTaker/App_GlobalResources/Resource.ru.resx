@@ -237,6 +237,33 @@
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Введите новый пароль</value>
   </data>
+  <data name="ERR_ADD_YOURSELF" xml:space="preserve">
+    <value>Вы не можете добавлять себя</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_EXIST" xml:space="preserve">
+    <value>Нет пользователя с таким Email</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_VALID" xml:space="preserve">
+    <value>Email имеет неверный формат</value>
+  </data>
+  <data name="ERR_EMPTY_FIELD" xml:space="preserve">
+    <value>Поле не должно быть пустым</value>
+  </data>
+  <data name="ERR_FOLDER_ALREDY" xml:space="preserve">
+    <value>Здесь уже есть папка с таким названием</value>
+  </data>
+  <data name="ERR_GROUP_ALREDY" xml:space="preserve">
+    <value>Здесь уже есть группа с таким названием</value>
+  </data>
+  <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
+    <value>Файл должен быть картинкой (BMP, JPEG, PNG или GIF) и его размер должен быть меньше 4 мегабайт</value>
+  </data>
+  <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
+    <value>Вы не можете делать картинки публичными внутри приватной папки</value>
+  </data>
+  <data name="ERR_USER_ALREDY" xml:space="preserve">
+    <value>Этот пользователь уже здесь</value>
+  </data>
   <data name="FEATURES" xml:space="preserve">
     <value>Функции</value>
   </data>

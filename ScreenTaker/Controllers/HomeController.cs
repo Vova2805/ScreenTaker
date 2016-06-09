@@ -14,6 +14,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Image = ScreenTaker.Models.Image;
 using System.Text.RegularExpressions;
 using System.Net.Mime;
+using System.Globalization;
+using System.Threading;
 
 namespace ScreenTaker.Controllers
 {
@@ -48,6 +50,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         public ActionResult Welcome(HttpPostedFileBase file, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             int fId = -1;
             ViewBag.Localize = locale;
             if (file != null)
@@ -70,9 +73,7 @@ namespace ScreenTaker.Controllers
                             return RedirectToAction("Welcome", new { lang = locale });
                         fId = folder.Id;
                         if (!_imageCompressor.IsValid(file))
-                            throw new Exception("Image is not valid");
-                        if (file.ContentLength > 1024 * 1024 * 4)
-                            throw new Exception("Image is loo large");
+                            throw new Exception(Resources.Resource.ERR_IMAGE_NOT_VALID);                    
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         var image = new Image();
@@ -215,25 +216,26 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessAddUser(string email, int folderId)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
                     if (email.Length == 0)
-                        throw new Exception("Email field can't be empty");
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     if (!IsValidEmail(email))
-                        throw new Exception("Email is not valid");                    
+                        throw new Exception(Resources.Resource.ERR_EMAIL_NOT_VALID);                    
                     var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
                     if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId==personID)&&w.FolderId==folderId))
-                        throw new Exception("This user is alredy here");
+                        throw new Exception(Resources.Resource.ERR_USER_ALREDY);
 
                     ApplicationUserManager userManager =
                         System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
                     ApplicationUser user = userManager.FindById(User.Identity.GetUserId<int>());
 
                     if (user != null && user.Email==email)
-                        throw new Exception("You can't add yourself");
+                        throw new Exception(Resources.Resource.ERR_ADD_YOURSELF);
                     var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
                     var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
                     if (user != null&&friend != null && !_entities.PersonFriends.Where(w => w.PersonId == user.Id && w.FriendId == friend.Id).Any())
@@ -381,18 +383,19 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImageAccessAddUser(string email, int imageId)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
                     if (email.Length == 0)
-                        throw new Exception("Email field can't be empty");
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     if (!IsValidEmail(email))
-                        throw new Exception("Email is not valid");                    
+                        throw new Exception(Resources.Resource.ERR_EMAIL_NOT_VALID);                    
                     var person = _entities.People.FirstOrDefault(w => w.Email == email);
                     if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId == person.Id) && w.ImageId == imageId))
-                        throw new Exception("This user is alredy here");
+                        throw new Exception(Resources.Resource.ERR_USER_ALREDY);
                     var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
 
                     if (image!=null &&_entities.UserShares.Any(w => w.FolderId == image.FolderId && (w.Email==email || w.Person.Email == email)))
@@ -403,7 +406,7 @@ namespace ScreenTaker.Controllers
                     ApplicationUser user = userManager.FindById(User.Identity.GetUserId<int>());
 
                     if (user != null && user.Email == email)
-                        throw new Exception("You can't add yourself");
+                        throw new Exception(Resources.Resource.ERR_ADD_YOURSELF);
                     var friend = _entities.People.FirstOrDefault(w => w.Email == email);
                     if (user != null && friend != null && !_entities.PersonFriends.Any(w => w.PersonId == user.Id && w.FriendId == friend.Id))
                     {
@@ -687,6 +690,7 @@ namespace ScreenTaker.Controllers
         [HttpPost]
         public ActionResult Images(HttpPostedFileBase file, string folderId, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             if (file != null)
             {
@@ -712,9 +716,7 @@ namespace ScreenTaker.Controllers
                     try
                     {                        
                         if (!_imageCompressor.IsValid(file))
-                            throw new Exception("Image is not valid");
-                        if(file.ContentLength>1024*1024*4)
-                            throw new Exception("Image is too large");                        
+                            throw new Exception(Resources.Resource.ERR_IMAGE_NOT_VALID);                                            
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         var image = new Image
@@ -754,6 +756,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult MakeImagePublicOrPrivate(int imageId, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -766,7 +769,7 @@ namespace ScreenTaker.Controllers
                         ViewBag.ImageIsPublic = image.IsPublic + "";
                         FillImagesViewBag(current_folder);
                         if (!image.Folder.IsPublic)
-                            throw new Exception("You can't make public image inside private folder");
+                            throw new Exception(Resources.Resource.ERR_PUBLIC_IN_PRIVATE);
                         image.IsPublic = !image.IsPublic;
                         ViewBag.ImageIsPublic = image.IsPublic + "";
                         FillImagesViewBag(current_folder);
@@ -785,6 +788,7 @@ namespace ScreenTaker.Controllers
 
         public JsonResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -794,7 +798,7 @@ namespace ScreenTaker.Controllers
                     if (image != null)
                     {
                         if (!image.Folder.IsPublic)
-                            throw new Exception("You can't make public image inside private folder");
+                            throw new Exception(Resources.Resource.ERR_PUBLIC_IN_PRIVATE);
                         image.IsPublic = !image.IsPublic;
                     }
                     _entities.SaveChanges();
@@ -890,6 +894,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en", int selectedId = -1)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             ViewBag.Image = _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
 
@@ -1129,6 +1134,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult DeleteImage(string path,string redirect = "false", string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             int folderId = 0;
 
@@ -1155,9 +1161,10 @@ namespace ScreenTaker.Controllers
                     }catch { }
                     transaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     transaction.Commit();
+                    ViewBag.MessageContent = ex.Message;
                 }
             }
             var list = _entities.Images.Where(i => i.FolderId == FolderId).ToList();
@@ -1170,6 +1177,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RenameImage(string path, string newName, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
             {
@@ -1185,7 +1193,7 @@ namespace ScreenTaker.Controllers
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);                    
                     ViewBag.Image = obj;
                     if (newName.Length == 0)
-                        throw new Exception("Field should not be empty");
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     ViewBag.Image = obj;
                     obj.Name = newName;
                     _entities.SaveChanges();
@@ -1261,16 +1269,17 @@ namespace ScreenTaker.Controllers
 
         public ActionResult AddFolder(string path, string title, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
                     if (title.Length == 0)
-                        throw new Exception("Title should not be empty.");
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null && _entities.Folders.Where(w => w.Name == title && w.OwnerId == user.Id).Any())
-                        throw new Exception("There is alredy a folder with this name");                    
+                        throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);                    
                     var newolder = new Folder()
                     {
                         IsPublic = true,
@@ -1295,6 +1304,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             var list = _entities.Images.Where(i => i.FolderId == FolderId).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.Localize = locale;
@@ -1307,7 +1317,7 @@ namespace ScreenTaker.Controllers
                 try
                 {
                     if (newName.Length == 0)
-                        throw new Exception("Field should not be empty");
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     ViewBag.ImageTitle = newName;
                     var sharedCode = Path.GetFileNameWithoutExtension(path);                  
                     var obj = _entities.Images.Where(w=>w.SharedCode == sharedCode).FirstOrDefault();
@@ -1375,16 +1385,18 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RenameFolder(string path, string newName, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
+                    string tmp = Resources.Resource.ERR_EMPTY_FIELD;
                     if (newName.Length == 0)
-                        throw new Exception("Name field should not be empty");
+                        throw new Exception(tmp);
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null && _entities.Folders.Where(w => w.Name == newName && w.OwnerId == user.Id).Any())
-                        throw new Exception("There is alredy a folder with this name");
+                        throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);
                     var sharedCode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedCode);
                     obj.Name = newName;
