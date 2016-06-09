@@ -17,7 +17,7 @@
 <link href="@Url.Content("~/Content/themes/base/autocomplete.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/themes/base/theme.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery-ui-1.11.4.min.js")" type="text/javascript"></script>
-    <script>
+    <script>        
         $(function () {
             $("[data-autocomplete-source]").each(function () {
                 var target = $(this);
@@ -223,13 +223,14 @@
                                 },
                                 success: function (data) {
                                     $('#dynamicFoldersArea').html(data);
-                                    $('#RenameFolder').modal('hide');
+                                    $('#RenameFolder').modal('hide');                                    
                                     if(document.getElementById('MessageContentFromPartialChangeState').value!='')
                                     {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                     }  
+                                    
                                 }
                             });">
                     @Resources.Resource.SUBMIT
@@ -274,7 +275,7 @@
                                     {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                     }  
                                 }
                             });">
@@ -451,7 +452,7 @@
                     {
                         $('#Message').modal('show');
                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                     }               
                 }
             });">@Resources.Resource.MANAGE_ACCESS</button>
@@ -499,7 +500,7 @@
                     {
                         $('#Message').modal('show');
                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                     }               
                 }
             });" > @Resources.Resource.MANAGE_ACCESS</a>

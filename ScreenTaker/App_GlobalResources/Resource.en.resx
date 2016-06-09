@@ -237,6 +237,36 @@
   <data name="ENTER_NEW_PASS" xml:space="preserve">
     <value>Enter a new password</value>
   </data>
+  <data name="ERR_ADD_YOURSELF" xml:space="preserve">
+    <value>You can't add yourself</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_EXIST" xml:space="preserve">
+    <value>There is no user with such email</value>
+  </data>
+  <data name="ERR_EMAIL_NOT_VALID" xml:space="preserve">
+    <value>Email is not valid</value>
+  </data>
+  <data name="ERR_EMPTY_FIELD" xml:space="preserve">
+    <value>Field should not be empty</value>
+  </data>
+  <data name="ERR_FOLDER_ALREDY" xml:space="preserve">
+    <value>There is alredy a folder with this name</value>
+  </data>
+  <data name="ERR_GROUP_ALREDY" xml:space="preserve">
+    <value>There is alredy a group with this name</value>
+  </data>
+  <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
+    <value>Uploading file should be image (BMP, JPEG, PNG or GIF) and it's size shoud be up to 4 megabytes</value>
+  </data>
+  <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
+    <value>You can't make public image in private folder</value>
+  </data>
+  <data name="ERR_TITLE" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ERR_USER_ALREDY" xml:space="preserve">
+    <value>This user is alredy here</value>
+  </data>
   <data name="FEATURES" xml:space="preserve">
     <value>Features</value>
   </data>
