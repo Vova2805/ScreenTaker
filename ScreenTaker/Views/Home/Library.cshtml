@@ -146,6 +146,28 @@
             document.getElementById('FID_field').innerText = folder_id.slice(-1);
             return false;
         }
+        var emailError = 1;
+        function CheckEmail(email) {
+            var changedText = $(email).val();
+            var respond = emailValidation(changedText);
+            setClasses('#userMail', respond, 'email');
+        }
+        function setClasses(id, respond, type) {
+            if (respond == false) {
+                if (type == 'email') emailError = 1;
+                else passError = 1;
+                $(id).removeClass('field-success');
+                $(id).addClass('field-error');
+                $("#sizing-addon2").disabled = true;
+            }
+            else {
+                if (type == 'pass') emailError = 0;
+                else passError = 0;
+                $(id).removeClass('field-error');
+                $(id).addClass('field-success');
+                $("#sizing-addon2").disabled = false;
+            }
+        }
     </script>
 }
 <div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
@@ -311,7 +333,13 @@
                         string img_id = "FIM" + i;
                         string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
-                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+                        bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0:false;
+                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
+                        if (isFull)
+                        {
+                            imageLink += "_full";
+                        }
+                        imageLink += ".png";
                         string isPublic = ViewBag.Folders[i].IsPublic+"";
                         string FolderTitle = ViewBag.Folders[i].Name;
                         int length = FolderTitle.Length;

@@ -19,7 +19,13 @@
             string img_id = "FIM" + i;
             string sharedLink = ViewBag.Base_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
             string sharedCode = ViewBag.Folders[i].SharedCode;
-            string imageLink = ViewBag.Base_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public.png" : "private.png");
+            bool isFull = ViewBag.Folders[i].Images!=null?ViewBag.Folders[i].Images.Count > 0:false;
+            string imageLink = ViewBag.Base_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
+            if (isFull)
+            {
+                imageLink += "_full";
+            }
+            imageLink += ".png";
             string FolderTitle = ViewBag.Folders[i].Name;
             int length = FolderTitle.Length;
             int size = length <= 20 ? length : 20;

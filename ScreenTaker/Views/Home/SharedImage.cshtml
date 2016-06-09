@@ -24,7 +24,7 @@
     string OwnerEmail = ViewBag.Owner.Email;
     string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
     string popover_template =
-    "<div class='popover' role='tooltip'><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-25px;margin-top:10px;\"></a></div></div></div></div></div>";
+    "<div class='popover' role='tooltip' style=\"width:500px;\"><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"word-wrap: break-word;vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
 
     <div class="row" style="margin-top: 20px; overflow: hidden; position: relative; ; min-height: 660px">
         <div class="col-md-12">
@@ -39,7 +39,7 @@
                                 <div class="text-md-center">
                                     @{
                                         int length = ViewBag.OriginalName.Length;
-                                        int size = length <= 20 ? length : 20;
+                                        int size = length <= 50 ? length : 50;
                                         string name = ViewBag.OriginalName.Substring(0, size);
                                         ViewBag.OriginalName = name;
                                     }
@@ -60,8 +60,8 @@ else
             <div class="row">
                 <div class="col-sm-12" style="padding-left: 40px; padding-right: 40px;">
                     <div class="text-md-center">
-                        <h2 class="text-center">Access denied</h2>
-                        <p class="text-center">Image owner has restricted access to this image</p>
+                        <h2 class="text-center">@Resources.Resource.ACCESS_DENIED</h2>
+                        <p class="text-center">@Resources.Resource.ACC_DENIED_DESCR</p>
                     </div>
                 </div>
             </div>

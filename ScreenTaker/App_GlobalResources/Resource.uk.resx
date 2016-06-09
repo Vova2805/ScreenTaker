@@ -126,6 +126,18 @@
   <data name="ACCESS_BY_LINK" xml:space="preserve">
     <value>Доступ за посиланням</value>
   </data>
+  <data name="ACCESS_DENIED" xml:space="preserve">
+    <value>Доступ заборонено</value>
+  </data>
+  <data name="ACC_DENIED_DESCR" xml:space="preserve">
+    <value>Власник обмежив доступ до цього ресурсу</value>
+  </data>
+  <data name="ACTIVATE" xml:space="preserve">
+    <value>Будь ласка, активуйте ваш аккаунт, підтвердивши цю адресу електронної пошти</value>
+  </data>
+  <data name="ACTIVATE_NOW" xml:space="preserve">
+    <value>Активувати</value>
+  </data>
   <data name="ADD" xml:space="preserve">
     <value>Додати</value>
   </data>
@@ -141,8 +153,14 @@
   <data name="ALREADY_HAVE_ACC" xml:space="preserve">
     <value>Ви вже зареєструвалися?</value>
   </data>
+  <data name="ALTERNATIVE" xml:space="preserve">
+    <value>Альтернатива:</value>
+  </data>
   <data name="AS_NEW_USER" xml:space="preserve">
     <value>Зареєструватись як новий користувач</value>
+  </data>
+  <data name="AUTO" xml:space="preserve">
+    <value>Це автоматичний лист.</value>
   </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Відмінити</value>
@@ -444,6 +462,9 @@
   </data>
   <data name="WANT_DELETE" xml:space="preserve">
     <value>Ви дійсно бажаєте видалити</value>
+  </data>
+  <data name="WELCOME" xml:space="preserve">
+    <value>Вітаємо</value>
   </data>
   <data name="YES" xml:space="preserve">
     <value>Так</value>

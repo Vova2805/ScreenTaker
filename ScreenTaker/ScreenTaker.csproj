@@ -434,10 +434,15 @@
     <Content Include="Resources\error.png" />
     <Content Include="Resources\info.png" />
     <Content Include="Resources\loadingAnimation.gif" />
+    <Content Include="Resources\logo.png" />
     <Content Include="Resources\Ok.png" />
     <Content Include="Resources\printscreen.png" />
     <Content Include="Resources\private.png" />
+    <Content Include="Resources\private_full.png" />
+    <Content Include="Resources\private_shared.png" />
     <Content Include="Resources\public.png" />
+    <Content Include="Resources\public_full.png" />
+    <Content Include="Resources\public_shared.png" />
     <Content Include="Resources\sad.png" />
     <Content Include="Resources\user.png" />
     <Content Include="Resources\user_128.png" />
@@ -543,6 +548,7 @@
     <Content Include="Views\Home\SingleImageChangeState.cshtml" />
     <Content Include="Views\Home\PartialLibraryAccess.cshtml" />
     <Content Include="Views\Home\PartialImagesAccess.cshtml" />
+    <Content Include="Views\Manage\EmailConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

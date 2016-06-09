@@ -693,3 +693,9 @@ textarea {
     border:0px;
     padding:0px;
 }
+.text-overflowed{
+    max-width: 200px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
