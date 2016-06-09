@@ -512,6 +512,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password is incorrect.
+        /// </summary>
+        internal static string INCORRECT_PASSWORD {
+            get {
+                return ResourceManager.GetString("INCORRECT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid login attempt.
         /// </summary>
         internal static string INVALID_LOGIN_ATTEMPT {
@@ -715,6 +724,24 @@ namespace Resources {
         internal static string PASSWORD {
             get {
                 return ResourceManager.GetString("PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password change.
+        /// </summary>
+        internal static string PASSWORD_CHANGE {
+            get {
+                return ResourceManager.GetString("PASSWORD_CHANGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been successfully changed..
+        /// </summary>
+        internal static string PASSWORD_CHANGE_SUCCESS {
+            get {
+                return ResourceManager.GetString("PASSWORD_CHANGE_SUCCESS", resourceCulture);
             }
         }
         

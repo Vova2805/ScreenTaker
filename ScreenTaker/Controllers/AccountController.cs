@@ -534,8 +534,11 @@ namespace ScreenTaker.Controllers
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             ViewBag.Localize = locale;
+            ViewBag.ErrorTitle = null;
+
             if (!ModelState.IsValid)
             {
+                ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
                 return View("UserProfile");
             }
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
@@ -545,8 +548,14 @@ namespace ScreenTaker.Controllers
                 if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    ViewBag.Title = Resources.Resource.PASSWORD_CHANGE;
+                    ViewBag.Message = Resources.Resource.PASSWORD_CHANGE_SUCCESS;
+                    return View("Info");
                 }
-                return RedirectToAction("UserProfile");
+            }
+            if (result.Errors.Any())
+            {
+                ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
             }
             AddErrors(result);
             ViewBag.Email = EMAIL;

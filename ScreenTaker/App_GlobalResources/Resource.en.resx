@@ -268,6 +268,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="IMAGEY" xml:space="preserve">
     <value>image</value>
   </data>
+  <data name="INCORRECT_PASSWORD" xml:space="preserve">
+    <value>The password is incorrect</value>
+  </data>
   <data name="INVALID_LOGIN_ATTEMPT" xml:space="preserve">
     <value>Invalid login attempt</value>
   </data>
@@ -336,6 +339,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="PASSWORD" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="PASSWORD_CHANGE" xml:space="preserve">
+    <value>Password change</value>
+  </data>
+  <data name="PASSWORD_CHANGE_SUCCESS" xml:space="preserve">
+    <value>Your password has been successfully changed.</value>
   </data>
   <data name="PASSWORD_CONFIRM" xml:space="preserve">
     <value>Password confirm</value>
