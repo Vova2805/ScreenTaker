@@ -699,3 +699,8 @@ textarea {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.transparent-btn:active,
+.transparent-btn:focus {
+    outline: none;
+}
