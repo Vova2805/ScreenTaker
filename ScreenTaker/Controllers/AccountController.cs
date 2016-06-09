@@ -264,7 +264,7 @@ namespace ScreenTaker.Controllers
                         CreationDate = DateTime.Now
                     };
                     entities.Folders.Add(defaultFolder);
-                    var user = entities.People.Where(w => w.Id == userId).FirstOrDefault();
+                    var user = entities.People.Find(userId);
                     if (user != null)
                     {
                         var userShares = entities.UserShares.Where(w => w.Email == user.Email);
@@ -638,7 +638,7 @@ namespace ScreenTaker.Controllers
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
             await UserManager.SendEmailAsync(userID, subject,
-               $"<h3>ScreenTaker</h3>\nPlease confirm your account by clicking <a href=\"{callbackUrl}\">link</a>");
+               String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/Confirmation.html")), callbackUrl));
 
             return callbackUrl;
         }
