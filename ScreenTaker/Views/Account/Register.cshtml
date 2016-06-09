@@ -9,7 +9,10 @@
     {
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
-    ViewBag.ErrorTitle = Resources.Resource.CREATE_NEW_ACC;
+    if (ViewBag.ErrorTitle == null)
+    {
+        ViewBag.ErrorTitle = Resources.Resource.CREATE_NEW_ACC;
+    }
 }
 
 <div class="container" style="margin-top:20px;">
