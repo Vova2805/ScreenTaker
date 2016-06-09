@@ -86,8 +86,11 @@ namespace ScreenTaker.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             ViewBag.Localize = locale;
+            ViewBag.ErrorTitle = null;
             if (!ModelState.IsValid)
             {
+                ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
+
                 return View(model);
             }
 
@@ -97,9 +100,10 @@ namespace ScreenTaker.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+//                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
 
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
+
                     return View("Error");
                 }
             }
@@ -118,9 +122,11 @@ namespace ScreenTaker.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    { };
-                //    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                { }
+
+                ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
+                    //    ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
             }
         }
 
@@ -200,6 +206,8 @@ namespace ScreenTaker.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             ViewBag.Localize = locale;
+            ViewBag.ErrorTitle = null;
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
@@ -222,6 +230,8 @@ namespace ScreenTaker.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                 }
+                if (result.Errors.Any())
+                    ViewBag.ErrorTitle = result.Errors.FirstOrDefault();
                 AddErrors(result);
             }
 
