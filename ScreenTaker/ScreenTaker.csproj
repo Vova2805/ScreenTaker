@@ -332,6 +332,10 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Emails\Confirmation.html" />
+    <Content Include="Emails\FolderSharing.html" />
+    <Content Include="Emails\ImageSharing.html" />
+    <Content Include="Emails\ResetPassword.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="For Database\dbo.AspNetRoles.sql" />
