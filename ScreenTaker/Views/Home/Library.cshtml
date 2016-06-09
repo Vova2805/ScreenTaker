@@ -17,13 +17,13 @@
 <link href="@Url.Content("~/Content/themes/base/autocomplete.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/themes/base/theme.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery-ui-1.11.4.min.js")" type="text/javascript"></script>
-    <script>
+    <script>        
         $(function () {
             $("[data-autocomplete-source]").each(function () {
                 var target = $(this);
                 target.autocomplete({ source: target.attr("data-autocomplete-source") });
             });
-        });       
+        });
         var a = $('#loadingAnimation');
         a.css('visibility', 'hidden');
         $(document).ajaxStop(function () {
@@ -34,7 +34,7 @@
                     target.autocomplete({ source: target.attr("data-autocomplete-source") });
                 });
             });
-        });  
+        });
         $('#toggle_event_editing button').click(function () {
             $('#MakePublicButton').click();
         });
@@ -95,7 +95,7 @@
 
             document.getElementById("folderImage").src = image;
             document.getElementById("folderTitle").innerText = name;
-            
+
             if(isPublic=="False"){
                 public_private = '@Resources.Resource.MAKE_PUBLIC';
                 $('#toggle_event_editing button').eq(0).removeClass('unlocked_inactive btn-default');
@@ -105,6 +105,7 @@
 
             }
             else{
+                public_private = '@Resources.Resource.MAKE_PRIVATE';
                 $('#toggle_event_editing button').eq(1).removeClass('unlocked_inactive btn-default');
                 $('#toggle_event_editing button').eq(1).addClass('locked_active btn-info');
                 $('#toggle_event_editing button').eq(0).removeClass('locked_active btn-info');
@@ -218,18 +219,20 @@
                          onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                 url: 'RenameFolder',
                                 data: {
+                                    folderId: document.getElementById('Idhidden').value,
                                     path: document.getElementById('sharedLinkhidden').value,
                                     newName:document.getElementById('new-title').value
                                 },
                                 success: function (data) {
                                     $('#dynamicFoldersArea').html(data);
-                                    $('#RenameFolder').modal('hide');
+                                    $('#RenameFolder').modal('hide');                                    
                                     if(document.getElementById('MessageContentFromPartialChangeState').value!='')
                                     {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                     }  
+                                    
                                 }
                             });">
                     @Resources.Resource.SUBMIT
@@ -274,7 +277,7 @@
                                     {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                     }  
                                 }
                             });">
@@ -292,7 +295,7 @@
     </div>
 </div>
 
-<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  height: 100%">
+<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 655px">
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 40px;">
@@ -420,15 +423,15 @@
             <br />
             <div>
                 <button class="btn btn-warning btn-not-rounded" disabled id="MakePublicButton" style="width: 100%" 
-                         onclick="$('#loadingAnimation').css('visibility', 'visible');
-                        $.ajax({
-                                url: 'MakeFolderPublicOrPrivate',
-                                data: {
-                                    folderId: document.getElementById('Idhidden').value
-                                },
-                                success: function (data) {
-                                    $('#dynamicFoldersArea').html(data);
-                                }
+                         onclick=
+                          "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                            url: 'MakeFolderPublicOrPrivate',
+                            data: {
+                                folderId: document.getElementById('Idhidden').value,
+                            },
+                            success: function (data) {
+                                $('#dynamicFoldersArea').html(data);       
+                            }
                             });">
                 @Resources.Resource.MAKE_PUBLIC
                 </button>
@@ -451,7 +454,7 @@
                     {
                         $('#Message').modal('show');
                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                     }               
                 }
             });">@Resources.Resource.MANAGE_ACCESS</button>
@@ -499,7 +502,7 @@
                     {
                         $('#Message').modal('show');
                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                        document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                     }               
                 }
             });" > @Resources.Resource.MANAGE_ACCESS</a>

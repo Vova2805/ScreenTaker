@@ -32,6 +32,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult UserGroups(int selectedId=-1)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {                                   
@@ -117,6 +118,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult CreateGroup(string name)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
@@ -124,7 +126,7 @@ namespace ScreenTaker.Controllers
                 try
                 {                   
                     if (name==null||name.Length==0)
-                        throw new Exception("Name can't be empty");
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     var group = new PersonGroup();
                     group.Name = name;                    
 
@@ -132,7 +134,7 @@ namespace ScreenTaker.Controllers
                     if (user != null)
                     {
                         if (_entities.PersonGroups.Where(w => w.Name == name&&w.PersonId==user.Id).Any())
-                            throw new Exception("There is alredy a group with this name");
+                            throw new Exception(Resources.Resource.ERR_GROUP_ALREDY);
                         var email = user.Email;
                         group.PersonId = _entities.People.Where(w=>w.Email==email).Select(s=>s.Id).FirstOrDefault();
                     }
@@ -155,6 +157,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RemoveGroup(int selectedId = 0)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
@@ -200,23 +203,24 @@ namespace ScreenTaker.Controllers
 
         public ActionResult AddUser(int selectedId,string email)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
                     if (email == null || email.Length == 0)
-                        throw new Exception("Email can't be empty");
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     if (!_entities.People.Where(s => s.Email.Equals(email)).Any())
-                        throw new Exception("There is no user with such e-mail.");
+                        throw new Exception(Resources.Resource.ERR_EMAIL_NOT_EXIST);
                     if (_entities.People.Where(w => w.Email == email && w.GroupMembers.Where(w2 => w2.GroupId == selectedId).Any()).Any())
-                        throw new Exception("This user is alredy here.");                    
+                        throw new Exception(Resources.Resource.ERR_USER_ALREDY);                    
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     if (user != null)
                     {
                         
                         if (user != null && email==user.Email)
-                                throw new Exception("You can't add yourself.");
+                                throw new Exception(Resources.Resource.ERR_ADD_YOURSELF);
                         var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
                         if(friend!=null&&!_entities.PersonFriends.Where(w=>w.PersonId==user.Id&&w.FriendId==friend.Id).Any())
                         {
@@ -243,6 +247,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult RemoveUser(int selectedId,string email)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -264,6 +269,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult Partial_GroupsAndEmails(int selectedId, string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             using (var transaction = _entities.Database.BeginTransaction())
             {

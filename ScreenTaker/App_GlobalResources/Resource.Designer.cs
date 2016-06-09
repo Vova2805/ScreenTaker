@@ -421,6 +421,96 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t add yourself.
+        /// </summary>
+        internal static string ERR_ADD_YOURSELF {
+            get {
+                return ResourceManager.GetString("ERR_ADD_YOURSELF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no user with such email.
+        /// </summary>
+        internal static string ERR_EMAIL_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("ERR_EMAIL_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is not valid.
+        /// </summary>
+        internal static string ERR_EMAIL_NOT_VALID {
+            get {
+                return ResourceManager.GetString("ERR_EMAIL_NOT_VALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field should not be empty.
+        /// </summary>
+        internal static string ERR_EMPTY_FIELD {
+            get {
+                return ResourceManager.GetString("ERR_EMPTY_FIELD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is alredy a folder with this name.
+        /// </summary>
+        internal static string ERR_FOLDER_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_FOLDER_ALREDY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is alredy a group with this name.
+        /// </summary>
+        internal static string ERR_GROUP_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_GROUP_ALREDY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading file should be image (BMP, JPEG, PNG or GIF) and it&apos;s size shoud be up to 4 megabytes.
+        /// </summary>
+        internal static string ERR_IMAGE_NOT_VALID {
+            get {
+                return ResourceManager.GetString("ERR_IMAGE_NOT_VALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t make public image in private folder.
+        /// </summary>
+        internal static string ERR_PUBLIC_IN_PRIVATE {
+            get {
+                return ResourceManager.GetString("ERR_PUBLIC_IN_PRIVATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ERR_TITLE {
+            get {
+                return ResourceManager.GetString("ERR_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user is alredy here.
+        /// </summary>
+        internal static string ERR_USER_ALREDY {
+            get {
+                return ResourceManager.GetString("ERR_USER_ALREDY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Features.
         /// </summary>
         internal static string FEATURES {

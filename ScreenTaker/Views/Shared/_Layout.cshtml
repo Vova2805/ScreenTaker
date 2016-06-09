@@ -7,7 +7,10 @@
     {
         Culture = UICulture = ViewBag.Localize??"en";
     }
-    ViewBag.MessageTitle = "Info";
+    if (ViewBag.MessageTitle == null)
+    {
+        ViewBag.MessageTitle = "Info";
+    }
     //ViewBag.MessageContent = Resources.Resource.CAPTURING_TEXT;
 }
 <!DOCTYPE html>
