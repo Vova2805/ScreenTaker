@@ -1,6 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "Info";
+    if (ViewBag.Title == null)
+    {
+        ViewBag.Title = "Info";
+    }
 }
 
 <div class="container" style="margin-top: 20px">
