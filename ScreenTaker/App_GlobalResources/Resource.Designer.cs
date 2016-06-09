@@ -439,6 +439,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ERR_TITLE {
+            get {
+                return ResourceManager.GetString("ERR_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This user is alredy here.
         /// </summary>
         internal static string ERR_USER_ALREDY {

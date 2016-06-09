@@ -96,7 +96,7 @@ namespace ScreenTaker.Controllers
                     {
                         transaction.Rollback();
                         ViewBag.MessageContent= ex.Message;
-                        ViewBag.MessageTitle = "Error";
+                        ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
                         ViewBag.Localize = locale;
                         return View("Welcome", new { lang = locale });
                     }
@@ -135,6 +135,7 @@ namespace ScreenTaker.Controllers
         #region Library
         public ActionResult Library(string lang = "en")
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             ViewBag.Message = "Library page";
 
@@ -175,7 +176,7 @@ namespace ScreenTaker.Controllers
             if (TempData["MessageContent"] != null)
             {
                 ViewBag.MessageContent = TempData["MessageContent"];
-                ViewBag.MessageTitle = "Error";
+                ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
             }
             return View();
         }
@@ -666,7 +667,7 @@ namespace ScreenTaker.Controllers
             FillImagesViewBag(folderId);
             if (TempData["MessageContent"] != null)
             {
-                ViewBag.MessageTitle = "Error";
+                ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
                 ViewBag.MessageContent = TempData["MessageContent"];
             }
             return View("Images", new { lang = locale });

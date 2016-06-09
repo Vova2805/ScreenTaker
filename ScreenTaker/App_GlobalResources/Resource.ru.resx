@@ -243,6 +243,9 @@
   <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
     <value>Вы не можете делать картинки публичными внутри приватной папки</value>
   </data>
+  <data name="ERR_TITLE" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
   <data name="ERR_USER_ALREDY" xml:space="preserve">
     <value>Этот пользователь уже здесь</value>
   </data>

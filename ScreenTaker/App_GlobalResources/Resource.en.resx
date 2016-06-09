@@ -243,6 +243,9 @@
   <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
     <value>You can't make public image in private folder</value>
   </data>
+  <data name="ERR_TITLE" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="ERR_USER_ALREDY" xml:space="preserve">
     <value>This user is alredy here</value>
   </data>

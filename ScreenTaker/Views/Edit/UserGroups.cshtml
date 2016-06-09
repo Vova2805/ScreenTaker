@@ -51,7 +51,7 @@
                                     if (document.getElementById('MessageContentFromPartial').value != '') {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML = document.getElementById('MessageContentFromPartial').value;
-                                        document.getElementById('MessageTitle').innerHTML = 'Error';
+                                        document.getElementById('MessageTitle').innerHTML = '@Resources.Resource.ERR_TITLE';
                                     }
                                 }
                             });">+</span>
@@ -82,7 +82,7 @@
                                             {
                                                 $('#Message').modal('show');
                                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                                document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                             }
 
                             }});">
@@ -99,7 +99,7 @@
                                             {
                                                 $('#Message').modal('show');
                                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                document.getElementById('MessageTitle').innerHTML='Error';
+                                                document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
                                             }
                                             }
                                         });">
@@ -141,7 +141,7 @@
                                             {
                                                 $('#Message').modal('show');
                                                 document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartial').value;
-                                                document.getElementById('MessageTitle').innerHTML='Error';                                                                                      
+                                                document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
                                             }
                                         }
                                     });">+</span>
@@ -157,7 +157,7 @@
                                     {
                                         <div class="list-group-item">
                                             <div class="media-left" style="vertical-align: middle"
-                                                 onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({ url: 'RemoveUser', data: { selectedId: @ViewBag.SelectedId, email: '@ViewBag.Emails[i]', }, success: function(data) { $('#dynamicArea').html(data); if (document.getElementById('MessageContentFromPartial').value != '') { $('#Message').modal('show'); document.getElementById('MessageContent').innerHTML = document.getElementById('MessageContentFromPartial').value; document.getElementById('MessageTitle').innerHTML = 'Error'; } } });">
+                                                 onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({ url: 'RemoveUser', data: { selectedId: @ViewBag.SelectedId, email: '@ViewBag.Emails[i]', }, success: function(data) { $('#dynamicArea').html(data); if (document.getElementById('MessageContentFromPartial').value != '') { $('#Message').modal('show'); document.getElementById('MessageContent').innerHTML = document.getElementById('MessageContentFromPartial').value; document.getElementById('MessageTitle').innerHTML = '@Resources.Resource.ERR_TITLE'; } } });">
                                                 <button type="button" class="btn badge right" aria-label="Left Align">
                                                     <span class="glyphicon glyphicon-remove glyphicon-th-large" aria-hidden="true"></span>
                                                 </button>
