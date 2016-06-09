@@ -4,6 +4,14 @@
     {
         ViewBag.Title = "Info";
     }
+    if (!Request.QueryString["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request.QueryString["lang"];
+    }
+    else
+    {
+        Culture = UICulture = ViewBag.Localize ?? "en";
+    }
 }
 
 <div class="container" style="margin-top: 20px">
