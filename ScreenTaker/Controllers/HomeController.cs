@@ -245,8 +245,8 @@ namespace ScreenTaker.Controllers
                     if (user != null && user.Email==email)
                         throw new Exception(Resources.Resource.ERR_ADD_YOURSELF);
                     var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
-                    var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
-                    if (user != null&&friend != null && !_entities.PersonFriends.Where(w => w.PersonId == user.Id && w.FriendId == friend.Id).Any())
+                    var friend = _entities.People.FirstOrDefault(w => w.Email == email);
+                    if (user != null && friend != null && !_entities.PersonFriends.Any(w => w.PersonId == user.Id && w.FriendId == friend.Id))
                     {
                         var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
                         _entities.PersonFriends.Add(personFriend);
@@ -255,12 +255,9 @@ namespace ScreenTaker.Controllers
                     {
                         UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
                         _entities.UserShares.Add(us);
-                        userManager.EmailService.SendAsync(new IdentityMessage()
-                        {
-                            Body = $"{user.Email} provided access to folder {GetSharedFolderLink(folder)}",
-                            Destination = email,
-                            Subject = "ScreenTaker folder sharing"
-                        });
+                        userManager.SendEmailAsync(friend.Id, "ScreenTaker shared folder",
+                            String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/FolderSharing.html")),
+                                GetSharedFolderLink(folder), user.Email, folder.Name));
                     }
                     else
                     {
