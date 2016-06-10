@@ -131,7 +131,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Localize = locale;
             return View();
         }
-        public static int UserID = -1;
+        public int UserID;
         #region Library
         public ActionResult Library(string lang = "en")
         {
@@ -597,7 +597,7 @@ namespace ScreenTaker.Controllers
             return RedirectToAction("Library");
         }
         #endregion
-        public static int FolderId = -1;
+        public int FolderId;
         private void FillImagesViewBag(int folderId)
         {
             FolderId = folderId;
@@ -633,7 +633,7 @@ namespace ScreenTaker.Controllers
             ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
             ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
         }
-        public static int current_folder = -1;
+        public int current_folder;
         public ActionResult Images(string id = "-1", string lang = "en")
         {
             ViewBag.Localize = locale;
