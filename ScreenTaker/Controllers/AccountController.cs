@@ -521,15 +521,27 @@ namespace ScreenTaker.Controllers
         public ActionResult UserProfile()
         {
             ViewBag.Localize = locale;
-            ViewBag.Email = User.Identity.GetUserName();
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            if (user != null)
+            using (var transaction = _entities.Database.BeginTransaction())
             {
-                var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
-                if (person.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/")+ person.AvatarFile + "_128.png"))
-                    ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + person.AvatarFile + "_128.png";
-                else
-                    ViewBag.Avatar_128 = GetBaseUrl() + "/Resources/user_128.png";
+                try
+                {
+                    ViewBag.Email = User.Identity.GetUserName();
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
+                        if (person.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + person.AvatarFile + "_128.png"))
+                            ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + person.AvatarFile + "_128.png";
+                        else
+                            ViewBag.Avatar_128 = GetBaseUrl() + "/Resources/user_128.png";
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return View("Message", new { lang = locale });
+                }
             }
             return View();
         }
@@ -704,21 +716,13 @@ namespace ScreenTaker.Controllers
                     catch (Exception)
                     {
                         transaction.Rollback();
+                        return View("Message", new { lang = locale });
                     }
-                }
-                
+                }                
             }
             ViewBag.Email = EMAIL;
             AVATAR = ViewBag.Avatar_128;
             return RedirectToAction("UserProfile");
-        }
-
-        public string GetBaseUrl()
-        {
-            var request = HttpContext.Request;
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
-            return baseUrl;
-        }
+        }      
     }
 }

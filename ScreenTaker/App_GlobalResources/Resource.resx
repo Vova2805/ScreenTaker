@@ -258,6 +258,9 @@
   <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
     <value>Uploading file should be image (BMP, JPEG, PNG or GIF) and it's size shoud be up to 4 megabytes</value>
   </data>
+  <data name="ERR_INHERITED" xml:space="preserve">
+    <value>This right is inherited and can't be changed</value>
+  </data>
   <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
     <value>You can't make public image in private folder</value>
   </data>

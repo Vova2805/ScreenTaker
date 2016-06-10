@@ -43,7 +43,14 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult Welcome(string lang = "en")
         {
-            ViewBag.Localize = locale;
+            try
+            {
+                ViewBag.Localize = locale;                
+            }
+            catch
+            {
+                return RedirectToAction("Message", "Home", new { lang = locale });
+            }
             return View("Welcome", new { lang = locale });
         }
 
@@ -98,7 +105,7 @@ namespace ScreenTaker.Controllers
                         ViewBag.MessageContent= ex.Message;
                         ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
                         ViewBag.Localize = locale;
-                        return View("Welcome", new { lang = locale });
+                        return RedirectToAction("Message", "Home", new { lang = locale });
                     }
                 }
             }
@@ -110,7 +117,6 @@ namespace ScreenTaker.Controllers
         public ActionResult Message(string lang = "en")
         {
             ViewBag.Localize = locale;
-
             ViewBag.Email = "";
             return View();
         }
@@ -120,7 +126,6 @@ namespace ScreenTaker.Controllers
         {
             ViewBag.Localize = locale;
             ViewBag.Message = "Your application description page.";
-
             return View("About", new { lang = locale });
         }
 
@@ -407,7 +412,7 @@ namespace ScreenTaker.Controllers
                     var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
 
                     if (image!=null &&_entities.UserShares.Any(w => w.FolderId == image.FolderId && (w.Email==email || w.Person.Email == email)))
-                        throw new Exception("This right is inherited from folder and can't be changed");
+                        throw new Exception(Resources.Resource.ERR_INHERITED);
 
                     ApplicationUserManager userManager =
                         System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -598,6 +603,7 @@ namespace ScreenTaker.Controllers
         }
         #endregion
         public static int FolderId = -1;
+
         private void FillImagesViewBag(int folderId)
         {
             FolderId = folderId;
@@ -636,62 +642,45 @@ namespace ScreenTaker.Controllers
         public static int current_folder = -1;
         public ActionResult Images(string id = "-1", string lang = "en")
         {
-            ViewBag.Localize = locale;
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
-                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-
-            int folderId = -1;
-            Int32.TryParse(id, out folderId);
-            current_folder = folderId;
-
-            var folder = _entities.Folders.Find(folderId);
-
-            bool accesGranted = false;
-
-            if (folder != null)
-            {
-                accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);
-            }
-
-            if (!accesGranted)
-            {
-                return RedirectToAction("Welcome");
-            }
-
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
+                    ViewBag.Localize = locale;
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                        .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    int folderId = -1;
+                    Int32.TryParse(id, out folderId);
+                    current_folder = folderId;
+                    var folder = _entities.Folders.Find(folderId);
+                    bool accesGranted = false;                
+                    if (folder != null)                    
+                        accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);                    
+                    if (!accesGranted)                    
+                        return RedirectToAction("Welcome");                              
                     var groups = from p in _entities.PersonGroups
                                  where p.PersonId == user.Id
-                                 select new { ID = p.Id, Groups = p.Name };
-                    //var flags = from p in _entities.GroupShares
-                    //            where p.FolderId == /*current folderid*/
-                    //            select p;
-
+                                 select new { ID = p.Id, Groups = p.Name };                    
                     if (groups.Any())
                     {
                         ViewBag.Groups = groups.Select(s => s.Groups).ToList();
                         ViewBag.GroupsIDs = groups.Select(s => s.ID).ToList();
-
                     }
-                    //if (flags.Any())
-                    //    ViewBag.Flags = groups.Select(w=> flags.Select(s=>s.GroupId).Contains(w.ID)?"Allowed": "Denied").ToList();
-
+                    ViewBag.FolderName = folder.Name;
+                    FillImagesViewBag(folderId);
+                    if (TempData["MessageContent"] != null)
+                    {
+                        ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
+                        ViewBag.MessageContent = TempData["MessageContent"];
+                    }
                     transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    return RedirectToAction("Message", "Home", new { lang = locale });
                 }
-            }
-            ViewBag.FolderName = folder.Name;
-            FillImagesViewBag(folderId);
-            if (TempData["MessageContent"] != null)
-            {
-                ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
-                ViewBag.MessageContent = TempData["MessageContent"];
-            }
+            }           
             return View("Images", new { lang = locale });
         }
 
@@ -702,27 +691,17 @@ namespace ScreenTaker.Controllers
             ViewBag.Localize = locale;
             if (file != null)
             {
-                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
-                    .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-
-                var folder = _entities.Folders.Find(Int32.Parse(folderId));
-
-                bool accesGranted = false;
-
-                if (folder != null)
-                {
-                    accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);
-                }
-
-                if (!accesGranted)
-                {
-                    return RedirectToAction("Welcome", new { lang = locale });
-                }
-
                 using (var transaction = _entities.Database.BeginTransaction())
                 {
                     try
-                    {                        
+                    {
+                        ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                        var folder = _entities.Folders.Find(Int32.Parse(folderId));
+                        bool accesGranted = false;
+                        if (folder != null)                        
+                            accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);                       
+                        if (!accesGranted)                        
+                            return RedirectToAction("Welcome", new { lang = locale });                                                         
                         if (!_imageCompressor.IsValid(file))
                             throw new Exception(Resources.Resource.ERR_IMAGE_NOT_VALID);                                            
                         var sharedCode = _stringGenerator.Next();
@@ -751,16 +730,11 @@ namespace ScreenTaker.Controllers
                         TempData["MessageContent"] = ex.Message;
                     }
                 }
-
-
             }
             FillImagesViewBag(Int32.Parse(folderId));
             return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
         }
-
-
        
-
 
         public ActionResult MakeImagePublicOrPrivate(int imageId, string lang = "en")
         {
@@ -828,181 +802,152 @@ namespace ScreenTaker.Controllers
         public ActionResult SharedFolder(string f, string lang = "en")
         {
             ViewBag.Localize = locale;
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
-                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-
-            List<Image> images = null;
-            bool accessGranted = false;
-            // get all images shared with user
-            if (f == "img")
+            try
             {
-                if (user != null)
-                {
-                    accessGranted = true;
-                    images = (
-                            from userShare in _entities.UserShares
-                            where userShare.PersonId == user.Id && userShare.ImageId != null
-                            select userShare.Image
-                        ).Union(
-                            from image in _entities.Images
-                            join groupShare in _entities.GroupShares
-                                on image.Id equals groupShare.ImageId
-                            join pGroup in _entities.PersonGroups
-                                on groupShare.GroupId equals pGroup.Id
-                            join member in _entities.GroupMembers
-                                on pGroup.Id equals member.GroupId
-                            where member.PersonId == user.Id
-                            select image
-                        ).ToList();
+                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
-                    ViewBag.FolderName = "Shared images";
-                }
-            }
-            else
-            {
-                var folder = _entities.Folders.FirstOrDefault(fold => fold.SharedCode == f);
-                if (folder != null)
+                List<Image> images = null;
+                bool accessGranted = false;
+                // get all images shared with user
+                if (f == "img")
                 {
-                    int folderId = folder.Id;
-                    ViewBag.FolderName = folder.Name;
-                    accessGranted = SecurityHelper.IsFolderAccessible(user, folder.Person, folder, _entities);
-                    if (accessGranted)
+                    if (user != null)
                     {
-                        images = SecurityHelper.GetAccessibleImages(user, folder, _entities);
+                        accessGranted = true;
+                        images = (
+                                from userShare in _entities.UserShares
+                                where userShare.PersonId == user.Id && userShare.ImageId != null
+                                select userShare.Image
+                            ).Union(
+                                from image in _entities.Images
+                                join groupShare in _entities.GroupShares
+                                    on image.Id equals groupShare.ImageId
+                                join pGroup in _entities.PersonGroups
+                                    on groupShare.GroupId equals pGroup.Id
+                                join member in _entities.GroupMembers
+                                    on pGroup.Id equals member.GroupId
+                                where member.PersonId == user.Id
+                                select image
+                            ).ToList();
+
+                        ViewBag.FolderName = "Shared images";
                     }
                 }
+                else
+                {
+                    var folder = _entities.Folders.FirstOrDefault(fold => fold.SharedCode == f);
+                    if (folder != null)
+                    {
+                        int folderId = folder.Id;
+                        ViewBag.FolderName = folder.Name;
+                        accessGranted = SecurityHelper.IsFolderAccessible(user, folder.Person, folder, _entities);
+                        if (accessGranted)
+                        {
+                            images = SecurityHelper.GetAccessibleImages(user, folder, _entities);
+                        }
+                    }
+                }
+                ViewBag.BASE_URL = GetBaseUrl();
+                ViewBag.AccessGranted = accessGranted;
+                if (accessGranted)
+                {
+                    ViewBag.IsEmpty = !images.Any();
+                    ViewBag.Images = images;
+                    ViewBag.Owners = images.Select(i => i.Folder.Person).ToList();
+                    var pathsList = images
+                        .Select(GetImageLink).ToList();
+                    ViewBag.Paths = pathsList;
+
+                    ViewBag.SharedLinks = images
+                        .Select(GetSharedImageLink).ToList();
+
+                    return View("SharedFolder", new { lang = locale });
+                }
+                return View("Message", new { lang = locale });
             }
-            ViewBag.BASE_URL = GetBaseUrl() ;
-            ViewBag.AccessGranted = accessGranted;
-            if (accessGranted)
+            catch
             {
-                ViewBag.IsEmpty = !images.Any();
-                ViewBag.Images = images;
-                ViewBag.Owners = images.Select(i=>i.Folder.Person).ToList();
-                var pathsList = images
-                    .Select(GetImageLink).ToList();
-                ViewBag.Paths = pathsList;
-                
-                ViewBag.SharedLinks = images
-                    .Select(GetSharedImageLink).ToList();
-
-                return View("SharedFolder", new { lang = locale });
+                return View("Message", new { lang = locale });
             }
-            return View("Message", new { lang = locale });
-        }
-
-        public string GetBaseUrl()
-        {
-            var request = HttpContext.Request;
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
-            return baseUrl;
-        }
+        }       
 
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en", int selectedId = -1)
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
-            ViewBag.Image = _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
-
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
-                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            var im = _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
-            if (im == null)
-                throw new Exception("Null image error.");
-            if (user != null)
-                ViewBag.UserFolders = _entities.Folders.Where(w => w.OwnerId == user.Id && w.Id != im.FolderId).ToList();
-            ViewBag.CurrentFolderId = im.FolderId;
-            bool accesGranted = false;
-
-            if (im != null)
-            {
-                accesGranted = SecurityHelper.IsImageEditable(user, im.Folder.Person, im, _entities);
-
-                ViewBag.FolderName = im.Folder.Name;
-                ViewBag.FolderLink = GetBaseUrl() + "Home/Images?id=" + im.FolderId;
-            }
-
-            if (!accesGranted)
-            {
-                return View("Message", new { lang = locale });
-            }
-
-            if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
-            {
-                ViewBag.Image = _entities.Images.ToList().First();
-            }
-
-            ViewBag.OriginalPath = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
-            }
-            if (ViewBag.Image != null)
-            {
-                ViewBag.ImageSharedCode = ViewBag.Image.SharedCode;
-            }
-
-            ViewBag.OriginalName = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.OriginalName = ViewBag.Image.Name;
-            }
-            ViewBag.ImageIsPublic = "False";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.ImageIsPublic = ViewBag.Image.IsPublic + "";
-            }
-            ViewBag.OriginalNameWithoutEx = "";
-            if (ViewBag.Image != null)
-            {
-                int length = ViewBag.Image.Name.Length;
-                int size = length <= 15 ? length : 15;
-                string name = ViewBag.Image.Name.Substring(0, size);
-                ViewBag.OriginalNameWithoutEx = name;
-            }
-            ViewBag.ImageTitle = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.ImageTitle = ViewBag.Image.Name;
-            }
-
-            ViewBag.Date = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.Date = ViewBag.Image.PublicationDate;
-            }
-            
-            ViewBag.ImageId = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.ImageId = ViewBag.Image.Id;
-                SingleImageId = ViewBag.Image.Id;
-            }
-           
-            if (im != null)
-            {
-                if (im.IsPublic)
-                {
-                    ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PRIVATE;
-                    ViewBag.ButtonPrivateORPublic = "Turn Off";
-                }
-                else
-                {
-                    ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PUBLIC;
-                    ViewBag.ButtonPrivateORPublic = "Turn On";
-                }
-            }           
-
-            if (ViewBag.Image != null)
-            {
-                ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
-            }
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
+                    ViewBag.Image = _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                        .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    var im = _entities.Images.FirstOrDefault(i => i.SharedCode.Equals(image));
+                    if (im == null)
+                        throw new Exception("Null image error.");
+                    if (user != null)
+                        ViewBag.UserFolders = _entities.Folders.Where(w => w.OwnerId == user.Id && w.Id != im.FolderId).ToList();
+                    ViewBag.CurrentFolderId = im.FolderId;
+                    bool accesGranted = false;
+                    if (im != null)
+                    {
+                        accesGranted = SecurityHelper.IsImageEditable(user, im.Folder.Person, im, _entities);
+
+                        ViewBag.FolderName = im.Folder.Name;
+                        ViewBag.FolderLink = GetBaseUrl() + "Home/Images?id=" + im.FolderId;
+                    }
+                    if (!accesGranted)
+                        return View("Message", new { lang = locale });
+                    if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
+                        ViewBag.Image = _entities.Images.ToList().First();
+                    ViewBag.OriginalPath = "";
+                    if (ViewBag.Image != null)
+                        ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
+                    if (ViewBag.Image != null)
+                        ViewBag.ImageSharedCode = ViewBag.Image.SharedCode;
+                    ViewBag.OriginalName = "";
+                    if (ViewBag.Image != null)
+                        ViewBag.OriginalName = ViewBag.Image.Name;
+                    ViewBag.ImageIsPublic = "False";
+                    if (ViewBag.Image != null)
+                        ViewBag.ImageIsPublic = ViewBag.Image.IsPublic + "";
+                    ViewBag.OriginalNameWithoutEx = "";
+                    if (ViewBag.Image != null)
+                    {
+                        int length = ViewBag.Image.Name.Length;
+                        int size = length <= 15 ? length : 15;
+                        string name = ViewBag.Image.Name.Substring(0, size);
+                        ViewBag.OriginalNameWithoutEx = name;
+                    }
+                    ViewBag.ImageTitle = "";
+                    if (ViewBag.Image != null)
+                        ViewBag.ImageTitle = ViewBag.Image.Name;
+                    ViewBag.Date = "";
+                    if (ViewBag.Image != null)
+                        ViewBag.Date = ViewBag.Image.PublicationDate;
+                    ViewBag.ImageId = "";
+                    if (ViewBag.Image != null)
+                    {
+                        ViewBag.ImageId = ViewBag.Image.Id;
+                        SingleImageId = ViewBag.Image.Id;
+                    }
+                    if (im != null)
+                    {
+                        if (im.IsPublic)
+                        {
+                            ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PRIVATE;
+                            ViewBag.ButtonPrivateORPublic = "Turn Off";
+                        }
+                        else
+                        {
+                            ViewBag.ButtonPrivateORPublicMain = Resources.Resource.MAKE_PUBLIC;
+                            ViewBag.ButtonPrivateORPublic = "Turn On";
+                        }
+                    }
+                    if (ViewBag.Image != null)
+                        ViewBag.SharedLink = GetBaseUrl() + "Home/SharedImage?i=" + ViewBag.Image.SharedCode;
                     var emails = (from p in _entities.UserShares
                                   join m in _entities.People
                                       on p.PersonId equals m.Id
@@ -1012,90 +957,79 @@ namespace ScreenTaker.Controllers
                         (from n in _entities.UserShares
                          where n.ImageId == SingleImageId && n.PersonId == null
                          select new { Email = n.Email });
-
                     if (emails.Any())
                         ViewBag.Emails = emails.Select(s => s.Email).ToList();
-
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                }
-            }
-
-            using (var transaction = _entities.Database.BeginTransaction())
-            {
-                try
-                {
                     var groups = from p in _entities.PersonGroups
                                  where p.PersonId == user.Id
                                  select new { ID = p.Id, Groups = p.Name };
                     var flags = from p in _entities.GroupShares
                                 where p.ImageId == SingleImageId
                                 select p;
-
                     if (groups.Any())
                     {
                         ViewBag.Groups = groups.Select(s => s.Groups).ToList();
                         ViewBag.GroupsIDs = groups.Select(s => s.ID).ToList();
 
                     }
-                    //if (flags.Any())
-                    //    ViewBag.Flags = groups.Select(w => flags.Select(s => s.GroupId).Contains(w.ID) ? "Allowed" : "Denied").ToList();
-
                     transaction.Commit();
-                }
+                }                
                 catch (Exception ex)
                 {
                     transaction.Rollback();
+                    return View("Message", new { lang = locale });
                 }
-            }
+            }            
             return View("SingleImage", new { lang = locale });
         }                
+
 
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SharedImage(string i, string lang = "en")
         {
             ViewBag.Localize = locale;
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
-                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-
-
-            var image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
-            bool accessGranted = false;
-            if (image != null)
+            using (var transaction = _entities.Database.BeginTransaction())
             {
-                accessGranted = SecurityHelper.IsImageAccessible(user, image.Folder.Person, image, _entities);
-
-                if (accessGranted)
+                try
                 {
-                    ViewBag.ImageName = image.Name;
-                    ViewBag.ImagePath = SecurityHelper.GetImagePath(GetBaseUrl() + "img", i);
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    var image = _entities.Images.FirstOrDefault(im => im.SharedCode.Equals(i));
+                    bool accessGranted = false;
+                    if (image != null)
+                    {
+                        accessGranted = SecurityHelper.IsImageAccessible(user, image.Folder.Person, image, _entities);
+                        if (accessGranted)
+                        {
+                            ViewBag.ImageName = image.Name;
+                            ViewBag.ImagePath = SecurityHelper.GetImagePath(GetBaseUrl() + "img", i);
+                        }
+                    }
+                    if (!accessGranted)
+                        return View("Message", new { lang = locale });
+                    ViewBag.AccessGranted = accessGranted;
+                    ViewBag.Image = image;
+                    if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
+                    {
+                        ViewBag.Image = _entities.Images.ToList().First();
+                    }
+                    ViewBag.Owner = ViewBag.Image == null ? null : ViewBag.Image.Folder.Person;
+                    ViewBag.OriginalPath = "";
+                    if (ViewBag.Image != null)
+                    {
+                        ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
+                    }
+                    ViewBag.OriginalName = "";
+                    if (ViewBag.Image != null)
+                    {
+                        ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+                    }
+                    transaction.Commit();                                        
                 }
-            }
-
-            if (!accessGranted)
-                return View("Message", new { lang = locale });
-
-            ViewBag.AccessGranted = accessGranted;
-
-            ViewBag.Image = image;
-            if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
-            {
-                ViewBag.Image = _entities.Images.ToList().First();
-            }
-            ViewBag.Owner = ViewBag.Image == null ? null : ViewBag.Image.Folder.Person;
-            ViewBag.OriginalPath = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
-            }
-            ViewBag.OriginalName = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return View("Message", new { lang = locale });
+                }
             }
             return View("SharedImage", new { lang = locale });
         }
@@ -1445,6 +1379,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception)
                 {
                     transaction.Rollback();
+                    return View("Message", new { lang = locale });
                 }
             }
             return RedirectToAction("Images",new {id= folderId });

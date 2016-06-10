@@ -73,7 +73,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    @ViewBag.MessageContent = ex.Message;
+                    return View("Message", new { lang = locale });
                 }
             }
             return View("UserGroups", new { lang = locale });

@@ -484,6 +484,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This right is inherited and can&apos;t be changed.
+        /// </summary>
+        internal static string ERR_INHERITED {
+            get {
+                return ResourceManager.GetString("ERR_INHERITED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can&apos;t make public image in private folder.
         /// </summary>
         internal static string ERR_PUBLIC_IN_PRIVATE {
