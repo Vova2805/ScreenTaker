@@ -420,12 +420,10 @@ namespace ScreenTaker.Controllers
                     }
                     if (person.Id != 0)
                     {
-                        userManager.EmailService.SendAsync(new IdentityMessage()
-                        {
-                            Body = $"{user.Email} provided access to image {GetSharedImageLink(image)}",
-                            Destination = email,
-                            Subject = "ScreenTaker image sharing"
-                        });
+                        userManager.SendEmail(friend.Id, "ScreenTaker shared image",
+                            String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ImageSharing.html")),
+                                GetSharedImageLink(image), user.Email, image.Name));
+
 
                         UserShare us = new UserShare { PersonId = person.Id, ImageId = imageId };
                         _entities.UserShares.Add(us);

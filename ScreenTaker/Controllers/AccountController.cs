@@ -100,11 +100,11 @@ namespace ScreenTaker.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-//                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user, "Confirm your account");
 
                     ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
 
-                    return View("Error");
+                    return View(model);
                 }
             }
 
@@ -277,7 +277,7 @@ namespace ScreenTaker.Controllers
                 return View("ConfirmEmail");
             }
             AddErrors(result);
-            ViewBag.Email = UserManager.FindById(userId);
+            ViewBag.Email = UserManager.FindById(userId).Email;
             EMAIL = ViewBag.Email;
             return View();
         }
