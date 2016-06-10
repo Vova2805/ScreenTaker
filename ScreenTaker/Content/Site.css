@@ -289,6 +289,14 @@ textarea {
     .account-form {
         margin:20px 15px 0 15px;
     }
+    div #dynamicArea {
+        height: 495px;
+    }
+    div .ug-list {
+        height: auto;
+        max-height: 180px;
+        overflow: auto;
+    }
 }
 
 @media(max-width:480px ){
@@ -662,4 +670,14 @@ textarea {
 
 .account-form {
     margin-top:20px;
+}
+
+.ug-list {
+    height:auto;
+    max-height:440px;
+    overflow:auto;
+}
+
+#dynamicArea {
+    height:500px;
 }
