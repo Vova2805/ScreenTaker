@@ -68,8 +68,11 @@
         if('@ViewBag.ImageIsPublic'=="False")public_private = '@Resources.Resource.MAKE_PUBLIC';
         document.getElementById("MakePublicButton").innerText = public_private;
 
-        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex,isPublic) {
+        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, without_ex,isPublic) {
             var classes = "floating-box text-center task active images";
+
+            name =  name.replace(/&#039/g,"'");
+
             document.getElementById("original").value = original;
             document.getElementById("sharedLink").value = sharedLink;
             document.getElementById("compressedLink").src = compressed;
@@ -410,13 +413,13 @@
                         string original = i.SharedCode;
                         string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                         string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
-                        string name = i.Name;
-                        int length = name.Length;
-                        int size = length <= 15 ? length : 15;
-                        name = name.Substring(0, size);
+                        //string name = i.Name;
+                        //int length = name.Length;
+                        //int size = length <= 15 ? length : 15;
+                        //name = name.Substring(0, size);
                         string isPublic = i.IsPublic + "";
                         string classes = "floating-box text-center task active images";
-                        string without_ex = i.Name;
+                        string name = i.Name;
                         if (index == 0)
                         {
                             <script>
@@ -428,7 +431,7 @@
                         }
                         string image_id = "IMD" + index;
 
-                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex','@isPublic')"
+                        <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed','@name.Replace("'", "&#039")','@isPublic')"
                               ondblclick="openImage('@original')" style="cursor:pointer;">
                             <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">

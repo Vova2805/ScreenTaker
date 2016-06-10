@@ -61,10 +61,10 @@ namespace ScreenTaker.Controllers
                         IList<string> avatars = new List<string>();
                         foreach (var e in emails)
                         {
-                            if (e.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + e.AvatarFile + "_50.png"))
-                                avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
+                            if (e.AvatarFile != null && System.IO.File.Exists(getUserAvatar(e.AvatarFile + "_50")))
+                                avatars.Add(getUserAvatar(e.AvatarFile+"_50"));
                             else
-                                avatars.Add(baseUrl + "/Resources/user_50.png");
+                                avatars.Add(getUserAvatar("user_50"));
                         }
                         ViewBag.Avatars = avatars;
                     }                                                  
@@ -73,17 +73,10 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    @ViewBag.MessageContent = ex.Message;
+                    ViewBag.MessageContent = ex.Message;
                 }
             }
             return View("UserGroups", new { lang = locale });
-        }
-        public string GetBaseUrl()
-        {
-            var request = HttpContext.Request;
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
-            return baseUrl;
         }
 
         [AllowAnonymous]
@@ -237,7 +230,6 @@ namespace ScreenTaker.Controllers
                 }
                 catch (Exception ex)
                 {
-                    //return RedirectToAction("Message","Home",new { });
                     transaction.Rollback();                    
                     TempData["MessageContent"]= ex.Message;
                 }
@@ -299,9 +291,9 @@ namespace ScreenTaker.Controllers
                         foreach (var e in emails)
                         {
                             if (e.AvatarFile == null || !System.IO.File.Exists(Server.MapPath("/avatars/") + e.AvatarFile + "_50.png"))
-                                avatars.Add(baseUrl + "/Resources/user_50.png");
+                                avatars.Add(getUserAvatar("user_50"));
                             else
-                                avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
+                                avatars.Add(getUserAvatar(e.AvatarFile + "_50"));
                         }
                         ViewBag.Avatars = avatars;                        
                     }

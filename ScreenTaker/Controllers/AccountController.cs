@@ -125,7 +125,6 @@ namespace ScreenTaker.Controllers
                 { }
 
                 ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
-                    //    ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
         }
@@ -680,8 +679,8 @@ namespace ScreenTaker.Controllers
                             {
                                 try
                                 {
-                                    System.IO.File.Delete(Server.MapPath("~/avatars/") + person.AvatarFile + "_128.png");
-                                    System.IO.File.Delete(Server.MapPath("~/avatars/") + person.AvatarFile + "_50.png");
+                                    System.IO.File.Delete(getUserAvatar(person.AvatarFile + "_128"));
+                                    System.IO.File.Delete(getUserAvatar(person.AvatarFile + "_50"));
                                 }
                                 catch { }
                             }
@@ -692,12 +691,12 @@ namespace ScreenTaker.Controllers
                         var bitmap = new Bitmap(file.InputStream);
 
                         var bitmap128 = _imageCompressor.Compress(bitmap, new Size(128, 128));
-                        var path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_128.png");
+                        var path = getUserAvatar(avatarFile + "_128");
                         bitmap128.Save(path, ImageFormat.Png);
                         var bitmap25 = _imageCompressor.Compress(bitmap, new Size(50, 50));
-                        path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_50.png");
+                        path = getUserAvatar(avatarFile + "_50");
                         bitmap25.Save(path, ImageFormat.Png);
-                        ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + avatarFile + "_128.png";
+                        ViewBag.Avatar_128 = getUserAvatar(avatarFile + "_128");
                         ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();
                         transaction.Commit();
                     }
@@ -706,19 +705,10 @@ namespace ScreenTaker.Controllers
                         transaction.Rollback();
                     }
                 }
-                
             }
             ViewBag.Email = EMAIL;
             AVATAR = ViewBag.Avatar_128;
             return RedirectToAction("UserProfile");
-        }
-
-        public string GetBaseUrl()
-        {
-            var request = HttpContext.Request;
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
-            return baseUrl;
         }
     }
 }

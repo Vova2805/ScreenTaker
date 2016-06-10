@@ -8,7 +8,7 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
-<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+@*<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
     @{
         int count = ViewBag.Folders.Count;
 
@@ -53,7 +53,57 @@
             }
         }
     }
+</div>*@
+<div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container">
+    @{
+        int count = ViewBag.Folders.Count;
+
+        for (int i = 0; i < ViewBag.Folders.Count; i++)
+        {
+            string classes = "floating-box text-center task active images folder";
+            string folder_id = "FID" + i;
+            string img_id = "FIM" + i;
+            string sharedLink = ViewBag.BASE_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+            string sharedCode = ViewBag.Folders[i].SharedCode;
+            bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0 : false;
+            string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
+            if (isFull)
+            {
+                imageLink += "_full";
+            }
+            imageLink += ".png";
+            string isPublic = ViewBag.Folders[i].IsPublic + "";
+            string FolderTitle = ViewBag.Folders[i].Name;
+
+            if (i == 0)
+            {
+                FolderTitle = ViewBag.Folders[i].Name;
+                ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
+                ViewBag.FolderLink = ViewBag.BASE_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+            }
+            string id = ViewBag.Folders[i].Id + "";
+            string fId = ViewBag.FolderID + "";
+            if (id == fId)
+            {
+                string a = isPublic;
+            }
+            <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
+                 ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
+                <figure class="@classes" id="@folder_id">
+                    <img src="@imageLink" id="img_id" />
+                    <figcaption class="text-center">@FolderTitle</figcaption>
+                </figure>
+            </div>
+            if (id == fId)
+            {
+                <script>
+                    document.getElementById('@folder_id').click();
+                </script>
+            }
+        }
+    }
 </div>
+
 @{
 
     if (ViewBag.MessageContent != null)

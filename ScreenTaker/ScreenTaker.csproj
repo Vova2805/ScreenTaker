@@ -449,8 +449,6 @@
     <Content Include="Resources\public_shared.png" />
     <Content Include="Resources\sad.png" />
     <Content Include="Resources\user.png" />
-    <Content Include="Resources\user_128.png" />
-    <Content Include="Resources\user_50.png" />
     <Content Include="Resources\warning.png" />
     <Content Include="Scripts\abutment.js" />
     <Content Include="Scripts\alert.js" />
