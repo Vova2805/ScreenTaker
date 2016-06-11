@@ -282,6 +282,9 @@
       <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\SecurityHelper.cs" />
+    <Compile Include="Models\ServerFolder.cs">
+      <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tag.cs">
       <DependentUpon>ScreenTakerDataModel.tt</DependentUpon>
     </Compile>

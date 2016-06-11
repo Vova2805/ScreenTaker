@@ -83,11 +83,26 @@ namespace ScreenTaker.Controllers
                             throw new Exception(Resources.Resource.ERR_IMAGE_NOT_VALID);                    
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var serverFolderId = 0;
+                        var last = _entities.ServerFolder.Where(w => w.Count < 1000).ToList().LastOrDefault();
+                        if (last == null || !System.IO.Directory.Exists(Server.MapPath("/img/") + last.SharedCode))
+                        {
+                            var serverFolder = new ServerFolder() { Count = 2, SharedCode = _stringGenerator.Next() };
+                            _entities.ServerFolder.Add(serverFolder);
+                            System.IO.Directory.CreateDirectory(Server.MapPath("/img/") + serverFolder.SharedCode);
+                            serverFolderId = serverFolder.Id;
+                        }
+                        else
+                        {
+                            serverFolderId = last.Id;
+                            last.Count += 2;
+                        }
                         var image = new Image();
                         image.IsPublic = false;
                         image.FolderId = folder.Id;
                         image.SharedCode = sharedCode;
                         image.Name = fileName;
+                        image.ServerFolderId = serverFolderId;
                         image.PublicationDate = DateTime.Now;
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
@@ -401,7 +416,7 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
+                {                    
                     if (email.Length == 0)
                         throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     if (!IsValidEmail(email))
@@ -612,7 +627,7 @@ namespace ScreenTaker.Controllers
             ViewBag.IsEmpty = !list.Any();
             ViewBag.Images = list;
             var pathsList = _entities.Images.ToList()
-                .Select(i => GetBaseUrl() + "img/" + i.SharedCode).ToList();
+                .Select(i => GetBaseUrl() + "img/" +(i.ServerFolder==null?"": i.ServerFolder.SharedCode) +"/"+ i.SharedCode).ToList();
             ViewBag.Paths = pathsList;
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
@@ -635,17 +650,17 @@ namespace ScreenTaker.Controllers
 
             ViewBag.FirstImageId = list.Count > 0 ? list.First().Id:-1;
             ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
-            ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+list.First().SharedCode+"_compressed.png" : "";
+            ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+ (list.First().ServerFolder == null ? "" : list.First().ServerFolder.SharedCode) + "/" + list.First().SharedCode+"_compressed.png" : "";
             ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
             ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
         }
         public static int current_folder = -1;
         public ActionResult Images(string id = "-1", string lang = "en")
         {
-            using (var transaction = _entities.Database.BeginTransaction())
-            {
-                try
-                {
+            //using (var transaction = _entities.Database.BeginTransaction())
+            //{
+            //    try
+            //    {
                     ViewBag.Localize = locale;
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                         .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
@@ -673,14 +688,14 @@ namespace ScreenTaker.Controllers
                         ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
                         ViewBag.MessageContent = TempData["MessageContent"];
                     }
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    return RedirectToAction("Message", "Home", new { lang = locale });
-                }
-            }           
+            //        transaction.Commit();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        transaction.Rollback();
+            //        return RedirectToAction("Message", "Home", new { lang = locale });
+            //    }
+            //}           
             return View("Images", new { lang = locale });
         }
 
@@ -706,21 +721,36 @@ namespace ScreenTaker.Controllers
                             throw new Exception(Resources.Resource.ERR_IMAGE_NOT_VALID);                                            
                         var sharedCode = _stringGenerator.Next();
                         var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var serverFolderId = 0;               
+                        var last = _entities.ServerFolder.Where(w=>w.Count<1000).ToList().LastOrDefault();
+                        if (last == null||!System.IO.Directory.Exists(Server.MapPath("/img/")+last.SharedCode))
+                        {
+                            var serverFolder = new ServerFolder() { Count = 2, SharedCode = _stringGenerator.Next() };
+                            _entities.ServerFolder.Add(serverFolder);
+                            System.IO.Directory.CreateDirectory(Server.MapPath("/img/")+ serverFolder.SharedCode);
+                            serverFolderId = serverFolder.Id;
+                        }
+                        else
+                        {
+                            serverFolderId = last.Id;
+                            last.Count += 2;
+                        }
                         var image = new Image
                         {
                             IsPublic = false,
                             FolderId = Int32.Parse(folderId),
                             SharedCode = sharedCode,
                             Name = fileName,
+                            ServerFolderId = serverFolderId,
                             PublicationDate = DateTime.Now
                         };
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
                         var bitmap = new Bitmap(file.InputStream);
-                        var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
+                        var path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode+"/"+sharedCode + ".png");
                         bitmap.Save(path, ImageFormat.Png);
                         var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
-                        path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
+                        path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode + "/" + sharedCode + "_compressed.png");
                         compressedBitmap.Save(path, ImageFormat.Png);
                         transaction.Commit();
                     }
@@ -904,7 +934,7 @@ namespace ScreenTaker.Controllers
                         ViewBag.Image = _entities.Images.ToList().First();
                     ViewBag.OriginalPath = "";
                     if (ViewBag.Image != null)
-                        ViewBag.OriginalPath = GetBaseUrl() + "img/" + ViewBag.Image.SharedCode + ".png";
+                        ViewBag.OriginalPath = GetBaseUrl() + "img/" + (ViewBag.Image.ServerFolder == null ? "" : ViewBag.Image.ServerFolder.SharedCode) + "/" + ViewBag.Image.SharedCode + ".png";
                     if (ViewBag.Image != null)
                         ViewBag.ImageSharedCode = ViewBag.Image.SharedCode;
                     ViewBag.OriginalName = "";
@@ -1086,7 +1116,20 @@ namespace ScreenTaker.Controllers
                 {
                     if (path == null)
                         throw new Exception("Path is null");
-                    var sharedDode = Path.GetFileNameWithoutExtension(path);             
+                    var sharedDode = Path.GetFileNameWithoutExtension(path);
+
+                    var serverFolder = _entities.ServerFolder.Where(w => w.Image.Where(ww => ww.SharedCode == sharedDode).Any()).FirstOrDefault();
+                    if (serverFolder != null)
+                    {
+                        serverFolder.Count -= 2;
+                    }
+                    try
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/img/") + (serverFolder==null?"":serverFolder.SharedCode) + "/" + Path.GetFileNameWithoutExtension(path) + ".png");
+                        System.IO.File.Delete(Server.MapPath("~/img/") + (serverFolder == null ? "" : serverFolder.SharedCode) + "/" + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
+                    }
+                    catch { }
+                    
                     folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
                     var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
                     var userShare = obj.UserShares;
@@ -1097,10 +1140,6 @@ namespace ScreenTaker.Controllers
                         _entities.GroupShares.Remove(groupShare.ElementAt(0));
                     _entities.Images.Remove(obj);
                     _entities.SaveChanges();
-                    try { 
-                        System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileName(path));
-                        System.IO.File.Delete(Server.MapPath("~/img/") + Path.GetFileNameWithoutExtension(path) + "_compressed.png");
-                    }catch { }
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -1298,8 +1337,10 @@ namespace ScreenTaker.Controllers
                     while (images.Count > 0)
                     {
                         try {
-                            System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + ".png");
-                            System.IO.File.Delete(Server.MapPath("~/img/") + images.ElementAt(0).SharedCode + "_compressed.png");
+                            if(images.ElementAt(0).ServerFolder!= null)
+                                images.ElementAt(0).ServerFolder.Count -= 2;
+                            System.IO.File.Delete(Server.MapPath("~/img/") + (images.ElementAt(0).ServerFolder == null ? "" : images.ElementAt(0).ServerFolder.SharedCode) + "/" + images.ElementAt(0).SharedCode + ".png");
+                            System.IO.File.Delete(Server.MapPath("~/img/") + (images.ElementAt(0).ServerFolder == null ? "" : images.ElementAt(0).ServerFolder.SharedCode) + "/" + images.ElementAt(0).SharedCode + "_compressed.png");
                         }catch { }
                         var im = images.ElementAt(0);
                         var userShareIm = im.UserShares;

@@ -230,7 +230,7 @@
                     {
                         string original = i.SharedCode;
                         string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                        string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+                        string compressed = ViewBag.BASE_URL + "img/" + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode)+"/" + i.SharedCode + "_compressed.png";
                         string name = i.Name;
                         int length = name.Length;
                         int size = length <= 15 ? length : 15;
