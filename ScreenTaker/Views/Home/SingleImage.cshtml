@@ -315,8 +315,14 @@
 
         <div class="sidenav" id="mySidenav">
             <div style="margin-left: 10px; margin-right: 10px;">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;top:9%;">×</a>
-                <div style="margin-top:63%;">
+                <div style="width:100%;height:135px;">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;top:9%;">×</a>
+                    <img src="@ViewBag.CompressedPath" id="compressedLink" alt="Image is not found" style="max-width:145px;max-height:128px;margin-top:10px;" />
+                    <br />
+                    <label id="compressedName" class="text-overflowed text-overflowed_160 p-color" style="min-width:50px;">@ViewBag.OriginalName</label>
+                </div>
+                <hr />
+                <div>
                     <button type="button" class="btn btn-default btn-not-rounded" data-toggle="modal" data-target="#MoveImage" style="width: 100%">@Resources.Resource.MOVE</button>
                 </div>
                 <br />
