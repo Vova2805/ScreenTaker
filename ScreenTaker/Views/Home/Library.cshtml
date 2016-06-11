@@ -174,9 +174,6 @@
     </script>
 }
 
-<<<<<<< HEAD
-<div class="row main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 655px">
-=======
 <div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">    
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -277,7 +274,6 @@
 </div>
 
 <div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 100%">
->>>>>>> fix-bugs-branch
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 40px;">
@@ -297,14 +293,14 @@
                 </div>
             </div>
             <div class="col-sm-6">
-            <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
-                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-            		</button>
-            		<button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn btn-primary btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-           		 </button>
-        	   </div>
-        	</div>
+                <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
+                    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                </button>
+                <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn btn-primary btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
         <div class="row" id="dynamicFoldersArea">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container">
                 @{
@@ -315,52 +311,47 @@
                         string img_id = "FIM" + i;
                         string sharedLink = ViewBag.SharedLinks[i];
                         string sharedCode = ViewBag.Folders[i].SharedCode;
-                        bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0:false;
+                        bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0 : false;
                         string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
                         if (isFull)
                         {
                             imageLink += "_full";
                         }
                         imageLink += ".png";
-                        string isPublic = ViewBag.Folders[i].IsPublic+"";
+                        string isPublic = ViewBag.Folders[i].IsPublic + "";
                         string FolderTitle = ViewBag.Folders[i].Name;
 
                         if (i == 0)
                         {
                             FolderTitle = ViewBag.Folders[i].Name;
                             ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
-                            ViewBag.FolderLink =ViewBag.SharedLinks[i];
+                            ViewBag.FolderLink = ViewBag.SharedLinks[i];
                             <script>
                                 document.getElementById("sharedLink").value = @ViewBag.FolderLink;
 
-                            document.getElementById("sharedLinkhidden").value = '@sharedCode';
-                            document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
-                            document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
+                                document.getElementById("sharedLinkhidden").value = '@sharedCode';
+                                document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
+                                document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
 
-                            document.getElementById("folderImage").src = '@imageLink';
-                            document.getElementById("folderTitle").innerText = '@ViewBag.Folders[i].Name';
-                            document.getElementById("sharedLinkhidden").value = '@sharedCode';
-                            document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
-                            document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
+                                document.getElementById("folderImage").src = '@imageLink';
+                                document.getElementById("folderTitle").innerText = '@ViewBag.Folders[i].Name';
+                                document.getElementById("sharedLinkhidden").value = '@sharedCode';
+                                document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
+                                document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
 
-                            document.getElementById("RenameButton").disabled = true;
-                            document.getElementById("DeleteButton").disabled = true;
-                            document.getElementById("OpenButton").disabled = true;
-                            document.getElementById("MakePublicButton").disabled = true;
-                            document.getElementById("ManageAccessButton").disabled = true;
-                            document.getElementById("sharedLink").disabled = true;
+                                document.getElementById("RenameButton").disabled = true;
+                                document.getElementById("DeleteButton").disabled = true;
+                                document.getElementById("OpenButton").disabled = true;
+                                document.getElementById("MakePublicButton").disabled = true;
+                                document.getElementById("ManageAccessButton").disabled = true;
+                                document.getElementById("sharedLink").disabled = true;
                             </script>
                         }
                         <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
-                           ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
+                             ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
-<<<<<<< HEAD
-                                <img src="@imageLink"/>
-                                <figcaption class="text-center">@FolderTitle</figcaption>
-=======
-                                <img src="@imageLink" id="img_id"/>
+                                <img src="@imageLink" id="img_id" />
                                 <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
->>>>>>> fix-bugs-branch
                             </figure>
                         </div>
                     }
