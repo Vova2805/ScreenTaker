@@ -374,7 +374,7 @@ textarea {
 
 @media(max-width:360px ){
     #parent-container {
-        margin-left: 25px;
+        margin-left: 20px;
     }
     #parent-container-img {
         margin-left: 75px;
@@ -383,12 +383,12 @@ textarea {
         padding-left: 17%;
     }
     .image {
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
     }
     div .folder {
-        width: 130px;
-        height: 140px;
+        width: 120px;
+        height: 130px;
     }
 }
 
@@ -406,7 +406,7 @@ textarea {
     }
     div .folder {
         width: 110px;
-        height: 110px;
+        height: 120px;
     }
 }
 
