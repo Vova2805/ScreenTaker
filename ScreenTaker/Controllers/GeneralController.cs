@@ -131,5 +131,11 @@ namespace ScreenTaker.Controllers
             var temp = Session["Locale"];
             return temp!=null?temp.ToString():"en";
         }
+
+        protected string getCurrentFolder()
+        {
+            var temp = Session["CurrentFodlerId"];
+            return temp != null ? temp.ToString() :"0";
+        }
     }
 }

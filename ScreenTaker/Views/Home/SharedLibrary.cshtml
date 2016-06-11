@@ -95,7 +95,9 @@
                                     ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;"
                                      onclick="selectFolder('@folder_id','@count')">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink" class="image"/>
+                                    <img src="@imageLink" class="image" />
+                                    <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
+                                </figure>
                             </button>
                         }
                         else

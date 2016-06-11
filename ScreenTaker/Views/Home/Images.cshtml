@@ -445,12 +445,12 @@
             <div style="width:100%;height:135px;">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
                 <input type="text" class="hidden" id="original" value="@ViewBag.FirstImageShCode" />
-                <img src="@ViewBag.FirstImageSrc" id="compressedLink" alt="Image is not found or not selected" style="max-width:145px;max-height:128px;margin-top:30px;" />
+                <img src="@ViewBag.FirstImageSrc" id="compressedLink" alt="Image is not found or not selected" style="max-width:145px;max-height:128px;margin-top:10px;" />
                 <br/><label id="compressedName" class="text-overflowed text-overflowed_160 p-color" style="min-width:50px;">@ViewBag.FirstImageName</label>
             </div>
             <hr />
             <div>
-                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" disabled id="OpenButton" onclick="openImage(document.getElementById('original').value)">@Resources.Resource.OPEN</button>
+                <button type="button" class="btn btn-default btn-not-rounded" style="width: 100%" disabled id="OpenButton" onclick="openImage(document.getElementById('original').value,'@ViewBag.SigleImageBASE')">@Resources.Resource.OPEN</button>
             </div>
             <br />
             <div>
