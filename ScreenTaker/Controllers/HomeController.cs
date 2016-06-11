@@ -524,7 +524,7 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
+            ViewBag.FolderLinkBASE = GetFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }      
 
@@ -1236,7 +1236,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.FolderID = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList().First().Id;
-            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
+            ViewBag.FolderLinkBASE = GetFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }
 
@@ -1269,7 +1269,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.FolderID = folderId;
-            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
+            ViewBag.FolderLinkBASE = GetFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }
 
