@@ -97,7 +97,7 @@
                                     ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
                                     onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink"/>
+                                    <img src="@imageLink" class="image"/>
                                     <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
                                 </figure>
                             </button>
@@ -109,7 +109,7 @@
                                     ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
                                     onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink"/>
+                                    <img src="@imageLink" class="image"/>
                                     <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
                                 </figure>
                             </button>

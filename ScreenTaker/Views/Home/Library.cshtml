@@ -350,7 +350,7 @@
                         <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
                              ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
-                                <img src="@imageLink" id="img_id" />
+                                <img src="@imageLink" class="image" id="img_id"/>
                                 <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
                             </figure>
                         </div>

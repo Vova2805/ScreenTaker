@@ -254,21 +254,21 @@ textarea {
     #openSideMenu {
         position: absolute;
         z-index: 1000;
-        top: -55px;
+        top: -60px;
         right: 10px;
     }
 
     #AddFolderButton {
         position: absolute;
         z-index: 1000;
-        top: -55px;
+        top: -60px;
         right: 40px;
     }
 
     #UploadImageButton {
         position: absolute;
         z-index: 1000;
-        top: -55px;
+        top: -60px;
         right: 30px;
     }
     .footer-style {
@@ -316,6 +316,10 @@ textarea {
     }
     div #dynamicSingleImageArea {
         padding-right: 0;
+    }
+    div .error-image {
+        width: 64px;
+        height: 64px;
     }
 }
 
@@ -375,22 +379,34 @@ textarea {
     #parent-container-img {
         margin-left: 75px;
     }
-    div .folder {
-        width: 130px;
-        height: 150px; 
-    }
     .footer-style {
         padding-left: 17%;
+    }
+    .image {
+        width: 120px;
+        height: 120px;
+    }
+    div .folder {
+        width: 130px;
+        height: 140px;
     }
 }
 
 
 @media(max-width:320px ){
     #parent-container {
-        margin-left: 75px;
+        margin-left: 0px;
     }
     #parent-container-img {
         margin-left: 50px;
+    }
+    .image {
+        width: 100px;
+        height: 100px;
+    }
+    div .folder {
+        width: 110px;
+        height: 110px;
     }
 }
 
@@ -755,4 +771,9 @@ textarea {
     padding:0px;
     border:0px;
     visibility:collapse
+}
+
+.error-image {
+    width:80%;
+    height:80%
 }
