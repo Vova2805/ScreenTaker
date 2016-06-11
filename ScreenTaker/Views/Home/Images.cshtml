@@ -37,7 +37,8 @@
         });
         $('#toggle_event_editing button').click(function () {
             $('#MakePublicButton').click();
-         });
+        });
+        document.getElementById("openSideMenu").style.disabled = false;
 
         document.getElementById("RenameButton").disabled = true;
         document.getElementById("DeleteButton").disabled = true;
@@ -375,7 +376,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" style="margin-top:20px;" onclick="openNav()">
+                    <button id="openSideMenu" type="button" style="background-color:white" class="btn btn-default pull-right btn-not-rounded open-button-open" disabled aria-label="Left Align" onclick="openNav()">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                     </button>
                         <div class="pull-right" style="display:inline;height:44px;">
@@ -395,14 +396,14 @@
                         </div>
                 </div>
             </div>
-        <div class="row-fluid" style="margin-left: 25px;">
+        <div class="row-fluid navigation-open" id="navigation">
             <ol class="breadcrumb">
                 <li class="text-overflowed"><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                 <li class="active text-overflowed">@ViewBag.FolderName</li>
             </ol>
         </div>
         <div class="row" id="dynamicImagesArea">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container-img">
+            <div class="col-sm-12 main-area-open" id="parent-container-img">
                 @{
                     int index = 0;
                     int count = ViewBag.Images.Count;
