@@ -7,13 +7,10 @@ using System.Web.Mvc;
 using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq.Expressions;
 using System.Net.Mail;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Image = ScreenTaker.Models.Image;
-using System.Text.RegularExpressions;
-using System.Net.Mime;
 using System.Globalization;
 using System.Threading;
 
@@ -331,7 +328,6 @@ namespace ScreenTaker.Controllers
                     {
                         throw new Exception("Image is not accessible");
                     }
-
                     var result = _entities.GroupShares.FirstOrDefault(w => w.GroupId == groupId && w.FolderId == folderId);
                     if (result != null)
                         _entities.GroupShares.Remove(result);
@@ -346,7 +342,6 @@ namespace ScreenTaker.Controllers
                                     System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/FolderSharing.html")),
                                     GetSharedFolderLink(folder), user.Email, folder.Name));
                         }
-
                         _entities.GroupShares.Add(us);
                     }
                     _entities.SaveChanges();
@@ -402,7 +397,6 @@ namespace ScreenTaker.Controllers
             try
             {
                 MailAddress m = new MailAddress(email);
-
                 return true;
             }
             catch (FormatException)
@@ -430,11 +424,9 @@ namespace ScreenTaker.Controllers
 
                     if (image!=null &&_entities.UserShares.Any(w => w.FolderId == image.FolderId && (w.Email==email || w.Person.Email == email)))
                         throw new Exception(Resources.Resource.ERR_INHERITED);
-
                     ApplicationUserManager userManager =
                         System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
                     ApplicationUser user = userManager.FindById(User.Identity.GetUserId<int>());
-
                     if (user != null && user.Email == email)
                         throw new Exception(Resources.Resource.ERR_ADD_YOURSELF);
                     var friend = _entities.People.FirstOrDefault(w => w.Email == email);
@@ -448,8 +440,6 @@ namespace ScreenTaker.Controllers
                         userManager.SendEmail(friend.Id, "ScreenTaker shared image",
                             String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ImageSharing.html")),
                                 GetSharedImageLink(image), user.Email, image.Name));
-
-
                         UserShare us = new UserShare { PersonId = person.Id, ImageId = imageId };
                         _entities.UserShares.Add(us);
                     }
@@ -584,7 +574,6 @@ namespace ScreenTaker.Controllers
             ViewBag.SharedImageBASE = GetSharedImageLink("");
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-
             if (user == null)
             {
                 return View("Message");
@@ -615,7 +604,6 @@ namespace ScreenTaker.Controllers
                         select folder
                 )
                 .ToList();
-
             ViewBag.FolderLinks = sharedFolders.Select(GetSharedFolderLink).ToList();
             ViewBag.FolderImageLinks = sharedFolders.Select(f=>GetFolderImageLink(f)).ToList();
             ViewBag.Folders = sharedFolders;
@@ -681,8 +669,6 @@ namespace ScreenTaker.Controllers
             ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
             ViewBag.FirstImageSrc = list.Count > 0 ? GetImagePathBASE()+ (list.First().ServerFolder == null ? "" : list.First().ServerFolder.SharedCode) + "/" + list.First().SharedCode+"_compressed.png" : "";
             ViewBag.FirstImageShLink = (list.Count > 0 ? GetSharedImageLink(list.First().SharedCode) : "");
-            //ViewBag.FirstImageSrc = list.Count > 0 ? GetImagePathBASE() + list.First().SharedCode+"_compressed.png" : "";
-            //ViewBag.FirstImageShLink =  (list.Count > 0 ? GetSharedImageLink(list.First().SharedCode): "");
             ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
             if(list.Count>0)
             ViewBag.ImageID = list.First().Id;
@@ -836,7 +822,6 @@ namespace ScreenTaker.Controllers
                     ViewBag.MessageContent = ex.Message;
                 }
             }
-            
             return PartialView("PartialImagesChangeState");
         }
 
@@ -1090,9 +1075,7 @@ namespace ScreenTaker.Controllers
                     }
                     if (!accessGranted)
                         return View("Message", new { lang = getLocale() });
-
                     ViewBag.AccessGranted = accessGranted;
-
                     ViewBag.Image = image;
                     if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
                     {
@@ -1112,14 +1095,12 @@ namespace ScreenTaker.Controllers
                     ViewBag.UserAvatarBASE = getUserAvatarBASE();
                     transaction.Commit();                                        
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     transaction.Rollback();
                     return View("Message", new { lang = getLocale() });
                 }
             }
-
-            
             return View("SharedImage", new { lang = getLocale() });
         }
 
@@ -1182,7 +1163,6 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.Image = _entities.Images.ToList().First();
             }
-            
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1235,7 +1215,6 @@ namespace ScreenTaker.Controllers
                     };
                     _entities.Folders.Add(newolder);
                     _entities.SaveChanges();
-
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -1462,6 +1441,5 @@ namespace ScreenTaker.Controllers
             ViewBag.Localize = getLocale();
             return File(Request.RawUrl, "image/png");
         }
-
     }
 }

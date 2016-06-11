@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,9 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ScreenTaker.Models;
 using System.Drawing;
-using System.IO;
 using System.Drawing.Imaging;
-using System.Collections.Generic;
 
 
 namespace ScreenTaker.Controllers
