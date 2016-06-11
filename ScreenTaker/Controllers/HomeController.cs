@@ -624,7 +624,9 @@ namespace ScreenTaker.Controllers
             ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+list.First().SharedCode+"_compressed.png" : "";
             ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
             ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
+            if(list.Count>0)
             ViewBag.ImageID = list.First().Id;
+            else ViewBag.ImageID = 0;
         }
         
         public ActionResult Images(string id , string lang = "en")
