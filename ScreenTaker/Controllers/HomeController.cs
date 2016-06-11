@@ -316,12 +316,31 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    var folder = _entities.Folders.Find(folderId);
+                    var userManager = System.Web.HttpContext.Current.GetOwinContext()
+                        .GetUserManager<ApplicationUserManager>();
+                    var user = userManager.FindById(User.Identity.GetUserId<int>());
+                    var group = _entities.PersonGroups.Find(groupId);
+                    if (folder == null || group == null || !SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities))
+                    {
+                        throw new Exception("Image is not accessible");
+                    }
+
                     var result = _entities.GroupShares.FirstOrDefault(w => w.GroupId == groupId && w.FolderId == folderId);
                     if (result != null)
                         _entities.GroupShares.Remove(result);
                     else
                     {
                         GroupShare us = new GroupShare { GroupId = groupId, FolderId = folderId };
+                        var friends = group.GroupMembers;
+                        foreach (var friend in friends)
+                        {
+                            userManager.SendEmail(friend.PersonId, "ScreenTaker shared folder",
+                                String.Format(
+                                    System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/FolderSharing.html")),
+                                    GetSharedFolderLink(folder), user.Email, folder.Name));
+                        }
+
                         _entities.GroupShares.Add(us);
                     }
                     _entities.SaveChanges();
@@ -474,16 +493,36 @@ namespace ScreenTaker.Controllers
         public ActionResult ImageAccessSwitchGroupsAccess(int groupId, int imageId)
         {
             ViewBag.Localize = locale;
+
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
                     var result = _entities.GroupShares.FirstOrDefault(w => w.GroupId == groupId && w.ImageId == imageId);
                     if (result != null)
+                    {
                         _entities.GroupShares.Remove(result);
+                    }
                     else
                     {
-                        GroupShare us = new GroupShare { GroupId = groupId, ImageId = imageId };
+                        var image = _entities.Images.Find(imageId);
+                        var userManager = System.Web.HttpContext.Current.GetOwinContext()
+                            .GetUserManager<ApplicationUserManager>();
+                        var user = userManager.FindById(User.Identity.GetUserId<int>());
+                        var group = _entities.PersonGroups.Find(groupId);
+                        if (image == null || group == null || !SecurityHelper.IsImageEditable(user, image.Folder.Person, image,_entities))
+                        {
+                            throw new Exception("Image is not accessible");
+                        }
+                        GroupShare us = new GroupShare {GroupId = groupId, ImageId = imageId};
+                        var friends = group.GroupMembers;
+                        foreach (var friend in friends)
+                        {
+                            userManager.SendEmail(friend.PersonId, "ScreenTaker shared image",
+                                String.Format(
+                                    System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ImageSharing.html")),
+                                    GetSharedImageLink(image), user.Email, image.Name));
+                        }
                         _entities.GroupShares.Add(us);
                     }
                     _entities.SaveChanges();
