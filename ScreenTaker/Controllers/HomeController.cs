@@ -631,6 +631,27 @@ namespace ScreenTaker.Controllers
         
         public ActionResult Images(string id , string lang = "en")
         {
+            ViewBag.Localize = locale;
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+
+            int folderId;
+            Int32.TryParse(id, out folderId);
+            CurrentFolderId = folderId;
+
+            var folder = _entities.Folders.Find(folderId);
+
+            bool accesGranted = false;
+
+            if (folder != null)
+            {
+                accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);
+            }
+
+            if (!accesGranted)
+            {
+                return RedirectToAction("Welcome");
+            }
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -727,7 +748,6 @@ namespace ScreenTaker.Controllers
             FillImagesViewBag(Int32.Parse(folderId));
             return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
         }
-
         public ActionResult MakeImagePublicOrPrivate(int imageId, string lang = "en")
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
@@ -862,7 +882,7 @@ namespace ScreenTaker.Controllers
             {
                 return View("Message", new { lang = locale });
             }
-        }       
+        }
 
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en", int selectedId = -1)
@@ -1001,6 +1021,28 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                     return View("Message", new { lang = locale });
                 }
+            }
+
+            if (!accessGranted)
+                return View("Message", new { lang = locale });
+
+            ViewBag.AccessGranted = accessGranted;
+
+            ViewBag.Image = image;
+            if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
+            {
+                ViewBag.Image = _entities.Images.ToList().First();
+            }
+            ViewBag.Owner = ViewBag.Image == null ? null : ViewBag.Image.Folder.Person;
+            ViewBag.OriginalPath = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.OriginalPath = GetImagePath(ViewBag.Image.SharedCode);
+            }
+            ViewBag.OriginalName = "";
+            if (ViewBag.Image != null)
+            {
+                ViewBag.OriginalName = ViewBag.Image.Name + ".png";
             }
             return View("SharedImage", new { lang = locale });
         }

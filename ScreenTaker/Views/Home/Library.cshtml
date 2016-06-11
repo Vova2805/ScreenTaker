@@ -311,7 +311,7 @@
                         string img_id = "FIM" + i;
                         string sharedLink = ViewBag.SharedLinks[i];
                         string sharedCode = ViewBag.Folders[i].SharedCode;
-                        bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0 : false;
+                        bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0:false;
                         string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
                         if (isFull)
                         {
@@ -329,22 +329,22 @@
                             <script>
                                 document.getElementById("sharedLink").value = @ViewBag.FolderLink;
 
-                                document.getElementById("sharedLinkhidden").value = '@sharedCode';
-                                document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
-                                document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
+                            document.getElementById("sharedLinkhidden").value = '@sharedCode';
+                            document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
+                            document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
 
-                                document.getElementById("folderImage").src = '@imageLink';
-                                document.getElementById("folderTitle").innerText = '@ViewBag.Folders[i].Name';
-                                document.getElementById("sharedLinkhidden").value = '@sharedCode';
-                                document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
-                                document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
+                            document.getElementById("folderImage").src = '@imageLink';
+                            document.getElementById("folderTitle").innerText = '@ViewBag.Folders[i].Name';
+                            document.getElementById("sharedLinkhidden").value = '@sharedCode';
+                            document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
+                            document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
 
-                                document.getElementById("RenameButton").disabled = true;
-                                document.getElementById("DeleteButton").disabled = true;
-                                document.getElementById("OpenButton").disabled = true;
-                                document.getElementById("MakePublicButton").disabled = true;
-                                document.getElementById("ManageAccessButton").disabled = true;
-                                document.getElementById("sharedLink").disabled = true;
+                            document.getElementById("RenameButton").disabled = true;
+                            document.getElementById("DeleteButton").disabled = true;
+                            document.getElementById("OpenButton").disabled = true;
+                            document.getElementById("MakePublicButton").disabled = true;
+                            document.getElementById("ManageAccessButton").disabled = true;
+                            document.getElementById("sharedLink").disabled = true;
                             </script>
                         }
                         <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
