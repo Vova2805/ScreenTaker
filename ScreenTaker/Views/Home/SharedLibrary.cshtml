@@ -34,8 +34,8 @@
         ShowProgress();
     });
 
-    function openFolder(i) {
-        location.href = ViewBag.FolderLinkBASE + i;
+    function openFolder(i,base) {
+        location.href = base + i;
         return false;
     }
 
@@ -92,7 +92,7 @@
                             "<div class='popover' role='tooltip' style=\"width:500px;\"><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"word-wrap: break-word;vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
 
                             <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
-                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
+                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;"
                                      onclick="selectFolder('@folder_id','@count')">
                                 <figure class="@classes" id="@folder_id">
                                     <img src="@imageLink" />
@@ -103,8 +103,9 @@
                         else
                         {
                             imageLink += ".png";
-                            <button class="transparent-btn" ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
-                                    onclick="selectFolder('@folder_id','@count')">
+                            <button class="transparent-btn" 
+                                  ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;"
+                                  onclick="selectFolder('@folder_id','@count')">
                                 <figure class="@classes" id="@folder_id">
                                     <img src="@imageLink" />
                                     <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>

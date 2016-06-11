@@ -42,7 +42,7 @@
                 string a = isPublic;
             }
             <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
-                 ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
+                 ondblclick="openFolder('@ViewBag.Folders[i].Id','@ViewBag.FolderLinkBASE')" style="cursor:pointer;">
                 <figure class="@classes" id="@folder_id">
                     <img src="@imageLink" id="img_id" />
                     <figcaption class="text-center text-overflowed" >@FolderTitle</figcaption>

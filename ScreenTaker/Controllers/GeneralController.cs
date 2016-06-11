@@ -11,7 +11,6 @@ namespace ScreenTaker.Controllers
 {
     public abstract class GeneralController : Controller
     {
-        public static string locale = "en";
         public GeneralController()
         {
             var _entities = new ScreenTakerEntities();
@@ -106,5 +105,15 @@ namespace ScreenTaker.Controllers
             return GetBaseUrl() + "Home/SharedFolder?f=" + code;
         }
 
+        protected string GetSingleImageLink(string code)
+        {
+            return GetBaseUrl() + "Home/SingleImage?image=" + code;
+        }
+
+        protected string getLocale()
+        {
+            var temp = Session["Locale"];
+            return temp!=null?temp.ToString():"en";
+        }
     }
 }

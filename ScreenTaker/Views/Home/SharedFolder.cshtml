@@ -25,8 +25,8 @@
 @section Scripts {
     <script>
         $('[data-toggle="popover"]').popover()
-        function openImage(path) {
-            location.href = ViewBag.SharedImageBASE + path;
+        function openImage(path,base) {
+            location.href = base + path;
             return false;
         }
         function selectImage( image_id, count) {
@@ -76,7 +76,7 @@
                     "<div class='popover' role='tooltip' style=\"width:500px;\"><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"word-wrap: break-word;vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
 
                     <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
-                            ondblclick="openImage('@original')" style="cursor:pointer;"
+                            ondblclick="openImage('@original','@ViewBag.SharedImageBASE')" style="cursor:pointer;"
                             onclick="selectImage('@image_id','@count')">
                             <figure class="@classes" id="@image_id">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;margin-top:10px;" class="center-block">

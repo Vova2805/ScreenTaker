@@ -39,7 +39,7 @@
             string IId = ViewBag.ImageID + "";
 
             <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed','@name.Replace("'", "&#039")','@isPublic')"
-                 ondblclick="openImage('@original')" style="cursor:pointer;">
+                 ondblclick="openImage('@original','@ViewBag.SigleImageBASE')" style="cursor:pointer;">
                 <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                     <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                     </div>

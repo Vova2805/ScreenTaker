@@ -78,10 +78,10 @@
         });
 
 
-        function openFolder(i) {
+        function openFolder(i,base) {
             var id = document.getElementById("Idhidden").value;
             if (id != "") i = id;
-            location.href =  ViewBag.FolderLinkBASE + i;
+            location.href =  base + i;
             return false;
         }
 
@@ -348,7 +348,7 @@
                             </script>
                         }
                         <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
-                             ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
+                             ondblclick="openFolder('@ViewBag.Folders[i].Id','@ViewBag.FolderLinkBASE')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
                                 <img src="@imageLink" />
                                 <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
