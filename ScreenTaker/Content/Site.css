@@ -380,7 +380,7 @@ textarea {
 
 @media(max-width:320px ){
     #parent-container {
-        margin-left: 75px;
+        margin-left: 50px;
     }
     #parent-container-img {
         margin-left: 50px;
