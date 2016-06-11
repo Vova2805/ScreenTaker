@@ -4,11 +4,7 @@ function openNav() {
     $('#mySidenav').animate({
         width: "200px",
         opacity: "1"
-    }, 50).promise().done(function () {
-        $('#main').animate({
-            marginRight: "200px"
-        }, 200);
-    });
+    }, 50).promise().done();
 
     document.getElementById("openSideMenu").style.disabled = true;
     document.getElementById("openSideMenu").style.backgroundColor = "#AAAAAA";
@@ -20,11 +16,7 @@ function closeNav() {
     $('#mySidenav').animate({
         width: "0px",
         opacity: "0"
-    }, 200).promise().done(function () {
-        $('#main').animate({
-            marginRight: "0px"
-        }, 200);
-    });
+    }, 200).promise().done();
 
     document.getElementById("openSideMenu").style.disabled = false;
     document.getElementById("openSideMenu").style.backgroundColor = "white";
