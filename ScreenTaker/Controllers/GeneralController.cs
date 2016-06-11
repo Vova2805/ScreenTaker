@@ -56,7 +56,11 @@ namespace ScreenTaker.Controllers
 
         protected string getUserAvatar(string code)
         {
-           return GetBaseUrl() + "avatars/" + code + ".png";
+           return getUserAvatarBASE() + code + ".png";
+        }
+        protected string getUserAvatarBASE()
+        {
+            return GetBaseUrl() + "avatars/";
         }
         protected string GetImagePath(string code)
         {

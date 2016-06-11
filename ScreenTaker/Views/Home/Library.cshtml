@@ -327,7 +327,7 @@
                             ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
                             ViewBag.FolderLink = ViewBag.SharedLinks[i];
                             <script>
-                                document.getElementById("sharedLink").value = @ViewBag.FolderLink;
+                            document.getElementById("sharedLink").value = @ViewBag.FolderLink;
 
                             document.getElementById("sharedLinkhidden").value = '@sharedCode';
                             document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';

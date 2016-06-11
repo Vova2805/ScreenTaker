@@ -29,8 +29,8 @@
         foreach (var i in ViewBag.Images)
         {
             string original = i.SharedCode;
-            string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-            string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+            string sharedLink1 = ViewBag.SharedImageBASE + original;
+            string compressed = ViewBag.ImageLinkBASE + i.SharedCode + "_compressed.png";
             string name = i.Name;
             string classes = "floating-box text-center task active images";
             string image_id = "IMD" + index;

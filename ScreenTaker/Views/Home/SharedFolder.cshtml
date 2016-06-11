@@ -8,9 +8,9 @@
 
     if (!ViewBag.IsEmpty)
     {
-        ShareLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + ViewBag.Images[0].SharedCode;
-        CommpressedLink = ViewBag.BASE_URL + "img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
-        Name = ViewBag.Images[0].Name + ".png";
+        ShareLink = ViewBag.SharedImageBASE + ViewBag.Images[0].SharedCode;
+        CommpressedLink = ViewBag.ImagePathBASE + ViewBag.Images[0].SharedCode + "_compressed.png";
+        Name = ViewBag.Images[0].Name;
     }
     if (!Request.QueryString["lang"].IsEmpty())
     {
@@ -26,7 +26,7 @@
     <script>
         $('[data-toggle="popover"]').popover()
         function openImage(path) {
-            location.href = "/Home/SharedImage?i=" + path;
+            location.href = ViewBag.SharedImageBASE + path;
             return false;
         }
         function selectImage( image_id, count) {
@@ -61,15 +61,15 @@
                 foreach (var i in ViewBag.Images)
                 {
                     string original = i.SharedCode;
-                    string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                    string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+                    string sharedLink = ViewBag.SharedImageBASE + original;
+                    string compressed = ViewBag.ImagePathBASE + i.SharedCode + "_compressed.png";
                     string isPublic = i.IsPublic + "";
                     string classes = "floating-box text-center task active images";
                     string name = i.Name;
                     string image_id = "IMD" + index;
                     string temp = ((ViewBag.Owners[index] != null && ViewBag.Owners[index].AvatarFile != null) ? (ViewBag.Owners[index].AvatarFile) : "user");
 
-                    string AvatarPath = ViewBag.BASE_URL + "avatars/" +temp+"_50.png";
+                    string AvatarPath = ViewBag.UserAvatarBASE + temp+"_50.png";
                     string OwnerEmail = ViewBag.Owners[index].Email;
                     string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                     string popover_template =

@@ -143,6 +143,7 @@ namespace ScreenTaker.Controllers
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
             ViewBag.Localize = locale;
             ViewBag.Message = "Library page";
+            ViewBag.FolderLinkBASE = GetFolderLink("");
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
@@ -176,7 +177,6 @@ namespace ScreenTaker.Controllers
                 ViewBag.MessageContent = TempData["MessageContent"];
                 ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
             }
-            ViewBag.FolderLinkBASE = GetFolderLink("");
             return View();
         }
 
@@ -524,6 +524,7 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
+            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }      
 
@@ -531,7 +532,8 @@ namespace ScreenTaker.Controllers
         {
             ViewBag.Localize = locale;
             ViewBag.Message = "Library page";
-
+            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
+            ViewBag.UserAvatarBASE = getUserAvatarBASE();
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
@@ -573,6 +575,7 @@ namespace ScreenTaker.Controllers
 
             ViewBag.UserId = user.Id;
             ViewBag.BASE_URL = GetBaseUrl() + "";
+            ViewBag.FolderLinkBASE =  GetSharedFolderLink("");
 
             return View();
         }
@@ -759,6 +762,8 @@ namespace ScreenTaker.Controllers
                     ViewBag.MessageContent = ex.Message;
                 }
             }
+            ViewBag.ImageLinkBASE = GetImagePathBASE();
+            ViewBag.SharedImageBASE = GetSharedImageLink("");
             return PartialView("PartialImagesChangeState");
         }
 
@@ -844,6 +849,9 @@ namespace ScreenTaker.Controllers
                 }
                 ViewBag.BASE_URL = GetBaseUrl();
                 ViewBag.AccessGranted = accessGranted;
+                ViewBag.SharedImageBASE = GetSharedImageLink("");
+                ViewBag.ImagePathBASE = GetImagePathBASE();
+                ViewBag.UserAvatarBASE = getUserAvatarBASE();
                 if (accessGranted)
                 {
                     ViewBag.IsEmpty = !images.Any();
@@ -1017,6 +1025,7 @@ namespace ScreenTaker.Controllers
                     {
                         ViewBag.OriginalName = ViewBag.Image.Name + ".png";
                     }
+                    ViewBag.UserAvatarBASE = getUserAvatarBASE();
                     transaction.Commit();                                        
                 }
                 catch (Exception ex)
@@ -1066,6 +1075,8 @@ namespace ScreenTaker.Controllers
                 }
             }
             FillImagesViewBag(CurrentFolderId);
+            ViewBag.ImageLinkBASE = GetImagePathBASE();
+            ViewBag.SharedImageBASE = GetSharedImageLink("");
             if (redirect=="true") return RedirectToAction("Images", new { id = folderId.ToString(), lang = locale });
             else return PartialView("PartialImagesChangeState");
         }
@@ -1172,6 +1183,8 @@ namespace ScreenTaker.Controllers
             FillImagesViewBag(CurrentFolderId);
             if(imageId!=0)
             ViewBag.ImageID = imageId;
+            ViewBag.ImageLinkBASE = GetImagePathBASE();
+            ViewBag.SharedImageBASE = GetSharedImageLink("");
             return PartialView("PartialImagesChangeState");
         }
 
@@ -1221,6 +1234,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.FolderID = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList().First().Id;
+            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }
 
@@ -1253,6 +1267,7 @@ namespace ScreenTaker.Controllers
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.FolderID = folderId;
+            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }
 

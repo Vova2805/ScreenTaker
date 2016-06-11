@@ -35,7 +35,7 @@
     });
 
     function openFolder(i) {
-        location.href = "/Home/SharedFolder?f=" + i;
+        location.href = ViewBag.FolderLinkBASE + i;
         return false;
     }
 
@@ -77,7 +77,7 @@
                     {
                         string classes = "floating-box text-center task active images folder";
                         string folder_id = "FID" + i;
-                        string sharedLink = ViewBag.BASE_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+                        string sharedLink = ViewBag.FolderLinkBASE + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string FolderTitle = ViewBag.Folders[i].Name;
                         string isPublic = ViewBag.Folders[i].IsPublic + "";
@@ -85,7 +85,7 @@
                         if (i > 0)
                         {
                             imageLink += "_shared.png";
-                            string AvatarPath = ViewBag.BASE_URL + "avatars/" + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile+"_50.png") : "user.png");
+                            string AvatarPath = ViewBag.UserAvatarBASE + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile+"_50.png") : "user.png");
                             string OwnerEmail = ViewBag.Owners[i].Email;
                             string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                             string popover_template =
