@@ -255,7 +255,7 @@
                         <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')"
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
-                                <img src="@imageLink"/>
+                                <img src="@imageLink" class="image"/>
                                 <figcaption class="text-center">@FolderTitle</figcaption>
                             </figure>
                         </div>

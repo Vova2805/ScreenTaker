@@ -51,7 +51,7 @@
                 <div class="col-sm-10">
                     @{
                         int flength = ViewBag.FolderName.Length;
-                        int fsize = flength <= 50 ? flength : 50;
+                        int fsize = flength <= 20 ? flength : 20;
                         string fname = ViewBag.FolderName.Substring(0, fsize);
                         ViewBag.FolderName = fname;
                     }
