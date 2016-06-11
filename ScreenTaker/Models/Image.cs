@@ -28,6 +28,7 @@ namespace ScreenTaker.Models
         public string Name { get; set; }
         public Nullable<System.DateTime> PublicationDate { get; set; }
         public int Id { get; set; }
+        public Nullable<int> ServerFolderId { get; set; }
     
         public virtual Folder Folder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -36,5 +37,6 @@ namespace ScreenTaker.Models
         public virtual ICollection<UserShare> UserShares { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ServerFolder ServerFolder { get; set; }
     }
 }

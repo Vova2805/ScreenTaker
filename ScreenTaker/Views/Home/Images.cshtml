@@ -410,7 +410,7 @@
                     {
                         string original = i.SharedCode;
                         string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                        string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+                        string compressed = ViewBag.BASE_URL + "img/" + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
                         string isPublic = i.IsPublic + "";
                         string classes = "floating-box text-center task active images";
                         string name = i.Name;
