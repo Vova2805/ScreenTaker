@@ -62,6 +62,10 @@ namespace ScreenTaker.Controllers
         {
             return GetBaseUrl() + "img/" + code + ".png";
         }
+        protected string GetImagePathBASE()
+        {
+            return GetBaseUrl() + "img/";
+        }
 
         protected string GetImageLink(Image image)
         {
@@ -97,5 +101,6 @@ namespace ScreenTaker.Controllers
         {
             return GetBaseUrl() + "Home/SharedFolder?f=" + code;
         }
+
     }
 }

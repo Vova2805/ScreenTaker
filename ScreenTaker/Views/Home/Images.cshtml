@@ -147,7 +147,7 @@
         }
 
         function openImage(path) {
-            location.href = "/Home/SingleImage?image=" + path;
+            location.href = ViewBag.SharedImageBASE + path;
             return false;
         }
 
@@ -409,8 +409,8 @@
                     foreach (var i in ViewBag.Images)
                     {
                         string original = i.SharedCode;
-                        string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                        string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+                        string sharedLink = ViewBag.SharedImageBASE + original;
+                        string compressed = ViewBag.ImageLinkBASE + i.SharedCode + "_compressed.png";
                         string isPublic = i.IsPublic + "";
                         string classes = "floating-box text-center task active images";
                         string name = i.Name;

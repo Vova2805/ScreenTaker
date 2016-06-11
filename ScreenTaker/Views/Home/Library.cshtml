@@ -81,7 +81,7 @@
         function openFolder(i) {
             var id = document.getElementById("Idhidden").value;
             if (id != "") i = id;
-            location.href = "/Home/Images?id=" + i;
+            location.href =  ViewBag.FolderLinkBASE + i;
             return false;
         }
 

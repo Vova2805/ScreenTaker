@@ -176,6 +176,7 @@ namespace ScreenTaker.Controllers
                 ViewBag.MessageContent = TempData["MessageContent"];
                 ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
             }
+            ViewBag.FolderLinkBASE = GetFolderLink("");
             return View();
         }
 
@@ -666,6 +667,8 @@ namespace ScreenTaker.Controllers
                         ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
                         ViewBag.MessageContent = TempData["MessageContent"];
                     }
+                    ViewBag.SharedImageBASE = GetSharedImageLink("");
+                    ViewBag.ImageLinkBASE = GetImagePathBASE();
                     transaction.Commit();
                 }
                 catch (Exception ex)
