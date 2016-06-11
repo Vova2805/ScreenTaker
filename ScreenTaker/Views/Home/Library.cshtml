@@ -17,7 +17,7 @@
 <link href="@Url.Content("~/Content/themes/base/autocomplete.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/themes/base/theme.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery-ui-1.11.4.min.js")" type="text/javascript"></script>
-    <script>        
+    <script>
         $(function () {
             $("[data-autocomplete-source]").each(function () {
                 var target = $(this);
@@ -61,6 +61,7 @@
         document.getElementById("folderImage").src = '@ViewBag.ImageSrc';
         document.getElementById("folderTitle").innerText = '@ViewBag.FolderTitle';
         document.getElementById("Idhidden").value = '@ViewBag.CurrentFolderId';
+        document.getElementById("sharedLink").value =  '@ViewBag.CurrentFolderSharedLink';
         document.getElementById("sharedLinkhidden").value = '@ViewBag.CurrentFolderShCode';
 
         document.getElementById("new-title").value = '@ViewBag.FolderTitle';
@@ -84,8 +85,9 @@
             return false;
         }
 
-        function selectFolder(id, folder_id, count, name,full_name, sharedLinkValue, sharedCode, image,isPublic) {
+        function selectFolder(id, folder_id, count,full_name, sharedLinkValue, sharedCode, image,isPublic) {
 
+            full_name =  full_name.replace(/&#039/g,"'");
             document.getElementById("sharedLink").value = sharedLinkValue;
 
             document.getElementById("sharedLinkhidden").value = sharedCode;
@@ -94,7 +96,7 @@
             document.getElementById("folderNameDelete").innerText = full_name;
 
             document.getElementById("folderImage").src = image;
-            document.getElementById("folderTitle").innerText = name;
+            document.getElementById("folderTitle").innerText = full_name;
 
             if(isPublic=="False"){
                 public_private = '@Resources.Resource.MAKE_PUBLIC';
@@ -172,7 +174,110 @@
     </script>
 }
 
+<<<<<<< HEAD
 <div class="row main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 655px">
+=======
+<div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.RENAME</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE</label>
+                        <input type="text" class="form-control" id="new-title" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.MAX_NAME_LENGTH">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" 
+                         onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                                url: 'RenameFolder',
+                                data: {
+                                    folderId: document.getElementById('Idhidden').value,
+                                    path: document.getElementById('sharedLinkhidden').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicFoldersArea').html(data);
+                                    $('#RenameFolder').modal('hide');                                    
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
+                                    }  
+                                    
+                                }
+                            });">
+                    @Resources.Resource.SUBMIT
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="DeleteFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_FOLDER</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
+                    </div>
+                    <div class="row">
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="folderNameDelete"></b> @Resources.Resource.FOLDERY ?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
+                <button type="button" class="btn btn-danger btn-not-rounded" 
+                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                                url: 'DeleteFolder',
+                                data: {
+                                    path: document.getElementById('sharedLinkhidden').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicFoldersArea').html(data);
+                                    $('#DeleteFolder').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
+                                    }  
+                                }
+                            });">
+                    @Resources.Resource.YES
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess" style="top:100px" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content" id="accessDynamic" >                        
+        </div>
+    </div>
+</div>
+
+<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 100%">
+>>>>>>> fix-bugs-branch
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 40px;">
@@ -203,17 +308,15 @@
         <div class="row" id="dynamicFoldersArea">
             <div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container">
                 @{
-                    int count = ViewBag.Folders.Count;
-
-                    for (int i = 0; i < ViewBag.Folders.Count; i++)
+                    for (int i = 0; i < ViewBag.Count; i++)
                     {
                         string classes = "floating-box text-center task active images folder";
                         string folder_id = "FID" + i;
                         string img_id = "FIM" + i;
-                        string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+                        string sharedLink = ViewBag.SharedLinks[i];
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0:false;
-                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
+                        string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
                         if (isFull)
                         {
                             imageLink += "_full";
@@ -221,47 +324,48 @@
                         imageLink += ".png";
                         string isPublic = ViewBag.Folders[i].IsPublic+"";
                         string FolderTitle = ViewBag.Folders[i].Name;
-                        int length = FolderTitle.Length;
-                        int size = length <= 20 ? length : 20;
-                        string name = FolderTitle.Substring(0, size);
-                        FolderTitle = name;
 
                         if (i == 0)
                         {
                             FolderTitle = ViewBag.Folders[i].Name;
                             ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
-                            ViewBag.FolderLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+                            ViewBag.FolderLink =ViewBag.SharedLinks[i];
                             <script>
                                 document.getElementById("sharedLink").value = @ViewBag.FolderLink;
 
-                                document.getElementById("sharedLinkhidden").value = '@sharedCode';
-                                document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
-                                document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
+                            document.getElementById("sharedLinkhidden").value = '@sharedCode';
+                            document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
+                            document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
 
-                                document.getElementById("folderImage").src = '@imageLink';
-                                document.getElementById("folderTitle").innerText = '@ViewBag.Folders[i].Name';
-                                document.getElementById("sharedLinkhidden").value = '@sharedCode';
-                                document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
-                                document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
+                            document.getElementById("folderImage").src = '@imageLink';
+                            document.getElementById("folderTitle").innerText = '@ViewBag.Folders[i].Name';
+                            document.getElementById("sharedLinkhidden").value = '@sharedCode';
+                            document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
+                            document.getElementById("new-title").value = '@ViewBag.Folders[i].Name';
 
-                                document.getElementById("RenameButton").disabled = true;
-                                document.getElementById("DeleteButton").disabled = true;
-                                document.getElementById("OpenButton").disabled = true;
-                                document.getElementById("MakePublicButton").disabled = true;
-                                document.getElementById("ManageAccessButton").disabled = true;
-                                document.getElementById("sharedLink").disabled = true;
+                            document.getElementById("RenameButton").disabled = true;
+                            document.getElementById("DeleteButton").disabled = true;
+                            document.getElementById("OpenButton").disabled = true;
+                            document.getElementById("MakePublicButton").disabled = true;
+                            document.getElementById("ManageAccessButton").disabled = true;
+                            document.getElementById("sharedLink").disabled = true;
                             </script>
                         }
-                        <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')"
+                        <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
+<<<<<<< HEAD
                                 <img src="@imageLink"/>
                                 <figcaption class="text-center">@FolderTitle</figcaption>
+=======
+                                <img src="@imageLink" id="img_id"/>
+                                <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
+>>>>>>> fix-bugs-branch
                             </figure>
                         </div>
                     }
                     <script>
-                        for (var i = 0; i < count; i++) {
+                        for (var i = 0; i < ViewBag.Count; i++) {
                             var ID = "FID" + i;
                             document.getElementById(ID).className = classes;
                         }
@@ -275,9 +379,9 @@
         <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
             <div style="height:165px;">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-                <p id="FID_field" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">0</p>
-                <img id="folderImage" src="@ViewBag.ImageSrc" width="128" height="128" alt="Folder is not selected"/>
-                <p id="folderTitle" style="color: #E0E0E0;margin-left:10px;">@ViewBag.FolderTitle</p>
+                <p id="FID_field" class="hidden-field">0</p>
+                <img id="folderImage" src="@ViewBag.ImageSrc" width="128" height="128" style="margin-top:-10px;margin-bottom:0px;" alt="Folder is not selected"/>
+                <p id="folderTitle" class="text-overflowed" style="color: #E0E0E0;margin-left:10px;">@ViewBag.FolderTitle</p>
             </div>
             <hr />
             <div>
@@ -337,15 +441,17 @@
             });">@Resources.Resource.MANAGE_ACCESS</button>
                         </div>
             <hr />
-            <p id="sharedLinkhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse" readonly>@ViewBag.CurrentFolderShCode</p>
-            <p id="Idhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderId</p>
+            <p id="sharedLinkhidden" class="form-control hidden-field">@ViewBag.CurrentFolderShCode</p>
+            <p id="Idhidden" class="form-control hidden-field">@ViewBag.CurrentFolderId</p>
         </div>
     </div>
 </div>
 <br />
 <nav id="context-menu" class="context-menu">
     <ul class="context-menu__items">
-        
+        <li class="context-menu__item">
+            <a href="" class="context-menu__link" id="ContextOpenButton" onclick="$('#OpenButton').click()"> @Resources.Resource.OPEN</a>
+        </li>
         <li class="context-menu__item">
             <a href="" class="context-menu__link" data-target="#RenameFolder" data-toggle="modal" id="ContextRenameButton"> @Resources.Resource.RENAME</a>
         </li>

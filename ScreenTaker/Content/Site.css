@@ -69,6 +69,9 @@ textarea {
 .text-color{
     color:dimgray;
 }
+.p-color{
+    color: #E0E0E0
+}
 
 .footer-text {
     vertical-align: middle; 
@@ -712,6 +715,12 @@ textarea {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.text-overflowed_160{
+    max-width: 160px; 
+}
+.text-overflowed_220{
+    max-width: 160px; 
+}
 
 .transparent-btn:active,
 .transparent-btn:focus {
@@ -739,4 +748,10 @@ textarea {
 .single-image {
     max-width: 800px; 
     max-height: 600px
+.hidden-field{
+    width:0px;
+    height:0px;
+    padding:0px;
+    border:0px;
+    visibility:collapse
 }

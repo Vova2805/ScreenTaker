@@ -79,19 +79,15 @@
                     {
                         string classes = "floating-box text-center task active images folder";
                         string folder_id = "FID" + i;
-                        string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+                        string sharedLink = ViewBag.BASE_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string FolderTitle = ViewBag.Folders[i].Name;
-                        int length = FolderTitle.Length;
-                        int size = length <= 50 ? length : 50;
-                        string name = FolderTitle.Substring(0, size);
                         string isPublic = ViewBag.Folders[i].IsPublic + "";
-                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
-                        FolderTitle = name;
+                        string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
                         if (i > 0)
                         {
                             imageLink += "_shared.png";
-                            string AvatarPath = ViewBag.BaseURL + "avatars/" + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile+"_50.png") : "user.png");
+                            string AvatarPath = ViewBag.BASE_URL + "avatars/" + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile+"_50.png") : "user.png");
                             string OwnerEmail = ViewBag.Owners[i].Email;
                             string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                             string popover_template =
