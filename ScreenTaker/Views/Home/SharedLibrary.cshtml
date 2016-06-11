@@ -39,8 +39,7 @@
         return false;
     }
 
-    function selectFolder(id, folder_id, count, name, full_name, sharedLinkValue, sharedCode, image, isPublic) {
-
+    function selectFolder(folder_id, count) {
         var classes = "floating-box text-center task active images folder";
         for (var i = 0; i < count; i++) {
             var ID = "FID" + i;
@@ -52,7 +51,6 @@
     </script>
 }
 
-@*<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative;  height: 100%">*@
     <div class="col-md-12">
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <h2>@Resources.Resource.SHARED_FOLDERS</h2>
@@ -95,9 +93,9 @@
 
                             <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
                                     ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
-                                    onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')">
+                                     onclick="selectFolder('@folder_id','@count')">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink"/>
+                                    <img src="@imageLink" />
                                     <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
                                 </figure>
                             </button>
@@ -105,11 +103,10 @@
                         else
                         {
                             imageLink += ".png";
-                            <button type="button" class="transparent-btn" 
-                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
-                                    onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')">
+                            <button class="transparent-btn" ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
+                                    onclick="selectFolder('@folder_id','@count')">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink"/>
+                                    <img src="@imageLink" />
                                     <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
                                 </figure>
                             </button>

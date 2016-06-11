@@ -29,7 +29,7 @@
             location.href = "/Home/SharedImage?i=" + path;
             return false;
         }
-        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex, isPublic) {
+        function selectImage( image_id, count) {
             var classes = "floating-box text-center task active images";
             for (var i = 0; i < count; i++) {
                 var ID = "IMD" + i;
@@ -65,11 +65,10 @@
                     string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
                     string isPublic = i.IsPublic + "";
                     string classes = "floating-box text-center task active images";
-                    string without_ex = i.Name;
-                    string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                     string name = i.Name;
                     string image_id = "IMD" + index;
                     string temp = ((ViewBag.Owners[index] != null && ViewBag.Owners[index].AvatarFile != null) ? (ViewBag.Owners[index].AvatarFile) : "user");
+
                     string AvatarPath = ViewBag.BASE_URL + "avatars/" +temp+"_50.png";
                     string OwnerEmail = ViewBag.Owners[index].Email;
                     string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
@@ -78,7 +77,7 @@
 
                     <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
                             ondblclick="openImage('@original')" style="cursor:pointer;"
-                            onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex','@isPublic')">
+                            onclick="selectImage('@image_id','@count')">
                             <figure class="@classes" id="@image_id">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;margin-top:10px;" class="center-block">
                                 </div>
