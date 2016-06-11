@@ -367,14 +367,10 @@ textarea {
 
 @media(max-width:360px ){
     #parent-container {
-        margin-left: 25px;
+        margin-left: 75px;
     }
     #parent-container-img {
         margin-left: 75px;
-    }
-    div .folder {
-        width: 130px;
-        height: 150px; 
     }
     .footer-style {
         padding-left: 17%;
