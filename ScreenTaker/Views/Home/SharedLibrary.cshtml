@@ -84,12 +84,8 @@
                         string sharedLink = ViewBag.BASE_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string FolderTitle = ViewBag.Folders[i].Name;
-                        int length = FolderTitle.Length;
-                        int size = length <= 50 ? length : 50;
-                        string name = FolderTitle.Substring(0, size);
                         string isPublic = ViewBag.Folders[i].IsPublic + "";
                         string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
-                        FolderTitle = name;
                         if (i > 0)
                         {
                             imageLink += "_shared.png";

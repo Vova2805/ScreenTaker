@@ -22,8 +22,7 @@ namespace ScreenTaker.Controllers
     [Authorize]
     public class HomeController : GeneralController
     {
-        private int FolderId;
-        private int current_folder;
+        private int CurrentFolderId;
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
         private ImageCompressor _imageCompressor = new ImageCompressor();
         private RandomStringGenerator _stringGenerator = new RandomStringGenerator()
@@ -581,8 +580,19 @@ namespace ScreenTaker.Controllers
         #endregion
         private void FillImagesViewBag(int folderId)
         {
-            FolderId = folderId;
-            var list = _entities.Images.Where(i => i.FolderId == folderId).ToList();
+            CurrentFolderId = folderId;
+            ViewBag.BASE_URL = GetBaseUrl() + "";
+            ViewBag.Localize = locale;
+            int test = 0;
+            if(Request.UrlReferrer!=null)
+            {
+                var q = HttpUtility.ParseQueryString(Request.UrlReferrer.Query);
+                var a = q["id"];
+                int.TryParse(q["id"], out test);
+            }
+            if (test != 0)
+                CurrentFolderId = test;
+            var list = _entities.Images.Where(i => i.FolderId == CurrentFolderId).ToList();
             ViewBag.Localize = locale;
             ViewBag.IsEmpty = !list.Any();
             ViewBag.Images = list;
@@ -600,30 +610,26 @@ namespace ScreenTaker.Controllers
             if(list.Count>0)
             ViewBag.Count = list.Count+"";
             ViewBag.FolderId = folderId;
-            ViewBag.FirstId = list.Count > 0 ? (list.First().Id+"") : "-1";
-            ViewBag.FirstImageName = list.Count > 0 ? (list.First().Name + ".png"): "";
-            ViewBag.FirstWithoutEx = list.Count > 0 ? (list.First().Name+"") : "";
-            int length = ViewBag.FirstImageName.Length;
-            int size = length <= 15 ? length : 15;
-            string name = ViewBag.FirstImageName.Substring(0, size);
-            ViewBag.FirstImageName = name;
+            ViewBag.FirstId = list.Count > 0 ? (list.First().Id+""):"";
+            ViewBag.FirstImageName = list.Count > 0 ? list.First().Name.Replace("'","#039"): "";
 
             ViewBag.FirstImageId = list.Count > 0 ? list.First().Id:-1;
             ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
             ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+list.First().SharedCode+"_compressed.png" : "";
             ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
             ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
+            ViewBag.ImageID = list.First().Id;
         }
         
-        public ActionResult Images(string id = "-1", string lang = "en")
+        public ActionResult Images(string id , string lang = "en")
         {
             ViewBag.Localize = locale;
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
-            int folderId = -1;
+            int folderId;
             Int32.TryParse(id, out folderId);
-            current_folder = folderId;
+            CurrentFolderId = folderId;
 
             var folder = _entities.Folders.Find(folderId);
 
@@ -646,9 +652,6 @@ namespace ScreenTaker.Controllers
                     var groups = from p in _entities.PersonGroups
                                  where p.PersonId == user.Id
                                  select new { ID = p.Id, Groups = p.Name };
-                    //var flags = from p in _entities.GroupShares
-                    //            where p.FolderId == /*current folderid*/
-                    //            select p;
 
                     if (groups.Any())
                     {
@@ -656,9 +659,6 @@ namespace ScreenTaker.Controllers
                         ViewBag.GroupsIDs = groups.Select(s => s.ID).ToList();
 
                     }
-                    //if (flags.Any())
-                    //    ViewBag.Flags = groups.Select(w=> flags.Select(s=>s.GroupId).Contains(w.ID)?"Allowed": "Denied").ToList();
-
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -752,12 +752,12 @@ namespace ScreenTaker.Controllers
                     {
                         ViewBag.ImageID = imageId;
                         ViewBag.ImageIsPublic = image.IsPublic + "";
-                        FillImagesViewBag(current_folder);
+                        FillImagesViewBag(CurrentFolderId);
                         if (!image.Folder.IsPublic)
                             throw new Exception(Resources.Resource.ERR_PUBLIC_IN_PRIVATE);
                         image.IsPublic = !image.IsPublic;
                         ViewBag.ImageIsPublic = image.IsPublic + "";
-                        FillImagesViewBag(current_folder);
+                        FillImagesViewBag(CurrentFolderId);
                     }                                        
                     _entities.SaveChanges();                    
                     transaction.Commit();                    
@@ -788,7 +788,7 @@ namespace ScreenTaker.Controllers
                     }
                     _entities.SaveChanges();
                     transaction.Commit();
-                    FillImagesViewBag(current_folder);
+                    FillImagesViewBag(CurrentFolderId);
                     ViewBag.ImageID = imageId;
                     ViewBag.ImageIsPublic = image.IsPublic + "";
                     return Json("", JsonRequestBehavior.AllowGet);
@@ -922,14 +922,6 @@ namespace ScreenTaker.Controllers
             if (ViewBag.Image != null)
             {
                 ViewBag.ImageIsPublic = ViewBag.Image.IsPublic + "";
-            }
-            ViewBag.OriginalNameWithoutEx = "";
-            if (ViewBag.Image != null)
-            {
-                int length = ViewBag.Image.Name.Length;
-                int size = length <= 15 ? length : 15;
-                string name = ViewBag.Image.Name.Substring(0, size);
-                ViewBag.OriginalNameWithoutEx = name;
             }
             ViewBag.ImageTitle = "";
             if (ViewBag.Image != null)
@@ -1087,14 +1079,8 @@ namespace ScreenTaker.Controllers
                     ViewBag.MessageContent = ex.Message;
                 }
             }
-            var list = _entities.Images.Where(i => i.FolderId == FolderId).ToList();
-            if (list.Count > 0)
-                ViewBag.ImageID = list.First().Id;
-            else ViewBag.ImageID = -1;
-            ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.IsEmpty = !list.Any();
-            ViewBag.Images = list;
-            if(redirect=="true") return RedirectToAction("Images", new { id = folderId.ToString(), lang = locale });
+            FillImagesViewBag(CurrentFolderId);
+            if (redirect=="true") return RedirectToAction("Images", new { id = folderId.ToString(), lang = locale });
             else return PartialView("PartialImagesChangeState");
         }
 
@@ -1129,58 +1115,8 @@ namespace ScreenTaker.Controllers
                     ViewBag.MessageContent = ex.Message;
                 }
             }
-            if (ViewBag.Image != null)
-            {
-                ViewBag.FolderName = ViewBag.Image.Folder.Name;
-                ViewBag.FolderLink = GetFolderLink(ViewBag.Image.FolderId.ToString());
-            }
-
-            ViewBag.OriginalPath = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.OriginalPath = GetImagePath(ViewBag.Image.SharedCode);
-            }
-            if (ViewBag.Image != null)
-            {
-                ViewBag.ImageSharedCode = ViewBag.Image.SharedCode;
-            }
-
-            ViewBag.OriginalName = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.OriginalName = ViewBag.Image.Name + ".png";
-            }
-            ViewBag.OriginalNameWithoutEx = "";
-            if (ViewBag.Image != null)
-            {
-                int length = ViewBag.Image.Name.Length;
-                int size = length <= 15 ? length : 15;
-                string name = ViewBag.Image.Name.Substring(0, size);
-                ViewBag.OriginalNameWithoutEx = name;
-            }
-            ViewBag.ImageTitle = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.ImageTitle = ViewBag.Image.Name;
-            }
-
-            ViewBag.Date = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.Date = ViewBag.Image.PublicationDate;
-            }
-
-            ViewBag.IsPublic = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.IsPublic = ViewBag.Image.IsPublic;
-            }
-
-            ViewBag.Id = "";
-            if (ViewBag.Image != null)
-            {
-                ViewBag.Id = ViewBag.Image.Id;
-            }
+            FillImagesViewBag(CurrentFolderId);
+             
             return PartialView("SingleImageChangeState");
         }
 
@@ -1222,13 +1158,8 @@ namespace ScreenTaker.Controllers
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            var list = _entities.Images.Where(i => i.FolderId == FolderId).ToList();
-            ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.Localize = locale;
-            ViewBag.IsEmpty = !list.Any();
-            ViewBag.Images = list;
-            ViewBag.Localize = locale;
             int folderId = 0;
+            int imageId = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1241,6 +1172,7 @@ namespace ScreenTaker.Controllers
                     if (obj == null)                   
                         throw new Exception("Path in invalid");
                     obj.Name = newName;
+                    imageId = obj.Id;
                     folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedCode).FolderId;
                     _entities.SaveChanges();
                     transaction.Commit();
@@ -1251,6 +1183,9 @@ namespace ScreenTaker.Controllers
                     ViewBag.MessageContent = ex.Message;
                 }
             }
+            FillImagesViewBag(CurrentFolderId);
+            if(imageId!=0)
+            ViewBag.ImageID = imageId;
             return PartialView("PartialImagesChangeState");
         }
 

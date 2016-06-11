@@ -297,7 +297,7 @@
     </div>
 </div>
 
-<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 655px">
+<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 100%">
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 40px;">
@@ -344,10 +344,6 @@
                         imageLink += ".png";
                         string isPublic = ViewBag.Folders[i].IsPublic+"";
                         string FolderTitle = ViewBag.Folders[i].Name;
-                        //int length = FolderTitle.Length;
-                        //int size = length <= 20 ? length : 20;
-                        //string name = FolderTitle.Substring(0, size);
-                        //FolderTitle = name;
 
                         if (i == 0)
                         {
@@ -379,7 +375,7 @@
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
                                 <img src="@imageLink" id="img_id"/>
-                                <figcaption class="text-center">@FolderTitle</figcaption>
+                                <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
                             </figure>
                         </div>
                     }
@@ -398,9 +394,9 @@
         <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
             <div style="height:165px;">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
-                <p id="FID_field" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">0</p>
-                <img id="folderImage" src="@ViewBag.ImageSrc" width="128" height="128" alt="Folder is not selected"/>
-                <p id="folderTitle" style="color: #E0E0E0;margin-left:10px;">@ViewBag.FolderTitle</p>
+                <p id="FID_field" class="hidden-field">0</p>
+                <img id="folderImage" src="@ViewBag.ImageSrc" width="128" height="128" style="margin-top:-10px;margin-bottom:0px;" alt="Folder is not selected"/>
+                <p id="folderTitle" class="text-overflowed" style="color: #E0E0E0;margin-left:10px;">@ViewBag.FolderTitle</p>
             </div>
             <hr />
             <div>
@@ -460,15 +456,17 @@
             });">@Resources.Resource.MANAGE_ACCESS</button>
                         </div>
             <hr />
-            <p id="sharedLinkhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse" readonly>@ViewBag.CurrentFolderShCode</p>
-            <p id="Idhidden" class="form-control" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.CurrentFolderId</p>
+            <p id="sharedLinkhidden" class="form-control hidden-field">@ViewBag.CurrentFolderShCode</p>
+            <p id="Idhidden" class="form-control hidden-field">@ViewBag.CurrentFolderId</p>
         </div>
     </div>
 </div>
 <br />
 <nav id="context-menu" class="context-menu">
     <ul class="context-menu__items">
-        
+        <li class="context-menu__item">
+            <a href="" class="context-menu__link" id="ContextOpenButton" onclick="$('#OpenButton').click()"> @Resources.Resource.OPEN</a>
+        </li>
         <li class="context-menu__item">
             <a href="" class="context-menu__link" data-target="#RenameFolder" data-toggle="modal" id="ContextRenameButton"> @Resources.Resource.RENAME</a>
         </li>

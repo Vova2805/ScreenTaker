@@ -91,7 +91,7 @@
                  ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                 <figure class="@classes" id="@folder_id">
                     <img src="@imageLink" id="img_id" />
-                    <figcaption class="text-center">@FolderTitle</figcaption>
+                    <figcaption class="text-center text-overflowed" >@FolderTitle</figcaption>
                 </figure>
             </div>
             if (id == fId)

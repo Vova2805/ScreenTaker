@@ -49,12 +49,6 @@
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <div class="row">
                 <div class="col-sm-10">
-                    @{
-                        int flength = ViewBag.FolderName.Length;
-                        int fsize = flength <= 50 ? flength : 50;
-                        string fname = ViewBag.FolderName.Substring(0, fsize);
-                        ViewBag.FolderName = fname;
-                    }
                     <h2>@ViewBag.FolderName</h2>
                 </div>
             </div>
@@ -73,11 +67,8 @@
                     string classes = "floating-box text-center task active images";
                     string without_ex = i.Name;
                     string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                    string name = i.Name + ".png";
-                    int length = name.Length;
-                    int size = length <= 15 ? length : 15;
+                    string name = i.Name;
                     string image_id = "IMD" + index;
-                    name = name.Substring(0, size);
                     string temp = ((ViewBag.Owners[index] != null && ViewBag.Owners[index].AvatarFile != null) ? (ViewBag.Owners[index].AvatarFile) : "user");
                     string AvatarPath = ViewBag.BASE_URL + "avatars/" +temp+"_50.png";
                     string OwnerEmail = ViewBag.Owners[index].Email;

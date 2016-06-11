@@ -60,7 +60,7 @@ namespace ScreenTaker.Controllers
         }
         protected string GetImagePath(string code)
         {
-            return GetBaseUrl() + "img" + code + ".png";
+            return GetBaseUrl() + "img/" + code + ".png";
         }
 
         protected string GetImageLink(Image image)

@@ -46,6 +46,11 @@
         document.getElementById("ManageAccessButton").disabled = true;
         document.getElementById("MakePublicButton").disabled = true;
         document.getElementById("sharedLink").disabled = true;
+        document.getElementById("sharedLink").value = "";
+        document.getElementById("new-title").value = "";
+        document.getElementById("imageNameDelete").innerText = "";
+        document.getElementById("compressedLink").src = "";
+        document.getElementById("compressedName").innerText = "";
 
         document.getElementById("IMD0").className += " active-image";
         document.getElementById("RenameButton").disabled = false;
@@ -55,24 +60,24 @@
         document.getElementById("ManageAccessButton").disabled = false;
         document.getElementById("MakePublicButton").disabled = false;
         document.getElementById("sharedLink").disabled = false;
+        var title = '@ViewBag.FirstImageName';
+        var name = title.replace(/#039/g,"'");
         document.getElementById("original").value = '@ViewBag.FirstImageShCode';
         document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
         document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
-        document.getElementById("compressedName").innerText =  '@ViewBag.FirstImageName';
+        document.getElementById("compressedName").innerText = name;
+        document.getElementById("new-title").value = name;
+        document.getElementById("imageNameDelete").innerText = name;
 
         document.getElementById("sharedLinkhidden").value = '@ViewBag.FirstImageShCode';
         document.getElementById("Idhidden").value = '@ViewBag.FirstId';
-        document.getElementById("new-title").value =  '@ViewBag.FirstWithoutEx';
-        document.getElementById("imageNameDelete").innerText = '@ViewBag.FirstWithoutEx';
         var public_private = '@Resources.Resource.MAKE_PRIVATE';
         if('@ViewBag.ImageIsPublic'=="False")public_private = '@Resources.Resource.MAKE_PUBLIC';
         document.getElementById("MakePublicButton").innerText = public_private;
 
-        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, without_ex,isPublic) {
-            var classes = "floating-box text-center task active images";
-
+        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name,isPublic) {
             name =  name.replace(/&#039/g,"'");
-
+            var classes = "floating-box text-center task active images";
             document.getElementById("original").value = original;
             document.getElementById("sharedLink").value = sharedLink;
             document.getElementById("compressedLink").src = compressed;
@@ -80,8 +85,8 @@
 
             document.getElementById("sharedLinkhidden").value = sharedCode;
             document.getElementById("Idhidden").value = id;
-            document.getElementById("new-title").value = without_ex;
-            document.getElementById("imageNameDelete").innerText = without_ex;
+            document.getElementById("new-title").value = name;
+            document.getElementById("imageNameDelete").innerText = name;
             for (var i = 0; i < count; i++) {
                 var ID = "IMD" + i;
                 document.getElementById(ID).className = classes;
@@ -168,7 +173,6 @@
                 $("#sizing-addon2").disabled = false;
             }
         }
-
     </script>
 }
 
@@ -351,16 +355,10 @@
     </div>
 </div>
 
-<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
+<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 100%">
     <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-6" style="padding-left: 40px;">
-                    @{
-                        int flength = ViewBag.FolderName.Length;
-                        int fsize = flength <= 50 ? flength : 50;
-                        string fname = ViewBag.FolderName.Substring(0, fsize);
-                        ViewBag.FolderName = fname;
-                    }
                     <h2>@ViewBag.FolderName</h2>
                 </div>
                 <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
@@ -413,10 +411,6 @@
                         string original = i.SharedCode;
                         string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
                         string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
-                        //string name = i.Name;
-                        //int length = name.Length;
-                        //int size = length <= 15 ? length : 15;
-                        //name = name.Substring(0, size);
                         string isPublic = i.IsPublic + "";
                         string classes = "floating-box text-center task active images";
                         string name = i.Name;
@@ -426,7 +420,8 @@
                                 document.getElementById("original").value = original;
                                 document.getElementById("sharedLinkhidden").value = @i.SharedCode;
                                 document.getElementById("Idhidden").value = @i.Id;
-                                document.getElementById("new-title").value = without_ex;
+                                document.getElementById("new-title").value = name;
+                                document.getElementById("compressedName").innerText = name;
                             </script>
                         }
                         string image_id = "IMD" + index;
@@ -436,7 +431,7 @@
                             <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                                 </div>
-                                <label class="text-center">@name</label>
+                                <label class="text-center text-overflowed text-overflowed_160">@name</label>
                             </div>
                         </div>
                         index = index + 1;
@@ -450,8 +445,8 @@
             <div style="width:100%;height:135px;">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
                 <input type="text" class="hidden" id="original" value="@ViewBag.FirstImageShCode" />
-                <img src="@ViewBag.FirstImageSrc" id="compressedLink" alt="Image is not found or not selected" style="max-width:145px;max-height:128px;" />
-                <p id="compressedName" style="color: #E0E0E0">@ViewBag.FirstImageName</p>
+                <img src="@ViewBag.FirstImageSrc" id="compressedLink" alt="Image is not found or not selected" style="max-width:145px;max-height:128px;margin-top:30px;" />
+                <br/><label id="compressedName" class="text-overflowed text-overflowed_160 p-color" style="min-width:50px;">@ViewBag.FirstImageName</label>
             </div>
             <hr />
             <div>
@@ -515,14 +510,17 @@
                          >@Resources.Resource.MANAGE_ACCESS</button>
             </div>
             <hr />
-            <p id="sharedLinkhidden" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse" readonly="readonly">@ViewBag.FirstImageShCode</p>
-            <p id="Idhidden" style="width:0px;height:0px;padding:0px;border:0px;visibility:collapse">@ViewBag.FirstImageId</p>
+            <p id="sharedLinkhidden" class="hidden-field" readonly="readonly">@ViewBag.FirstImageShCode</p>
+            <p id="Idhidden" class="hidden-field">@ViewBag.FirstImageId</p>
         </div>
     </div>
 </div>
 
 <nav id="context-menu" class="context-menu">
     <ul class="context-menu__items">
+        <li class="context-menu__item">
+            <a href="#" class="context-menu__link" onclick="$('#OpenButton').click()"> @Resources.Resource.OPEN</a>
+        </li>
         <li class="context-menu__item">
             <a href="#" class="context-menu__link" data-target="#MoveImage" data-toggle="modal"> @Resources.Resource.MOVE</a>
         </li>
