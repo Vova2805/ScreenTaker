@@ -817,7 +817,7 @@ textarea {
 }
 .navigation-closed{
     margin-left:25px;
-    padding-right:15px;
+    padding-right:0px;
 }
 .navigation-open{
     margin-left:25px;
