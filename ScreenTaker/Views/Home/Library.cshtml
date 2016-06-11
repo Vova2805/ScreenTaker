@@ -171,131 +171,8 @@
         }
     </script>
 }
-<div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.NEW_FOLDER</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="new-title" class="control-label">@Resources.Resource.NEW_FOLDER_TITLE</label>
-                        <input type="text" class="form-control" id="new-title1" value="New folder">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="$('#loadingAnimation').css('visibility', 'visible');$('#AddFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">@Resources.Resource.ADD</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.RENAME</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE</label>
-                        <input type="text" class="form-control" id="new-title" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.MAX_NAME_LENGTH">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" 
-                         onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                url: 'RenameFolder',
-                                data: {
-                                    folderId: document.getElementById('Idhidden').value,
-                                    path: document.getElementById('sharedLinkhidden').value,
-                                    newName:document.getElementById('new-title').value
-                                },
-                                success: function (data) {
-                                    $('#dynamicFoldersArea').html(data);
-                                    $('#RenameFolder').modal('hide');                                    
-                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
-                                    {
-                                        $('#Message').modal('show');
-                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
-                                    }  
-                                    
-                                }
-                            });">
-                    @Resources.Resource.SUBMIT
-            </button>
-        </div>
-    </div>
-</div>
-</div>
-
-<div class="modal fade" id="DeleteFolder" tabindex="-1" role="dialog" style="top:200px">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_FOLDER</h4>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
-                    </div>
-                    <div class="row">
-                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="folderNameDelete"></b> @Resources.Resource.FOLDERY ?</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
-                <button type="button" class="btn btn-danger btn-not-rounded" 
-                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                url: 'DeleteFolder',
-                                data: {
-                                    path: document.getElementById('sharedLinkhidden').value,
-                                    newName:document.getElementById('new-title').value
-                                },
-                                success: function (data) {
-                                    $('#dynamicFoldersArea').html(data);
-                                    $('#DeleteFolder').modal('hide');
-                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
-                                    {
-                                        $('#Message').modal('show');
-                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
-                                    }  
-                                }
-                            });">
-                    @Resources.Resource.YES
-            </button>
-        </div>
-    </div>
-</div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess" style="top:100px" >
-    <div class="modal-dialog" role="document" >
-        <div class="modal-content" id="accessDynamic" >                        
-        </div>
-    </div>
-</div>
-
-<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 655px">
+<div class="row main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 655px">
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 40px;">
@@ -378,7 +255,7 @@
                         <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')"
                            ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
-                                <img src="@imageLink" id="img_id"/>
+                                <img src="@imageLink"/>
                                 <figcaption class="text-center">@FolderTitle</figcaption>
                             </figure>
                         </div>
@@ -509,6 +386,130 @@
         </li>
     </ul>
 </nav>
+
+<div class="modal fade" id="AddFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.NEW_FOLDER</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">@Resources.Resource.NEW_FOLDER_TITLE</label>
+                        <input type="text" class="form-control" id="new-title1" value="New folder">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" onclick="$('#loadingAnimation').css('visibility', 'visible');$('#AddFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">@Resources.Resource.ADD</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="RenameFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.RENAME</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE</label>
+                        <input type="text" class="form-control" id="new-title" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.MAX_NAME_LENGTH">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
+                <button type="button" class="btn btn-primary btn-not-rounded"
+                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                                url: 'RenameFolder',
+                                data: {
+                                    folderId: document.getElementById('Idhidden').value,
+                                    path: document.getElementById('sharedLinkhidden').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicFoldersArea').html(data);
+                                    $('#RenameFolder').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
+                                    }
+
+                                }
+                            });">
+                    @Resources.Resource.SUBMIT
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteFolder" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_FOLDER</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
+                    </div>
+                    <div class="row">
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="folderNameDelete"></b> @Resources.Resource.FOLDERY ?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
+                <button type="button" class="btn btn-danger btn-not-rounded"
+                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                                url: 'DeleteFolder',
+                                data: {
+                                    path: document.getElementById('sharedLinkhidden').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicFoldersArea').html(data);
+                                    $('#DeleteFolder').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
+                                    }
+                                }
+                            });">
+                    @Resources.Resource.YES
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess" style="top:100px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="accessDynamic">
+        </div>
+    </div>
+</div>
 
 <script src="~/Scripts/context-menu.js"></script>
 <script src="~/Scripts/Site.js"></script>

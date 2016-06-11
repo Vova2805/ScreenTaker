@@ -169,186 +169,7 @@
     </script>
 }
 
-<div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.RENAME</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE_IMAGE</label>
-                        <input type="text" class="form-control" id="new-title" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.MAX_NAME_LENGTH">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" 
-                         onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                url: '@Url.Action("RenameImageOutside","Home")',
-                                data: {
-                                    path: document.getElementById('original').value,
-                                    newName:document.getElementById('new-title').value
-                                },
-                                success: function (data) {
-                                    $('#dynamicImagesArea').html(data);
-                                    $('#RenameImage').modal('hide');
-                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
-                                    {
-                                        $('#Message').modal('show');
-                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
-                                    }    
-                                }
-                            });">
-                @Resources.Resource.SUBMIT</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="DeleteImage" tabindex="-1" role="dialog" style="top:200px">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_IMAGE</h4>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
-                    </div>
-                    <div class="row">
-                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="imageNameDelete"></b> @Resources.Resource.IMAGEY?</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
-                <button type="button" class="btn btn-danger btn-not-rounded"
-                         onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                url: '@Url.Action("DeleteImage","Home")',
-                                data: {
-                                    path: document.getElementById('original').value
-                                },
-                                success: function (data) {
-                                    $('#dynamicImagesArea').html(data);
-                                    $('#DeleteImage').modal('hide');
-                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
-                                    {
-                                        $('#Message').modal('show');
-                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
-                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';                                                                                      
-                                    }                                        
-                                }
-                            });">
-                    @Resources.Resource.YES
-                </button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="MoveImage" tabindex="-1" role="dialog" style="top:150px;">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width:500px;">
-                <div class="modal-header">
-                    <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.MOVE_IMAGE</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="input-group">
-                                    <input type="text" id="filter" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" aria-label="Left Align">
-                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top:10px;">
-                            <div class="col-sm-12">
-                                <div class="list-group searchable" style="height:auto;height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">                                                                    
-                                    @if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
-                                    {
-                                        for (int i = 0; i < ViewBag.UserFolders.Count; i++)
-                                        {
-                                            string folderTitle = ViewBag.UserFolders[i].Name;
-                                        <div class="list-group-item" title="@folderTitle">
-                                            <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">@folderTitle</h5>
-                                            </div>
-                                            <div class="media-right" style="vertical-align:middle;">
-                                                <button type="button" class="btn right btn-primary btn-not-rounded" aria-label="Left Align" onclick=
-                                                        "location.href='@Url.Action("MoveItMoveIt","Home",new {folderId=ViewBag.UserFolders[i].Id})&imageSharedCode='+document.getElementById('original').value">
-                                                    Move here
-                                                </button>
-                                            </div>
-                                        </div>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="newFolderName" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" aria-label="Left Align" onclick=
-                                    "$('#loadingAnimation').css('visibility', 'visible');$.ajax({
-                                        url: '@Url.Action("ImagesMoveCreateFolder","Home")',
-                                        data: {
-                                            name: document.getElementById('newFolderName').value,
-                                            folderId: @ViewBag.FolderId
-                                        },
-                                        success: function (data) {
-                                            $('#areaForFolders').html(data);
-                                            document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
-                                            document.getElementById('areaForFolders').scrollTop = 9999;
-                                        }
-                                    });">
-                                            @Resources.Resource.CREATE
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal" style="width:85px;">
-                        @Resources.Resource.CLOSE
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" id="ImagesAccessDynamic">           
-        </div>
-    </div>
-</div>
-
-<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
+<div class="row main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 675px">
     <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-6" style="padding-left: 40px;">
@@ -401,7 +222,7 @@
             </ol>
         </div>
         <div class="row" id="dynamicImagesArea">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container-img">
                 @{
                     int index = 0;
                     int count = ViewBag.Images.Count;
@@ -563,7 +384,183 @@
         </li>
     </ul>
 </nav>
+<div class="modal fade" id="RenameImage" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.RENAME</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-title" class="control-label">@Resources.Resource.RENAME_TITLE_IMAGE</label>
+                        <input type="text" class="form-control" id="new-title" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.MAX_NAME_LENGTH">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
+                <button type="button" class="btn btn-primary btn-not-rounded"
+                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                                url: '@Url.Action("RenameImageOutside","Home")',
+                                data: {
+                                    path: document.getElementById('original').value,
+                                    newName:document.getElementById('new-title').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicImagesArea').html(data);
+                                    $('#RenameImage').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
+                                    }
+                                }
+                            });">
+                    @Resources.Resource.SUBMIT
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="DeleteImage" tabindex="-1" role="dialog" style="top:200px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.DELETE_IMAGE</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <label class="control-label text-center">@Resources.Resource.SAVE_CHANGES</label>
+                    </div>
+                    <div class="row">
+                        <p class="control-label">@Resources.Resource.WANT_DELETE <b id="imageNameDelete"></b> @Resources.Resource.IMAGEY?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
+                <button type="button" class="btn btn-danger btn-not-rounded"
+                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                                url: '@Url.Action("DeleteImage","Home")',
+                                data: {
+                                    path: document.getElementById('original').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicImagesArea').html(data);
+                                    $('#DeleteImage').modal('hide');
+                                    if(document.getElementById('MessageContentFromPartialChangeState').value!='')
+                                    {
+                                        $('#Message').modal('show');
+                                        document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
+                                        document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
+                                    }
+                                }
+                            });">
+                    @Resources.Resource.YES
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="MoveImage" tabindex="-1" role="dialog" style="top:150px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:500px;">
+            <div class="modal-header">
+                <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.MOVE_IMAGE</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" id="filter" class="form-control" placeholder="@Resources.Resource.SEARCH_FOR">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-sm-12">
+                            <div class="list-group searchable" style="height:auto;height:200px;overflow:auto;border:solid 1px #E0E0E0" id="areaForFolders">
+                                @if (ViewBag.UserFolders != null && ViewBag.UserFolders.Count > 0)
+                                {
+                                    for (int i = 0; i < ViewBag.UserFolders.Count; i++)
+                                    {
+                                        string folderTitle = ViewBag.UserFolders[i].Name;
+                                        <div class="list-group-item" title="@folderTitle">
+                                            <div class="media-body" style="vertical-align:middle">
+                                                <h5 class="media-heading">@folderTitle</h5>
+                                            </div>
+                                            <div class="media-right" style="vertical-align:middle;">
+                                                <button type="button" class="btn right btn-primary btn-not-rounded" aria-label="Left Align" onclick="location.href='@Url.Action("MoveItMoveIt","Home",new {folderId=ViewBag.UserFolders[i].Id})&imageSharedCode='+document.getElementById('original').value">
+                                                    Move here
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="newFolderName" placeholder="Enter new folder's title" value="@Resources.Resource.NEW_FOLDER">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" aria-label="Left Align" onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                                        url: '@Url.Action("ImagesMoveCreateFolder","Home")',
+                                        data: {
+                                            name: document.getElementById('newFolderName').value,
+                                            folderId: @ViewBag.FolderId
+                                        },
+                                        success: function (data) {
+                                            $('#areaForFolders').html(data);
+                                            document.getElementById('newFolderName').value='@Resources.Resource.NEW_FOLDER';
+                                            document.getElementById('areaForFolders').scrollTop = 9999;
+                                        }
+                                    });">
+                                        @Resources.Resource.CREATE
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal" style="width:85px;">
+                    @Resources.Resource.CLOSE
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="ImagesAccessDynamic">
+        </div>
+    </div>
+</div>
 
     <script src="~/Scripts/context-menu.js"></script>
     <script src="~/Scripts/Site.js"></script>
