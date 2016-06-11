@@ -42,10 +42,10 @@
                     string path = "";
                     if (User == null)
                     {
-                        path = Server.MapPath("~/Resources/") + "user.png";
+                        path = Server.MapPath("~/avatars/") + "user_50.png";
                     }
                     else
-                    {
+                    {                       
                         var email = User.Identity.GetUserName();
                         var people = ViewBag.PeopleForMaster;
                         string avatarFile = null;
@@ -62,9 +62,9 @@
                         }
                         else
                         {
-                            path = "~/Resources/user_50.png";
+                            path = "~/avatars/user_50.png";
                         }
-                    }
+                    }                    
                 }
                 <li>
                     <ul class="nav navbar-nav navbar-right">
