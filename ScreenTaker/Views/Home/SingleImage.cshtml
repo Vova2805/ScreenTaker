@@ -266,10 +266,10 @@
         <div class="col-md-12 " id="dynamicSingleImageArea">
                 <div class="row">
                     <div class="col-sm-6" id="titleRow" >
-                        <h2 class="text-overflowed text-overflowed_160">@ViewBag.OriginalName</h2>
+                        <h2 class="text-overflowed text-overflowed_title">@ViewBag.OriginalName</h2>
                     </div>
                     <div class="col-sm-6">
-                        <button id="openSideMenu" style="background-color:white;" type="button" class="btn btn-default pull-right btn-not-rounded" aria-label="Left Align" onclick="openNav()">
+                        <button id="openSideMenu" style="background-color:white;" type="button" class="btn btn-default pull-right btn-not-rounded open-side-button-single-image" aria-label="Left Align" onclick="openNav()">
                             <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -289,15 +289,15 @@
                 </div>
             <div class="row-fluid navigation-open">
                 <ol class="breadcrumb">
-                    <li class="text-overflowed text-overflowed_160"><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
-                    <li class="text-overflowed text-overflowed_160"><a href=@ViewBag.FolderLink>@ViewBag.FolderName</a></li>
-                    <li class="active text-overflowed text-overflowed_160">@ViewBag.OriginalName</li>
+                    <li class="text-overflowed text-overflowed_300"><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
+                    <li class="text-overflowed text-overflowed_300"><a href=@ViewBag.FolderLink>@ViewBag.FolderName</a></li>
+                    <li class="active text-overflowed text-overflowed_400">@ViewBag.OriginalName</li>
                 </ol>
             </div>
             <div class="row">
-                <div class="col-sm-12  main-area-open" id="SingleMainArea">
+                <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
                     <div class="row text-center">
-                        <img src="@ViewBag.OriginalPath" class="single-image"/>
+                        <img src="@ViewBag.OriginalPath" class="single-image" />
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -315,8 +315,8 @@
 
         <div class="sidenav" id="mySidenav">
             <div style="margin-left: 10px; margin-right: 10px;">
-                <div style="width:100%;height:135px;">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;top:12%;">×</a>
+                <div style="width:100%;height:145px;">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;margin-top:-10px;">×</a>
                     <img src="@ViewBag.CompressedPath" id="compressedLink" alt="Image is not found" style="max-width:145px;max-height:128px;margin-top:10px;" />
                     <br />
                     <label id="compressedName" class="text-overflowed text-overflowed_160 p-color" style="min-width:50px;">@ViewBag.OriginalName</label>

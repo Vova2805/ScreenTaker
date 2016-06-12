@@ -203,6 +203,27 @@ textarea {
 =====================///////////////////////*/
 
 @media(max-width:2880px){
+.text-overflowed{
+    max-width: 200px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.text-overflowed_160{
+    max-width: 160px; 
+}
+.text-overflowed_400{
+    max-width: 400px;
+}
+.text-overflowed_220{
+    max-width: 220px; 
+}
+.text-overflowed_300{
+    max-width: 300px; 
+}
+.text-overflowed_title{
+    max-width: 1000px; 
+}
     .header-images{
         padding-left: 40px;
     }
@@ -270,6 +291,27 @@ textarea {
 }
 
 @media(max-width:1199px ){
+.text-overflowed{
+    max-width: 200px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.text-overflowed_160{
+    max-width: 140px; 
+}
+.text-overflowed_400{
+    max-width: 400px;
+}
+.text-overflowed_220{
+    max-width: 220px; 
+}
+.text-overflowed_300{
+    max-width: 300px; 
+}
+.text-overflowed_title{
+    max-width: 500px; 
+}
  .header-images{
         padding-left: 40px;
     }
@@ -602,6 +644,31 @@ textarea {
 
 
 @media(max-width:320px){
+    hr{
+        margin-bottom:5px;
+        visibility:collapse;
+    }
+    .text-overflowed{
+    max-width: 200px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+    .text-overflowed_300{
+    max-width: 200px; 
+    }
+    .text-overflowed_160{
+    max-width: 160px; 
+    }
+    .text-overflowed_220{
+    max-width: 220px; 
+    }
+    .text-overflowed_400{
+    max-width: 250px;
+    }
+    .text-overflowed_title{
+    max-width: 200px; 
+    }
     .header-images{
         padding-left: 25px;
         padding-right:0px;
@@ -648,6 +715,9 @@ textarea {
     }
     .open-side-button-images{
         right:10px;
+    }
+    .open-side-button-single-image{
+        right:20px;
     }
     #UploadImageButton{
         margin-right:-10px;
@@ -872,9 +942,10 @@ textarea {
     top: 0;
     right: 0;
     background-color: #686868;
-    overflow-x: hidden;
+    overflow-x: scroll;
     transition: 0.5s;
     padding-top: 60px;
+    padding-bottom:100px;
 }
 
 .sidenav a {
@@ -1017,21 +1088,6 @@ textarea {
     background-color:transparent;
     border:0px;
     padding:0px;
-}
-.text-overflowed{
-    max-width: 200px; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.text-overflowed_160{
-    max-width: 160px; 
-}
-.text-overflowed_220{
-    max-width: 220px; 
-}
-.text-overflowed_300{
-    max-width: 300px; 
 }
 
 .transparent-btn:active,

@@ -359,7 +359,7 @@
     <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-6 header-images" >
-                    <h2 class="text-overflowed">@ViewBag.FolderName</h2>
+                    <h2 class="text-overflowed text-overflowed_title">@ViewBag.FolderName</h2>
                 </div>
                 <div class="preloader" id="loadingAnimation"  style="visibility:collapse">
                     <div class="sk-cube-grid preloader-center center-block">
@@ -397,8 +397,8 @@
             </div>
         <div class="row navigation-open" id="navigation">
             <ol class="breadcrumb">
-                <li class="text-overflowed"><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
-                <li class="active text-overflowed text-overflowed_300">@ViewBag.FolderName</li>
+                <li class="text-overflowed text-overflowed text-overflowed_300"><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
+                <li class="active text-overflowed text-overflowed_title">@ViewBag.FolderName</li>
             </ol>
         </div>
         <div class="row" id="dynamicImagesArea">
