@@ -51,13 +51,6 @@ namespace ScreenTaker.Models
             {
                 return folder.Images.ToList();
             }
-
-            //if (folder.IsPublic)
-            //{
-                
-                
-            //}
-            // folder is private or user has no direct access for folder 
             return GetAccessibleImagesInFolder(user, folder, context);
         } 
 

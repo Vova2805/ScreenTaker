@@ -54,7 +54,7 @@ namespace ScreenTaker
             }
             catch (Exception e)
             {
-                
+                var t = e.Message;
             }
         }
     }

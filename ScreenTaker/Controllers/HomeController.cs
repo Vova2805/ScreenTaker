@@ -237,8 +237,8 @@ namespace ScreenTaker.Controllers
                     if (user != null && user.Email==email)
                         throw new Exception(Resources.Resource.ERR_ADD_YOURSELF);
                     var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
-                    var friend = _entities.People.Where(w => w.Email == email).FirstOrDefault();
-                    if (user != null&&friend != null && !_entities.PersonFriends.Where(w => w.PersonId == user.Id && w.FriendId == friend.Id).Any())
+                    var friend = _entities.People.FirstOrDefault(w => w.Email == email);
+                    if (user != null && friend != null && !_entities.PersonFriends.Any(w => w.PersonId == user.Id && w.FriendId == friend.Id))
                     {
                         var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
                         _entities.PersonFriends.Add(personFriend);
@@ -247,12 +247,9 @@ namespace ScreenTaker.Controllers
                     {
                         UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
                         _entities.UserShares.Add(us);
-                        userManager.EmailService.SendAsync(new IdentityMessage()
-                        {
-                            Body = $"{user.Email} provided access to folder {GetSharedFolderLink(folder)}",
-                            Destination = email,
-                            Subject = "ScreenTaker folder sharing"
-                        });
+                        userManager.SendEmailAsync(friend.Id, "ScreenTaker shared folder",
+                            String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/FolderSharing.html")),
+                                GetSharedFolderLink(folder), user.Email, folder.Name));
                     }
                     else
                     {
@@ -311,12 +308,31 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
+                    var folder = _entities.Folders.Find(folderId);
+                    var userManager = System.Web.HttpContext.Current.GetOwinContext()
+                        .GetUserManager<ApplicationUserManager>();
+                    var user = userManager.FindById(User.Identity.GetUserId<int>());
+                    var group = _entities.PersonGroups.Find(groupId);
+                    if (folder == null || group == null || !SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities))
+                    {
+                        throw new Exception("Image is not accessible");
+                    }
+
                     var result = _entities.GroupShares.FirstOrDefault(w => w.GroupId == groupId && w.FolderId == folderId);
                     if (result != null)
                         _entities.GroupShares.Remove(result);
                     else
                     {
                         GroupShare us = new GroupShare { GroupId = groupId, FolderId = folderId };
+                        var friends = group.GroupMembers;
+                        foreach (var friend in friends)
+                        {
+                            userManager.SendEmail(friend.PersonId, "ScreenTaker shared folder",
+                                String.Format(
+                                    System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/FolderSharing.html")),
+                                    GetSharedFolderLink(folder), user.Email, folder.Name));
+                        }
+
                         _entities.GroupShares.Add(us);
                     }
                     _entities.SaveChanges();
@@ -415,12 +431,10 @@ namespace ScreenTaker.Controllers
                     }
                     if (person.Id != 0)
                     {
-                        userManager.EmailService.SendAsync(new IdentityMessage()
-                        {
-                            Body = $"{user.Email} provided access to image {GetSharedImageLink(image)}",
-                            Destination = email,
-                            Subject = "ScreenTaker image sharing"
-                        });
+                        userManager.SendEmail(friend.Id, "ScreenTaker shared image",
+                            String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ImageSharing.html")),
+                                GetSharedImageLink(image), user.Email, image.Name));
+
 
                         UserShare us = new UserShare { PersonId = person.Id, ImageId = imageId };
                         _entities.UserShares.Add(us);
@@ -477,10 +491,29 @@ namespace ScreenTaker.Controllers
                 {
                     var result = _entities.GroupShares.FirstOrDefault(w => w.GroupId == groupId && w.ImageId == imageId);
                     if (result != null)
+                    {
                         _entities.GroupShares.Remove(result);
+                    }
                     else
                     {
-                        GroupShare us = new GroupShare { GroupId = groupId, ImageId = imageId };
+                        var image = _entities.Images.Find(imageId);
+                        var userManager = System.Web.HttpContext.Current.GetOwinContext()
+                            .GetUserManager<ApplicationUserManager>();
+                        var user = userManager.FindById(User.Identity.GetUserId<int>());
+                        var group = _entities.PersonGroups.Find(groupId);
+                        if (image == null || group == null || !SecurityHelper.IsImageEditable(user, image.Folder.Person, image,_entities))
+                        {
+                            throw new Exception("Image is not accessible");
+                        }
+                        GroupShare us = new GroupShare {GroupId = groupId, ImageId = imageId};
+                        var friends = group.GroupMembers;
+                        foreach (var friend in friends)
+                        {
+                            userManager.SendEmail(friend.PersonId, "ScreenTaker shared image",
+                                String.Format(
+                                    System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ImageSharing.html")),
+                                    GetSharedImageLink(image), user.Email, image.Name));
+                        }
                         _entities.GroupShares.Add(us);
                     }
                     _entities.SaveChanges();
