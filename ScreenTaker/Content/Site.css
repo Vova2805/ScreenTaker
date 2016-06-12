@@ -536,7 +536,31 @@ textarea {
 }
 
 @media(max-width:360px ){
-  
+     hr{
+        margin-bottom:5px;
+        visibility:collapse;
+    }
+    .text-overflowed{
+    max-width: 200px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+    .text-overflowed_300{
+    max-width: 200px; 
+    }
+    .text-overflowed_160{
+    max-width: 160px; 
+    }
+    .text-overflowed_220{
+    max-width: 220px; 
+    }
+    .text-overflowed_400{
+    max-width: 250px;
+    }
+    .text-overflowed_title{
+    max-width: 200px; 
+    }
     .header-images{
         padding-left: 25px;
         padding-right:0px;
@@ -584,6 +608,9 @@ textarea {
     .open-side-button-images{
         right:10px;
     }
+    .open-side-button-single-image{
+        right:20px;
+    }
     #UploadImageButton{
         margin-right:-10px;
     }
@@ -622,6 +649,9 @@ textarea {
         width:100%;
         padding-right:0px;
     }
+
+
+
     #parent-container-img {
         margin-left: 75px;
         padding:0px;
@@ -757,6 +787,7 @@ textarea {
         width:100%;
         padding-right:0px;
     }
+    /*was*/
     #parent-container {
         margin-left: 25px;
     }
