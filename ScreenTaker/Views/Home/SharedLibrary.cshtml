@@ -34,7 +34,7 @@
         ShowProgress();
     });
 
-    function openFolder(i,base) {
+    function openFolder(i, base) {
         location.href = base + i;
         return false;
     }
@@ -54,7 +54,7 @@
     <div class="col-md-12">
         <div class="col-sm-12 header-shared-library">
             <h2 class="text-overflowed text-overflowed_title">@Resources.Resource.SHARED_FOLDERS</h2>
-            <input id="choosenID" class="hidden-field"/>
+            <input id="choosenID" class="hidden-field" value="img"/>
         </div>
         <div class="preloader" id="loadingAnimation" style="visibility:hidden">
             <div class="sk-cube-grid preloader-center center-block">
@@ -98,7 +98,7 @@
                             string OwnerEmail = ViewBag.Owners[i].Email;
                             string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                             string popover_template =
-                            "<div class='popover' role='tooltip' style=\"width:200px;height:80px;z-index:30000;top:100px;;\"><div class='arrow'></div><h3 class='popover-title' style=\"font-size:10px;height:20px;font-weight:bold;vertical-align:top;margin:0px;padding:0px;\"></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;\"></a></div></div></div></div></div>";
+                            "<div class='popover' role='tooltip' style=\"width:200px;height:80px;z-index:30000;margin-top:10px;\"><div class='arrow'></div><h3 class='popover-title' style=\"font-size:10px;height:20px;font-weight:bold;vertical-align:top;margin:0px;padding:0px;\"></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;\"></a></div></div></div></div></div>";
 
                             <button type="button" class="transparent-btn task" 
                                     data-toggle="popover" data-trigger="hover" data-placement="top" title="@Resources.Resource.OWNER" 
@@ -114,13 +114,13 @@
                         else
                         {
                             imageLink += ".png";
-                            <div onclick="selectFolder('@folder_id','@count')"
+                            <button onclick="selectFolder('@folder_id','@count','@ViewBag.Folders[i].SharedCode')" type="button" class="transparent-btn task" 
                                  ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;">
                                 <figure class="@classes" id="@folder_id">
                                     <img src="@imageLink" class="image" id="img_id" style="width: 128px; height: 128px;" />
                                     <figcaption class="text-center text-overflowed text-overflowed_160">@FolderTitle</figcaption>
                                 </figure>
-                            </div>
+                            </button>
                         }
                     }
                     <script>
