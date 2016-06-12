@@ -345,9 +345,18 @@ textarea {
     }
 }
 
+@media(max-width: 435px) {
+    #parent-container {
+        margin-left: 10px;
+    }
+    #parent-container-img {
+        margin-left: 25px;
+    }
+}
+
 @media(max-width: 414px) {
     #parent-container {
-        margin-left: 25px;
+        margin-left: 10px;
     }
     #parent-container-img {
         margin-left: 25px;
@@ -356,7 +365,7 @@ textarea {
 
 @media(max-width: 411px) {
     #parent-container {
-        margin-left: 25px;
+        margin-left: 10px;
     }
     #parent-container-img {
         margin-left: 25px;
@@ -365,10 +374,19 @@ textarea {
 
 @media(max-width: 375px) {
     #parent-container {
-        margin-left: 85px;
+        margin-left: 25px;
     }
     #parent-container-img {
         margin-left: 85px;
+    }
+    
+    .image {
+        width: 110px;
+        height: 110px;
+    }
+    div .folder {
+        width: 120px;
+        height: 130px;
     }
 }
 
@@ -762,8 +780,10 @@ textarea {
 }
 
 .single-image {
-    max-width: 800px; 
-    max-height: 600px
+    max-width: 800px;
+    max-height: 600px;
+    width: 100%;
+    height: 100%;
 }
 .hidden-field{
     width:0px;
