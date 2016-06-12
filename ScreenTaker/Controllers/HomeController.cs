@@ -36,8 +36,8 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult Index(string lang = "en")
         {
-            ViewBag.Localize = locale;
-            return RedirectToAction("Welcome", "Home", new { lang = locale });
+            ViewBag.Localize = getLocale();
+            return RedirectToAction("Welcome", "Home", new { lang = getLocale() });
         }
 
         [AllowAnonymous]
@@ -46,21 +46,21 @@ namespace ScreenTaker.Controllers
         {
             try
             {
-                ViewBag.Localize = locale;                
+                ViewBag.Localize = getLocale();                
             }
             catch
             {
-                return RedirectToAction("Message", "Home", new { lang = locale });
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
             }
-            return View("Welcome", new { lang = locale });
+            return View("Welcome", new { lang = getLocale() });
         }
 
         [HttpPost]
         public ActionResult Welcome(HttpPostedFileBase file, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
             int fId = -1;
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             if (file != null)
             {
                 using (var transaction = _entities.Database.BeginTransaction())
@@ -70,15 +70,15 @@ namespace ScreenTaker.Controllers
                         ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                            .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                         if (user == null)
-                            return RedirectToAction("Account/Register", new { lang = locale });
+                            return RedirectToAction("Account/Register", new { lang = getLocale() });
                         var folder = _entities.Folders.Where(w=>w.OwnerId==user.Id).FirstOrDefault();
                         bool accesGranted = false;               
                         if (folder != null)                
                             accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);                
                         else
-                            return RedirectToAction("Account/Register", new { lang = locale });
+                            return RedirectToAction("Account/Register", new { lang = getLocale() });
                         if (!accesGranted)                
-                            return RedirectToAction("Welcome", new { lang = locale });
+                            return RedirectToAction("Welcome", new { lang = getLocale() });
                         fId = folder.Id;
                         if (!_imageCompressor.IsValid(file))
                             throw new Exception(Resources.Resource.ERR_IMAGE_NOT_VALID);                    
@@ -120,19 +120,19 @@ namespace ScreenTaker.Controllers
                         transaction.Rollback();
                         ViewBag.MessageContent= ex.Message;
                         ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
-                        ViewBag.Localize = locale;
-                        return RedirectToAction("Message", "Home", new { lang = locale });
+                        ViewBag.Localize = getLocale();
+                        return RedirectToAction("Message", "Home", new { lang = getLocale() });
                     }
                 }
             }
-            return RedirectToAction("Images", new { id = fId, lang = locale });
+            return RedirectToAction("Images", new { id = fId, lang = getLocale() });
         }
 
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public ActionResult Message(string lang = "en")
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             ViewBag.Email = "";
             return View();
         }
@@ -140,24 +140,25 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult About(string lang = "en")
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             ViewBag.Message = "Your application description page.";
-            return View("About", new { lang = locale });
+            return View("About", new { lang = getLocale() });
         }
 
         [AllowAnonymous]
         public ActionResult Contact(string lang = "en")
         {
             ViewBag.Message = "Your contact page.";
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return View();
         }
         #region Library
         public ActionResult Library(string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             ViewBag.Message = "Library page";
+            ViewBag.FolderLinkBASE = GetFolderLink("");
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
@@ -196,7 +197,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult PartialLibraryAccess(int folderId)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -230,8 +231,8 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessAddUser(string email, int folderId)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -294,7 +295,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessRemoveUser(string email, int folderId)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -320,7 +321,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult FolderAccessSwitchGroupsAccess(int groupId, int folderId)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -347,7 +348,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult PartialImagesAccess(int imageId)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -397,8 +398,8 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImageAccessAddUser(string email, int imageId)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -458,7 +459,7 @@ namespace ScreenTaker.Controllers
             
         public ActionResult ImageAccessRemoveUser(string email, int imageId)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -484,7 +485,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImageAccessSwitchGroupsAccess(int groupId, int imageId)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -515,7 +516,7 @@ namespace ScreenTaker.Controllers
             {
                 try
                 {
-                    ViewBag.Localize = locale;
+                    ViewBag.Localize = getLocale();
                     var folder = _entities.Folders.FirstOrDefault(w => w.Id == folderId);
                     if (folder != null)
                     {
@@ -538,14 +539,17 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
+            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }      
 
         public ActionResult SharedLibrary(string lang = "en")
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             ViewBag.Message = "Library page";
-
+            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
+            ViewBag.UserAvatarBASE = getUserAvatarBASE();
+            ViewBag.SharedImageBASE = GetSharedImageLink("");
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                 .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
 
@@ -587,6 +591,7 @@ namespace ScreenTaker.Controllers
 
             ViewBag.UserId = user.Id;
             ViewBag.BASE_URL = GetBaseUrl() + "";
+            ViewBag.FolderLinkBASE =  GetSharedFolderLink("");
 
             return View();
         }
@@ -595,15 +600,16 @@ namespace ScreenTaker.Controllers
         public ActionResult ChangeFoldersAttr(Folder folder, string lang = "en")
         {
             ViewBag.Folders = _entities.Folders.ToList();
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return RedirectToAction("Library");
         }
         #endregion
         private void FillImagesViewBag(int folderId)
         {
+            ViewBag.SigleImageBASE = GetSingleImageLink("");
             CurrentFolderId = folderId;
             ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             int test = 0;
             if(Request.UrlReferrer!=null)
             {
@@ -614,7 +620,7 @@ namespace ScreenTaker.Controllers
             if (test != 0)
                 CurrentFolderId = test;
             var list = _entities.Images.Where(i => i.FolderId == CurrentFolderId).ToList();
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             ViewBag.IsEmpty = !list.Any();
             ViewBag.Images = list;
             var pathsList = _entities.Images.ToList().Select(i => GetImagePath(i.SharedCode)).ToList();
@@ -637,6 +643,8 @@ namespace ScreenTaker.Controllers
             ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
             ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+ (list.First().ServerFolder == null ? "" : list.First().ServerFolder.SharedCode) + "/" + list.First().SharedCode+"_compressed.png" : "";
             ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
+            //ViewBag.FirstImageSrc = list.Count > 0 ? GetImagePathBASE() + list.First().SharedCode+"_compressed.png" : "";
+            //ViewBag.FirstImageShLink =  (list.Count > 0 ? GetSharedImageLink(list.First().SharedCode): "");
             ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
             if(list.Count>0)
             ViewBag.ImageID = list.First().Id;
@@ -645,11 +653,11 @@ namespace ScreenTaker.Controllers
         
         public ActionResult Images(string id , string lang = "en")
         {
-            //using (var transaction = _entities.Database.BeginTransaction())
-            //{
-            //    try
-            //    {
-                    ViewBag.Localize = locale;
+            using (var transaction = _entities.Database.BeginTransaction())
+            {
+                try
+                {
+                    ViewBag.Localize = getLocale();
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                         .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                     int folderId;
@@ -680,22 +688,24 @@ namespace ScreenTaker.Controllers
                         ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
                         ViewBag.MessageContent = TempData["MessageContent"];
                     }
-            //        transaction.Commit();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        transaction.Rollback();
-            //        return RedirectToAction("Message", "Home", new { lang = locale });
-            //    }
-            //}           
-            return View("Images", new { lang = locale });
+                    ViewBag.SharedImageBASE = GetSharedImageLink("");
+                    ViewBag.ImageLinkBASE = GetImagePathBASE();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return RedirectToAction("Message", "Home", new { lang = getLocale() });
+                }
+            }           
+            return View("Images", new { lang = getLocale() });
         }
 
         [HttpPost]
         public ActionResult Images(HttpPostedFileBase file, string folderId, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             if (file != null)
             {
                 using (var transaction = _entities.Database.BeginTransaction())
@@ -708,7 +718,7 @@ namespace ScreenTaker.Controllers
                         if (folder != null)                        
                             accesGranted = SecurityHelper.IsFolderEditable(user, folder.Person, folder, _entities);                       
                         if (!accesGranted)                        
-                            return RedirectToAction("Welcome", new { lang = locale });                                                         
+                            return RedirectToAction("Welcome", new { lang = getLocale() });                                                         
                         if (!_imageCompressor.IsValid(file))
                             throw new Exception(Resources.Resource.ERR_IMAGE_NOT_VALID);                                            
                         var sharedCode = _stringGenerator.Next();
@@ -739,10 +749,11 @@ namespace ScreenTaker.Controllers
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
                         var bitmap = new Bitmap(file.InputStream);
-                        var path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode+"/"+sharedCode + ".png");
+                        var path = GetImagePath(sharedCode);
                         bitmap.Save(path, ImageFormat.Png);
                         var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
-                        path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode + "/" + sharedCode + "_compressed.png");
+			path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode + "/" + sharedCode + "_compressed.png");
+                        //path = GetImagePath(sharedCode + "_compressed");
                         compressedBitmap.Save(path, ImageFormat.Png);
                         transaction.Commit();
                     }
@@ -754,16 +765,16 @@ namespace ScreenTaker.Controllers
                 }
             }
             FillImagesViewBag(Int32.Parse(folderId));
-            return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = locale });
+            return RedirectToAction("Images", new { id = Int32.Parse(folderId), lang = getLocale() });
         }
         public ActionResult MakeImagePublicOrPrivate(int imageId, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
-                    ViewBag.Localize = locale;
+                    ViewBag.Localize = getLocale();
                     var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);                    
                     if (image != null)
                     {
@@ -785,17 +796,19 @@ namespace ScreenTaker.Controllers
                     ViewBag.MessageContent = ex.Message;
                 }
             }
+            ViewBag.ImageLinkBASE = GetImagePathBASE();
+            ViewBag.SharedImageBASE = GetSharedImageLink("");
             return PartialView("PartialImagesChangeState");
         }
 
         public JsonResult MakeSingleImagePublicOrPrivate(int imageId, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
                 {
-                    ViewBag.Localize = locale;
+                    ViewBag.Localize = getLocale();
                     var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
                     if (image != null)
                     {
@@ -821,7 +834,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult SharedFolder(string f, string lang = "en")
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             try
             {
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
@@ -870,6 +883,9 @@ namespace ScreenTaker.Controllers
                 }
                 ViewBag.BASE_URL = GetBaseUrl();
                 ViewBag.AccessGranted = accessGranted;
+                ViewBag.SharedImageBASE = GetSharedImageLink("");
+                ViewBag.ImagePathBASE = GetImagePathBASE();
+                ViewBag.UserAvatarBASE = getUserAvatarBASE();
                 if (accessGranted)
                 {
                     ViewBag.IsEmpty = !images.Any();
@@ -882,21 +898,21 @@ namespace ScreenTaker.Controllers
                     ViewBag.SharedLinks = images
                         .Select(GetSharedImageLink).ToList();
 
-                    return View("SharedFolder", new { lang = locale });
+                    return View("SharedFolder", new { lang = getLocale() });
                 }
-                return View("Message", new { lang = locale });
+                return View("Message", new { lang = getLocale() });
             }
             catch
             {
-                return View("Message", new { lang = locale });
+                return View("Message", new { lang = getLocale() });
             }
         }
 
         [HttpGet]
         public ActionResult SingleImage(string image, string lang = "en", int selectedId = -1)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -919,7 +935,7 @@ namespace ScreenTaker.Controllers
                         ViewBag.FolderLink = GetFolderLink(im.FolderId.ToString());
                     }
                     if (!accesGranted)
-                        return View("Message", new { lang = locale });
+                        return View("Message", new { lang = getLocale() });
                     if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
                         ViewBag.Image = _entities.Images.ToList().First();
                     ViewBag.OriginalPath = "";
@@ -975,10 +991,10 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    return View("Message", new { lang = locale });
+                    return View("Message", new { lang = getLocale() });
                 }
             }            
-            return View("SingleImage", new { lang = locale });
+            return View("SingleImage", new { lang = getLocale() });
         }                
 
 
@@ -986,7 +1002,7 @@ namespace ScreenTaker.Controllers
         [HttpGet]
         public ActionResult SharedImage(string i, string lang = "en")
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1004,7 +1020,7 @@ namespace ScreenTaker.Controllers
                         }
                     }
                     if (!accessGranted)
-                        return View("Message", new { lang = locale });
+                        return View("Message", new { lang = getLocale() });
                     ViewBag.AccessGranted = accessGranted;
                     ViewBag.Image = image;
                     if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
@@ -1023,7 +1039,7 @@ namespace ScreenTaker.Controllers
                         ViewBag.OriginalName = ViewBag.Image.Name;
                     }
                     if (!accessGranted)
-                        return View("Message", new { lang = locale });
+                        return View("Message", new { lang = getLocale() });
 
                     ViewBag.AccessGranted = accessGranted;
 
@@ -1041,25 +1057,26 @@ namespace ScreenTaker.Controllers
                     ViewBag.OriginalName = "";
                     if (ViewBag.Image != null)
                     {
-                        ViewBag.OriginalName = ViewBag.Image.Name + ".png";
+                        ViewBag.OriginalName = ViewBag.Image.Name;
                     }
+                    ViewBag.UserAvatarBASE = getUserAvatarBASE();
                     transaction.Commit();                                        
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    return View("Message", new { lang = locale });
+                    return View("Message", new { lang = getLocale() });
                 }
             }
 
             
-            return View("SharedImage", new { lang = locale });
+            return View("SharedImage", new { lang = getLocale() });
         }
 
         public ActionResult DeleteImage(string path,string redirect = "false", string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             int folderId = 0;
 
             using (var transaction = _entities.Database.BeginTransaction())
@@ -1101,14 +1118,16 @@ namespace ScreenTaker.Controllers
                 }
             }
             FillImagesViewBag(CurrentFolderId);
-            if (redirect=="true") return RedirectToAction("Images", new { id = folderId.ToString(), lang = locale });
+            ViewBag.ImageLinkBASE = GetImagePathBASE();
+            ViewBag.SharedImageBASE = GetSharedImageLink("");
+            if (redirect=="true") return RedirectToAction("Images", new { id = folderId.ToString(), lang = getLocale() });
             else return PartialView("PartialImagesChangeState");
         }
 
         public ActionResult RenameImage(string path, string newName, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             if (ViewBag.Image == null && _entities.Images.ToList().Count > 0)
             {
                 ViewBag.Image = _entities.Images.ToList().First();
@@ -1143,8 +1162,8 @@ namespace ScreenTaker.Controllers
 
         public ActionResult AddFolder(string path, string title, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1173,12 +1192,12 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            return RedirectToAction("Library", "Home", new { lang = locale });
+            return RedirectToAction("Library", "Home", new { lang = getLocale() });
         }
 
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
             int folderId = 0;
             int imageId = 0;
             using (var transaction = _entities.Database.BeginTransaction())
@@ -1207,12 +1226,14 @@ namespace ScreenTaker.Controllers
             FillImagesViewBag(CurrentFolderId);
             if(imageId!=0)
             ViewBag.ImageID = imageId;
+            ViewBag.ImageLinkBASE = GetImagePathBASE();
+            ViewBag.SharedImageBASE = GetSharedImageLink("");
             return PartialView("PartialImagesChangeState");
         }
 
         public ActionResult DeleteFolder(string path, string lang = "en")
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
 
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -1258,13 +1279,14 @@ namespace ScreenTaker.Controllers
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.FolderID = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList().First().Id;
+            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }
 
         public ActionResult RenameFolder(int folderId, string path, string newName, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -1290,12 +1312,13 @@ namespace ScreenTaker.Controllers
             ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.FolderID = folderId;
+            ViewBag.FolderLinkBASE = GetSharedFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }
 
         public ActionResult MoveItMoveIt(int folderId,string imageSharedCode)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1309,7 +1332,7 @@ namespace ScreenTaker.Controllers
                 catch (Exception)
                 {
                     transaction.Rollback();
-                    return View("Message", new { lang = locale });
+                    return View("Message", new { lang = getLocale() });
                 }
             }
             return RedirectToAction("Images",new {id= folderId });
@@ -1317,7 +1340,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult ImagesMoveCreateFolder(string name,int folderId)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1350,7 +1373,7 @@ namespace ScreenTaker.Controllers
 
         public ActionResult SingleImageMoveCreateFolder(string name, int folderId,string imageSharedCode)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -1384,7 +1407,7 @@ namespace ScreenTaker.Controllers
 
         public FileResult Image(string i)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return File(Request.RawUrl, "image/png");
         }
 

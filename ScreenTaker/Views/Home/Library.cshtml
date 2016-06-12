@@ -78,10 +78,10 @@
         });
 
 
-        function openFolder(i) {
+        function openFolder(i,base) {
             var id = document.getElementById("Idhidden").value;
             if (id != "") i = id;
-            location.href = "/Home/Images?id=" + i;
+            location.href =  base + i;
             return false;
         }
 
@@ -273,7 +273,7 @@
     </div>
 </div>
 
-<div class="row" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 100%">
+<div class="main" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 100%">
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 40px;">
@@ -327,7 +327,7 @@
                             ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
                             ViewBag.FolderLink = ViewBag.SharedLinks[i];
                             <script>
-                                document.getElementById("sharedLink").value = @ViewBag.FolderLink;
+                            document.getElementById("sharedLink").value = @ViewBag.FolderLink;
 
                             document.getElementById("sharedLinkhidden").value = '@sharedCode';
                             document.getElementById("Idhidden").value = '@ViewBag.Folders[i].Id';
@@ -348,9 +348,10 @@
                             </script>
                         }
                         <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
-                             ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
+                             ondblclick="openFolder('@ViewBag.Folders[i].Id','@ViewBag.FolderLinkBASE')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
-                                <img src="@imageLink" id="img_id" />
+                                <img src="@imageLink" class="image" id="img_id"/>
+                                <img src="@imageLink" />
                                 <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
                             </figure>
                         </div>

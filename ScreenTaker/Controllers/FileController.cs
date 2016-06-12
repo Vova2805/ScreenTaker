@@ -11,7 +11,7 @@ namespace ScreenTaker.Controllers
         // GET: File
         public FileResult Image()
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return File(Request.RawUrl, "image/png");
         }
     }
