@@ -52,7 +52,7 @@
 }
 <div id="main" style="min-height: 100%">
     <div class="col-md-12">
-        <div class="col-sm-12 header-images">
+        <div class="col-sm-12 header-shared-library">
             <h2 class="text-overflowed text-overflowed_title">@Resources.Resource.SHARED_FOLDERS</h2>
             <input id="choosenID" class="hidden-field"/>
         </div>
@@ -85,11 +85,11 @@
                         string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
                         if (i % 2 == 0)
                         {
-                            classes += "folder-preview folder-preview-odd";
+                            classes += "folder-preview shared-folder-preview-odd";
                         }
                         else
                         {
-                            classes += "folder-preview folder-preview-even";
+                            classes += "folder-preview shared-folder-preview-even";
                         }
                         if (i > 0)
                         {
