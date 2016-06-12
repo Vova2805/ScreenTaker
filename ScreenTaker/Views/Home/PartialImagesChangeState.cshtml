@@ -29,9 +29,9 @@
         foreach (var i in ViewBag.Images)
         {
             string original = i.SharedCode;
-            string compressed = ViewBag.BASE_URL + "img/" + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
+            //string compressed = ViewBag.BASE_URL + "img/" + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
             string sharedLink1 = ViewBag.SharedImageBASE + original;
-            //string compressed = ViewBag.ImageLinkBASE + i.SharedCode + "_compressed.png";
+            string compressed = ViewBag.ImageLinkBASE +(i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/"+ i.SharedCode + "_compressed.png";
             string name = i.Name;
             string classes = "floating-box text-center task active images";
             string image_id = "IMD" + index;

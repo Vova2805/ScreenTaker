@@ -108,10 +108,10 @@ namespace ScreenTaker.Controllers
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
                         var bitmap = new Bitmap(file.InputStream);
-                        var path = Path.Combine(Server.MapPath("~/img/"), sharedCode + ".png");
+                        var path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode + "/"+ sharedCode + ".png");
                         bitmap.Save(path, ImageFormat.Png);
                         var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
-                        path = Path.Combine(Server.MapPath("~/img/"), sharedCode + "_compressed.png");
+                        path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode + "/"+ sharedCode + "_compressed.png");
                         compressedBitmap.Save(path, ImageFormat.Png);
                         transaction.Commit();
                     }
@@ -641,8 +641,8 @@ namespace ScreenTaker.Controllers
 
             ViewBag.FirstImageId = list.Count > 0 ? list.First().Id:-1;
             ViewBag.FirstImageShCode = list.Count > 0 ? list.First().SharedCode : "";
-            ViewBag.FirstImageSrc = list.Count > 0 ? GetBaseUrl()+"img/"+ (list.First().ServerFolder == null ? "" : list.First().ServerFolder.SharedCode) + "/" + list.First().SharedCode+"_compressed.png" : "";
-            ViewBag.FirstImageShLink =  (list.Count > 0 ? GetBaseUrl() + "Home/SharedImage?i=" + list.First().SharedCode: "");
+            ViewBag.FirstImageSrc = list.Count > 0 ? GetImagePathBASE()+ (list.First().ServerFolder == null ? "" : list.First().ServerFolder.SharedCode) + "/" + list.First().SharedCode+"_compressed.png" : "";
+            ViewBag.FirstImageShLink = (list.Count > 0 ? GetSharedImageLink(list.First().SharedCode) : "");
             //ViewBag.FirstImageSrc = list.Count > 0 ? GetImagePathBASE() + list.First().SharedCode+"_compressed.png" : "";
             //ViewBag.FirstImageShLink =  (list.Count > 0 ? GetSharedImageLink(list.First().SharedCode): "");
             ViewBag.ImageIsPublic = (list.Count > 0 ? list.First().IsPublic+"" : "False");
@@ -749,11 +749,10 @@ namespace ScreenTaker.Controllers
                         _entities.Images.Add(image);
                         _entities.SaveChanges();
                         var bitmap = new Bitmap(file.InputStream);
-                        var path = GetImagePath(sharedCode);
+                        var path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode + "/" + sharedCode + ".png");
                         bitmap.Save(path, ImageFormat.Png);
                         var compressedBitmap = _imageCompressor.Compress(bitmap, new Size(128, 128));
-			path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode + "/" + sharedCode + "_compressed.png");
-                        //path = GetImagePath(sharedCode + "_compressed");
+			            path = Path.Combine(Server.MapPath("~/img/"), image.ServerFolder.SharedCode + "/" + sharedCode + "_compressed.png");                        
                         compressedBitmap.Save(path, ImageFormat.Png);
                         transaction.Commit();
                     }
