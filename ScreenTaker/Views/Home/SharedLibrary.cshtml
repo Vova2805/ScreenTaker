@@ -39,23 +39,25 @@
         return false;
     }
 
-    function selectFolder(folder_id, count) {
+    function selectFolder(folder_id, count,sharedCode) {
         var classes = "floating-box text-center task active images folder";
         for (var i = 0; i < count; i++) {
             var ID = "FID" + i;
             document.getElementById(ID).className = classes;
         }
         document.getElementById(folder_id).className += " active-image";
+        document.getElementById('choosenID').value = sharedCode;
         return false;
     }
     </script>
 }
-
+<div id="main" style="min-height: 100%">
     <div class="col-md-12">
         <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
             <h2>@Resources.Resource.SHARED_FOLDERS</h2>
+            <input id="choosenID" class="hidden-field"/>
         </div>
-        <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
+        <div class="preloader" id="loadingAnimation" style="visibility:hidden">
             <div class="sk-cube-grid preloader-center center-block">
                 <div class="sk-cube sk-cube1"></div>
                 <div class="sk-cube sk-cube2"></div>
@@ -69,7 +71,7 @@
             </div>
         </div>
         <div id="dynamicFoldersArea">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;margin-left: 0" id="parent-container">
+            <div class="col-sm-12" style="padding-left:25px;padding-right:40px;margin-left: 0" id="parent-container">
                 @{
                     int count = ViewBag.Folders.Count;
 
@@ -85,17 +87,17 @@
                         if (i > 0)
                         {
                             imageLink += "_shared.png";
-                            string AvatarPath = ViewBag.UserAvatarBASE + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile+"_50.png") : "user.png");
+                            string AvatarPath = ViewBag.UserAvatarBASE + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile + "_50.png") : "user.png");
                             string OwnerEmail = ViewBag.Owners[i].Email;
                             string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                             string popover_template =
-                            "<div class='popover' role='tooltip' style=\"width:500px;\"><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"word-wrap: break-word;vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
+                            "<div class='popover' role='tooltip' style=\"width:200px;height:80px;z-index:30000;top:100px;;\"><div class='arrow'></div><h3 class='popover-title' style=\"font-size:10px;height:20px;font-weight:bold;vertical-align:top;margin:0px;padding:0px;\"></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;\"></a></div></div></div></div></div>";
 
-                            <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
+                            <button type="button" class="transparent-btn task" data-toggle="popover" data-trigger="hover" data-placement="top" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
                                     ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;"
-                                     onclick="selectFolder('@folder_id','@count')">
+                                    onclick="selectFolder('@folder_id','@count','@ViewBag.Folders[i].SharedCode')">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink" class="image"/>
+                                    <img src="@imageLink" class="image" />
                                     <figcaption class="text-center text-overflowed text-overflowed_160">@FolderTitle</figcaption>
                                 </figure>
                             </button>
@@ -103,11 +105,11 @@
                         else
                         {
                             imageLink += ".png";
-                            <button class="transparent-btn" 
-                                  ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;"
-                                  onclick="selectFolder('@folder_id','@count')">
+                            <button class="transparent-btn"
+                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;"
+                                    onclick="selectFolder('@folder_id','@count')">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink" class="image"/>
+                                    <img src="@imageLink" class="image" />
                                     <figcaption class="text-center text-overflowed text-overflowed_160">@FolderTitle</figcaption>
                                 </figure>
                             </button>
@@ -117,7 +119,14 @@
             </div>
         </div>
     </div>
-<br />
-
+    <br />
+</div>
+<nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+        <li class="context-menu__item">
+            <a href="" class="context-menu__link" id="ContextOpenButton" onclick="openFolder(document.getElementById('choosenID').value, '@ViewBag.FolderLinkBASE')"> @Resources.Resource.OPEN</a>
+        </li>
+    </ul>
+</nav>
 <script src="~/Scripts/context-menu.js"></script>
 <script src="~/Scripts/Site.js"></script>

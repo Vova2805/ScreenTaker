@@ -29,18 +29,16 @@
             location.href = base + path;
             return false;
         }
-        function selectImage( image_id, count) {
+        function selectImage(image_id, count, sharedCode) {
             var classes = "floating-box text-center task active images";
             for (var i = 0; i < count; i++) {
                 var ID = "IMD" + i;
                 document.getElementById(ID).className = classes;
             }
             document.getElementById(image_id).className += " active-image";
-
-
+            document.getElementById('choosenID').value = sharedCode;
             return false;
         }
-
     </script>
 }
 
@@ -50,6 +48,7 @@
             <div class="row">
                 <div class="col-sm-10">
                     <h2 class="text-overflowed text-overflowed_160">@ViewBag.FolderName</h2>
+                    <input id="choosenID" class="hidden-field" />
                 </div>
             </div>
         </div>
@@ -73,11 +72,11 @@
                     string OwnerEmail = ViewBag.Owners[index].Email;
                     string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                     string popover_template =
-                    "<div class='popover' role='tooltip' style=\"width:500px;\"><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"word-wrap: break-word;vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
+                    "<div class='popover' role='tooltip' style=\"width:200px;height:80px;z-index:30000;top:100px;;\"><div class='arrow'></div><h3 class='popover-title' style=\"font-size:10px;height:20px;font-weight:bold;vertical-align:top;margin:0px;padding:0px;\"></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;\"></a></div></div></div></div></div>";
 
-                    <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
+                    <button type="button" class="transparent-btn task" data-toggle="popover"  data-placement="top" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
                             ondblclick="openImage('@original','@ViewBag.SharedImageBASE')" style="cursor:pointer;"
-                            onclick="selectImage('@image_id','@count')">
+                            onclick="selectImage('@image_id','@count','@original')">
                             <figure class="@classes" id="@image_id">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;margin-top:10px;" class="center-block">
                                 </div>
@@ -90,3 +89,12 @@
             </div>
         </div>
     </div>
+<nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+        <li class="context-menu__item">
+            <a href="" class="context-menu__link" id="ContextOpenButton" onclick="openImage(document.getElementById('choosenID').value, '@ViewBag.SharedImageBASE')"> @Resources.Resource.OPEN</a>
+        </li>
+    </ul>
+</nav>
+<script src="~/Scripts/context-menu.js"></script>
+<script src="~/Scripts/Site.js"></script>
