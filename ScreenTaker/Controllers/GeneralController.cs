@@ -1,8 +1,5 @@
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using ScreenTaker.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,7 +15,7 @@ namespace ScreenTaker.Controllers
             {
                 ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();
             }
-            catch (Exception e) { }  
+            catch (Exception) { }  
                        
         }
         protected string GetBaseUrl()

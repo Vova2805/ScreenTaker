@@ -716,7 +716,7 @@ namespace ScreenTaker.Controllers
                     ViewBag.ImageLinkBASE = GetImagePathBASE();
                     transaction.Commit();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     transaction.Rollback();
                     return RedirectToAction("Message", "Home", new { lang = getLocale() });
