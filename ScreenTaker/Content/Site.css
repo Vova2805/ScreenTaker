@@ -245,31 +245,31 @@ textarea {
     div .user-icon-nav {
         width: 30px;
         height: 30px;
-        margin-left: 85px;
+        margin-left: 15px;
         margin-top: -35px;
     }
     div .user-name-nav {
-        margin-left: 15px;
+        margin-left: 50px;
     }
     #openSideMenu {
         position: absolute;
         z-index: 1000;
         top: -60px;
-        right: 10px;
+        right: 20px;
     }
 
     #AddFolderButton {
         position: absolute;
         z-index: 1000;
         top: -60px;
-        right: 40px;
+        right: 50px;
     }
 
     #UploadImageButton {
         position: absolute;
         z-index: 1000;
         top: -60px;
-        right: 30px;
+        right: 40px;
     }
     .footer-style {
         padding-left: 30%;
@@ -345,9 +345,18 @@ textarea {
     }
 }
 
+@media(max-width: 435px) {
+    #parent-container {
+        margin-left: 20px;
+    }
+    #parent-container-img {
+        margin-left: 25px;
+    }
+}
+
 @media(max-width: 414px) {
     #parent-container {
-        margin-left: 25px;
+        margin-left: 20px;
     }
     #parent-container-img {
         margin-left: 25px;
@@ -356,7 +365,7 @@ textarea {
 
 @media(max-width: 411px) {
     #parent-container {
-        margin-left: 25px;
+        margin-left: 20px;
     }
     #parent-container-img {
         margin-left: 25px;
@@ -365,16 +374,25 @@ textarea {
 
 @media(max-width: 375px) {
     #parent-container {
-        margin-left: 85px;
+        margin-left: 25px;
     }
     #parent-container-img {
         margin-left: 85px;
+    }
+    
+    .image {
+        width: 110px;
+        height: 110px;
+    }
+    div .folder {
+        width: 120px;
+        height: 130px;
     }
 }
 
 @media(max-width:360px ){
     #parent-container {
-        margin-left: 20px;
+        margin-left: 25px;
     }
     #parent-container-img {
         margin-left: 75px;
@@ -395,7 +413,7 @@ textarea {
 
 @media(max-width:320px ){
     #parent-container {
-        margin-left: 0px;
+        margin-left: 25px;
     }
     #parent-container-img {
         margin-left: 50px;
@@ -762,8 +780,10 @@ textarea {
 }
 
 .single-image {
-    max-width: 800px; 
-    max-height: 600px
+    max-width: 800px;
+    max-height: 600px;
+    width: 100%;
+    height: 100%;
 }
 .hidden-field{
     width:0px;
