@@ -510,6 +510,7 @@
     </Content>
     <Content Include="Resources\email.png" />
     <Content Include="Resources\error.png" />
+    <Content Include="Resources\favicon.png" />
     <Content Include="Resources\info.png" />
     <Content Include="Resources\loadingAnimation.gif" />
     <Content Include="Resources\logo.png" />

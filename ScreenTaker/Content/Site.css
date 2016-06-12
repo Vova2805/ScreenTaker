@@ -203,6 +203,10 @@ textarea {
 =====================///////////////////////*/
 
 @media(max-width:2880px){
+.shared-folder-main{
+        padding-left:40px;
+        padding-right:40px;
+    }
 .text-overflowed{
     max-width: 200px; 
     overflow: hidden;
@@ -291,6 +295,10 @@ textarea {
 }
 
 @media(max-width:1199px ){
+.shared-folder-main{
+        padding-left:40px;
+        padding-right:40px;
+    }
 .text-overflowed{
     max-width: 200px; 
     overflow: hidden;
@@ -528,7 +536,7 @@ textarea {
 }
 
 @media(max-width:360px ){
- hr{
+     hr{
         margin-bottom:5px;
         visibility:collapse;
     }
@@ -568,6 +576,14 @@ textarea {
         margin-left:-35px;
     }
     .image-preview-even
+    {
+        margin-left:0px;
+    }
+    .sharedimage-preview-odd
+    {
+        margin-left:-20px;
+    }
+    .sharedimage-preview-even
     {
         margin-left:0px;
     }
@@ -636,6 +652,10 @@ textarea {
         padding-left:40px;
         padding-right:40px;
     }
+    .shared-folder-main{
+        padding-left:40px;
+        padding-right:40px;
+    }
     .main-area-closed{
         padding-left:40px;
         padding-right:40px;
@@ -659,6 +679,9 @@ textarea {
         padding:0px;
         margin:0px;
     }
+    #dynamicSharedFoldersArea{
+        padding:0px;
+    }
 
 
     #parent-container-img {
@@ -668,7 +691,6 @@ textarea {
     #parent-container {
         margin-left: 25px;
         margin:0px;
-        padding:0px;
     }
     .footer-style {
         padding-left: 17%;
@@ -720,6 +742,14 @@ textarea {
     {
         margin-left:0px;
     }
+    .sharedimage-preview-odd
+    {
+        margin-left:-20px;
+    }
+    .sharedimage-preview-even
+    {
+        margin-left:0px;
+    }
     .folder-preview{
         padding:0px;
     }
@@ -785,6 +815,10 @@ textarea {
         padding-left:40px;
         padding-right:40px;
     }
+    .shared-folder-main{
+        padding-left:40px;
+        padding-right:40px;
+    }
     .main-area-closed{
         padding-left:40px;
         padding-right:40px;
@@ -807,6 +841,9 @@ textarea {
     #dinamicFodlerArea{
         padding:0px;
         margin:0px;
+    }
+    #dynamicSharedFoldersArea{
+        padding:0px;
     }
     /*was*/
     #parent-container {

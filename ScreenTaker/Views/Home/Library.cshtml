@@ -1,6 +1,6 @@
 ﻿@using ScreenTaker.Models;
 @{
-    ViewBag.Title = "Library";
+    ViewBag.Title = Resources.Resource.FOLDERS;
     ViewBag.CurrentFolderShCode = "-1";
     ViewBag.CurrentFolderId = "-1";
     if (!Request.QueryString["lang"].IsEmpty())
@@ -192,7 +192,7 @@
             <div class="col-sm-6 header-images">
                 <h2 class="text-overflowed text-overflowed_title">@Resources.Resource.FOLDERS</h2>
             </div>
-            <div class="preloader" id="loadingAnimation">
+            <div class="preloader" id="loadingAnimation" style="visibility:hidden">
                 <div class="sk-cube-grid preloader-center center-block">
                     <div class="sk-cube sk-cube1"></div>
                     <div class="sk-cube sk-cube2"></div>
