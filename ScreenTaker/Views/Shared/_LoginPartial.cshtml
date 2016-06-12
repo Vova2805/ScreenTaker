@@ -31,8 +31,8 @@
             @Html.AntiForgeryToken()
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="" dropdown-toggle" onmouseover="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization0">@Loc<span class="caret"></span></a>
-                    <ul class="dropdown-menu"  id="dropdown-menu"  onmouseleave="localizationLeave()">
+                    <a href="" dropdown-toggle" onclick="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization0">@Loc<span class="caret"></span></a>
+                    <ul class="dropdown-menu drop-menu"  id="dropdown-menu">
                         <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">Українська</a></li>
                         <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">Русский</a></li>
                         <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">English</a></li>
@@ -42,10 +42,10 @@
                     string path = "";
                     if (User == null)
                     {
-                        path = Server.MapPath("~/Resources/") + "user.png";
+                        path = Server.MapPath("~/avatars/") + "user_50.png";
                     }
                     else
-                    {
+                    {                       
                         var email = User.Identity.GetUserName();
                         var people = ViewBag.PeopleForMaster;
                         string avatarFile = null;
@@ -62,9 +62,9 @@
                         }
                         else
                         {
-                            path = "~/Resources/user_50.png";
+                            path = "~/avatars/user_50.png";
                         }
-                    }
+                    }                    
                 }
                 <li>
                     <ul class="nav navbar-nav navbar-right">
@@ -89,8 +89,8 @@
                     {
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" id="dropdown-li" >
-                <a href="" class="dropdown-toggle" onmouseover="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">@Loc<span class="caret"></span></a>
-                <ul class="dropdown-menu" id="dropdown-menu" onmouseleave="localizationLeave()">
+                <a href="" class="dropdown-toggle" onclick="localizationOver()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="localization1">@Loc<span class="caret"></span></a>
+                <ul class="dropdown-menu drop-menu" id="dropdown-menu">
                     <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="uk"})">Українська</a></li>
                     <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="ru"})">Русский</a></li>
                     <li><a href="@Url.Action("ChangeLocalization","Edit",new { request=Request.Url.PathAndQuery, lang ="en"})">English</a></li>

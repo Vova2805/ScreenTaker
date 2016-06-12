@@ -592,7 +592,7 @@ textarea {
 
 .sidenav {
     height: 100%;
-    width: 200px;
+    width: 15%;
     position: fixed;
     top: 0;
     right: 0;
@@ -796,4 +796,53 @@ textarea {
 .error-image {
     width:80%;
     height:80%
+}
+.open-button-closed{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+}
+.open-button-open{
+   margin-right:135px;
+   margin-top:20px;
+   opacity:0;
+}
+.main-area-closed{
+    padding-left:40px;
+    padding-right:40px;
+}
+.main-area-open{
+    padding-left:40px;
+    padding-right:150px;
+}
+.navigation-closed{
+    margin-left:25px;
+    padding-right:0px;
+}
+.navigation-open{
+    margin-left:25px;
+    padding-right:195px;
+}
+.drop-menu{
+    color: #EBEBEB;
+    background-color: #111010;
+}
+
+.drop-menu > ul{
+    color: #EBEBEB;
+    background-color: red;
+}
+.drop-menu > li{
+  background-color: red;
+  color:#EBEBEB;
+}
+.drop-menu > li > a{
+  background-color: #111010;
+  color:#EBEBEB;
+}
+
+.drop-menu > li > a:hover,
+.drop-menu > li > a:focus {
+  background-color: #444444;
+  color:white;
 }
