@@ -524,9 +524,9 @@ namespace ScreenTaker.Controllers
                     {
                         var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
                         if (person.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + person.AvatarFile + "_128.png"))
-                            ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + person.AvatarFile + "_128.png";
+                            ViewBag.Avatar_128 = getUserAvatar(person.AvatarFile + "_128.png");
                         else
-                            ViewBag.Avatar_128 = GetBaseUrl() + "/Resources/user_128.png";
+                            ViewBag.Avatar_128 = getUserAvatar("user_128");
                     }
                     transaction.Commit();
                 }
