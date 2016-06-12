@@ -131,22 +131,6 @@ textarea {
 .vert_menu a::after{   z-index: 3;  border-left-color: #525252;   }
 .vert_menu a::before{   z-index: 2;  }
 
-    /*
- *  Usage:
- *
-      <div class="sk-cube-grid">
-        <div class="sk-cube sk-cube1"></div>
-        <div class="sk-cube sk-cube2"></div>
-        <div class="sk-cube sk-cube3"></div>
-        <div class="sk-cube sk-cube4"></div>
-        <div class="sk-cube sk-cube5"></div>
-        <div class="sk-cube sk-cube6"></div>
-        <div class="sk-cube sk-cube7"></div>
-        <div class="sk-cube sk-cube8"></div>
-        <div class="sk-cube sk-cube9"></div>
-      </div>
- *
- */
 .sk-cube-grid {
   width: 100px;
   height: 100px;
@@ -236,9 +220,78 @@ textarea {
 			START RESPONSIVE STYLE
 =====================///////////////////////*/
 
+@media(max-width:2880px){
+#titleRow{
+ padding-left: 40px;
+}
+#openSideMenu{
+    margin-top:20px;
+    background-color:white;
+}
+
+.open-button-closed{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+}
+.open-button-open{
+   margin-right:135px;
+   margin-top:20px;
+   opacity:0;
+}
+.main-area-closed{
+    padding-left:40px;
+    padding-right:40px;
+}
+.main-area-open{
+    padding-left:40px;
+    padding-right:150px;
+}
+.navigation-closed{
+    margin-left:25px;
+    padding-right:0px;
+}
+.navigation-open{
+    margin-left:25px;
+    padding-right:195px;
+}
+}
 
 @media(max-width:1199px ){
-    
+#titleRow{
+ padding-left: 40px;
+}
+#openSideMenu{
+    margin-top:20px;
+    background-color:white;
+}
+
+ .open-button-closed{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+}
+.open-button-open{
+   margin-right:135px;
+   margin-top:20px;
+   opacity:0;
+}
+.main-area-closed{
+    padding-left:40px;
+    padding-right:40px;
+}
+.main-area-open{
+    padding-left:40px;
+    padding-right:150px;
+}
+.navigation-closed{
+    margin-left:25px;
+    padding-right:0px;
+}
+.navigation-open{
+    margin-left:25px;
+    padding-right:195px;
+}   
 }
 
 
@@ -420,7 +473,43 @@ textarea {
 }
 
 
-@media(max-width:320px ){
+@media(max-width:320px){
+    #titleRow{
+     padding-left: 25px;
+    }
+    #openSideMenu{
+    margin-top:20px;
+    background-color:white;
+    margin-right:5px;
+    }
+   .open-button-open{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+    margin-right:5px;
+    }
+   .open-button-closed{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+    margin-right:5px;
+    }
+    .main-area-open{
+        padding-left:40px;
+        padding-right:40px;
+    }
+    .navigation-open{
+        margin-left:0px;
+        padding-right:0px;
+        padding-left:10px;
+        padding-right:10px;
+    }
+    .navigation-closed{
+        margin-left:0px;
+        padding-right:0px;
+        padding-left:10px;
+        padding-right:10px;
+    }
     #parent-container {
         margin-left: 25px;
     }
@@ -789,10 +878,8 @@ textarea {
 }
 
 .single-image {
-    max-width: 800px;
-    max-height: 600px;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 .hidden-field{
     width:0px;
@@ -806,32 +893,7 @@ textarea {
     width:80%;
     height:80%
 }
-.open-button-closed{
-    margin-right:0px;
-    margin-top:20px;
-    opacity:1;
-}
-.open-button-open{
-   margin-right:135px;
-   margin-top:20px;
-   opacity:0;
-}
-.main-area-closed{
-    padding-left:40px;
-    padding-right:40px;
-}
-.main-area-open{
-    padding-left:40px;
-    padding-right:150px;
-}
-.navigation-closed{
-    margin-left:25px;
-    padding-right:0px;
-}
-.navigation-open{
-    margin-left:25px;
-    padding-right:195px;
-}
+
 .drop-menu{
     color: #EBEBEB;
     background-color: #111010;
