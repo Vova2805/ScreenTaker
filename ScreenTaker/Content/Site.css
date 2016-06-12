@@ -203,6 +203,9 @@ textarea {
 =====================///////////////////////*/
 
 @media(max-width:2880px){
+    #FolderManageAccess{
+        margin-top:20px
+    }
 .shared-folder-main{
         padding-left:40px;
         padding-right:40px;
@@ -295,6 +298,9 @@ textarea {
 }
 
 @media(max-width:1199px ){
+ #FolderManageAccess{
+     margin-top:20px
+    }
 .shared-folder-main{
         padding-left:40px;
         padding-right:40px;
@@ -841,6 +847,9 @@ textarea {
 }
 
 @media(max-width:360px ){
+ #FolderManageAccess{
+       margin-top:20px
+    }
     .image-preview{
         padding:0px;
     }
@@ -888,6 +897,9 @@ textarea {
 }
 
 @media(max-width:320px){
+     #FolderManageAccess{
+        margin-top:14%;
+    }
     .image-preview{
         padding:0px;
     }
