@@ -29,8 +29,9 @@
         foreach (var i in ViewBag.Images)
         {
             string original = i.SharedCode;
-            string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-            string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+            //string compressed = ViewBag.BASE_URL + "img/" + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
+            string sharedLink1 = ViewBag.SharedImageBASE + original;
+            string compressed = ViewBag.ImageLinkBASE +(i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/"+ i.SharedCode + "_compressed.png";
             string name = i.Name;
             string classes = "floating-box text-center task active images";
             string image_id = "IMD" + index;
@@ -39,7 +40,7 @@
             string IId = ViewBag.ImageID + "";
 
             <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed','@name.Replace("'", "&#039")','@isPublic')"
-                 ondblclick="openImage('@original')" style="cursor:pointer;">
+                 ondblclick="openImage('@original','@ViewBag.SigleImageBASE')" style="cursor:pointer;">
                 <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                     <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                     </div>

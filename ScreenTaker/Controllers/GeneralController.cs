@@ -11,7 +11,6 @@ namespace ScreenTaker.Controllers
 {
     public abstract class GeneralController : Controller
     {
-        public static string locale = "en";
         public GeneralController()
         {
             var _entities = new ScreenTakerEntities();
@@ -56,11 +55,27 @@ namespace ScreenTaker.Controllers
 
         protected string getUserAvatar(string code)
         {
-           return GetBaseUrl() + "avatars/" + code + ".png";
+           return getUserAvatarBASE() + code + ".png";
+        }
+        protected string getUserAvatarBASE()
+        {
+            return GetBaseUrl() + "avatars/";
         }
         protected string GetImagePath(string code)
         {
+            try
+            {
+                var _entities = new ScreenTakerEntities();
+                var image = _entities.Images.Where(w => w.SharedCode == code).FirstOrDefault();
+                if (image != null)
+                    return GetBaseUrl() + "img/" + (image.ServerFolder == null ? "" : image.ServerFolder.SharedCode) + "/" + code + ".png";
+            }
+            catch { }
             return GetBaseUrl() + "img/" + code + ".png";
+        }
+        protected string GetImagePathBASE()
+        {
+            return GetBaseUrl() + "img/";
         }
 
         protected string GetImageLink(Image image)
@@ -70,6 +85,14 @@ namespace ScreenTaker.Controllers
 
         protected string GetImageLink(string code)
         {
+            try
+            {
+                var _entities = new ScreenTakerEntities();
+                var image = _entities.Images.Where(w => w.SharedCode == code).FirstOrDefault();
+                if (image != null)
+                    return GetBaseUrl() + "img/" + (image.ServerFolder == null ? "" : image.ServerFolder.SharedCode) + "/" + code + ".png";
+            }
+            catch { }
             return GetBaseUrl() + "img/" + code + ".png";
         }
 
@@ -96,6 +119,17 @@ namespace ScreenTaker.Controllers
         protected string GetSharedFolderLink(string code)
         {
             return GetBaseUrl() + "Home/SharedFolder?f=" + code;
+        }
+
+        protected string GetSingleImageLink(string code)
+        {
+            return GetBaseUrl() + "Home/SingleImage?image=" + code;
+        }
+
+        protected string getLocale()
+        {
+            var temp = Session["Locale"];
+            return temp!=null?temp.ToString():"en";
         }
     }
 }
