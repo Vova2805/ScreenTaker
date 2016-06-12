@@ -524,7 +524,7 @@ namespace ScreenTaker.Controllers
                     {
                         var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
                         if (person.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + person.AvatarFile + "_128.png"))
-                            ViewBag.Avatar_128 = getUserAvatar(person.AvatarFile + "_128.png");
+                            ViewBag.Avatar_128 = getUserAvatar(person.AvatarFile + "_128");
                         else
                             ViewBag.Avatar_128 = getUserAvatar("user_128");
                     }
@@ -671,10 +671,10 @@ namespace ScreenTaker.Controllers
             ViewBag.Localize = getLocale();
             if (file != null)
             {                
-                using (var transaction = _entities.Database.BeginTransaction())
-                {
-                    try
-                    {
+                //using (var transaction = _entities.Database.BeginTransaction())
+                //{
+                //    try
+                //    {
                         var avatarFile = "";
                         ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                         if (user != null)
@@ -685,8 +685,8 @@ namespace ScreenTaker.Controllers
                             {
                                 try
                                 {
-                                    System.IO.File.Delete(getUserAvatar(person.AvatarFile + "_128"));
-                                    System.IO.File.Delete(getUserAvatar(person.AvatarFile + "_50"));
+                                    System.IO.File.Delete(Server.MapPath("/avatars/") + avatarFile + "_128");
+                                    System.IO.File.Delete(Server.MapPath("/avatars/") + avatarFile + "_50");
                                 }
                                 catch { }
                             }
@@ -697,21 +697,21 @@ namespace ScreenTaker.Controllers
                         var bitmap = new Bitmap(file.InputStream);
 
                         var bitmap128 = _imageCompressor.Compress(bitmap, new Size(128, 128));
-                        var path = getUserAvatar(avatarFile + "_128");
+                        var path = Server.MapPath("/avatars/")+avatarFile + "_128.png";
                         bitmap128.Save(path, ImageFormat.Png);
                         var bitmap25 = _imageCompressor.Compress(bitmap, new Size(50, 50));
-                        path = getUserAvatar(avatarFile + "_50");
+                        path = Server.MapPath("/avatars/") + avatarFile + "_50.png";
                         bitmap25.Save(path, ImageFormat.Png);
                         ViewBag.Avatar_128 = getUserAvatar(avatarFile + "_128");
                         ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();
-                        transaction.Commit();
-                    }
-                    catch (Exception)
-                    {
-                        transaction.Rollback();
-                        return View("Message", new { lang = getLocale() });
-                    }
-                }
+                //        transaction.Commit();
+                //    }
+                //    catch (Exception)
+                //    {
+                //        transaction.Rollback();
+                //        return RedirectToAction("Message", "Home" ,new { lang = getLocale() });
+                //    }
+                //}
             }
             ViewBag.Email = EMAIL;
             AVATAR = ViewBag.Avatar_128;
