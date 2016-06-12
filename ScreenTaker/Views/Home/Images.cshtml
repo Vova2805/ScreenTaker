@@ -78,7 +78,6 @@
 
         function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name,isPublic) {
             name =  name.replace(/&#039/g,"'");
-            var classes = "floating-box text-center task active images";
             document.getElementById("original").value = original;
             document.getElementById("sharedLink").value = sharedLink;
             document.getElementById("compressedLink").src = compressed;
@@ -90,9 +89,9 @@
             document.getElementById("imageNameDelete").innerText = name;
             for (var i = 0; i < count; i++) {
                 var ID = "IMD" + i;
-                document.getElementById(ID).className = classes;
+                $("#"+ID).removeClass("active-image");
             }
-            document.getElementById(image_id).className += " active-image";
+            $("#"+image_id).addClass("active-image");
             SharedCode = sharedCode;
             CurrentID = id;
             document.getElementById("RenameButton").disabled = false;
@@ -359,10 +358,10 @@
 <div class="row main" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 100%">
     <div class="col-md-12">
             <div class="row">
-                <div class="col-sm-6" style="padding-left: 40px;">
+                <div class="col-sm-6 header-images" >
                     <h2 class="text-overflowed">@ViewBag.FolderName</h2>
                 </div>
-                <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
+                <div class="preloader" id="loadingAnimation"  style="visibility:collapse">
                     <div class="sk-cube-grid preloader-center center-block">
                         <div class="sk-cube sk-cube1"></div>
                         <div class="sk-cube sk-cube2"></div>
@@ -376,7 +375,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <button id="openSideMenu" type="button" style="background-color:white" class="btn btn-default pull-right btn-not-rounded open-button-open" disabled aria-label="Left Align" onclick="openNav()">
+                    <button id="openSideMenu" type="button" style="background-color:white" class="btn btn-default pull-right btn-not-rounded open-button-open open-side-button-images" aria-label="Left Align" onclick="openNav()">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                     </button>
                         <div class="pull-right" style="display:inline;height:44px;">
@@ -396,10 +395,10 @@
                         </div>
                 </div>
             </div>
-        <div class="row-fluid navigation-open" id="navigation">
+        <div class="row navigation-open" id="navigation">
             <ol class="breadcrumb">
                 <li class="text-overflowed"><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
-                <li class="active text-overflowed">@ViewBag.FolderName</li>
+                <li class="active text-overflowed text-overflowed_300">@ViewBag.FolderName</li>
             </ol>
         </div>
         <div class="row" id="dynamicImagesArea">
@@ -435,14 +434,22 @@
                                 document.getElementById("compressedName").innerText = name;
                             </script>
                         }
+                        if(index%2==0)
+                        {
+                            classes += "image-preview image-preview-odd";
+                        }
+                        else
+                        {
+                            classes += "image-preview image-preview-even";
+                        }
                         string image_id = "IMD" + index;
 
                         <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed','@name.Replace("'", "&#039")','@isPublic')"
                               ondblclick="openImage('@original','@ViewBag.SigleImageBASE')" style="cursor:pointer;">
-                            <div class="@classes" id="@image_id" style="padding-top: 10px; ">
-                                <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center; z-index:50;" class="center-block">
-                                    <div class="front-image"  style="background:url(@privatePublicPath) no-repeat center center; ">
-                                    </div>
+                            <div class="@classes" id="@image_id" style="padding-top: 10px;">
+                                <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center; z-index:50;padding-top:10px;" class="center-block">
+                                    @*<div class="front-image"  style="background:url(@privatePublicPath) no-repeat center center; ">
+                                    </div>*@
                                 </div>
                                 <label class="text-center text-overflowed text-overflowed_160">@name</label>
                             </div>
@@ -546,7 +553,7 @@
         <li class="context-menu__item">
             <div class="row" style="padding: 4px 12px;">
                 <div class="col-md-3">
-                    <h5 style="padding-top: 7px; margin:0;">@Resources.Resource.PRIVATE</h5>
+                    <h5 style="padding-top: 7px;color:black;margin:0;">@Resources.Resource.PRIVATE</h5>
                 </div>
                 <div class="col-md-9">
                     <div class="btn-group pull-right" id="toggle_event_editing">
