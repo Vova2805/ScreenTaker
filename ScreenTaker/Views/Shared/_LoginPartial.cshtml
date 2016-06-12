@@ -68,14 +68,14 @@
                 }
                 <li>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            @Html.ActionLink(User.Identity.GetUserName(), "UserProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage groups", @class = "user-name-nav" })
-                        </li>
-                        <li style="width:50px;z-index:5000;">
+                        <li style="width: 50px; z-index: 5000;">
                             <a href="/Account/UserProfile" style="margin: 0px; padding-bottom: 0px; padding-top: 0px;">
                                 <div style="background: transparent url(@Url.Content(path)) no-repeat center center;" class="img-circle user-icon-nav">
                                 </div>
                             </a>
+                        </li>
+                        <li>
+                            @Html.ActionLink(User.Identity.GetUserName(), "UserProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage groups", @class = "user-name-nav" })
                         </li>
                     </ul>
                 </li>
