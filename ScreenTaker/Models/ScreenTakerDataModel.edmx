@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ScreenTakerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ScreenTakerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -93,6 +93,7 @@
           <Property Name="SharedCode" Type="varchar(max)" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PublicationDate" Type="datetime" />
+          <Property Name="ServerFolderId" Type="int" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="ImageTag">
@@ -137,6 +138,14 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PersonId" Type="int" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServerFolder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SharedCode" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -245,6 +254,18 @@
             </Principal>
             <Dependent Role="PersonFriend">
               <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="I_SF">
+          <End Role="ServerFolder" Type="Self.ServerFolder" Multiplicity="0..1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerFolder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="ServerFolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -418,6 +439,7 @@
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonFriend" EntityType="Self.PersonFriend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonGroup" EntityType="Self.PersonGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServerFolder" EntityType="Self.ServerFolder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserShare" EntityType="Self.UserShare" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -447,6 +469,10 @@
           <AssociationSet Name="FK_PersonFriend_Person" Association="Self.FK_PersonFriend_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="PersonFriend" EntitySet="PersonFriend" />
+          </AssociationSet>
+          <AssociationSet Name="I_SF" Association="Self.I_SF">
+            <End Role="ServerFolder" EntitySet="ServerFolder" />
+            <End Role="Image" EntitySet="Image" />
           </AssociationSet>
           <AssociationSet Name="R_19" Association="Self.R_19">
             <End Role="Folder" EntitySet="Folder" />
@@ -501,8 +527,7 @@
             <End Role="GroupMember" EntitySet="GroupMember" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ScreenTakerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -606,6 +631,8 @@
           <NavigationProperty Name="GroupShares" Relationship="Self.R_24" FromRole="Image" ToRole="GroupShare" />
           <NavigationProperty Name="UserShares" Relationship="Self.R_26" FromRole="Image" ToRole="UserShare" />
           <NavigationProperty Name="Tags" Relationship="Self.ImageTag" FromRole="Image" ToRole="Tag" />
+          <Property Name="ServerFolderId" Type="Int32" />
+          <NavigationProperty Name="ServerFolder" Relationship="ScreenTakerDBModel.I_SF" FromRole="Image" ToRole="ServerFolder" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -967,7 +994,33 @@
             <End Role="Image" EntitySet="Images" />
             <End Role="Tag" EntitySet="Tags" />
           </AssociationSet>
+          <EntitySet Name="ServerFolder" EntityType="ScreenTakerDBModel.ServerFolder" />
+          <AssociationSet Name="I_SF" Association="ScreenTakerDBModel.I_SF">
+            <End Role="ServerFolder" EntitySet="ServerFolder" />
+            <End Role="Image" EntitySet="Images" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ServerFolder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SharedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="Image" Relationship="ScreenTakerDBModel.I_SF" FromRole="ServerFolder" ToRole="Image" />
+        </EntityType>
+        <Association Name="I_SF">
+          <End Type="ScreenTakerDBModel.ServerFolder" Role="ServerFolder" Multiplicity="0..1" />
+          <End Type="ScreenTakerDBModel.Image" Role="Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerFolder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="ServerFolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1053,6 +1106,7 @@
           <EntitySetMapping Name="Images">
             <EntityTypeMapping TypeName="ScreenTakerDBModel.Image">
               <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="ServerFolderId" ColumnName="ServerFolderId" />
                 <ScalarProperty Name="FolderId" ColumnName="FolderId" />
                 <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
                 <ScalarProperty Name="SharedCode" ColumnName="SharedCode" />
@@ -1135,6 +1189,15 @@
               <ScalarProperty Name="Id" ColumnName="TagId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ServerFolder">
+            <EntityTypeMapping TypeName="ScreenTakerDBModel.ServerFolder">
+              <MappingFragment StoreEntitySet="ServerFolder">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="SharedCode" ColumnName="SharedCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1149,7 +1212,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

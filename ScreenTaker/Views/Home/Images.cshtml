@@ -409,8 +409,8 @@
                     foreach (var i in ViewBag.Images)
                     {
                         string original = i.SharedCode;
-                        string sharedLink = ViewBag.SharedImageBASE + original;
-                        string compressed = ViewBag.ImageLinkBASE + i.SharedCode + "_compressed.png";
+                        string compressed = ViewBag.ImageLinkBASE + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
+                        string sharedLink = ViewBag.SharedImageBASE + original;                        
                         string isPublic = i.IsPublic + "";
                         string classes = "floating-box text-center task active images";
                         string name = i.Name;

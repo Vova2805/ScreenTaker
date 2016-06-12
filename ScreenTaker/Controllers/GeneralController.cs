@@ -63,6 +63,14 @@ namespace ScreenTaker.Controllers
         }
         protected string GetImagePath(string code)
         {
+            try
+            {
+                var _entities = new ScreenTakerEntities();
+                var image = _entities.Images.Where(w => w.SharedCode == code).FirstOrDefault();
+                if (image != null)
+                    return GetBaseUrl() + "img/" + (image.ServerFolder == null ? "" : image.ServerFolder.SharedCode) + "/" + code + ".png";
+            }
+            catch { }
             return GetBaseUrl() + "img/" + code + ".png";
         }
         protected string GetImagePathBASE()
@@ -77,6 +85,14 @@ namespace ScreenTaker.Controllers
 
         protected string GetImageLink(string code)
         {
+            try
+            {
+                var _entities = new ScreenTakerEntities();
+                var image = _entities.Images.Where(w => w.SharedCode == code).FirstOrDefault();
+                if (image != null)
+                    return GetBaseUrl() + "img/" + (image.ServerFolder == null ? "" : image.ServerFolder.SharedCode) + "/" + code + ".png";
+            }
+            catch { }
             return GetBaseUrl() + "img/" + code + ".png";
         }
 
