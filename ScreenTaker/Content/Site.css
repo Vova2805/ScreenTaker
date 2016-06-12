@@ -525,18 +525,10 @@ textarea {
         margin-left: 85px;
     }
     
-    .image {
-        width: 110px;
-        height: 110px;
-    }
-    div .folder {
-        width: 120px;
-        height: 130px;
-    }
 }
 
 @media(max-width:360px ){
-     hr{
+ hr{
         margin-bottom:5px;
         visibility:collapse;
     }
@@ -579,6 +571,17 @@ textarea {
     {
         margin-left:0px;
     }
+    .folder-preview{
+        padding:0px;
+    }
+    .folder-preview-odd
+    {
+        margin-left:0px;
+    }
+    .folder-preview-even
+    {
+        margin-left:0px;
+    }
     .preloader{
     background:white;
     opacity:0.8;
@@ -609,6 +612,9 @@ textarea {
         right:10px;
     }
     .open-side-button-single-image{
+        right:20px;
+    }
+    .open-side-button-library{
         right:20px;
     }
     #UploadImageButton{
@@ -649,7 +655,10 @@ textarea {
         width:100%;
         padding-right:0px;
     }
-
+    #dinamicFodlerArea{
+        padding:0px;
+        margin:0px;
+    }
 
 
     #parent-container-img {
@@ -658,17 +667,11 @@ textarea {
     }
     #parent-container {
         margin-left: 25px;
+        margin:0px;
+        padding:0px;
     }
     .footer-style {
         padding-left: 17%;
-    }
-    .image {
-        width: 110px;
-        height: 110px;
-    }
-    div .folder {
-        width: 120px;
-        height: 130px;
     }
 }
 
@@ -717,6 +720,17 @@ textarea {
     {
         margin-left:0px;
     }
+    .folder-preview{
+        padding:0px;
+    }
+    .folder-preview-odd
+    {
+        margin-left:0px;
+    }
+    .folder-preview-even
+    {
+        margin-left:0px;
+    }
     .preloader{
     background:white;
     opacity:0.8;
@@ -747,6 +761,9 @@ textarea {
         right:10px;
     }
     .open-side-button-single-image{
+        right:20px;
+    }
+    .open-side-button-library{
         right:20px;
     }
     #UploadImageButton{
@@ -787,21 +804,19 @@ textarea {
         width:100%;
         padding-right:0px;
     }
+    #dinamicFodlerArea{
+        padding:0px;
+        margin:0px;
+    }
     /*was*/
     #parent-container {
-        margin-left: 25px;
+        margin-left: 10px;
+        margin:0px;
+        padding:0px;
     }
     #parent-container-img {
         margin-left: 50px;
         padding:0px;
-    }
-    .image {
-        width: 100px;
-        height: 100px;
-    }
-    div .folder {
-        width: 110px;
-        height: 120px;
     }
 }
 
@@ -961,10 +976,6 @@ textarea {
 .btn-not-rounded {
     border-radius: 0
 }
-.folder{
-    width:180px;
-    height:180px;
-}
 
 .sidenav {
     height: 100%;
@@ -1006,8 +1017,15 @@ textarea {
 .no-underline{
     text-decoration: none
 }
-.main{
+.main {
     margin-right:0;
+}
+#main * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 #openSideMenu{
