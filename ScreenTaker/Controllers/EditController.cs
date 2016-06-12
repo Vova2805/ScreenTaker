@@ -20,20 +20,20 @@ namespace ScreenTaker.Controllers
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
         public ActionResult Index(string lang = "en")
         {
-            ViewBag.Localize = locale;
-            return View("UserGroups",new { lang = locale });
+            ViewBag.Localize = getLocale();
+            return View("UserGroups",new { lang = getLocale() });
         }
 
         public ActionResult EditImage(string lang = "en")
         {
-            ViewBag.Localize = locale;
-            return View("EditImage", new { lang = locale });
+            ViewBag.Localize = getLocale();
+            return View("EditImage", new { lang = getLocale() });
         }
 
         public ActionResult UserGroups(int selectedId=-1)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {                                   
                 try
@@ -74,10 +74,10 @@ namespace ScreenTaker.Controllers
                 {
                     transaction.Rollback();
 	            ViewBag.MessageContent = ex.Message;
-                    return View("Message", new { lang = locale });
+                    return View("Message", new { lang = getLocale() });
                 }
             }
-            return View("UserGroups", new { lang = locale });
+            return View("UserGroups", new { lang = getLocale() });
         }
 
         [AllowAnonymous]
@@ -105,15 +105,15 @@ namespace ScreenTaker.Controllers
             {
                 request += "?lang=" + lang;
             }
-            locale = lang;
-            ViewBag.Localize = locale;
+            Session["Locale"] = lang;
+            ViewBag.Localize = getLocale();
             Response.Redirect(request);
         }
 
         public ActionResult CreateGroup(string name)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -145,14 +145,14 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect, lang = locale  });
+            return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect, lang = getLocale()  });
         }
 
 
         public ActionResult RemoveGroup(int selectedId = 0)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -192,13 +192,13 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect, lang = locale  });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect, lang = getLocale()  });
         }
 
         public ActionResult AddUser(int selectedId,string email)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -235,13 +235,13 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"]= ex.Message;
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = getLocale()  });
         }
 
         public ActionResult RemoveUser(int selectedId,string email)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -257,13 +257,13 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = getLocale()  });
         }
 
         public ActionResult Partial_GroupsAndEmails(int selectedId, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -307,13 +307,13 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                     ViewBag.MessageContent = ex.Message;
                 }
-                return PartialView("Partial_GroupsAndEmails", new { lang = locale });
+                return PartialView("Partial_GroupsAndEmails", new { lang = getLocale() });
 
             }
         }
         public ActionResult AutocompleteSearchEmails(string term)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
             if (user != null)
             {

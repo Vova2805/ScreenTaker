@@ -146,8 +146,8 @@
             }, 200);
         }
 
-        function openImage(path) {
-            location.href = "/Home/SingleImage?image=" + path;
+        function openImage(path,base) {
+            location.href = base + path;
             return false;
         }
 
@@ -409,8 +409,8 @@
                     foreach (var i in ViewBag.Images)
                     {
                         string original = i.SharedCode;
-                        string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                        string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
+                        string sharedLink = ViewBag.SharedImageBASE + original;
+                        string compressed = ViewBag.ImageLinkBASE + i.SharedCode + "_compressed.png";
                         string isPublic = i.IsPublic + "";
                         string classes = "floating-box text-center task active images";
                         string name = i.Name;
@@ -427,7 +427,7 @@
                         string image_id = "IMD" + index;
 
                         <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed','@name.Replace("'", "&#039")','@isPublic')"
-                              ondblclick="openImage('@original')" style="cursor:pointer;">
+                              ondblclick="openImage('@original','@ViewBag.SigleImageBASE')" style="cursor:pointer;">
                             <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
                                 </div>
