@@ -203,6 +203,9 @@ textarea {
 =====================///////////////////////*/
 
 @media(max-width:2880px){
+     #ImageManageAccess{
+    margin-top:14%;
+    }
     #FolderManageAccess{
         margin-top:20px
     }
@@ -298,6 +301,9 @@ textarea {
 }
 
 @media(max-width:1199px ){
+     #ImageManageAccess{
+    margin-top:14%;
+    }
  #FolderManageAccess{
      margin-top:20px
     }
@@ -897,6 +903,12 @@ textarea {
 }
 
 @media(max-width:320px){
+    #SingleImageManageAccess{
+    margin-top:14%;
+    }
+    #ImageManageAccess{
+    margin-top:-45px;
+    }
      #FolderManageAccess{
         margin-top:14%;
     }

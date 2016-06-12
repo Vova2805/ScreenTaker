@@ -255,7 +255,7 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
+<div class="modal fade" tabindex="-1" role="dialog" id="SingleImageManageAccess">
         <div class="modal-dialog" role="document">
             <div class="modal-content" id="ImagesAccessDynamic">                
             </div>
@@ -368,7 +368,7 @@
                 <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.SharedLink" readonly/>
                 <br />
                 <div>
-                    <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%" onclick=
+                    <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#SingleImageManageAccess" style="width: 100%" onclick=
                               "$('#loadingAnimation').css('visibility', 'visible'); $.ajax({
                             url: 'PartialImagesAccess',
                             data: {
