@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "SharedImage";
+    ViewBag.Title = ViewBag.OriginalName;
     if (!Request.QueryString["lang"].IsEmpty())
     {
         Culture = UICulture = Request.QueryString["lang"];
