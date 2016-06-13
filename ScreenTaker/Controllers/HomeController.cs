@@ -988,7 +988,8 @@ namespace ScreenTaker.Controllers
             if (ViewBag.Image != null)
             {
                 ViewBag.OriginalPath = GetImagePath(ViewBag.Image.SharedCode);
-                ViewBag.CompressedPath = GetImagePath(ViewBag.Image.SharedCode+"_compressed");
+                ViewBag.CompressedPath =    GetImagePathBASE() + (ViewBag.Image.SharedCode == null ? "" : ViewBag.Image.ServerFolder.SharedCode + "/")  + ViewBag.Image.SharedCode + "_compressed.png";
+                
             }
             if (ViewBag.Image != null)
                 ViewBag.ImageSharedCode = ViewBag.Image.SharedCode;
@@ -1210,7 +1211,7 @@ namespace ScreenTaker.Controllers
                         throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);                    
                     var newolder = new Folder()
                     {
-                        IsPublic = true,
+                        IsPublic = false,
                         OwnerId = user.Id,
                         SharedCode = _stringGenerator.Next(),
                         Name = title,

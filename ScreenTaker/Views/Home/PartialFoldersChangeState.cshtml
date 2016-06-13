@@ -8,7 +8,7 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
-<div class="col-sm-12" style="padding-left:40px;padding-right:40px;" id="parent-container">
+<div class="col-sm-12 main-area-open" id="parent-container">
     @{
         int count = ViewBag.Folders.Count;
 
@@ -41,10 +41,18 @@
             {
                 string a = isPublic;
             }
-            <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
+            if (i % 2 == 0)
+            {
+                classes += "folder-preview folder-preview-odd";
+            }
+            else
+            {
+                classes += "folder-preview folder-preview-even";
+            }
+            <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
                  ondblclick="openFolder('@ViewBag.Folders[i].Id','@ViewBag.FolderLinkBASE')" style="cursor:pointer;">
                 <figure class="@classes" id="@folder_id">
-                    <img src="@imageLink" class="image" id="img_id" />
+                    <img src="@imageLink" class="image" id="img_id" style="width: 128px; height: 128px;" />
                     <figcaption class="text-center text-overflowed text-overflowed_160">@FolderTitle</figcaption>
                 </figure>
             </div>

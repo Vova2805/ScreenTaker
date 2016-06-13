@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "SharedImage";
+    ViewBag.Title = ViewBag.OriginalName;
     if (!Request.QueryString["lang"].IsEmpty())
     {
         Culture = UICulture = Request.QueryString["lang"];
@@ -19,7 +19,7 @@
 
 @if (ViewBag.AccessGranted)
 {
-    string temp = ((ViewBag.Owner != null && ViewBag.Owner.AvatarFile != null) ? (ViewBag.Owner.AvatarFile) : "user");
+    string temp = ((ViewBag.Owner != null && ViewBag.Owner.AvatarFile != null && System.IO.File.Exists(Server.MapPath("/avatars/") + ViewBag.Owner.AvatarFile + "_50.png")) ? (ViewBag.Owner.AvatarFile) : "user");
     string AvatarPath = ViewBag.UserAvatarBASE + temp + "_50.png";
     string OwnerEmail = ViewBag.Owner.Email;
     string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";

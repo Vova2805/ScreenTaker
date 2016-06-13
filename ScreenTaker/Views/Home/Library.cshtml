@@ -1,6 +1,6 @@
 ﻿@using ScreenTaker.Models;
 @{
-    ViewBag.Title = "Library";
+    ViewBag.Title = Resources.Resource.FOLDERS;
     ViewBag.CurrentFolderShCode = "-1";
     ViewBag.CurrentFolderId = "-1";
     if (!Request.QueryString["lang"].IsEmpty())
@@ -18,6 +18,20 @@
     <link href="@Url.Content("~/Content/themes/base/theme.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/jquery-ui-1.11.4.min.js")" type="text/javascript"></script>
     <script>
+        $( document ).on("pageinit", "#main", function() {
+            $(document).on("swipeleft swiperight", "#main", function (e) {
+                if ($.mobile.activePage.jqmData("panel") !== "open") {
+                    if (e.type === "swipeleft") {
+                        alert("Left");
+                        openNav();
+                    } else if (e.type === "swiperight") {
+                        alert("Right");
+                        closeNav();
+                    }
+                }
+            });
+        });
+       
         $(function () {
             $("[data-autocomplete-source]").each(function () {
                 var target = $(this);
@@ -139,13 +153,11 @@
             document.getElementById("MakePublicButton").disabled = false;
             document.getElementById("sharedLink").disabled = false;
 
-
-            var classes = "floating-box text-center task active images folder";
             for (var i = 0; i < count; i++) {
                 var ID = "FID" + i;
-                document.getElementById(ID).className = classes;
+                $("#"+ID).removeClass("active-image");
             }
-            document.getElementById(folder_id).className += " active-image";
+            $("#"+folder_id).addClass("active-image");
             document.getElementById('FID_field').innerText = folder_id.slice(-1);
             return false;
         }
@@ -177,10 +189,10 @@
 <div id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 100%">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-sm-6" style="padding-left: 40px;">
-                <h2>@Resources.Resource.FOLDERS</h2>
+            <div class="col-sm-6 header-images">
+                <h2 class="text-overflowed text-overflowed_title">@Resources.Resource.FOLDERS</h2>
             </div>
-            <div class="preloader" id="loadingAnimation">
+            <div class="preloader" id="loadingAnimation" style="visibility:hidden">
                 <div class="sk-cube-grid preloader-center center-block">
                     <div class="sk-cube sk-cube1"></div>
                     <div class="sk-cube sk-cube2"></div>
@@ -194,7 +206,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <button id="openSideMenu" disabled type="button" class="btn btn-default pull-right btn-not-rounded open-button-open" aria-label="Left Align" style="background-color:white" onclick="openNav()">
+                <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded open-button-open open-side-button-library" aria-label="Left Align" style="background-color:white" onclick="openNav()">
                     <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                 </button>
                 <button id="AddFolderButton" data-placement="bottom" title="@Resources.Resource.ADD_NEW_FOLDER" type="button" class="btn btn-primary btn-default pull-right success btn-not-rounded" data-toggle="modal" data-target="#AddFolder" aria-label="Left Align">
@@ -248,10 +260,18 @@
                             document.getElementById("sharedLink").disabled = true;
                             </script>
                         }
+                        if (i % 2 == 0)
+                        {
+                            classes += "folder-preview folder-preview-odd";
+                        }
+                        else
+                        {
+                            classes += "folder-preview folder-preview-even";
+                        }
                         <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
                              ondblclick="openFolder('@ViewBag.Folders[i].Id','@ViewBag.FolderLinkBASE')" style="cursor:pointer;">
                             <figure class="@classes" id="@folder_id">
-                                <img src="@imageLink" class="image" id="img_id"/>
+                                <img src="@imageLink" class="image" id="img_id" style="width: 128px; height: 128px;"/>
                                 <figcaption class="text-center text-overflowed text-overflowed_160">@FolderTitle</figcaption>
                             </figure>
                         </div>
@@ -259,15 +279,15 @@
                     <script>
                         for (var i = 0; i < ViewBag.Count; i++) {
                             var ID = "FID" + i;
-                            document.getElementById(ID).className = classes;
+                            $("#"+ID).removeClass("active-image");
                         }
-                        document.getElementById(document.getElementById('FID_field').innerText).className += " active-image";
+                        $("#"+document.getElementById('FID_field').innerText).addClass("active-image");
                     </script>
                 }
             </div>
         </div>
     </div>
-    <div class="sidenav" id="mySidenav">
+    <div class="sidenav" id="mySidenav" data-role="panel">
         <div style="margin-left: 10px; margin-right: 10px; height: 100%;">
             <div style="width:100%;height:165px;">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="font-size:40px;">×</a>
