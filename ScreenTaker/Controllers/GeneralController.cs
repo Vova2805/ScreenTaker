@@ -65,7 +65,7 @@ namespace ScreenTaker.Controllers
                 var _entities = new ScreenTakerEntities();
                 var image = _entities.Images.Where(w => w.SharedCode == code).FirstOrDefault();
                 if (image != null)
-                    return GetBaseUrl() + "img/" + (image.ServerFolder == null ? "" : image.ServerFolder.SharedCode) + "/" + code + ".png";
+                return GetImagePathBASE() + (image.ServerFolder == null ? "" : image.ServerFolder.SharedCode + "/")  + code + ".png";
             }
             catch { }
             return GetBaseUrl() + "img/" + code + ".png";

@@ -988,7 +988,8 @@ namespace ScreenTaker.Controllers
             if (ViewBag.Image != null)
             {
                 ViewBag.OriginalPath = GetImagePath(ViewBag.Image.SharedCode);
-                ViewBag.CompressedPath = GetImagePath(ViewBag.Image.SharedCode+"_compressed");
+                ViewBag.CompressedPath =    GetImagePathBASE() + (ViewBag.Image.SharedCode == null ? "" : ViewBag.Image.ServerFolder.SharedCode + "/")  + ViewBag.Image.SharedCode + "_compressed.png";
+                
             }
             if (ViewBag.Image != null)
                 ViewBag.ImageSharedCode = ViewBag.Image.SharedCode;

@@ -131,22 +131,6 @@ textarea {
 .vert_menu a::after{   z-index: 3;  border-left-color: #525252;   }
 .vert_menu a::before{   z-index: 2;  }
 
-    /*
- *  Usage:
- *
-      <div class="sk-cube-grid">
-        <div class="sk-cube sk-cube1"></div>
-        <div class="sk-cube sk-cube2"></div>
-        <div class="sk-cube sk-cube3"></div>
-        <div class="sk-cube sk-cube4"></div>
-        <div class="sk-cube sk-cube5"></div>
-        <div class="sk-cube sk-cube6"></div>
-        <div class="sk-cube sk-cube7"></div>
-        <div class="sk-cube sk-cube8"></div>
-        <div class="sk-cube sk-cube9"></div>
-      </div>
- *
- */
 .sk-cube-grid {
   width: 100px;
   height: 100px;
@@ -208,6 +192,29 @@ textarea {
             transform: scale3D(0, 0, 1); }
 
 }
+
+
+
+.searchable{}
+
+
+/*======================///////////////
+			START RESPONSIVE STYLE
+=====================///////////////////////*/
+
+@media(max-width:2880px){
+    .header-images{
+        padding-left: 40px;
+    }
+.image-preview{
+        padding-top: 10px;
+    }
+.image-preview:nth-child(2n) 
+    {
+    }
+.preloader-center{
+    vertical-align:middle;
+}
 .preloader{
     background:white;
     opacity:0.8;
@@ -218,7 +225,6 @@ textarea {
     width:100%;
     height:100%;
 }
-
 .front-image{
     opacity:0.9;
     position:fixed;
@@ -227,18 +233,104 @@ textarea {
     height:132px;
     visibility:visible;
 }
-.searchable{}
+#titleRow{
+ padding-left: 40px;
+}
+#openSideMenu{
+    margin-top:20px;
+    background-color:white;
+}
+
+.open-button-closed{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+}
+.open-button-open{
+   margin-right:135px;
+   margin-top:20px;
+   opacity:0;
+}
+.main-area-closed{
+    padding-left:40px;
+    padding-right:40px;
+}
+.main-area-open{
+    padding-left:40px;
+    padding-right:150px;
+}
+.navigation-closed{
+    margin-left:25px;
+    padding-right:15px;
+}
+.navigation-open{
+    margin-left:25px;
+    padding-right:195px;
+}
+}
+
+@media(max-width:1199px ){
+ .header-images{
+        padding-left: 40px;
+    }
+.image-preview{
+        padding-top: 10px;
+    }
 .preloader-center{
     vertical-align:middle;
 }
+.preloader{
+    background:white;
+    opacity:0.8;
+    position:fixed;
+    z-index:1500;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+}
+.front-image{
+    opacity:0.9;
+    position:fixed;
+    z-index:2;
+    width:150px;
+    height:132px;
+    visibility:visible;
+}
+#titleRow{
+ padding-left: 40px;
+}
+#openSideMenu{
+    margin-top:20px;
+    background-color:white;
+}
 
-/*======================///////////////
-			START RESPONSIVE STYLE
-=====================///////////////////////*/
-
-
-@media(max-width:1199px ){
-    
+ .open-button-closed{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+}
+.open-button-open{
+   margin-right:135px;
+   margin-top:20px;
+   opacity:0;
+}
+.main-area-closed{
+    padding-left:40px;
+    padding-right:40px;
+}
+.main-area-open{
+    padding-left:40px;
+    padding-right:150px;
+}
+.navigation-closed{
+    margin-left:25px;
+    padding-right:15px;
+}
+.navigation-open{
+    margin-left:25px;
+    padding-right:195px;
+}   
 }
 
 
@@ -265,7 +357,9 @@ textarea {
         position: absolute;
         z-index: 1000;
         top: -60px;
-        right: 20px;
+    }
+    .open-side-button-images{
+        right:20px;
     }
 
     #AddFolderButton {
@@ -447,12 +541,98 @@ textarea {
 }
 
 
-@media(max-width:320px ){
+@media(max-width:320px){
+    .header-images{
+        padding-left: 25px;
+        padding-right:0px;
+    }
+    .preloader-center{
+       margin-top:30%;
+    }
+    .image-preview{
+        padding:0px;
+    }
+    .image-preview-odd
+    {
+        margin-left:-35px;
+    }
+    .image-preview-even
+    {
+        margin-left:0px;
+    }
+    .preloader{
+    background:white;
+    opacity:0.8;
+    position:fixed;
+    z-index:1500;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    }
+    .front-image{
+    opacity:0.9;
+    position:fixed;
+    z-index:2;
+    width:150px;
+    height:132px;
+    visibility:visible;
+    }
+    #titleRow{
+     padding-left: 25px;
+    }
+    #openSideMenu{
+    margin-top:20px;
+    background-color:white;
+    margin-right:5px;
+    }
+    .open-side-button-images{
+        right:10px;
+    }
+    #UploadImageButton{
+        margin-right:-10px;
+    }
+   .open-button-open{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+    margin-right:5px;
+    }
+   .open-button-closed{
+    margin-right:0px;
+    margin-top:20px;
+    opacity:1;
+    margin-right:5px;
+    }
+    .main-area-open{
+        padding-left:40px;
+        padding-right:40px;
+    }
+    .main-area-closed{
+        padding-left:40px;
+        padding-right:40px;
+    }
+    .navigation-open{
+        margin-left:0px;
+        padding-right:10px;
+        padding-left:10px
+    }
+    .navigation-closed{
+        margin-left:0px;
+        padding-left:10px;
+        padding-right:10px;
+    }
+    #navigation{
+        margin-top:-40px;
+        width:100%;
+        padding-right:0px;
+    }
     #parent-container {
         margin-left: 25px;
     }
     #parent-container-img {
         margin-left: 50px;
+        padding:0px;
     }
     .image {
         width: 100px;
@@ -605,7 +785,6 @@ textarea {
 .active-image {
     background-color: #444444;
     color: #F0F0F0;
-    z-index:1000;
 }
 
 .images:hover {
@@ -789,7 +968,10 @@ textarea {
     max-width: 160px; 
 }
 .text-overflowed_220{
-    max-width: 160px; 
+    max-width: 220px; 
+}
+.text-overflowed_300{
+    max-width: 300px; 
 }
 
 .transparent-btn:active,
@@ -816,10 +998,8 @@ textarea {
 }
 
 .single-image {
-    max-width: 800px;
-    max-height: 600px;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 .hidden-field{
     width:0px;
@@ -833,32 +1013,7 @@ textarea {
     width:80%;
     height:80%
 }
-.open-button-closed{
-    margin-right:0px;
-    margin-top:20px;
-    opacity:1;
-}
-.open-button-open{
-   margin-right:135px;
-   margin-top:20px;
-   opacity:0;
-}
-.main-area-closed{
-    padding-left:40px;
-    padding-right:40px;
-}
-.main-area-open{
-    padding-left:40px;
-    padding-right:150px;
-}
-.navigation-closed{
-    margin-left:25px;
-    padding-right:0px;
-}
-.navigation-open{
-    margin-left:25px;
-    padding-right:195px;
-}
+
 .drop-menu{
     color: #EBEBEB;
     background-color: #111010;

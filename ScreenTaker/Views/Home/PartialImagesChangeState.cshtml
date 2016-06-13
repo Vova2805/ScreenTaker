@@ -8,7 +8,7 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
-<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+<div class="col-sm-12 main-area-open" id="parent-container-img">
     @{
         <script>
             document.getElementById("RenameButton").disabled = true;
@@ -29,12 +29,10 @@
         foreach (var i in ViewBag.Images)
         {
             string original = i.SharedCode;
-            //string compressed = ViewBag.BASE_URL + "img/" + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
             string sharedLink1 = ViewBag.SharedImageBASE + original;
-            string compressed = ViewBag.ImageLinkBASE +(i.ServerFolder == null ? "" : i.ServerFolder.SharedCode + "/") + i.SharedCode + "_compressed.png";
+            string compressed = ViewBag.ImageLinkBASE + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode + "/") + i.SharedCode + "_compressed.png";
             string name = i.Name;
             string classes = "floating-box text-center task active images";
-            string image_id = "IMD" + index;
             string privatePublicPath = ViewBag.BASE_URL + "Resources/";
             string isPublic = i.IsPublic + "";
             if (i.IsPublic)
@@ -49,12 +47,22 @@
             string id = i.Id + "";
             string IId = ViewBag.ImageID + "";
 
+            if (index % 2 == 0)
+            {
+                classes += "image-preview image-preview-odd";
+            }
+            else
+            {
+                classes += "image-preview image-preview-even";
+            }
+            string image_id = "IMD" + index;
+
             <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed','@name.Replace("'", "&#039")','@isPublic')"
                  ondblclick="openImage('@original','@ViewBag.SigleImageBASE')" style="cursor:pointer;">
-                <div class="@classes" id="@image_id" style="padding-top: 10px; ">
-                    <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
-                        <div class="front-image" style="background:url(@privatePublicPath) no-repeat center center; ">
-                        </div>
+                <div class="@classes" id="@image_id" style="padding-top: 10px;">
+                    <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center; z-index:50;padding-top:10px;" class="center-block">
+                        @*<div class="front-image"  style="background:url(@privatePublicPath) no-repeat center center; ">
+                            </div>*@
                     </div>
                     <label class="text-center text-overflowed text-overflowed_160">@name</label>
                 </div>
