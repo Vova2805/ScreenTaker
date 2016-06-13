@@ -246,12 +246,13 @@ textarea {
         width: 30px;
         height: 30px;
         margin-left: 15px;
-        margin-top: -35px;
+        margin-top: 0;
     }
     div .user-name-nav {
         margin-left: 50px;
+        margin-top: -35px;
     }
-    #openSideMenu {
+    /*#openSideMenu {
         position: absolute;
         z-index: 1000;
         top: -60px;
@@ -270,7 +271,7 @@ textarea {
         z-index: 1000;
         top: -60px;
         right: 40px;
-    }
+    }*/
     .footer-style {
         padding-left: 30%;
     }
@@ -320,6 +321,32 @@ textarea {
     div .error-image {
         width: 64px;
         height: 64px;
+    }
+    .open-button-closed{
+        margin-right:0px;
+        margin-top:20px;
+        opacity:1;
+    }
+    .open-button-open{
+       margin-right:135px;
+       margin-top:20px;
+       opacity:0;
+    }
+    .main-area-closed{
+        padding-left:40px;
+        padding-right:40px;
+    }
+    .main-area-open{
+        padding-left:40px;
+        padding-right:150px;
+    }
+    .navigation-closed{
+        margin-left:25px;
+        padding-right:0px;
+    }
+    .navigation-open{
+        margin-left:25px;
+        padding-right:195px;
     }
 }
 
