@@ -35,7 +35,17 @@
             string name = i.Name;
             string classes = "floating-box text-center task active images";
             string image_id = "IMD" + index;
+            string privatePublicPath = ViewBag.BASE_URL + "Resources/";
             string isPublic = i.IsPublic + "";
+            if (i.IsPublic)
+            {
+                privatePublicPath += "public";
+            }
+            else
+            {
+                privatePublicPath += "private";
+            }
+            privatePublicPath += "_front.png";
             string id = i.Id + "";
             string IId = ViewBag.ImageID + "";
 
@@ -43,6 +53,8 @@
                  ondblclick="openImage('@original','@ViewBag.SigleImageBASE')" style="cursor:pointer;">
                 <div class="@classes" id="@image_id" style="padding-top: 10px; ">
                     <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
+                        <div class="front-image" style="background:url(@privatePublicPath) no-repeat center center; ">
+                        </div>
                     </div>
                     <label class="text-center text-overflowed text-overflowed_160">@name</label>
                 </div>
