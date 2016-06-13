@@ -87,7 +87,7 @@
                         if (i > 0)
                         {
                             imageLink += "_shared.png";
-                            string AvatarPath = ViewBag.UserAvatarBASE + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile + "_50.png") : "user.png");
+                            string AvatarPath = ViewBag.UserAvatarBASE + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null&& System.IO.File.Exists(Server.MapPath("/avatars/")+ ViewBag.Owners[i].AvatarFile+"_50.png") ? (ViewBag.Owners[i].AvatarFile + "_50.png") : "user_50.png");
                             string OwnerEmail = ViewBag.Owners[i].Email;
                             string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                             string popover_template =
