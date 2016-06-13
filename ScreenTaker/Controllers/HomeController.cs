@@ -1210,7 +1210,7 @@ namespace ScreenTaker.Controllers
                         throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);                    
                     var newolder = new Folder()
                     {
-                        IsPublic = true,
+                        IsPublic = false,
                         OwnerId = user.Id,
                         SharedCode = _stringGenerator.Next(),
                         Name = title,
