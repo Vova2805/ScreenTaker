@@ -427,9 +427,11 @@
     <Content Include="Resources\Ok.png" />
     <Content Include="Resources\printscreen.png" />
     <Content Include="Resources\private.png" />
+    <Content Include="Resources\private_front.png" />
     <Content Include="Resources\private_full.png" />
     <Content Include="Resources\private_shared.png" />
     <Content Include="Resources\public.png" />
+    <Content Include="Resources\public_front.png" />
     <Content Include="Resources\public_full.png" />
     <Content Include="Resources\public_shared.png" />
     <Content Include="Resources\sad.png" />
