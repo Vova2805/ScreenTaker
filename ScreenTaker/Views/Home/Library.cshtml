@@ -188,7 +188,7 @@
 
 <div id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 100%">
     <div class="col-md-12">
-        <div class="row">
+        <div class="row" id="titleRow">
             <div class="col-sm-6 header-library">
                 <h2 class="text-overflowed text-overflowed_title">@Resources.Resource.FOLDERS</h2>
             </div>
@@ -205,7 +205,7 @@
                     <div class="sk-cube sk-cube9"></div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 button-area">
                 <button id="openSideMenu" type="button" class="btn btn-default pull-right btn-not-rounded open-button-open open-side-button-library" aria-label="Left Align" style="background-color:white" onclick="openNav()">
                     <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                 </button>
@@ -521,7 +521,7 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess" style="top:100px">
+<div class="modal fade" tabindex="-1" role="dialog" id="FolderManageAccess">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="accessDynamic">
         </div>

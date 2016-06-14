@@ -172,9 +172,9 @@
         </div>
     </div>
 
-<div class="modal fade" id="MoveImage" tabindex="-1" role="dialog" style="top:150px;">
+<div class="modal fade" id="MoveImage" tabindex="-1" role="dialog" style="top:80px;">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width:500px;">
+        <div class="modal-content" style="max-width:500px;">
             <div class="modal-header">
                 <button type="button" class="close  btn-not-rounded" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -205,7 +205,7 @@
                                         string folderTitle = ViewBag.UserFolders[i].Name;
                                         <div class="list-group-item" title="@folderTitle">
                                             <div class="media-body" style="vertical-align:middle">
-                                                <h5 class="media-heading">@folderTitle</h5>
+                                                <h5 class="media-heading text-overflowed text-overflowed_300">@folderTitle</h5>
                                             </div>
                                             <div class="media-right" style="vertical-align:middle;">
                                                 <button type="button" class="btn right btn-primary btn-not-rounded" aria-label="Left Align" onclick="location.href='@Url.Action("MoveItMoveIt","Home",new {folderId=ViewBag.UserFolders[i].Id, imageSharedCode=ViewBag.Image.SharedCode})'">
@@ -255,7 +255,7 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="ImageManageAccess" style="top:100px">
+<div class="modal fade" tabindex="-1" role="dialog" id="SingleImageManageAccess">
         <div class="modal-dialog" role="document">
             <div class="modal-content" id="ImagesAccessDynamic">                
             </div>
@@ -264,11 +264,11 @@
 
 <div class="row main" id="main" style="margin-bottom: -20px; overflow: hidden; position: relative; min-height: 100%">
         <div class="col-md-12 " id="dynamicSingleImageArea">
-                <div class="row">
-                    <div class="col-sm-6" id="titleRow" >
+                <div class="row" id="titleRow">
+                    <div class="col-sm-6 header-single-image"  >
                         <h2 class="text-overflowed text-overflowed_title">@ViewBag.OriginalName</h2>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 button-area" >
                         <button id="openSideMenu" style="background-color:white;" type="button" class="btn btn-default pull-right btn-not-rounded open-side-button-single-image" aria-label="Left Align" onclick="openNav()">
                             <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                         </button>
@@ -368,7 +368,7 @@
                 <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText()" value="@ViewBag.SharedLink" readonly/>
                 <br />
                 <div>
-                    <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" style="width: 100%" onclick=
+                    <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#SingleImageManageAccess" style="width: 100%" onclick=
                               "$('#loadingAnimation').css('visibility', 'visible'); $.ajax({
                             url: 'PartialImagesAccess',
                             data: {
