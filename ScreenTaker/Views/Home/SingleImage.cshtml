@@ -288,7 +288,7 @@
                         </div>
                     </div>
                 </div>
-            <div class="row-fluid navigation-open">
+            <div class="row navigation-open" id="navigation">
                 <ol class="breadcrumb">
                     <li class="text-overflowed text-overflowed_300"><a href="/Home/Library">@Resources.Resource.FOLDERS</a></li>
                     <li class="text-overflowed text-overflowed_300"><a href=@ViewBag.FolderLink>@ViewBag.FolderName</a></li>
@@ -296,8 +296,8 @@
                 </ol>
             </div>
             <div class="row">
-                <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
-                    <div class="row text-center">
+                <div class="col-sm-12 main-area-open" id="SingleMainArea">
+                    <div class="row-fluid text-center" >
                         <img src="@ViewBag.OriginalPath" class="single-image" />
                     </div>
                     <div class="row">
@@ -366,7 +366,7 @@
                 </div>
                 <hr />
                 <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
-                <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="selectText(); copyToClipboard(document.getElementById('sharedLink'));" value="@ViewBag.SharedLink" readonly/>
+                <input class="form-control btn-not-rounded" style="width: 100%" id="sharedLink" type="text" placeholder="Sharing link" onclick="copyToClipboard(document.getElementById('sharedLink')); selectText();" value="@ViewBag.SharedLink" readonly/>
                 <br />
                 <div>
                     <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#SingleImageManageAccess" style="width: 100%" 

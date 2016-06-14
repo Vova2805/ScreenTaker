@@ -187,7 +187,7 @@
 }
 
 <div id="main" style="margin-bottom: -20px; overflow: hidden; position: relative;  min-height: 100%">
-    <div class="col-md-12">
+    <div class="col-md-12" style="padding-left:0px;padding-top:0px;">
         <div class="row" id="titleRow">
             <div class="col-sm-6 header-library">
                 <h2 class="text-overflowed text-overflowed_title">@Resources.Resource.FOLDERS</h2>
@@ -330,7 +330,7 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
-            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="selectText();copyToClipboard(document.getElementById('sharedLink'));" value="@ViewBag.FolderLink" disabled readonly />
+            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="copyToClipboard(document.getElementById('sharedLink'));selectText();" value="@ViewBag.FolderLink" disabled readonly />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick="$('#loadingAnimation').css('visibility', 'visible');
