@@ -15,7 +15,7 @@
         string folderTitle = ViewBag.UserFolders[i].Name;
         <div class="list-group-item" title="@folderTitle">
             <div class="media-body" style="vertical-align:middle">
-                <h5 class="media-heading">@folderTitle</h5>
+                <h5 class="media-heading text-overflowed text-overflowed_300">@folderTitle</h5>
             </div>
             <div class="media-right" style="vertical-align:middle;">
                 <button type="button" class="btn right btn-primary btn-not-rounded" aria-label="Left Align" onclick="location.href='@Url.Action("MoveItMoveIt","Home",new {folderId=ViewBag.UserFolders[i].Id})&imageSharedCode='+document.getElementById('original').value">

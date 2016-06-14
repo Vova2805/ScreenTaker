@@ -829,6 +829,9 @@ textarea {
     {
         margin-left: 35px;
     }
+    .text-overflowed_300{
+        max-width: 180px; 
+    }
 }
 
 @media(max-width:360px ){
@@ -870,8 +873,10 @@ textarea {
     {
         margin-left: 20px;
     }
+    .text-overflowed_300{
+        max-width: 160px; 
+    }
 }
-
 
 @media(max-width:320px){
     .image-preview{
@@ -879,15 +884,15 @@ textarea {
     }
     .image-preview-odd
     {
-        margin-left:-35px;
+        margin-left:4px;
     }
     .image-preview-even
     {
-        margin-left:-1px;
+        margin-left:0px;
     }
     .sharedimage-preview-odd
     {
-        margin-left:-20px;
+        margin-left:4px;
     }
     .sharedimage-preview-even
     {
@@ -911,6 +916,9 @@ textarea {
     .shared-folder-preview-even
     {
         margin-left:-1px;
+    }
+    .text-overflowed_300{
+        max-width: 120px; 
     }
 }
 
