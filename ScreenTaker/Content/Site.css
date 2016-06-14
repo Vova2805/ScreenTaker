@@ -259,10 +259,10 @@ textarea {
         margin-top:10%;
     }
     #ImageManageAccess{
-        margin-top:15%;
+        margin-top:10%;
     }
     #FolderManageAccess{
-        margin-top:15%;
+        margin-top:10%;
     }
     #mySidenav{
         width:200px;
@@ -330,7 +330,6 @@ textarea {
         font-size: 40px;
         margin-right: 10px;
     }
-    /*===================*/
     .shared-folder-main {
         padding-left: 40px;
         padding-right: 40px;
