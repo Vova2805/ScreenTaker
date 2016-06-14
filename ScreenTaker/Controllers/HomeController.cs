@@ -637,12 +637,11 @@ namespace ScreenTaker.Controllers
         }
         #endregion
         private void FillImagesViewBag(string folderId)
-        {
-            ViewBag.SigleImageBASE = GetSingleImageLink("");
-            
+        {            
             ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.Localize = getLocale();       
-            var current = Convert.ToInt32(folderId);            
+            ViewBag.SigleImageBASE = GetSingleImageLink("");            
+            ViewBag.Localize = getLocale();                        
+            var current = Convert.ToInt32(folderId);           
             var list = _entities.Images.Where(i => i.FolderId == current).ToList();
             ViewBag.Localize = getLocale();
             ViewBag.IsEmpty = !list.Any();
@@ -801,12 +800,16 @@ namespace ScreenTaker.Controllers
                     {
                         ViewBag.ImageID = imageId;
                         ViewBag.ImageIsPublic = image.IsPublic + "";
-                        FillImagesViewBag(getCurrentFolder());
+                        ViewBag.ImageIsPublic = image.IsPublic + "";
+                        FillImagesViewBag(image.FolderId.ToString());
+                        FillSingleImageViewBag(image.SharedCode);
+                        ViewBag.ImageLinkBASE = GetImagePathBASE();
+                        ViewBag.SharedImageBASE = GetSharedImageLink("");
                         if (!image.Folder.IsPublic)
                             throw new Exception(Resources.Resource.ERR_PUBLIC_IN_PRIVATE);
                         image.IsPublic = !image.IsPublic;
                         ViewBag.ImageIsPublic = image.IsPublic + "";
-                        FillImagesViewBag(getCurrentFolder());
+                        FillImagesViewBag(image.FolderId.ToString());
                         FillSingleImageViewBag(image.SharedCode);
                         ViewBag.ImageLinkBASE = GetImagePathBASE();
                         ViewBag.SharedImageBASE = GetSharedImageLink("");
@@ -838,7 +841,7 @@ namespace ScreenTaker.Controllers
                             throw new Exception(Resources.Resource.ERR_PUBLIC_IN_PRIVATE);
                         image.IsPublic = !image.IsPublic;
                         
-                        FillImagesViewBag(getCurrentFolder());
+                        FillImagesViewBag(image.FolderId.ToString());
                         ViewBag.ImageID = imageId;
                         ViewBag.ImageIsPublic = image.IsPublic + "";
                         ViewBag.Image = image;
@@ -1133,24 +1136,25 @@ namespace ScreenTaker.Controllers
                     catch { }
                     
                     folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode).FolderId;
-                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);
+                    var obj = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedDode);                    
+                    string fId = obj.FolderId.ToString();
                     var userShare = obj.UserShares;
                     while (userShare.Count > 0)
                         _entities.UserShares.Remove(userShare.ElementAt(0));
                     var groupShare = obj.GroupShares;
                     while (groupShare.Count > 0)
                         _entities.GroupShares.Remove(groupShare.ElementAt(0));
-                    _entities.Images.Remove(obj);
+                    _entities.Images.Remove(obj);                    
                     _entities.SaveChanges();
                     transaction.Commit();
+                    FillImagesViewBag(fId);
                 }
                 catch (Exception ex)
                 {
                     transaction.Commit();
                     ViewBag.MessageContent = ex.Message;
                 }
-            }
-            FillImagesViewBag(getCurrentFolder());
+            }            
             ViewBag.ImageLinkBASE = GetImagePathBASE();
             ViewBag.SharedImageBASE = GetSharedImageLink("");
             if (redirect=="true") return RedirectToAction("Images", new { id = folderId.ToString(), lang = getLocale() });
@@ -1179,7 +1183,8 @@ namespace ScreenTaker.Controllers
                     ViewBag.ImageID = obj.Id;
                     obj.Name = newName;
                     ViewBag.Image = obj;
-                    FillImagesViewBag(getCurrentFolder());
+                    
+                    FillImagesViewBag(obj.FolderId.ToString());
                     FillSingleImageViewBag(obj.SharedCode);
                     ViewBag.FolderName = obj.Folder.Name;
                     _entities.SaveChanges();
@@ -1256,6 +1261,7 @@ namespace ScreenTaker.Controllers
                     imageId = obj.Id;
                     folderId = _entities.Images.FirstOrDefault(w => w.SharedCode == sharedCode).FolderId;
                     _entities.SaveChanges();
+                    FillImagesViewBag(obj.FolderId.ToString());
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -1264,7 +1270,7 @@ namespace ScreenTaker.Controllers
                     ViewBag.MessageContent = ex.Message;
                 }
             }
-            FillImagesViewBag(getCurrentFolder());
+            
             if(imageId!=0)
             ViewBag.ImageID = imageId;
             ViewBag.ImageLinkBASE = GetImagePathBASE();
