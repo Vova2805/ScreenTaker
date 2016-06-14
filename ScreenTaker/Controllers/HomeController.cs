@@ -550,7 +550,13 @@ namespace ScreenTaker.Controllers
                     _entities.SaveChanges();
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                     .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-                    ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+                    var folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+                    ViewBag.Folders = folders;
+                    ViewBag.FolderLinkBASE = GetFolderLink("");
+                    var sharedLinks = folders.ToList().Select(f => GetSharedFolderLink(f.SharedCode)).ToList();
+                    ViewBag.Count = folders.Count;
+                    ViewBag.Folders = folders;
+                    ViewBag.SharedLinks = sharedLinks;
                     ViewBag.BASE_URL = GetBaseUrl() + "";
                     ViewBag.FolderID = folderId;
                     transaction.Commit();
@@ -561,7 +567,7 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            ViewBag.FolderLinkBASE = GetFolderLink("");
+            
             return PartialView("PartialFoldersChangeState");
         }      
 
@@ -1220,6 +1226,14 @@ namespace ScreenTaker.Controllers
                     _entities.Folders.Add(newolder);
                     _entities.SaveChanges();
                     transaction.Commit();
+                    var folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+                    ViewBag.Folders = folders;
+                    ViewBag.BASE_URL = GetBaseUrl() + "";
+                    ViewBag.FolderID = folders.Last().Id;
+                    ViewBag.FolderLinkBASE = GetFolderLink("");
+                    var sharedLinks = folders.ToList().Select(f => GetSharedFolderLink(f.SharedCode)).ToList();
+                    ViewBag.Count = folders.Count;
+                    ViewBag.SharedLinks = sharedLinks;
                 }
                 catch (Exception ex)
                 {
@@ -1227,7 +1241,7 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            return RedirectToAction("Library", "Home", new { lang = getLocale() });
+            return PartialView("PartialFoldersChangeState");
         }
 
         public ActionResult RenameImageOutside(string path, string newName, string lang = "en")
@@ -1311,10 +1325,14 @@ namespace ScreenTaker.Controllers
             }
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
                     .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+            var folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+            ViewBag.Folders = folders;
             ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.FolderID = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList().First().Id;
+            ViewBag.FolderID = folders.First().Id;
             ViewBag.FolderLinkBASE = GetFolderLink("");
+            var sharedLinks = folders.ToList().Select(f => GetSharedFolderLink(f.SharedCode)).ToList();
+            ViewBag.Count = folders.Count;
+            ViewBag.SharedLinks = sharedLinks;
             return PartialView("PartialFoldersChangeState");
         }
 
@@ -1344,10 +1362,15 @@ namespace ScreenTaker.Controllers
                     ViewBag.MessageContent = ex.Message;
                 }
             }
-            ViewBag.Folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+            var folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+            ViewBag.Folders = folders;
+            ViewBag.FolderLinkBASE = GetFolderLink("");
+            var sharedLinks = folders.ToList().Select(f => GetSharedFolderLink(f.SharedCode)).ToList();
+            ViewBag.Count = folders.Count;
+            ViewBag.Folders = folders;
+            ViewBag.SharedLinks = sharedLinks;
             ViewBag.BASE_URL = GetBaseUrl() + "";
             ViewBag.FolderID = folderId;
-            ViewBag.FolderLinkBASE = GetFolderLink("");
             return PartialView("PartialFoldersChangeState");
         }
 
