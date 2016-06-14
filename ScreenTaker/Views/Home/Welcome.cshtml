@@ -23,7 +23,7 @@
             <div class="col-md-4">
                 @using (Html.BeginForm("Welcome", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 { 
-                    <input id="fileInput" style="visibility:collapse" type="file" accept="image/jpeg,image/png,image/gif,image/bmp" name="file" onchange="document.getElementById('fileSubmit').click();" />
+                    <input id="fileInput" style="visibility:collapse" type="file" filter="image/*" name="file" onchange="document.getElementById('fileSubmit').click();" />
                     <input id="fileSubmit" style="visibility:collapse" type="submit" value="bla" />
                     if (User.Identity.GetUserName() == "")
                     { 

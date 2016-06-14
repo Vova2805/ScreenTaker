@@ -70,7 +70,8 @@
                     string OwnerEmail = ViewBag.Owners[index].Email;
                     string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                     string popover_template =
-                    "<div class='popover' role='tooltip' style=\"width:200px;height:80px;z-index:30000;top:100px;;\"><div class='arrow'></div><h3 class='popover-title' style=\"font-size:10px;height:20px;font-weight:bold;vertical-align:top;margin:0px;padding:0px;\"></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;\"></a></div></div></div></div></div>";
+                    "<div class='popover' role='tooltip' style=\"width:200px;height:80px;z-index:30000;margin-top:10px;\"><div class='arrow'></div><h3 class='popover-title' style=\"font-size:10px;height:20px;font-weight:bold;vertical-align:top;margin:0px;padding:0px;\"></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;\"></a></div></div></div></div></div>";
+
                     if (index % 2 == 0)
                     {
                         classes += "image-preview sharedimage-preview-odd";
