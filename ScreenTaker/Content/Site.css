@@ -254,7 +254,7 @@ textarea {
 			START RESPONSIVE STYLE
 =====================///////////////////////*/
 
-@media(max-width:2880px) {
+/*@media(max-width:2880px) {
     #SingleImageManageAccess{
         margin-top:10%;
     }
@@ -330,7 +330,6 @@ textarea {
         font-size: 40px;
         margin-right: 10px;
     }
-    /*===================*/
     .shared-folder-main {
         padding-left: 40px;
         padding-right: 40px;
@@ -444,7 +443,7 @@ textarea {
         padding-left: 40px;
         padding-right: 215px;
     }
-}
+}*/
 
 @media(max-width:1199px) {
     hr{
@@ -458,13 +457,13 @@ textarea {
     }
 
     #SingleImageManageAccess{
-        margin-top:10%;
+        top:100px;
     }
     #ImageManageAccess{
-        margin-top:0%;
+        top:100px;
     }
     #FolderManageAccess{
-        margin-top:8%;
+        top:100px;
     }
     #mySidenav{
         width:200px;
