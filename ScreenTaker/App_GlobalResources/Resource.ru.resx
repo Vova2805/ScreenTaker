@@ -451,6 +451,12 @@
   <data name="SUBMIT" xml:space="preserve">
     <value>Подтвердить</value>
   </data>
+  <data name="SUCCESS_COPY" xml:space="preserve">
+    <value>Поздравления</value>
+  </data>
+  <data name="SUCCESS_COPY_TEXT" xml:space="preserve">
+    <value>Ссылка успешно скопирована</value>
+  </data>
   <data name="TO_CONFIRM" xml:space="preserve">
     <value>для подтверждения электронной почты. После получения письма перейдите по ссылке для завершения регистрации</value>
   </data>

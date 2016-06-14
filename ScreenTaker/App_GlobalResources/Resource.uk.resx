@@ -451,6 +451,12 @@
   <data name="SUBMIT" xml:space="preserve">
     <value>Підтвердити</value>
   </data>
+  <data name="SUCCESS_COPY" xml:space="preserve">
+    <value>Вітання</value>
+  </data>
+  <data name="SUCCESS_COPY_TEXT" xml:space="preserve">
+    <value>Посилання успішно скопійовано</value>
+  </data>
   <data name="TO_CONFIRM" xml:space="preserve">
     <value>для підтвердження вашої електронної пошти. Після отримання листа перейдіть за посиланням для завершення реєстрації</value>
   </data>
