@@ -604,7 +604,7 @@ textarea {
     }
     .image-preview-even
     {
-        margin-left:0px;
+          margin-left:-1px;
     }
     .sharedimage-preview-odd
     {
@@ -619,7 +619,7 @@ textarea {
     }
     .folder-preview-odd
     {
-        margin-left:0px;
+        margin-left:-45px;
     }
     .folder-preview-even
     {
@@ -755,6 +755,14 @@ textarea {
         padding-left: 25px;
         padding-right:0px;
     }
+    .header-library{
+        padding-left: 10px;
+        padding-right:0px;
+    }
+    .header-shared-library{
+        padding-left: 10px;
+        padding-right:0px;
+    }
     .preloader-center{
        margin-top:30%;
     }
@@ -767,7 +775,7 @@ textarea {
     }
     .image-preview-even
     {
-        margin-left:0px;
+        margin-left:-1px;
     }
     .sharedimage-preview-odd
     {
@@ -782,11 +790,19 @@ textarea {
     }
     .folder-preview-odd
     {
-        margin-left:0px;
+        margin-left:-1px;
     }
     .folder-preview-even
     {
-        margin-left:0px;
+        margin-left:-1px;
+    }
+     .shared-folder-preview-odd
+    {
+        margin-left:-4px;
+    }
+    .shared-folder-preview-even
+    {
+        margin-left:-1px;
     }
     .preloader{
     background:white;
@@ -821,7 +837,7 @@ textarea {
         right:20px;
     }
     .open-side-button-library{
-        right:20px;
+        right:10px;
     }
     #UploadImageButton{
         margin-right:-10px;
@@ -864,6 +880,10 @@ textarea {
         margin-top:-40px;
         width:100%;
         padding-right:0px;
+    }
+    #dinamicImageArea{
+        padding:0px;
+        margin:0px;
     }
     #dinamicFodlerArea{
         padding:0px;
