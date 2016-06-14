@@ -451,6 +451,11 @@ textarea {
         margin-top:10px;
         margin-bottom:10px;
     }
+    #shared-parent-container {
+        padding-left: 25px;
+        margin: 0px;
+        padding-right: 40px;
+    }
 
     #SingleImageManageAccess{
         margin-top:10%;
@@ -529,7 +534,7 @@ textarea {
     }
     /*===================*/
     .shared-folder-main {
-        padding-left: 40px;
+        padding-left: 55px;
         padding-right: 40px;
     }
 
@@ -559,7 +564,13 @@ textarea {
     .text-overflowed_title {
         max-width: 1000px;
     }
-
+    .header-shared-images{
+        padding-left: 40px;
+    }
+    .header-shared-library{
+        padding-left: 10px;
+        height:60px;
+    }
     .header-images {
         padding-left: 0px;
     }
@@ -658,6 +669,18 @@ textarea {
         margin-left: 15px;
         margin-top: 0px;
     }
+    .open-button-closed {
+        margin-right: 0px;
+        margin-top: 20px;
+        visibility:visible;
+    }
+
+    .open-button-open {
+        margin-right: 140px;
+        margin-top: 20px;
+        visibility:visible;
+    }
+
 
     div .user-name-nav {
         margin-left: 50px;
