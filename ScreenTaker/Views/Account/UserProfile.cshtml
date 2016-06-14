@@ -25,14 +25,14 @@
                     <h4>@ViewBag.ErrorTitle</h4>
                     <hr />
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" style="margin-top: -5px;">
                     <div class="text-center">
                         <div style="width: 128px; height: 128px; background: url(@ViewBag.Avatar_128) no-repeat center center;" class="center-block"></div>
                     </div>
                     <div class="text-center">
                             <h4>Email: @ViewBag.Email</h4>
                     </div>
-                    <div class="text-center" style="margin-top: -50px">
+                    <div class="text-center" style="margin-top: -45px">
                         @using (Html.BeginForm("SetAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-sm-12 form-horizontal text-center" }))
                         {
                             <input id="fileInput" style="visibility: collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
