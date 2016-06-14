@@ -665,6 +665,9 @@ textarea {
         margin-left: 10px;
         padding:0px;
     }
+    .list-group {
+        max-height: 120px;
+    }
 }
 
 @media(max-width: 435px) {
@@ -788,6 +791,9 @@ textarea {
     {
         margin-left: 40px;
     }
+    .list-group {
+        max-height: 100px;
+    }
 }
 
 @media(max-width: 375px) {
@@ -876,6 +882,9 @@ textarea {
     .text-overflowed_300{
         max-width: 160px; 
     }
+    .list-group {
+        max-height: 90px;
+    }
 }
 
 @media(max-width:320px){
@@ -919,6 +928,9 @@ textarea {
     }
     .text-overflowed_300{
         max-width: 120px; 
+    }
+    .list-group {
+        max-height: 70px;
     }
 }
 
