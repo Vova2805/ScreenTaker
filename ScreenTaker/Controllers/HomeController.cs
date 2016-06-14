@@ -641,22 +641,8 @@ namespace ScreenTaker.Controllers
             ViewBag.SigleImageBASE = GetSingleImageLink("");
             
             ViewBag.BASE_URL = GetBaseUrl() + "";
-            ViewBag.Localize = getLocale();
-            int test = 0;
-            if(Request.UrlReferrer!=null)
-            {
-                var q = HttpUtility.ParseQueryString(Request.UrlReferrer.Query);
-                var a = q["id"];
-                int.TryParse(q["id"], out test);
-            }
-            if (test != 0)
-                Session["CurrentFodlerId"] = test.ToString();
-            else if(folderId!="0")
-            {
-                Session["CurrentFodlerId"] = folderId.ToString();
-            }
-            var current = 0;
-            int.TryParse(getCurrentFolder(),out current);
+            ViewBag.Localize = getLocale();       
+            var current = Convert.ToInt32(folderId);            
             var list = _entities.Images.Where(i => i.FolderId == current).ToList();
             ViewBag.Localize = getLocale();
             ViewBag.IsEmpty = !list.Any();
@@ -1399,7 +1385,7 @@ namespace ScreenTaker.Controllers
                     return View("Message", new { lang = getLocale() });
                 }
             }
-            return RedirectToAction("Images",new {id= folderId });
+            return RedirectToAction("Images",new {id= folderId.ToString() });
         }
 
         public ActionResult ImagesMoveCreateFolder(string name,int folderId)
