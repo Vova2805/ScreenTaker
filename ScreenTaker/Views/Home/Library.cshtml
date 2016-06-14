@@ -423,7 +423,20 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-                <button type="button" class="btn btn-primary btn-not-rounded" onclick="$('#loadingAnimation').css('visibility', 'visible');$('#AddFolder').modal('hide');$('#loadingAnimation').css('visibility', 'visible');location.href='@Url.Action("AddFolder", "Home", new {path="test"})&title='+document.getElementById('new-title1').value">@Resources.Resource.ADD</button>
+                <button type="button" class="btn btn-primary btn-not-rounded" 
+                         onclick="$('#loadingAnimation').css('visibility', 'visible');
+                                $.ajax({
+                                url: 'AddFolder',
+                                data: {
+                                    path:'test',
+                                    title:document.getElementById('new-title1').value
+                                },
+                                success: function (data) {
+                                    $('#dynamicFoldersArea').html(data);
+                                    $('#AddFolder').modal('hide');
+                                }
+                            });"
+                        >@Resources.Resource.ADD</button>
             </div>
         </div>
     </div>
@@ -497,7 +510,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">@Resources.Resource.NO</button>
                 <button type="button" class="btn btn-danger btn-not-rounded"
-                        onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
+                        onclick="$('#loadingAnimation').css('visibility', 'visible');
+                                $.ajax({
                                 url: 'DeleteFolder',
                                 data: {
                                     path: document.getElementById('sharedLinkhidden').value,
@@ -505,13 +519,13 @@
                                 },
                                 success: function (data) {
                                     $('#dynamicFoldersArea').html(data);
-                                    $('#DeleteFolder').modal('hide');
                                     if(document.getElementById('MessageContentFromPartialChangeState').value!='')
                                     {
                                         $('#Message').modal('show');
                                         document.getElementById('MessageContent').innerHTML=document.getElementById('MessageContentFromPartialChangeState').value;
                                         document.getElementById('MessageTitle').innerHTML='@Resources.Resource.ERR_TITLE';
                                     }
+                                    $('#DeleteFolder').modal('hide');
                                 }
                             });">
                     @Resources.Resource.YES
