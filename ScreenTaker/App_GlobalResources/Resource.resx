@@ -289,6 +289,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
   </data>
+  <data name="GROUP_NAME" xml:space="preserve">
+    <value>Group name</value>
+  </data>
   <data name="HAVE_SENT" xml:space="preserve">
     <value>We have sent mail to</value>
   </data>

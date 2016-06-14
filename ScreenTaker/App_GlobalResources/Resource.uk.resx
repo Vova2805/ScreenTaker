@@ -289,6 +289,9 @@
   <data name="GROUPS" xml:space="preserve">
     <value>Групи</value>
   </data>
+  <data name="GROUP_NAME" xml:space="preserve">
+    <value>Назва групи</value>
+  </data>
   <data name="HAVE_SENT" xml:space="preserve">
     <value>Ми надіслали лист</value>
   </data>

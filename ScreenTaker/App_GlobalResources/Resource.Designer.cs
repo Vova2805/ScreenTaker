@@ -575,6 +575,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group name.
+        /// </summary>
+        internal static string GROUP_NAME {
+            get {
+                return ResourceManager.GetString("GROUP_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to We have sent mail to.
         /// </summary>
         internal static string HAVE_SENT {
