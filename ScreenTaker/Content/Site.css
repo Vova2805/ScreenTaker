@@ -250,6 +250,10 @@ textarea {
 =====================///////////////////////*/
 
 @media(max-width:2880px) {
+    hr{
+        margin-top:10px;
+        margin-bottom:10px;
+    }
     #SingleImageManageAccess{
         top:10%;
     }
@@ -281,16 +285,6 @@ textarea {
         cursor: pointer;
     }
 
-    #UploadImageButton {
-        vertical-align: middle;
-        background-color: cornflowerblue;
-    }
-
-    #UploadImage {
-        margin-top: 25px;
-        margin-right: 20px;
-    }
-
     #AddFolderButton {
         margin-top: 20px;
         background-color: cornflowerblue;
@@ -299,186 +293,16 @@ textarea {
         width: 40px;
         height: 33px;
     }
-
-    .error-image {
-        width: 80%;
-        height: 80%;
-    }
-
-    .floating-box {
-        float: left;
-        width: 160px;
-        height: 170px;
-        margin-bottom: 5px;
-    }
-
-    .after-box {
-        clear: left;
-        border: 3px solid red;
-    }
-
-    .closebtn {
-        position: absolute;
-        margin-top: -15px;
-        right: -10px;
-        font-size: 40px;
-        margin-right: 10px;
-    }
-    .shared-folder-main {
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-
-    .text-overflowed {
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .text-overflowed_160 {
-        max-width: 160px;
-    }
-
-    .text-overflowed_400 {
-        max-width: 400px;
-    }
-
-    .text-overflowed_220 {
-        max-width: 220px;
-    }
-
-    .text-overflowed_300 {
-        max-width: 300px;
-    }
-
-    .text-overflowed_title {
-        max-width: 1000px;
-    }
-
-    .header-images {
-        padding-left: 0px;
-    }
-    .header-library {
-        padding-left: 0px;
-    }
-    .header-single-image {
-        padding-left: 0px;
-    }
-
-    .image-preview {
-        padding-top: 10px;
-    }
-
-     .image-preview:nth-child(2n) {
-        }
-
-    .preloader-center {
-        vertical-align: middle;
-    }
-
-    .preloader {
-        background: white;
-        opacity: 0.8;
-        position: fixed;
-        z-index: 1500;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-    }
-
-    .front-image {
-        opacity: 0.9;
-        position: fixed;
-        z-index: 2;
-        width: 150px;
-        height: 132px;
-        visibility: visible;
-    }
-
-    #titleRow {
-        padding-left: 40px;
-    }
-
-    #openSideMenu {
-        margin-top: 20px;
-        background-color: white;
-    }
-
-    .open-button-closed {
-        margin-right: 0px;
-        margin-top: 20px;
-        visibility:visible;
-    }
-
-    .open-button-open {
-        margin-right: 140px;
-        margin-top: 20px;
-        visibility:hidden;
-    }
-
-    .main-area-closed {
-        padding-left: 40px;
-        padding-right: 15px;
-    }
-    .main-area-open {
-        padding-left: 40px;
-        padding-right: 215px;
-    }
-    
-    .navigation-closed {
-        padding-left: 40px;
-        padding-right: 15px;
-    }
-
-    .navigation-open {
-        padding-left: 40px;
-        padding-right: 215px;
-    }
-}
-
-@media(max-width:1199px) {
-    hr{
-        margin-top:10px;
-        margin-bottom:10px;
-    }
-    #shared-parent-container {
+        #shared-parent-container {
         padding-left: 25px;
         margin: 0px;
         padding-right: 40px;
     }
 
-    #SingleImageManageAccess{
-       top:10%;
-    }
-    #ImageManageAccess{
-        top:0%;
-    }
-    #FolderManageAccess{
-        top:8%;
-    }
-    #mySidenav{
-        width:200px;
-    }
-    #dynamicArea {
-        height: 500px;
-    }
-
-    .single-image {
-        max-width: 100%;
-        max-height: 100%;
-    }
-
     #UploadImageButton {
         width: 40px;
         height: 33px;
         margin-top: -5px;
-    }
-
-    #openSideMenu {
-        background-color: #AAAAAA;
-        cursor: pointer;
     }
 
     #UploadImageButton {
@@ -491,19 +315,11 @@ textarea {
         margin-right: 20px;
     }
 
-    #AddFolderButton {
-        margin-top: 20px;
-        background-color: cornflowerblue;
-        color: black;
-        margin-right: 20px;
-        width: 40px;
-        height: 33px;
-    }
-
     .error-image {
         width: 80%;
         height: 80%;
     }
+   
 
     .floating-box {
         float: left;
@@ -524,7 +340,7 @@ textarea {
         font-size: 40px;
         margin-right: 10px;
     }
-    .shared-folder-main {
+     .shared-folder-main {
         padding-left: 55px;
         padding-right: 40px;
     }
@@ -555,7 +371,8 @@ textarea {
     .text-overflowed_title {
         max-width: 1000px;
     }
-    .header-shared-images{
+
+     .header-shared-images{
         padding-left: 40px;
     }
     .header-shared-library{
@@ -644,6 +461,11 @@ textarea {
         padding-left: 40px;
         padding-right: 225px;
     }
+}
+
+@media(max-width:1199px) {
+  
+ 
 }
 
 /*@media(max-width:991px ) {
