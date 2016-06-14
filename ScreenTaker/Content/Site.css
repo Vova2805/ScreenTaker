@@ -792,7 +792,6 @@ textarea {
     #openSideMenu {
         margin-top: 20px;
         background-color: white;
-        margin-right: 5px;
     }
 
     .open-side-button-images {
@@ -1313,12 +1312,6 @@ textarea {
 
     .button-area {
         margin-top: -55px;
-    }
-
-    #openSideMenu {
-        margin-top: 20px;
-        background-color: white;
-        margin-right:0px;
     }
 
     .open-side-button-images {
