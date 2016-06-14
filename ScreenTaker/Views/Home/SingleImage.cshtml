@@ -126,7 +126,8 @@
                                     $('#dynamicSingleImageArea').html(data);
                                     $('#RenameImage').modal('hide');
                                     $('#loadingAnimation').css('visibility', 'hidden');
-                                    $('#ImageNameDelete').innerText = document.getElementById('new-title').value;
+                                    $('#ImageNameDelete').innerText = document.getElementById('new-title').value;                        
+                                    document.getElementById('compressedName').innerHTML=document.getElementById('NewNameFromPartial').innerHTML;
                                     if(document.getElementById('MessageContentFromPartialChangeState').value!='')
                                     {
                                         $('#Message').modal('show');
