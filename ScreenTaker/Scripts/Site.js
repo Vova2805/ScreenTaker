@@ -111,6 +111,7 @@ function copyToClipboard(elem) {
         // clear temporary content
         target.textContent = "";
     }
+    $('#SuccessCopy').modal('show');
     return succeed;
 }
 function emailValidation(email) {

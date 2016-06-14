@@ -1061,6 +1061,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сongratulation.
+        /// </summary>
+        internal static string SUCCESS_COPY {
+            get {
+                return ResourceManager.GetString("SUCCESS_COPY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link successfully copied.
+        /// </summary>
+        internal static string SUCCESS_COPY_TEXT {
+            get {
+                return ResourceManager.GetString("SUCCESS_COPY_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration.
         /// </summary>
         internal static string TO_CONFIRM {

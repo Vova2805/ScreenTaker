@@ -451,6 +451,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   <data name="SUBMIT" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="SUCCESS_COPY" xml:space="preserve">
+    <value>Сongratulation</value>
+  </data>
+  <data name="SUCCESS_COPY_TEXT" xml:space="preserve">
+    <value>Link successfully copied</value>
+  </data>
   <data name="TO_CONFIRM" xml:space="preserve">
     <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
   </data>
