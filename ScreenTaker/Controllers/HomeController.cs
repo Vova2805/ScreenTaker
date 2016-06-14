@@ -151,44 +151,50 @@ namespace ScreenTaker.Controllers
         #region Library
         public ActionResult Library(string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
-            ViewBag.Localize = getLocale();
-            ViewBag.Message = "Library page";
-            ViewBag.FolderLinkBASE = GetFolderLink("");
+            try {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+                ViewBag.Localize = getLocale();
+                ViewBag.Message = "Library page";
+                ViewBag.FolderLinkBASE = GetFolderLink("");
 
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
-                .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            ViewBag.UserId = user.Id;
-            ViewBag.BASE_URL = GetBaseUrl() + "";
-            var folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
-            var sharedLinks = folders.ToList().Select(f => GetSharedFolderLink(f.SharedCode)).ToList();
-            ViewBag.Count = folders.Count;
-            ViewBag.Folders = folders;
-            ViewBag.SharedLinks = sharedLinks;
-            var folder = folders.ToList().Where(f=> f.OwnerId == user.Id).ToList().FirstOrDefault(); 
-            ViewBag.FolderLink = GetFolderLink(folder.SharedCode);
-            if (folder == null)
+                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                ViewBag.UserId = user.Id;
+                ViewBag.BASE_URL = GetBaseUrl() + "";
+                var folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
+                var sharedLinks = folders.ToList().Select(f => GetSharedFolderLink(f.SharedCode)).ToList();
+                ViewBag.Count = folders.Count;
+                ViewBag.Folders = folders;
+                ViewBag.SharedLinks = sharedLinks;
+                var folder = folders.ToList().Where(f => f.OwnerId == user.Id).ToList().FirstOrDefault();
+                ViewBag.FolderLink = GetFolderLink(folder.SharedCode);
+                if (folder == null)
+                {
+                    ViewBag.CurrentFolderShCode = folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode;
+                    ViewBag.CurrentFolderId = folders.Where(f => f.OwnerId == user.Id).ToList().First().Id;
+                    ViewBag.CurrentFolderSharedLink = GetSharedFolderLink(folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode);
+                    ViewBag.IsFolderPublic = folders.Where(f => f.OwnerId == user.Id).ToList().First().IsPublic;
+                }
+                else
+                {
+                    ViewBag.CurrentFolderShCode = folder.SharedCode;
+                    ViewBag.CurrentFolderId = folder.Id;
+                    ViewBag.CurrentFolderSharedLink = GetSharedFolderLink(folder.SharedCode);
+                    ViewBag.IsFolderPublic = folder.IsPublic + "";
+                }
+                ViewBag.ImageSrc = GetFolderImageLink(folder);
+                ViewBag.FolderTitle = folder.Name;
+                if (TempData["MessageContent"] != null)
+                {
+                    ViewBag.MessageContent = TempData["MessageContent"];
+                    ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
+                }
+                return View();
+            }             
+            catch
             {
-                ViewBag.CurrentFolderShCode = folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode;
-                ViewBag.CurrentFolderId = folders.Where(f => f.OwnerId == user.Id).ToList().First().Id;
-                ViewBag.CurrentFolderSharedLink = GetSharedFolderLink(folders.Where(f => f.OwnerId == user.Id).ToList().First().SharedCode);
-                ViewBag.IsFolderPublic = folders.Where(f => f.OwnerId == user.Id).ToList().First().IsPublic;
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
             }
-            else
-            {
-                ViewBag.CurrentFolderShCode = folder.SharedCode;
-                ViewBag.CurrentFolderId = folder.Id;
-                ViewBag.CurrentFolderSharedLink = GetSharedFolderLink(folder.SharedCode);
-                ViewBag.IsFolderPublic = folder.IsPublic + "";
-            }
-            ViewBag.ImageSrc = GetFolderImageLink(folder);
-            ViewBag.FolderTitle = folder.Name;
-            if (TempData["MessageContent"] != null)
-            {
-                ViewBag.MessageContent = TempData["MessageContent"];
-                ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
-            }
-            return View();
         }
 
         public ActionResult PartialLibraryAccess(int folderId)

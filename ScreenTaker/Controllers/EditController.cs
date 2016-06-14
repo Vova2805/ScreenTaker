@@ -311,14 +311,21 @@ namespace ScreenTaker.Controllers
         }
         public ActionResult AutocompleteSearchEmails(string term)
         {
-            ViewBag.Localize = getLocale();
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            if (user != null)
+            try
             {
-                var emails = _entities.People.Where(w => w.Email.Contains(term)&&_entities.PersonFriends.Where(ww=>ww.PersonId==user.Id).Select(s=>s.FriendId).Contains(w.Id)).Select(s => new { value = s.Email }).ToList();
-                return Json(emails, JsonRequestBehavior.AllowGet);
+                ViewBag.Localize = getLocale();
+                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                if (user != null)
+                {
+                    var emails = _entities.People.Where(w => w.Email.Contains(term) && _entities.PersonFriends.Where(ww => ww.PersonId == user.Id).Select(s => s.FriendId).Contains(w.Id)).Select(s => new { value = s.Email }).ToList();
+                    return Json(emails, JsonRequestBehavior.AllowGet);
+                }
+                else return null;
             }
-            else return null;
+            catch
+            {
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
+            }
         }
     }
 }
