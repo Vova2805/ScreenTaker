@@ -16,6 +16,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ScreenTaker.Models;
+using System.Web.Configuration;
 
 namespace ScreenTaker
 {
@@ -40,8 +41,12 @@ namespace ScreenTaker
                 msg.IsBodyHtml = true;
 
                 SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", Convert.ToInt32(587));
-                System.Net.NetworkCredential credentials = new NetworkCredential("screentakertest@mail.ua",
-                    "abcABC12345");
+                System.Net.NetworkCredential credentials = new NetworkCredential
+                (
+                    WebConfigurationManager.AppSettings["mailAccount"],
+                    WebConfigurationManager.AppSettings["mailPassword"]
+                );
+
                 smtpClient.Credentials = credentials;
                 smtpClient.EnableSsl = true;
 
