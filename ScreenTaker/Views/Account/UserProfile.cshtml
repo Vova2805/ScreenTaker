@@ -29,8 +29,8 @@
                     <div class="text-center">
                         <div style="width: 128px; height: 128px; background: url(@ViewBag.Avatar_128) no-repeat center center;" class="center-block"></div>
                     </div>
-                    <div class="text-center">
-                            <h4>Email: @ViewBag.Email</h4>
+                    <div class="text-center" >
+                            <h4 id="userEmail">Email: @ViewBag.Email</h4>
                     </div>
                     <div class="text-center" style="margin-top: -45px">
                         @using (Html.BeginForm("SetAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-sm-12 form-horizontal text-center" }))
@@ -53,7 +53,7 @@
                     {
                         @Html.AntiForgeryToken()
 
-                          @* цей блок треба вставити туди де будуть виводитись повідомлення про помилки
+                          @* 
                             @Html.ValidationMessageFor(m => m.OldPassword, "", new { @class = "text-left text-primary" })
                         @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-left text-primary" })
                         @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-left text-primary" })*@
