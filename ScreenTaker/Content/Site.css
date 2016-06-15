@@ -540,40 +540,15 @@ textarea {
         width:50%;
     }
     #dynamicArea {
-        height: 500px;
+        height: 300px;
+        width:80%;
     }
-}
-/*
-@media(max-width:767px ) {
-    div .user-icon-nav {
-        width: 30px;
-        height: 30px;
-        margin-left: 15px;
-        margin-top: 0px;
+    div .ug-list {
+        height: auto;
+        max-height: 180px;
+        overflow: auto;
     }
-    .open-button-closed {
-        margin-right: 0px;
-        margin-top: 20px;
-        visibility:visible;
-    }
-
-    .open-button-open {
-        margin-right: 140px;
-        margin-top: 20px;
-        visibility:visible;
-    }
-
-
-    div .user-name-nav {
-        margin-left: 50px;
-        margin-top: -35px;
-    }
-
-    .footer-style {
-        padding-left: 30%;
-    }
-
-    h1 {
+     h1 {
         font-size: 30px;
     }
 
@@ -584,26 +559,22 @@ textarea {
     h3 {
         font-size: 16px;
     }
-
-    div .btn-manage-groups {
-        margin-top: 0;
-        margin-bottom: 30px;
+    div .user-icon-nav {
+        width: 30px;
+        height: 30px;
+        margin-left: 15px;
+        margin-top: 0px;
     }
 
-    .account-form {
-        margin: 20px 15px 0 15px;
+    div .user-name-nav {
+        margin-left: 50px;
+        margin-top: -35px;
     }
 
-    div #dynamicArea {
-        height: 495px;
+    div .error-image {
+        width: 64px;
+        height: 64px;
     }
-
-    div .ug-list {
-        height: auto;
-        max-height: 180px;
-        overflow: auto;
-    }
-
     div #mySidenav {
         z-index: 1001;
         width: 0;
@@ -621,46 +592,107 @@ textarea {
         max-width: 100%;
         max-height: 100%;
     }
+    
+    div #dynamicArea {
+        height: 495px;
+    }
 
     div #dynamicSingleImageArea {
         padding-right: 0;
     }
-
-    div .error-image {
-        width: 64px;
-        height: 64px;
-    }
-
     .open-button-closed {
-        margin-right: 0px;
+        margin-right: 10px;
         margin-top: 20px;
-        opacity: 1;
+        visibility:visible;
     }
 
     .open-button-open {
-        margin-right: 135px;
+        margin-right: 10px;
         margin-top: 20px;
-        opacity: 0;
+        visibility:visible;
     }
-
-    .main-area-closed {
+     #titleRow {
+        margin-bottom: 10px;
+    }
+    .button-area {
+        margin-top: -55px;
+    }
+     .main-area-closed {
         padding-left: 40px;
         padding-right: 40px;
     }
 
     .main-area-open {
         padding-left: 40px;
-        padding-right: 150px;
+        padding-right: 40px;
     }
 
     .navigation-closed {
-        margin-left: 25px;
-        padding-right: 0px;
+        padding-right: 25px;
     }
 
     .navigation-open {
-        margin-left: 25px;
-        padding-right: 195px;
+        padding-right: 25px;
+    }
+    #singleImageNavigation{
+        padding-right:40px;
+    }
+    .open-side-button-single-image{
+        margin-right:25px;
+    }
+     #SingleImageManageAccess{
+        top:7%;
+        width:70%;
+        left:15%;
+    }
+     #DeleteImage{
+        top:7%;
+        width:70%;
+        left:15%;
+     }
+     #RenameImage{
+         top:7%;
+        width:70%;
+        left:15%;
+     }
+     #MoveImage{
+        top:7%;
+        width:70%;
+        left:15%;
+     }
+    #ImageManageAccess{
+        top:50px;
+        width:70%;
+        left:15%;
+    }
+    #FolderManageAccess{
+        top:7%;
+        width:70%;
+        left:15%;
+    }
+    .list-group {
+        max-height: 100px;
+    }
+    .modal-body{
+        padding-bottom:5px;
+    }
+    .modal-header{
+        padding:5px 10px 5px 15px;
+    }
+    .modal-footer{
+        padding:5px 10px 5px 15px;
+    }
+}
+/*
+@media(max-width:767px ) {
+    
+    div .btn-manage-groups {
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+
+    .account-form {
+        margin: 20px 15px 0 15px;
     }
 }
 
