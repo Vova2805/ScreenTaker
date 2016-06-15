@@ -21,6 +21,8 @@ function openNav() {
     $('#SingleMainArea').addClass("main-area-open");
     $('#navigation').removeClass("navigation-closed");
     $('#navigation').addClass("navigation-open");
+    $('#singleImageNavigation').removeClass("navigation-closed");
+    $('#singleImageNavigation').addClass("navigation-open");
     $('#openSideMenu').animate({
         opacity: "1"
     }, 30);
@@ -52,6 +54,8 @@ function closeNav() {
     $('#SingleMainArea').removeClass("main-area-open");
     $('#navigation').addClass("navigation-closed");
     $('#navigation').removeClass("navigation-open");
+    $('#singleImageNavigation').addClass("navigation-closed");
+    $('#singleImageNavigation').removeClass("navigation-open");
     $('#openSideMenu').animate({
         opacity: "1"
     }, 30);
@@ -111,7 +115,7 @@ function copyToClipboard(elem) {
         // clear temporary content
         target.textContent = "";
     }
-    //$('#SuccessCopy').modal('show');
+    $('#SuccessCopy').modal('show');
     return succeed;
 }
 function emailValidation(email) {
