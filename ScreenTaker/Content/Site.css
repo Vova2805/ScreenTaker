@@ -548,7 +548,7 @@ textarea {
         max-height: 180px;
         overflow: auto;
     }
-     h1 {
+    h1 {
         font-size: 30px;
     }
 
@@ -682,6 +682,97 @@ textarea {
     .modal-footer{
         padding:5px 10px 5px 15px;
     }
+}
+@media(max-width:480px ) {
+    .welcome-image{
+        width:100%;
+        height:100%;
+    }
+     .account-style{
+        width:70%;
+    }
+     #main .col-md-12{
+         padding:0px;
+     }
+     #shared-parent-container{
+         padding-left:10px;
+         padding-right:0px;
+     }
+     .header-shared-library{
+         height:30px;
+     }
+     .text-overflowed_160 {
+        max-width: 140px;
+        margin-left:10px;
+    }
+     .main-area-closed {
+        padding-left: 15px;
+        padding-right: 0px;
+    }
+
+    .main-area-open {
+        padding-left: 15px;
+        padding-right: 0px;
+    }
+    #titleRow{
+        padding-left:25px;
+    }
+    .header-images{
+        padding-left:15px;
+    }
+    .text-overflowed_title{
+        max-width:300px;
+    }
+    #parent-container-img{
+        margin-left:15px;
+    }
+      #SingleImageManageAccess{
+        top:7%;
+        width:90%;
+        left:5%;
+    }
+     #DeleteImage{
+       top:7%;
+        width:90%;
+        left:5%;
+     }
+     #RenameImage{
+        top:7%;
+        width:90%;
+        left:5%;
+     }
+     #MoveImage{
+        top:7%;
+        width:90%;
+        left:5%;
+     }
+    #ImageManageAccess{
+        top:50px;
+        width:90%;
+        left:5%;
+    }
+    #FolderManageAccess{
+        top:7%;
+        width:90%;
+        left:5%;
+    }
+    .single-image{
+        max-width:80%;
+        max-height:80%;
+    }
+    #SingleMainArea{
+        padding:0px 25px 10px 40px;
+    }
+    #singleImageNavigation{
+        padding-right:25px;
+    }
+    .open-side-button-single-image{
+        margin-right:10px;
+    }
+    .header-single-image{
+        padding-left:15px;
+    }
+    
 }
 /*
 @media(max-width:767px ) {
