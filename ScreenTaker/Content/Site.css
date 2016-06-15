@@ -878,7 +878,7 @@ textarea {
         padding-right:4%;
     }
     #dynamicImagesArea{
-        padding-left:4%;
+        padding-left:5%;
         padding-right:4%;
     }
     .text-overflowed_300{
@@ -891,22 +891,22 @@ textarea {
        margin-right:15px;
     }
     #SingleImageManageAccess{
-        top:7%;
+        top:13%;
         width:90%;
         left:5%;
     }
      #DeleteImage{
-       top:7%;
+       top:13%;
         width:90%;
         left:5%;
      }
      #RenameImage{
-        top:7%;
+        top:13%;
         width:90%;
         left:5%;
      }
      #MoveImage{
-        top:7%;
+        top:13%;
         width:90%;
         left:5%;
      }
@@ -920,9 +920,51 @@ textarea {
         width:90%;
         left:5%;
     }
+    .list-group {
+        max-height: 90px;
+    }
+    .text-overflowed_300{
+        max-width:120px;
+    }
+    .header-shared-library{
+        padding-left:20px;
+    }
 }
 @media(max-width:320px){
-
+.account-style{
+        width:95%;
+    }
+     #shared-parent-container {
+        padding-left:3%;
+        padding-right:2%;
+    }
+     #dynamicFoldersArea{
+        padding-left:0px;
+        padding-right:0px;
+    }
+    #dynamicImagesArea{
+        padding-left:0px;
+        padding-right:0px;
+    }
+    .text-overflowed_300{
+        max-width:100px;
+    }
+    .header-shared-library{
+        padding-left:15px;
+    }
+    .folder-preview-odd{
+        margin:0px;
+        margin-left:-10px;
+    }
+    .folder-preview-even{
+        margin:0px;
+    }
+    .image-preview-odd{
+        margin:0px;
+    }
+    .image-preview-even{
+        margin:0px;
+    }
 }
 /*
 @media(max-width:767px ) {
