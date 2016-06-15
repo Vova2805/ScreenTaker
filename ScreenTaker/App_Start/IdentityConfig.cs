@@ -34,7 +34,7 @@ namespace ScreenTaker
             try
             {
                 MailMessage msg = new MailMessage();
-                msg.From = new MailAddress("screentakertest@mail.ua");
+                msg.From = new MailAddress(WebConfigurationManager.AppSettings["mailAccount"]);
                 msg.To.Add(message.Destination);
                 msg.Subject = message.Subject;
                 msg.Body = message.Body;
