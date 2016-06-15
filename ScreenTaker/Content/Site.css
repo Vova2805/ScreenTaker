@@ -250,6 +250,9 @@ textarea {
 =====================///////////////////////*/
 
 @media(max-width:2880px) {
+    #loadingAnimation{
+        padding-top:20%;
+    }
     .sidenav {
     height: 100%;
     width: 200px;
@@ -398,6 +401,9 @@ textarea {
 
     .text-overflowed_300 {
         max-width: 300px;
+    }
+    .text-overflowed_400{
+        max-width:400px;
     }
 
     .text-overflowed_title {
@@ -805,18 +811,115 @@ textarea {
     .header-shared-library{
         padding-left:10%;
     }
+    .text-overflowed_300{
+        max-width:200px;
+    }
+    .list-group{
+        max-height:70px;
+    }
+    #loadingAnimation{
+        padding-top:20%;
+    }
 }
 @media(max-width: 414px){
-
+ .account-style{
+        width:80%;
+    }
+ #shared-parent-container {
+        padding-left:13%;
+        padding-right:13%;
+    }
+    .folder-preview-odd{
+        margin-right:0px;
+    }
+    .folder-preview-even{
+        margin-left:0px;
+    }
+    .image-preview-odd{
+        margin-right:0px;
+    }
+    .image-preview-even{
+        margin-left:0px;
+    }
 }
 @media(max-width: 411px){
 
 }
 @media(max-width: 375px){
-
+    .account-style{
+        width:90%;
+    }
+    #shared-parent-container {
+        padding-left:10%;
+        padding-right:10%;
+    }
+     #dynamicFoldersArea{
+        padding-left:7%;
+        padding-right:5%;
+    }
+    #dynamicImagesArea{
+        padding-left:7%;
+        padding-right:5%;
+    }
+    .text-overflowed_300{
+        max-width:150px;
+    }
 }
 @media(max-width:360px ){
-
+    .account-style{
+        width:95%;
+    }
+     #shared-parent-container {
+        padding-left:8%;
+        padding-right:5%;
+    }
+     #dynamicFoldersArea{
+        padding-left:4%;
+        padding-right:4%;
+    }
+    #dynamicImagesArea{
+        padding-left:4%;
+        padding-right:4%;
+    }
+    .text-overflowed_300{
+        max-width:150px;
+    }
+    .header-library{
+        padding-left:15px;
+    }
+    .open-side-button-library{
+       margin-right:15px;
+    }
+    #SingleImageManageAccess{
+        top:7%;
+        width:90%;
+        left:5%;
+    }
+     #DeleteImage{
+       top:7%;
+        width:90%;
+        left:5%;
+     }
+     #RenameImage{
+        top:7%;
+        width:90%;
+        left:5%;
+     }
+     #MoveImage{
+        top:7%;
+        width:90%;
+        left:5%;
+     }
+    #ImageManageAccess{
+        top:50px;
+        width:90%;
+        left:5%;
+    }
+    #FolderManageAccess{
+        top:13%;
+        width:90%;
+        left:5%;
+    }
 }
 @media(max-width:320px){
 
