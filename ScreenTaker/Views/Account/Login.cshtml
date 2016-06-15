@@ -66,7 +66,13 @@
     <script>
         var emailError = 1;
         var passError = 1;
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#submit-button").click();
+            }
+        });
         $(function () {
+            
            
                 $('#email-input').keyup(function () {
                     var changedText = $(this).val();

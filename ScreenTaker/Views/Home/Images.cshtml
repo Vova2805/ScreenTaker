@@ -63,6 +63,9 @@
         document.getElementById("sharedLink").disabled = false;
         var title = '@ViewBag.FirstImageName';
         var name = title.replace(/#039/g,"'");
+        name =  name.replace(/&lt/g,"<");
+        name =  name.replace(/&gt/g,">");
+        name =  name.replace(/&quot/g,"\"");
         document.getElementById("original").value = '@ViewBag.FirstImageShCode';
         document.getElementById("sharedLink").value = '@ViewBag.FirstImageShLink';
         document.getElementById("compressedLink").src = '@ViewBag.FirstImageSrc';
