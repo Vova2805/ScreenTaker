@@ -250,6 +250,10 @@ textarea {
 =====================///////////////////////*/
 
 @media(max-width:2880px) {
+    .welcome-image{
+        width:100%;
+        height:100%;
+    }
     #loadingAnimation{
         padding-top:20%;
     }
@@ -689,10 +693,7 @@ textarea {
     }
 }
 @media(max-width:480px ) {
-    .welcome-image{
-        width:100%;
-        height:100%;
-    }
+    
      .account-style{
         width:70%;
     }
