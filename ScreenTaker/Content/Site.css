@@ -513,7 +513,9 @@ textarea {
 
 @media(max-width:1199px) {
   
- 
+ .sk-cube-grid {
+    margin-top: 5%;
+    }
 }
 
 @media(max-width:991px ) {
