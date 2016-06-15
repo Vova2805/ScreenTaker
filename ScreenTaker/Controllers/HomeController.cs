@@ -1346,7 +1346,7 @@ namespace ScreenTaker.Controllers
                     string tmp = Resources.Resource.ERR_EMPTY_FIELD;
                     if (newName.Length == 0)
                         throw new Exception(tmp);
-                    if (user != null && _entities.Folders.Where(w => w.Name == newName && w.OwnerId == user.Id).Any())
+                    if (user != null && _entities.Folders.Where(w=>w.Id==folderId).FirstOrDefault().Name!=newName &&_entities.Folders.Where(w => w.Name == newName && w.OwnerId == user.Id).Any())
                         throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);
                     var sharedCode = Path.GetFileNameWithoutExtension(path);
                     var obj = _entities.Folders.FirstOrDefault(w => w.SharedCode == sharedCode);

@@ -475,7 +475,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uploading file should be image (BMP, JPEG, PNG or GIF) and it&apos;s size shoud be up to 4 megabytes.
+        ///   Looks up a localized string similar to Uploading file should be image (BMP, JPEG, PNG or GIF).
         /// </summary>
         internal static string ERR_IMAGE_NOT_VALID {
             get {

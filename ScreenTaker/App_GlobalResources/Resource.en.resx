@@ -256,7 +256,7 @@
     <value>There is alredy a group with this name</value>
   </data>
   <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
-    <value>Uploading file should be image (BMP, JPEG, PNG or GIF) and it's size shoud be up to 4 megabytes</value>
+    <value>Uploading file should be image (BMP, JPEG, PNG or GIF)</value>
   </data>
   <data name="ERR_INHERITED" xml:space="preserve">
     <value>This right is inherited and can't be changed</value>

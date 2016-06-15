@@ -317,7 +317,7 @@ namespace ScreenTaker.Controllers
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
                 if (user != null)
                 {
-                    var emails = _entities.People.Where(w => w.Email.Contains(term) && _entities.PersonFriends.Where(ww => ww.PersonId == user.Id).Select(s => s.FriendId).Contains(w.Id)).Select(s => new { value = s.Email }).ToList();
+                    var emails = _entities.People.Where(w => w.Email.StartsWith(term) && _entities.PersonFriends.Where(ww => ww.PersonId == user.Id).Select(s => s.FriendId).Contains(w.Id)).Select(s => new { value = s.Email }).ToList();                                       
                     return Json(emails, JsonRequestBehavior.AllowGet);
                 }
                 else return null;

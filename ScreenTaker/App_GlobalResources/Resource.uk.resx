@@ -256,7 +256,7 @@
     <value>Тут вже є група з такою назвою</value>
   </data>
   <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
-    <value>Файл повинен бути картинкою (BMP, JPEG, PNG або GIF) і його розмір повинен бути менше 4 мегабайт</value>
+    <value>Файл повинен бути картинкою (BMP, JPEG, PNG або GIF)</value>
   </data>
   <data name="ERR_INHERITED" xml:space="preserve">
     <value>Це право унаслідуване і не може бути змінене</value>
