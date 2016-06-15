@@ -308,7 +308,7 @@
     <value>Неправильний пароль</value>
   </data>
   <data name="INVALID_LOGIN_ATTEMPT" xml:space="preserve">
-    <value>Invalid login attempt</value>
+    <value>Невдала спроба входу</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>Найлегший спосіб ділитись зображеннями.</value>

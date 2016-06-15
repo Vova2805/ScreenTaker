@@ -305,10 +305,10 @@
     <value>изображение</value>
   </data>
   <data name="INCORRECT_PASSWORD" xml:space="preserve">
-    <value>The password is incorrect</value>
+    <value>Пароль неверый</value>
   </data>
   <data name="INVALID_LOGIN_ATTEMPT" xml:space="preserve">
-    <value>Invalid login attempt</value>
+    <value>Неудачная попытка входа</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>Самый легкий путь, чтобы делиться изображениями.</value>

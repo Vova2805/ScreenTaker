@@ -9,7 +9,8 @@ using Microsoft.Owin.Security;
 using ScreenTaker.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
-
+using System.Threading;
+using System.Globalization;
 
 namespace ScreenTaker.Controllers
 {
@@ -579,13 +580,14 @@ namespace ScreenTaker.Controllers
         {
             try
             {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
                 ViewBag.Localize = getLocale();
                 ViewBag.ErrorTitle = null;
 
                 if (!ModelState.IsValid)
                 {
                     ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
-                    return View("UserProfile");
+                    return RedirectToAction("UserProfile");
                 }
                 var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
                 if (result.Succeeded)
@@ -606,7 +608,7 @@ namespace ScreenTaker.Controllers
                 AddErrors(result);
                 ViewBag.Email = EMAIL;
                 ViewBag.Avatar_128 = AVATAR;
-                return View("UserProfile");
+                return RedirectToAction("UserProfile");
             }
             catch
             {
