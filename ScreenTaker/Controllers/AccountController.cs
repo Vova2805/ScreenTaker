@@ -80,6 +80,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
             ViewBag.Localize = getLocale();
             ViewBag.ErrorTitle = null;
             if (!ModelState.IsValid)
