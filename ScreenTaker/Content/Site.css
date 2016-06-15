@@ -691,6 +691,12 @@ textarea {
     .modal-footer{
         padding:5px 10px 5px 15px;
     }
+    .context-menu-private {
+        padding-top: 7px;
+        color:black;
+        position: absolute;
+        top:0px;
+    }
 }
 @media(max-width:480px ) {
     
@@ -2003,3 +2009,8 @@ textarea {
                 background-color: #444444;
                 color: white;
             }
+.context-menu-private {
+    padding-top: 7px;
+    color:black;
+    margin:0;
+}
