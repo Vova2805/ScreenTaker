@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Images";
+    ViewBag.Title = ViewBag.FolderName;
 
 
     string ShareLink = "";
@@ -8,9 +8,9 @@
 
     if (!ViewBag.IsEmpty)
     {
-        ShareLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + ViewBag.Images[0].SharedCode;
-        CommpressedLink = ViewBag.BASE_URL + "img/" + ViewBag.Images[0].SharedCode + "_compressed.png";
-        Name = ViewBag.Images[0].Name + ".png";
+        ShareLink = ViewBag.SharedImageBASE + ViewBag.Images[0].SharedCode;
+        CommpressedLink = ViewBag.ImagePathBASE + ViewBag.Images[0].SharedCode + "_compressed.png";
+        Name = ViewBag.Images[0].Name;
     }
     if (!Request.QueryString["lang"].IsEmpty())
     {
@@ -25,79 +25,80 @@
 @section Scripts {
     <script>
         $('[data-toggle="popover"]').popover()
-        function openImage(path) {
-            location.href = "/Home/SharedImage?i=" + path;
+        function openImage(path,base) {
+            location.href = base + path;
             return false;
         }
-        function selectImage(id, image_id, count, sharedCode, original, sharedLink, compressed, name, without_ex, isPublic) {
-            var classes = "floating-box text-center task active images";
+        function selectImage(image_id, count, sharedCode) {
             for (var i = 0; i < count; i++) {
                 var ID = "IMD" + i;
-                document.getElementById(ID).className = classes;
+                $("#" + ID).removeClass("active-image");
             }
-            document.getElementById(image_id).className += " active-image";
-
-
+            $("#" + image_id).addClass("active-image");
+            document.getElementById('choosenID').value = sharedCode;
             return false;
         }
-
     </script>
 }
-
-<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative; height: 100%">
+<div id="main" style="min-height: 100%">
     <div class="col-md-12">
-        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
-            <div class="row">
-                <div class="col-sm-10">
-                    @{
-                        int flength = ViewBag.FolderName.Length;
-                        int fsize = flength <= 50 ? flength : 50;
-                        string fname = ViewBag.FolderName.Substring(0, fsize);
-                        ViewBag.FolderName = fname;
-                    }
-                    <h2>@ViewBag.FolderName</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
-            @{ 
-                int index = 0;
-                int count = ViewBag.Images.Count;
-                foreach (var i in ViewBag.Images)
-                {
-                    string original = i.SharedCode;
-                    string sharedLink = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                    string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
-                    string isPublic = i.IsPublic + "";
-                    string classes = "floating-box text-center task active images";
-                    string without_ex = i.Name;
-                    string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-                    string name = i.Name + ".png";
-                    int length = name.Length;
-                    int size = length <= 15 ? length : 15;
-                    string image_id = "IMD" + index;
-                    name = name.Substring(0, size);
-                    string temp = ((ViewBag.Owners[index] != null && ViewBag.Owners[index].AvatarFile != null) ? (ViewBag.Owners[index].AvatarFile) : "user");
-                    string AvatarPath = ViewBag.BASE_URL + "avatars/" +temp+"_50.png";
-                    string OwnerEmail = ViewBag.Owners[index].Email;
-                    string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
-                    string popover_template =
-                    "<div class='popover' role='tooltip' style=\"width:500px;\"><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"word-wrap: break-word;vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
+        <div class="col-sm-12 header-shared-library">
+            <h2 class="text-overflowed text-overflowed_title">@ViewBag.FolderName</h2>
+            <input id="choosenID" class="hidden-field"/>
+        </div>  
+        <div class="row" id="dynamicSharedFoldersArea">
+            <div class="col-sm-12" id="shared-parent-container">
+                @{
+                    int index = 0;
+                    int count = ViewBag.Images.Count;
+                    foreach (var i in ViewBag.Images)
+                    {
+                        string original = i.SharedCode;
+                        string sharedLink = ViewBag.SharedImageBASE + original;
+                        string compressed = ViewBag.ImagePathBASE + i.SharedCode + "_compressed.png";
+                        string isPublic = i.IsPublic + "";
+                        string classes = "floating-box text-center task active images";
+                        string name = i.Name;
+                        string image_id = "IMD" + index;
+                        string temp = ((ViewBag.Owners[index] != null && ViewBag.Owners[index].AvatarFile != null && System.IO.File.Exists(Server.MapPath("/avatars/") + ViewBag.Owners[index].AvatarFile + "_50.png")) ? (ViewBag.Owners[index].AvatarFile) : "user");
 
-                    <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
-                            ondblclick="openImage('@original')" style="cursor:pointer;"
-                            onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink', '@compressed', '@name','@without_ex','@isPublic')">
+                        string AvatarPath = ViewBag.UserAvatarBASE + temp + "_50.png";
+                        string OwnerEmail = ViewBag.Owners[index].Email;
+                        string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
+                        string popover_template =
+                        "<div class='popover' role='tooltip' style=\"width:200px;height:80px;z-index:30000;margin-top:10px;\"><div class='arrow'></div><h3 class='popover-title' style=\"font-size:10px;height:20px;font-weight:bold;vertical-align:top;margin:0px;padding:0px;\"></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;\"></a></div></div></div></div></div>";
+
+                        if (index % 2 == 0)
+                        {
+                            classes += "image-preview sharedimage-preview-odd";
+                        }
+                        else
+                        {
+                            classes += "image-preview sharedimage-preview-even";
+                        }
+                        <button type="button" class="transparent-btn task" data-toggle="popover" data-placement="top" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
+                                ondblclick="openImage('@original','@ViewBag.SharedImageBASE')" style="cursor:pointer;"
+                                onclick="selectImage('@image_id','@count','@original')">
                             <figure class="@classes" id="@image_id">
                                 <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;margin-top:10px;" class="center-block">
                                 </div>
-                                <figcaption class="text-center text-overflowed">@name</figcaption>
-                          </figure>
-                    </button>
-                    index = index + 1;
-                }
+                                <figcaption class="text-center text-overflowed text-overflowed_160">@name</figcaption>
+                            </figure>
+                        </button>
+                        index = index + 1;
+                    }
                 }
             </div>
         </div>
     </div>
+    <br />
 </div>
+<nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+        <li class="context-menu__item">
+            <a href="" class="context-menu__link" id="ContextOpenButton" onclick="openImage(document.getElementById('choosenID').value, '@ViewBag.SharedImageBASE')"> @Resources.Resource.OPEN</a>
+        </li>
+    </ul>
+</nav>
+<script src="~/Scripts/context-menu.js"></script>
+<script src="~/Scripts/Site.js"></script>

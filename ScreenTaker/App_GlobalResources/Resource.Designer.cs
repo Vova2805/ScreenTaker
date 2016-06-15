@@ -475,11 +475,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uploading file should be image (BMP, JPEG, PNG or GIF) and it&apos;s size shoud be up to 4 megabytes.
+        ///   Looks up a localized string similar to Uploading file should be image (BMP, JPEG, PNG or GIF).
         /// </summary>
         internal static string ERR_IMAGE_NOT_VALID {
             get {
                 return ResourceManager.GetString("ERR_IMAGE_NOT_VALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This right is inherited and can&apos;t be changed.
+        /// </summary>
+        internal static string ERR_INHERITED {
+            get {
+                return ResourceManager.GetString("ERR_INHERITED", resourceCulture);
             }
         }
         
@@ -562,6 +571,15 @@ namespace Resources {
         internal static string GROUPS {
             get {
                 return ResourceManager.GetString("GROUPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group name.
+        /// </summary>
+        internal static string GROUP_NAME {
+            get {
+                return ResourceManager.GetString("GROUP_NAME", resourceCulture);
             }
         }
         
@@ -1048,6 +1066,24 @@ namespace Resources {
         internal static string SUBMIT {
             get {
                 return ResourceManager.GetString("SUBMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сongratulation.
+        /// </summary>
+        internal static string SUCCESS_COPY {
+            get {
+                return ResourceManager.GetString("SUCCESS_COPY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link successfully copied.
+        /// </summary>
+        internal static string SUCCESS_COPY_TEXT {
+            get {
+                return ResourceManager.GetString("SUCCESS_COPY_TEXT", resourceCulture);
             }
         }
         

@@ -11,7 +11,6 @@
     {
         ViewBag.MessageTitle = "Info";
     }
-    //ViewBag.MessageContent = Resources.Resource.CAPTURING_TEXT;
 }
 <!DOCTYPE html>
 <html>
@@ -20,6 +19,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/icon" href="~/Resources/favicon.png" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -57,7 +57,7 @@
         </div>
     </header>
 <section class="main-content">    
-    <div class="modal fade" id="Message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="margin-top:10%;z-index:10000">
+    <div class="modal fade" id="Message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="margin-top:150px;z-index:10000">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,7 +68,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-2">
-                                <img src="~/Resources/error.png" style="width:80%;height:80%"/>
+                                <img src="~/Resources/error.png" class="error-image"/>
                             </div>
                             <div class="col-sm-10" >                                
                                 <p style="word-wrap: break-word;" id="MessageContent">
@@ -246,6 +246,24 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Resource.CANCEL</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">@Resources.Resource.SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SuccessCopy" tabindex="-1" role="dialog" style="top:200px;z-index:1500">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close btn-not-rounded" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">@Resources.Resource.SUCCESS_COPY</h4>
+                </div>
+                <div class="modal-body">
+                  <label for="new-title" class="control-label">@Resources.Resource.SUCCESS_COPY_TEXT</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-not-rounded" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

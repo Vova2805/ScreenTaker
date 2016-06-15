@@ -25,14 +25,14 @@
                     <h4>@ViewBag.ErrorTitle</h4>
                     <hr />
                 </div>
-                <div class="col-sm-6" style="margin-top: -15px;">
-                    <div class="text-center" id="dynamicArea">
+                <div class="col-sm-6" style="margin-top: -5px;">
+                    <div class="text-center">
                         <div style="width: 128px; height: 128px; background: url(@ViewBag.Avatar_128) no-repeat center center;" class="center-block"></div>
                     </div>
-                    <div class="text-center">
-                            <h4>Email: @ViewBag.Email</h4>
+                    <div class="text-center" >
+                            <h4 id="userEmail">Email: @ViewBag.Email</h4>
                     </div>
-                    <div class="text-center" style="margin-top: -50px">
+                    <div class="text-center" style="margin-top: -45px">
                         @using (Html.BeginForm("SetAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-sm-12 form-horizontal text-center" }))
                         {
                             <input id="fileInput" style="visibility: collapse" type="file" name="file" onchange="document.getElementById('fileSubmit').click();" />
@@ -44,7 +44,7 @@
                             </div>
                         }
                     </div>
-                    <div class="form-group" style="margin-top: 120px">
+                    <div class="form-group btn-manage-groups">
                             <button class="btn btn-default btn-block account-button" style="width: 100%;" onclick="location = '/Edit/UserGroups'">@Resources.Resource.MANAGE_GROUPS</button>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     {
                         @Html.AntiForgeryToken()
 
-                          @* цей блок треба вставити туди де будуть виводитись повідомлення про помилки
+                          @* 
                             @Html.ValidationMessageFor(m => m.OldPassword, "", new { @class = "text-left text-primary" })
                         @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-left text-primary" })
                         @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-left text-primary" })*@

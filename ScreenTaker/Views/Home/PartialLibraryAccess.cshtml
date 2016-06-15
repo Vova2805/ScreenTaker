@@ -17,7 +17,7 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-sm-12">
-            <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText()" class="form-control" value="@ViewBag.FolderLink" readonly>
+            <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText();" class="form-control" value="@ViewBag.FolderLink" readonly>
         </div>
     </div>
     <div class="row">
@@ -148,9 +148,9 @@
         </div>
     </div>
 </div>
-<div class="modal-footer">
+@*<div class="modal-footer">
     <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">@Resources.Resource.CLOSE</button>
-</div>
+</div>*@
 <script src="~/Scripts/Site.js"></script>
 @if (ViewBag.MessageContent != null)
 {

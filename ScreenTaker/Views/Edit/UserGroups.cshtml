@@ -15,9 +15,9 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
-<div class="container">
+<div class="container account-form">
     <div class="row" style="height: 100%">
-        <h2 class="text-center">@Resources.Resource.EDIT_GROUP</h2>
+        @*<h2 class="text-center">@Resources.Resource.EDIT_GROUP</h2>*@
         <div class="preloader" id="loadingAnimation" style="visibility:hidden">
             <div class="sk-cube-grid preloader-center center-block">
                 <div class="sk-cube sk-cube1"></div>
@@ -33,13 +33,13 @@
         </div>  
         <div class="col-sm-1">            
         </div>
-        <div class="col-sm-10 account-style shadow center-block" style="height:500px;" id="dynamicArea">
+        <div class="col-sm-10 account-style shadow center-block" id="dynamicArea">
             <div class="row-fluid">
-                <div class="col-sm-4" style="padding:5px;">
+                <div class="col-sm-4" id="dynamicAreaLeft" style="padding:5px;">
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Group name" aria-describedby="sizing-addon2" id="GroupNameInput">
+                                <input type="text" class="form-control" placeholder="@Resources.Resource.GROUP_NAME" aria-describedby="sizing-addon2" id="GroupNameInput">
                                 <span  class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2"
                                       onclick="$('#loadingAnimation').css('visibility', 'visible');$.ajax({
                                 url: 'CreateGroup',
@@ -60,7 +60,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="list-group" style="height:auto;max-height:440px;overflow:auto;">
+                            <div class="list-group ug-list">
                                 @if (ViewBag.Groups != null)
                                 {
                                     for (int i = 0; i < ViewBag.Groups.Count; i++)
@@ -113,7 +113,7 @@
                                                 </button>
                                             </div>
                                             <div class="media-left" style="vertical-align:middle">
-                                                <h5 class="media-heading" style="color: #444444">@ViewBag.Groups[i].Name</h5>
+                                                <h5 class="media-heading text-overflowed text-overflowed_160" style="color: #444444">@ViewBag.Groups[i].Name</h5>
                                             </div>
                                         </div>
                                     }
@@ -123,7 +123,7 @@
 
                     </div>
                 </div>
-                <div class="col-sm-8" style="padding:5px;">
+                <div class="col-sm-8" style="padding:5px;" id="dynamicAreaRight">
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-sm-12">
                             <div class="input-group">
@@ -151,7 +151,7 @@
                     </div>                    
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="list-group respo" style="height:auto;max-height:440px;overflow:auto;">
+                            <div class="list-group respo ug-list">
                                 @if (ViewBag.Emails != null)
                                 {
                                     for (int i = 0; i < ViewBag.Emails.Count; i++)
@@ -169,7 +169,7 @@
                                                 </div>
                                             </div>
                                             <div class="media-left" style="vertical-align:middle">
-                                                <h4 class="media-heading" style="color: #444444">@ViewBag.Emails[i]</h4>
+                                                <h4 class="media-heading text-overflowed text-overflowed_160" style="color: #444444">@ViewBag.Emails[i]</h4>
                                             </div>
                                         </div>
                                     }

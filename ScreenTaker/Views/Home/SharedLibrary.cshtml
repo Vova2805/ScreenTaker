@@ -1,6 +1,6 @@
 ﻿@using ScreenTaker.Models;
 @{
-    ViewBag.Title = "Library";
+    ViewBag.Title = Resources.Resource.SHARED_FOLDERS;
     ViewBag.CurrentFolderShCode = "-1";
     ViewBag.CurrentFolderId = "-1";
     if (!Request.QueryString["lang"].IsEmpty())
@@ -34,46 +34,30 @@
         ShowProgress();
     });
 
-    function openFolder(i) {
-        location.href = "/Home/SharedFolder?f=" + i;
+    function openFolder(i, base) {
+        location.href = base + i;
         return false;
     }
 
-    function selectFolder(id, folder_id, count, name, full_name, sharedLinkValue, sharedCode, image, isPublic) {
-
-        var classes = "floating-box text-center task active images folder";
+    function selectFolder(folder_id, count,sharedCode) {
         for (var i = 0; i < count; i++) {
             var ID = "FID" + i;
-            document.getElementById(ID).className = classes;
+            $("#"+ID).removeClass("active-image");
         }
-        document.getElementById(folder_id).className += " active-image";
+        $("#"+folder_id).addClass("active-image");
+        document.getElementById('choosenID').value = sharedCode;
         return false;
     }
     </script>
 }
-
-<div class="row" style="margin-bottom: -20px; overflow: hidden; position: relative;  height: 100%">
+<div id="main" style="min-height: 100%">
     <div class="col-md-12">
-        <div class="col-sm-12" style="padding-left:25px;padding-right:25px;">
-            <h2>@Resources.Resource.SHARED_FOLDERS</h2>
+        <div class="col-sm-12 header-shared-library">
+            <h2 class="text-overflowed text-overflowed_title">@Resources.Resource.SHARED_FOLDERS</h2>
+            <input id="choosenID" class="hidden-field" value="img"/>
         </div>
-        <div class="preloader" id="loadingAnimation"  style="visibility:hidden">
-            <div class="sk-cube-grid preloader-center center-block">
-                <div class="sk-cube sk-cube1"></div>
-                <div class="sk-cube sk-cube2"></div>
-                <div class="sk-cube sk-cube3"></div>
-                <div class="sk-cube sk-cube4"></div>
-                <div class="sk-cube sk-cube5"></div>
-                <div class="sk-cube sk-cube6"></div>
-                <div class="sk-cube sk-cube7"></div>
-                <div class="sk-cube sk-cube8"></div>
-                <div class="sk-cube sk-cube9"></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-        </div>
-        <div class="row">
-            <div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+        <div class="row" id="dynamicSharedFoldersArea">
+            <div class="col-sm-12" id="shared-parent-container">
                 @{
                     int count = ViewBag.Folders.Count;
 
@@ -81,54 +65,66 @@
                     {
                         string classes = "floating-box text-center task active images folder";
                         string folder_id = "FID" + i;
-                        string sharedLink = ViewBag.BaseURL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+                        string sharedLink = ViewBag.FolderLinkBASE + ViewBag.Folders[i].SharedCode;
                         string sharedCode = ViewBag.Folders[i].SharedCode;
                         string FolderTitle = ViewBag.Folders[i].Name;
-                        int length = FolderTitle.Length;
-                        int size = length <= 50 ? length : 50;
-                        string name = FolderTitle.Substring(0, size);
                         string isPublic = ViewBag.Folders[i].IsPublic + "";
-                        string imageLink = ViewBag.BaseURL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
-                        FolderTitle = name;
+                        string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
+                        if (i % 2 == 0)
+                        {
+                            classes += "folder-preview shared-folder-preview-odd";
+                        }
+                        else
+                        {
+                            classes += "folder-preview shared-folder-preview-even";
+                        }
                         if (i > 0)
                         {
                             imageLink += "_shared.png";
-                            string AvatarPath = ViewBag.BaseURL + "avatars/" + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null ? (ViewBag.Owners[i].AvatarFile+"_50.png") : "user.png");
+                            string AvatarPath = ViewBag.UserAvatarBASE + (ViewBag.Owners[i] != null && ViewBag.Owners[i].AvatarFile != null&& System.IO.File.Exists(Server.MapPath("/avatars/")+ ViewBag.Owners[i].AvatarFile+"_50.png") ? (ViewBag.Owners[i].AvatarFile + "_50.png") : "user_50.png");
                             string OwnerEmail = ViewBag.Owners[i].Email;
                             string image = "<img class=\"pull - left\" src=\"" + AvatarPath + "\" class=\"img-circle\" style=\"width:50px;height:50px;margin:5px;margin-left:-10px;border-radius:30px;\"/>";
                             string popover_template =
-                            "<div class='popover' role='tooltip' style=\"width:500px;\"><div class='arrow'></div><h3 class='popover-title'></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"word-wrap: break-word;vertical-align:middle;margin-left:-55px;margin-top:10px;\"></a></div></div></div></div></div>";
+                            "<div class='popover' role='tooltip' style=\"width:200px;height:80px;z-index:30000;margin-top:10px;\"><div class='arrow'></div><h3 class='popover-title' style=\"font-size:10px;height:20px;font-weight:bold;vertical-align:top;margin:0px;padding:0px;\"></h3><div><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-xs-5\">" + image + "</div> <div class=\"col-xs-7\"><a class=\"pull-left popover-content\" style=\"vertical-align:middle;margin-left:-55px;margin-top:10px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;\"></a></div></div></div></div></div>";
 
-                            <button type="button" class="transparent-btn" data-toggle="popover" data-trigger="hover" title="@Resources.Resource.OWNER" data-template="@popover_template" data-content="@OwnerEmail"
-                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
-                                    onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')">
+                            <button type="button" class="transparent-btn task" 
+                                    data-toggle="popover" data-trigger="hover" data-placement="top" title="@Resources.Resource.OWNER" 
+                                    data-template="@popover_template" data-content="@OwnerEmail"
+                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;"
+                                    onclick="selectFolder('@folder_id','@count','@ViewBag.Folders[i].SharedCode')">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink" />
-                                    <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
+                                    <img src="@imageLink" class="image"  id="img_id" style="width: 128px; height: 128px;" />
+                                    <figcaption class="text-center text-overflowed text-overflowed_160">@FolderTitle</figcaption>
                                 </figure>
                             </button>
                         }
                         else
                         {
                             imageLink += ".png";
-                            <button type="button" class="transparent-btn" 
-                                    ondblclick="openFolder('@ViewBag.Folders[i].SharedCode')" style="cursor:pointer;"
-                                    onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')">
+                            <button onclick="selectFolder('@folder_id','@count','@ViewBag.Folders[i].SharedCode')" type="button" class="transparent-btn task" 
+                                 ondblclick="openFolder('@ViewBag.Folders[i].SharedCode','@ViewBag.FolderLinkBASE')" style="cursor:pointer;">
                                 <figure class="@classes" id="@folder_id">
-                                    <img src="@imageLink" />
-                                    <figcaption class="text-center text-overflowed">@FolderTitle</figcaption>
+                                    <img src="@imageLink" class="image" id="img_id" style="width: 128px; height: 128px;" />
+                                    <figcaption class="text-center text-overflowed text-overflowed_160">@FolderTitle</figcaption>
                                 </figure>
                             </button>
                         }
-
-
                     }
+                    <script>
+                        $("#FID0").onclick();
+                    </script>
                 }
             </div>
         </div>
     </div>
+    <br />
 </div>
-<br />
-
+<nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+        <li class="context-menu__item">
+            <a href="" class="context-menu__link" id="ContextOpenButton" onclick="openFolder(document.getElementById('choosenID').value, '@ViewBag.FolderLinkBASE')"> @Resources.Resource.OPEN</a>
+        </li>
+    </ul>
+</nav>
 <script src="~/Scripts/context-menu.js"></script>
 <script src="~/Scripts/Site.js"></script>

@@ -3,12 +3,10 @@ using ScreenTaker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Globalization;
 using System.Threading;
-using System.Web.WebPages;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -20,20 +18,20 @@ namespace ScreenTaker.Controllers
         private ScreenTakerEntities _entities = new ScreenTakerEntities();
         public ActionResult Index(string lang = "en")
         {
-            ViewBag.Localize = locale;
-            return View("UserGroups",new { lang = locale });
+            ViewBag.Localize = getLocale();
+            return View("UserGroups",new { lang = getLocale() });
         }
 
         public ActionResult EditImage(string lang = "en")
         {
-            ViewBag.Localize = locale;
-            return View("EditImage", new { lang = locale });
+            ViewBag.Localize = getLocale();
+            return View("EditImage", new { lang = getLocale() });
         }
 
         public ActionResult UserGroups(int selectedId=-1)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {                                   
                 try
@@ -61,10 +59,10 @@ namespace ScreenTaker.Controllers
                         IList<string> avatars = new List<string>();
                         foreach (var e in emails)
                         {
-                            if (e.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + e.AvatarFile + "_50.png"))
-                                avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
+                            if (e.AvatarFile != null && System.IO.File.Exists(getUserAvatar(e.AvatarFile + "_50")))
+                                avatars.Add(getUserAvatar(e.AvatarFile+"_50"));
                             else
-                                avatars.Add(baseUrl + "/Resources/user_50.png");
+                                avatars.Add(getUserAvatar("user_50"));
                         }
                         ViewBag.Avatars = avatars;
                     }                                                  
@@ -73,17 +71,11 @@ namespace ScreenTaker.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    @ViewBag.MessageContent = ex.Message;
+	            ViewBag.MessageContent = ex.Message;
+                    return View("Message", new { lang = getLocale() });
                 }
             }
-            return View("UserGroups", new { lang = locale });
-        }
-        public string GetBaseUrl()
-        {
-            var request = HttpContext.Request;
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
-            return baseUrl;
+            return View("UserGroups", new { lang = getLocale() });
         }
 
         [AllowAnonymous]
@@ -111,15 +103,15 @@ namespace ScreenTaker.Controllers
             {
                 request += "?lang=" + lang;
             }
-            locale = lang;
-            ViewBag.Localize = locale;
+            Session["Locale"] = lang;
+            ViewBag.Localize = getLocale();
             Response.Redirect(request);
         }
 
         public ActionResult CreateGroup(string name)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -151,14 +143,14 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect, lang = locale  });
+            return RedirectToAction("Partial_GroupsAndEmails", new {selectedId=idToRedirect, lang = getLocale()  });
         }
 
 
         public ActionResult RemoveGroup(int selectedId = 0)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             int idToRedirect = 0;
             using (var transaction = _entities.Database.BeginTransaction())
             {
@@ -198,13 +190,13 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect, lang = locale  });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = idToRedirect, lang = getLocale()  });
         }
 
         public ActionResult AddUser(int selectedId,string email)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -237,18 +229,17 @@ namespace ScreenTaker.Controllers
                 }
                 catch (Exception ex)
                 {
-                    //return RedirectToAction("Message","Home",new { });
                     transaction.Rollback();                    
                     TempData["MessageContent"]= ex.Message;
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = getLocale()  });
         }
 
         public ActionResult RemoveUser(int selectedId,string email)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -264,13 +255,13 @@ namespace ScreenTaker.Controllers
                     TempData["MessageContent"] = ex.Message;
                 }
             }
-            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = locale  });
+            return RedirectToAction("Partial_GroupsAndEmails", new { selectedId = selectedId, lang = getLocale()  });
         }
 
         public ActionResult Partial_GroupsAndEmails(int selectedId, string lang = "en")
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
@@ -299,9 +290,9 @@ namespace ScreenTaker.Controllers
                         foreach (var e in emails)
                         {
                             if (e.AvatarFile == null || !System.IO.File.Exists(Server.MapPath("/avatars/") + e.AvatarFile + "_50.png"))
-                                avatars.Add(baseUrl + "/Resources/user_50.png");
+                                avatars.Add(getUserAvatar("user_50"));
                             else
-                                avatars.Add(baseUrl + "/avatars/" + e.AvatarFile + "_50.png");
+                                avatars.Add(getUserAvatar(e.AvatarFile + "_50"));
                         }
                         ViewBag.Avatars = avatars;                        
                     }
@@ -314,20 +305,27 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                     ViewBag.MessageContent = ex.Message;
                 }
-                return PartialView("Partial_GroupsAndEmails", new { lang = locale });
+                return PartialView("Partial_GroupsAndEmails", new { lang = getLocale() });
 
             }
         }
         public ActionResult AutocompleteSearchEmails(string term)
         {
-            ViewBag.Localize = locale;
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            if (user != null)
+            try
             {
-                var emails = _entities.People.Where(w => w.Email.Contains(term)&&_entities.PersonFriends.Where(ww=>ww.PersonId==user.Id).Select(s=>s.FriendId).Contains(w.Id)).Select(s => new { value = s.Email }).ToList();
-                return Json(emails, JsonRequestBehavior.AllowGet);
+                ViewBag.Localize = getLocale();
+                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                if (user != null)
+                {
+                    var emails = _entities.People.Where(w => w.Email.StartsWith(term) && _entities.PersonFriends.Where(ww => ww.PersonId == user.Id).Select(s => s.FriendId).Contains(w.Id)).Select(s => new { value = s.Email }).ToList();                                       
+                    return Json(emails, JsonRequestBehavior.AllowGet);
+                }
+                else return null;
             }
-            else return null;
+            catch
+            {
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
+            }
         }
     }
 }

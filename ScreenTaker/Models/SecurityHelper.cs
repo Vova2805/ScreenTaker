@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Web;
 
 namespace ScreenTaker.Models
 {
@@ -51,13 +48,6 @@ namespace ScreenTaker.Models
             {
                 return folder.Images.ToList();
             }
-
-            //if (folder.IsPublic)
-            //{
-                
-                
-            //}
-            // folder is private or user has no direct access for folder 
             return GetAccessibleImagesInFolder(user, folder, context);
         } 
 

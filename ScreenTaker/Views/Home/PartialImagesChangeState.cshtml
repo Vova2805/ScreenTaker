@@ -8,32 +8,63 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
-<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+<div class="col-sm-12 main-area-open" id="parent-container-img">
     @{
+        <script>
+            document.getElementById("RenameButton").disabled = true;
+            document.getElementById("DeleteButton").disabled = true;
+            document.getElementById("OpenButton").disabled = true;
+            document.getElementById("MoveButton").disabled = true;
+            document.getElementById("ManageAccessButton").disabled = true;
+            document.getElementById("MakePublicButton").disabled = true;
+            document.getElementById("sharedLink").disabled = true;
+            document.getElementById("sharedLink").value = "";
+            document.getElementById("new-title").value = "";
+            document.getElementById("imageNameDelete").innerText = "";
+            document.getElementById("compressedLink").src = "";
+            document.getElementById("compressedName").innerText = "";
+        </script>
         int index = 0;
         int count = ViewBag.Images.Count;
         foreach (var i in ViewBag.Images)
         {
             string original = i.SharedCode;
-            string sharedLink1 = ViewBag.BASE_URL + "Home/SharedImage?i=" + original;
-            string compressed = ViewBag.BASE_URL + "img/" + i.SharedCode + "_compressed.png";
-            string name = i.Name + ".png";
-            int length = name.Length;
-            int size = length <= 15 ? length : 15;
-            name = name.Substring(0, size);
+            string compressed = ViewBag.ImageLinkBASE + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
+            string sharedLink1 = ViewBag.SharedImageBASE + original;
+            string name = i.Name;
             string classes = "floating-box text-center task active images";
-            string without_ex = i.Name;
-            string image_id = "IMD" + index;
+            string privatePublicPath = ViewBag.BASE_URL + "Resources/";
             string isPublic = i.IsPublic + "";
+            if (i.IsPublic)
+            {
+                privatePublicPath += "public";
+            }
+            else
+            {
+                privatePublicPath += "private";
+            }
+            privatePublicPath += "_front.png";
             string id = i.Id + "";
             string IId = ViewBag.ImageID + "";
 
-            <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed', '@name','@without_ex','@isPublic')"
-                 ondblclick="openImage('@original')" style="cursor:pointer;">
-                <div class="@classes" id="@image_id" style="padding-top: 10px; ">
-                    <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center;" class="center-block">
+            if (index % 2 == 0)
+            {
+                classes += "image-preview image-preview-odd";
+            }
+            else
+            {
+                classes += "image-preview image-preview-even";
+            }
+            string image_id = "IMD" + index;
+
+            <div onclick="selectImage('@i.Id','@image_id','@count','@i.SharedCode','@original', '@sharedLink1', '@compressed','@name.Replace("'", "&#039")','@isPublic')"
+                 ondblclick="openImage('@original','@ViewBag.SigleImageBASE')" style="cursor:pointer;">
+                <div class="@classes" id="@image_id" style="padding-top: 10px;">
+                    <div style="width: 128px; height: 128px;background:url(@compressed) no-repeat center center; z-index:5;padding-top:10px;" class="center-block">
+                        <div class="front-image"  style="background:url(@privatePublicPath) no-repeat center center; z-index:6;">
+                        </div>
                     </div>
-                    <label class="text-center">@name</label>
+                    <label class="text-center text-overflowed text-overflowed_160">@name</label>
                 </div>
             </div>
             index = index + 1;

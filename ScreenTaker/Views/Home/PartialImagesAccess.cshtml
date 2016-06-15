@@ -18,7 +18,9 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-sm-12">
-            <input type="text" id="sharedLink" style="height: 30px;" onclick="selectText()" class="form-control" value="@ViewBag.ImageSharedLink" readonly>
+            <input type="text" id="sharedLink" style="height: 30px;" 
+                   onclick="selectText();"
+                   class="form-control" value="@ViewBag.ImageSharedLink" readonly>
         </div>
     </div>
     <div class="row">
@@ -102,7 +104,6 @@
                                 }
                             }
                         });">+</span>       
-                        @*<span class="input-group-addon btn btn-default" aria-label="Left Align" id="sizing-addon2" onclick="location.href='@Url.Action("ImagesAddMail", "Home")?userMail='+document.getElementById('userMail').value+'&imageId='+document.getElementById('Idhidden').value">+</span>*@
                     </div>
                 </div>
             </div>
@@ -176,9 +177,6 @@
             </div>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-default pull-left btn-not-rounded" style="width:100px;" data-dismiss="modal">@Resources.Resource.CLOSE</button>
 </div>
 @if (ViewBag.MessageContent != null)
 {

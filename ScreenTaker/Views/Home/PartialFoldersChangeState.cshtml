@@ -8,7 +8,7 @@
         Culture = UICulture = ViewBag.Localize ?? "en";
     }
 }
-<div class="col-sm-12" style="padding-left:40px;padding-right:40px;">
+<div class="col-sm-12 main-area-open" id="parent-container">
     @{
         int count = ViewBag.Folders.Count;
 
@@ -17,32 +17,43 @@
             string classes = "floating-box text-center task active images folder";
             string folder_id = "FID" + i;
             string img_id = "FIM" + i;
-            string sharedLink = ViewBag.Base_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
+            string sharedLink = ViewBag.BASE_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;
             string sharedCode = ViewBag.Folders[i].SharedCode;
             bool isFull = ViewBag.Folders[i].Images != null ? ViewBag.Folders[i].Images.Count > 0 : false;
-            string imageLink = ViewBag.Base_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
+            string imageLink = ViewBag.BASE_URL + "Resources/" + (ViewBag.Folders[i].IsPublic ? "public" : "private");
             if (isFull)
             {
                 imageLink += "_full";
             }
             imageLink += ".png";
-            string FolderTitle = ViewBag.Folders[i].Name;
-            int length = FolderTitle.Length;
-            int size = length <= 20 ? length : 20;
-            string name = FolderTitle.Substring(0, size);
-            FolderTitle = name;
             string isPublic = ViewBag.Folders[i].IsPublic + "";
+            string FolderTitle = ViewBag.Folders[i].Name;
+
+            if (i == 0)
+            {
+                FolderTitle = ViewBag.Folders[i].Name;
+                ViewBag.CurrentFolderId = ViewBag.Folders[i].Id;
+                ViewBag.FolderLink = ViewBag.FolderLinkBASE + ViewBag.Folders[i].SharedCode;
+            }
             string id = ViewBag.Folders[i].Id + "";
             string fId = ViewBag.FolderID + "";
             if (id == fId)
             {
                 string a = isPublic;
             }
-            <div onclick="selectFolder('@id','@folder_id','@count','@FolderTitle','@ViewBag.Folders[i].Name','@sharedLink','@sharedCode','@imageLink','@isPublic')"
-                 ondblclick="openFolder('@ViewBag.Folders[i].Id')" style="cursor:pointer;">
+            if (i % 2 == 0)
+            {
+                classes += "folder-preview folder-preview-odd";
+            }
+            else
+            {
+                classes += "folder-preview folder-preview-even";
+            }
+            <div onclick="selectFolder('@ViewBag.Folders[i].Id','@folder_id','@ViewBag.Count','@FolderTitle.Replace("'", "&#039")','@sharedLink','@sharedCode','@imageLink','@isPublic')"
+                 ondblclick="openFolder('@ViewBag.Folders[i].Id','@ViewBag.FolderLinkBASE')" style="cursor:pointer;">
                 <figure class="@classes" id="@folder_id">
-                    <img src="@imageLink" id="img_id" />
-                    <figcaption class="text-center">@FolderTitle</figcaption>
+                    <img src="@imageLink" class="image" id="img_id" style="width: 128px; height: 128px;" />
+                    <figcaption class="text-center text-overflowed text-overflowed_160">@FolderTitle</figcaption>
                 </figure>
             </div>
             if (id == fId)
@@ -54,14 +65,15 @@
         }
     }
 </div>
+
 @{
 
     if (ViewBag.MessageContent != null)
     {
-    <input type="hidden" id="MessageContentFromPartialChangeState" value="@ViewBag.MessageContent" />
+        <input type="hidden" id="MessageContentFromPartialChangeState" value="@ViewBag.MessageContent" />
     }
     else
     {
-    <input type="hidden" id="MessageContentFromPartialChangeState" value="" />
+        <input type="hidden" id="MessageContentFromPartialChangeState" value="" />
     }
 }

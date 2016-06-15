@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace ScreenTaker.Controllers
 {
@@ -11,7 +7,7 @@ namespace ScreenTaker.Controllers
         // GET: File
         public FileResult Image()
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return File(Request.RawUrl, "image/png");
         }
     }

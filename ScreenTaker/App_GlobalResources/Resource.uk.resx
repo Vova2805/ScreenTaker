@@ -256,7 +256,10 @@
     <value>Тут вже є група з такою назвою</value>
   </data>
   <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
-    <value>Файл повинен бути картинкою (BMP, JPEG, PNG або GIF) і його розмір повинен бути менше 4 мегабайт</value>
+    <value>Файл повинен бути картинкою (BMP, JPEG, PNG або GIF)</value>
+  </data>
+  <data name="ERR_INHERITED" xml:space="preserve">
+    <value>Це право унаслідуване і не може бути змінене</value>
   </data>
   <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
     <value>Ви не можете робити картинки публічними всередині приватних папок</value>
@@ -286,6 +289,9 @@
   <data name="GROUPS" xml:space="preserve">
     <value>Групи</value>
   </data>
+  <data name="GROUP_NAME" xml:space="preserve">
+    <value>Назва групи</value>
+  </data>
   <data name="HAVE_SENT" xml:space="preserve">
     <value>Ми надіслали лист</value>
   </data>
@@ -302,7 +308,7 @@
     <value>Неправильний пароль</value>
   </data>
   <data name="INVALID_LOGIN_ATTEMPT" xml:space="preserve">
-    <value>Invalid login attempt</value>
+    <value>Невдала спроба входу</value>
   </data>
   <data name="JUMBOTRON_TEXT" xml:space="preserve">
     <value>Найлегший спосіб ділитись зображеннями.</value>
@@ -447,6 +453,12 @@
   </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Підтвердити</value>
+  </data>
+  <data name="SUCCESS_COPY" xml:space="preserve">
+    <value>Вітання</value>
+  </data>
+  <data name="SUCCESS_COPY_TEXT" xml:space="preserve">
+    <value>Посилання успішно скопійовано</value>
   </data>
   <data name="TO_CONFIRM" xml:space="preserve">
     <value>для підтвердження вашої електронної пошти. Після отримання листа перейдіть за посиланням для завершення реєстрації</value>

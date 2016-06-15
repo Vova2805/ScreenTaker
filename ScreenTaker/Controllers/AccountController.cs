@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,10 +8,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ScreenTaker.Models;
 using System.Drawing;
-using System.IO;
 using System.Drawing.Imaging;
-using System.Collections.Generic;
-
+using System.Threading;
+using System.Globalization;
 
 namespace ScreenTaker.Controllers
 {
@@ -73,7 +68,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -85,7 +80,8 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            ViewBag.Localize = locale;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+            ViewBag.Localize = getLocale();
             ViewBag.ErrorTitle = null;
             if (!ModelState.IsValid)
             {
@@ -100,11 +96,11 @@ namespace ScreenTaker.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-//                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user, "Confirm your account");
 
                     ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
 
-                    return View("Error");
+                    return View(model);
                 }
             }
 
@@ -125,7 +121,6 @@ namespace ScreenTaker.Controllers
                 { }
 
                 ViewBag.ErrorTitle = Resources.Resource.INVALID_LOGIN_ATTEMPT;
-                    //    ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
         }
@@ -135,7 +130,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
@@ -151,7 +146,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -180,14 +175,14 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return View();
         }
         string EMAIL = "";
         [AllowAnonymous]
         public async Task<ActionResult> ResendConfirmation(string email)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
 
             var user = UserManager.FindByEmail(email);
             if (user != null)
@@ -205,7 +200,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             ViewBag.ErrorTitle = null;
 
             if (ModelState.IsValid)
@@ -244,7 +239,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code, string lang = "en")
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
 
             if (userId == default(int) || code == null)
             {
@@ -277,7 +272,7 @@ namespace ScreenTaker.Controllers
                 return View("ConfirmEmail");
             }
             AddErrors(result);
-            ViewBag.Email = UserManager.FindById(userId);
+            ViewBag.Email = UserManager.FindById(userId).Email;
             EMAIL = ViewBag.Email;
             return View();
         }
@@ -287,7 +282,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return View();
         }
 
@@ -298,7 +293,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
@@ -330,7 +325,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return View();
         }
 
@@ -339,7 +334,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return code == null ? View("Error") : View();
         }
 
@@ -350,24 +345,30 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            ViewBag.Localize = locale;
-            if (!ModelState.IsValid)
-            {
-                return View(model);
+            try {
+                ViewBag.Localize = getLocale();
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist
+                    return RedirectToAction("ResetPasswordConfirmation", "Account");
+                }
+                var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ResetPasswordConfirmation", "Account");
+                }
+                AddErrors(result);
+                return View();
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            catch
             {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
-            return View();
         }
 
         //
@@ -375,7 +376,7 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return View();
         }
 
@@ -386,7 +387,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
@@ -396,15 +397,22 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
-            ViewBag.Localize = locale;
-            var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == default(int))
+            try
             {
-                return View("Error");
+                ViewBag.Localize = getLocale();
+                var userId = await SignInManager.GetVerifiedUserIdAsync();
+                if (userId == default(int))
+                {
+                    return View("Error");
+                }
+                var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
+                var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+                return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
             }
-            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            catch
+            {
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
+            }
         }
 
         //
@@ -414,18 +422,25 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
-            ViewBag.Localize = locale;
-            if (!ModelState.IsValid)
+            try
             {
-                return View();
-            }
+                ViewBag.Localize = getLocale();
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
 
-            // Generate the token and send it
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
-            {
-                return View("Error");
+                // Generate the token and send it
+                if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+                {
+                    return View("Error");
+                }
+                return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
             }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            catch
+            {
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
+            }
         }
 
         //
@@ -433,29 +448,36 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            ViewBag.Localize = locale;
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
+            try
             {
-                return RedirectToAction("Login");
-            }
+                ViewBag.Localize = getLocale();
+                var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+                if (loginInfo == null)
+                {
+                    return RedirectToAction("Login");
+                }
 
-            // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
+                // Sign in the user with this external login provider if the user already has a login
+                var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    case SignInStatus.Failure:
+                    default:
+                        // If the user does not have an account, then prompt the user to create an account
+                        ViewBag.ReturnUrl = returnUrl;
+                        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                        return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                }
+            }
+            catch
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
             }
         }
 
@@ -466,37 +488,44 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
-            ViewBag.Localize = locale;
-            if (User.Identity.IsAuthenticated)
+            try
             {
-                return RedirectToAction("Index", "Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                ViewBag.Localize = getLocale();
+                if (User.Identity.IsAuthenticated)
                 {
-                    return View("ExternalLoginFailure");
+                    return RedirectToAction("Index", "Manage");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
+
+                if (ModelState.IsValid)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    // Get the information about the user from the external login provider
+                    var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                    if (info == null)
+                    {
+                        return View("ExternalLoginFailure");
+                    }
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                        if (result.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToLocal(returnUrl);
+                        }
                     }
+                    AddErrors(result);
                 }
-                AddErrors(result);
-            }
 
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
+                ViewBag.ReturnUrl = returnUrl;
+                return View(model);
+            }
+            catch
+            {
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
+            }
+            }
 
         //
         // POST: /Account/LogOff
@@ -504,7 +533,7 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
@@ -514,22 +543,34 @@ namespace ScreenTaker.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             return View();
         }
         
         public ActionResult UserProfile()
         {
-            ViewBag.Localize = locale;
-            ViewBag.Email = User.Identity.GetUserName();
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-            if (user != null)
+            ViewBag.Localize = getLocale();
+            using (var transaction = _entities.Database.BeginTransaction())
             {
-                var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
-                if (person.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/")+ person.AvatarFile + "_128.png"))
-                    ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + person.AvatarFile + "_128.png";
-                else
-                    ViewBag.Avatar_128 = GetBaseUrl() + "/Resources/user_128.png";
+                try
+                {
+                    ViewBag.Email = User.Identity.GetUserName();
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        var person = _entities.People.Where(w => w.Email == user.Email).FirstOrDefault();
+                        if (person.AvatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + person.AvatarFile + "_128.png"))
+                            ViewBag.Avatar_128 = getUserAvatar(person.AvatarFile + "_128");
+                        else
+                            ViewBag.Avatar_128 = getUserAvatar("user_128");
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return View("Message", new { lang = getLocale() });
+                }
             }
             return View();
         }
@@ -538,39 +579,46 @@ namespace ScreenTaker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            ViewBag.Localize = locale;
-            ViewBag.ErrorTitle = null;
+            try
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(getLocale());
+                ViewBag.Localize = getLocale();
+                ViewBag.ErrorTitle = null;
 
-            if (!ModelState.IsValid)
-            {
-                ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
-                return View("UserProfile");
-            }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
-                if (user != null)
+                if (!ModelState.IsValid)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    ViewBag.Title = Resources.Resource.PASSWORD_CHANGE;
-                    ViewBag.Message = Resources.Resource.PASSWORD_CHANGE_SUCCESS;
-                    return View("Info");
+                    ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
+                    return RedirectToAction("UserProfile");
                 }
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        ViewBag.Title = Resources.Resource.PASSWORD_CHANGE;
+                        ViewBag.Message = Resources.Resource.PASSWORD_CHANGE_SUCCESS;
+                        return View("Info");
+                    }
+                }
+                if (result.Errors.Any())
+                {
+                    ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
+                }
+                AddErrors(result);
+                ViewBag.Email = EMAIL;
+                ViewBag.Avatar_128 = AVATAR;
+                return RedirectToAction("UserProfile");
             }
-            if (result.Errors.Any())
+            catch
             {
-                ViewBag.ErrorTitle = Resources.Resource.INCORRECT_PASSWORD;
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
             }
-            AddErrors(result);
-            ViewBag.Email = EMAIL;
-            ViewBag.Avatar_128 = AVATAR;
-            return View("UserProfile");
         }
 
         protected override void Dispose(bool disposing)
         {
-            
             if (disposing)
             {
                 if (_userManager != null)
@@ -610,7 +658,7 @@ namespace ScreenTaker.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
@@ -663,9 +711,9 @@ namespace ScreenTaker.Controllers
         string AVATAR = "/avatars/user_128.png";
         public ActionResult SetAvatar(HttpPostedFileBase file)
         {
-            ViewBag.Localize = locale;
+            ViewBag.Localize = getLocale();
             if (file != null)
-            {                
+            {
                 using (var transaction = _entities.Database.BeginTransaction())
                 {
                     try
@@ -680,8 +728,8 @@ namespace ScreenTaker.Controllers
                             {
                                 try
                                 {
-                                    System.IO.File.Delete(Server.MapPath("~/avatars/") + person.AvatarFile + "_128.png");
-                                    System.IO.File.Delete(Server.MapPath("~/avatars/") + person.AvatarFile + "_50.png");
+                                    System.IO.File.Delete(Server.MapPath("/avatars/") + avatarFile + "_128");
+                                    System.IO.File.Delete(Server.MapPath("/avatars/") + avatarFile + "_50");
                                 }
                                 catch { }
                             }
@@ -692,33 +740,25 @@ namespace ScreenTaker.Controllers
                         var bitmap = new Bitmap(file.InputStream);
 
                         var bitmap128 = _imageCompressor.Compress(bitmap, new Size(128, 128));
-                        var path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_128.png");
+                        var path = Server.MapPath("/avatars/")+avatarFile + "_128.png";
                         bitmap128.Save(path, ImageFormat.Png);
                         var bitmap25 = _imageCompressor.Compress(bitmap, new Size(50, 50));
-                        path = Path.Combine(Server.MapPath("~/avatars/"), avatarFile + "_50.png");
+                        path = Server.MapPath("/avatars/") + avatarFile + "_50.png";
                         bitmap25.Save(path, ImageFormat.Png);
-                        ViewBag.Avatar_128 = GetBaseUrl() + "/avatars/" + avatarFile + "_128.png";
+                        ViewBag.Avatar_128 = getUserAvatar(avatarFile + "_128");
                         ViewBag.PeopleForMaster = _entities.People.Select(s => s).ToList();
-                        transaction.Commit();
-                    }
-                    catch (Exception)
-                    {
-                        transaction.Rollback();
-                    }
-                }
-                
+                transaction.Commit();
             }
+                    catch (Exception)
+            {
+                transaction.Rollback();
+                return RedirectToAction("Message", "Home", new { lang = getLocale() });
+            }
+        }
+    }
             ViewBag.Email = EMAIL;
             AVATAR = ViewBag.Avatar_128;
             return RedirectToAction("UserProfile");
-        }
-
-        public string GetBaseUrl()
-        {
-            var request = HttpContext.Request;
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
-            return baseUrl;
         }
     }
 }

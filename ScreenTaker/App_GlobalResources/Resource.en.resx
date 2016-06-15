@@ -256,7 +256,10 @@
     <value>There is alredy a group with this name</value>
   </data>
   <data name="ERR_IMAGE_NOT_VALID" xml:space="preserve">
-    <value>Uploading file should be image (BMP, JPEG, PNG or GIF) and it's size shoud be up to 4 megabytes</value>
+    <value>Uploading file should be image (BMP, JPEG, PNG or GIF)</value>
+  </data>
+  <data name="ERR_INHERITED" xml:space="preserve">
+    <value>This right is inherited and can't be changed</value>
   </data>
   <data name="ERR_PUBLIC_IN_PRIVATE" xml:space="preserve">
     <value>You can't make public image in private folder</value>
@@ -285,6 +288,9 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="GROUPS" xml:space="preserve">
     <value>Groups</value>
+  </data>
+  <data name="GROUP_NAME" xml:space="preserve">
+    <value>Group name</value>
   </data>
   <data name="HAVE_SENT" xml:space="preserve">
     <value>We have sent mail to</value>
@@ -447,6 +453,12 @@ Designed with power-users in mind, ScreenTaker has a fast workflow that requires
   </data>
   <data name="SUBMIT" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="SUCCESS_COPY" xml:space="preserve">
+    <value>Сongratulation</value>
+  </data>
+  <data name="SUCCESS_COPY_TEXT" xml:space="preserve">
+    <value>Link successfully copied</value>
   </data>
   <data name="TO_CONFIRM" xml:space="preserve">
     <value>to confirm of validity of your email address. After receiving the mail follow the link provided to complete your registration</value>
