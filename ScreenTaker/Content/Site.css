@@ -263,7 +263,7 @@ textarea {
         height:100%;
     }
    .sk-cube-grid {
-    margin-top: 15%;
+    margin-top: 20%;
     }
     .sidenav {
     height: 100%;
@@ -513,9 +513,7 @@ textarea {
 
 @media(max-width:1199px) {
   
- .sk-cube-grid {
-    margin-top: 10%;
-    }
+
 }
 
 @media(max-width:991px ) {
