@@ -330,7 +330,7 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_FOLDER</p>
-            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onclick="document.getElementById('sharedLink').select();copyToClipboard(document.getElementById('sharedLink'));this.select();" value="@ViewBag.FolderLink" disabled readonly />
+            <input id="sharedLink" class="form-control btn-not-rounded" style="width: 100%" type="text" placeholder="Sharing link" onmouseup="e.preventDefault();" onclick="document.getElementById('sharedLink').select();copyToClipboard(document.getElementById('sharedLink'));this.select();" value="@ViewBag.FolderLink" disabled readonly />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#FolderManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick="$('#loadingAnimation').css('visibility', 'visible');
