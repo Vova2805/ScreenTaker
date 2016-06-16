@@ -14,7 +14,7 @@
 
         for (int i = 0; i < ViewBag.Folders.Count; i++)
         {
-            string classes = "floating-box text-center task active images folder";
+            string classes = "floating-box text-center task active images folder ";
             string folder_id = "FID" + i;
             string img_id = "FIM" + i;
             string sharedLink = ViewBag.BASE_URL + "Home/SharedFolder?f=" + ViewBag.Folders[i].SharedCode;

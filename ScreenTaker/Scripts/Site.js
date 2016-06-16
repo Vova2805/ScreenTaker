@@ -116,6 +116,7 @@ function copyToClipboard(elem) {
         target.textContent = "";
     }
     //$('#SuccessCopy').modal('show');
+    selectText();
     return succeed;
 }
 function emailValidation(email) {

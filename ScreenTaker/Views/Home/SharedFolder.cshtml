@@ -58,7 +58,7 @@
                         string compressed = ViewBag.ImagePathBASE + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
 
                         string isPublic = i.IsPublic + "";
-                        string classes = "floating-box text-center task active images";
+                        string classes = "floating-box text-center task active images ";
                         string name = i.Name;
                         string image_id = "IMD" + index;
                         string temp = ((ViewBag.Owners[index] != null && ViewBag.Owners[index].AvatarFile != null && System.IO.File.Exists(Server.MapPath("/avatars/") + ViewBag.Owners[index].AvatarFile + "_50.png")) ? (ViewBag.Owners[index].AvatarFile) : "user");

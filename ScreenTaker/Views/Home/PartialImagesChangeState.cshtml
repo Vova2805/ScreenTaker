@@ -32,7 +32,7 @@
             string compressed = ViewBag.ImageLinkBASE + (i.ServerFolder == null ? "" : i.ServerFolder.SharedCode) + "/" + i.SharedCode + "_compressed.png";
             string sharedLink1 = ViewBag.SharedImageBASE + original;
             string name = i.Name;
-            string classes = "floating-box text-center task active images";
+            string classes = "floating-box text-center task active images ";
             string privatePublicPath = ViewBag.BASE_URL + "Resources/";
             string isPublic = i.IsPublic + "";
             if (i.IsPublic)
