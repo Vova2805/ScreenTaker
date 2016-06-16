@@ -58,11 +58,11 @@ namespace ScreenTaker.Controllers
                         var baseUrl = GetBaseUrl();                        
                         IList<string> avatars = new List<string>();
                         foreach (var e in emails)
-                        {
-                            if (e.AvatarFile != null && System.IO.File.Exists(getUserAvatar(e.AvatarFile + "_50")))
-                                avatars.Add(getUserAvatar(e.AvatarFile+"_50"));
-                            else
+                        {                          
+                            if (e.AvatarFile == null || !System.IO.File.Exists(Server.MapPath("/avatars/") + e.AvatarFile + "_50.png"))
                                 avatars.Add(getUserAvatar("user_50"));
+                            else
+                                avatars.Add(getUserAvatar(e.AvatarFile + "_50"));
                         }
                         ViewBag.Avatars = avatars;
                     }                                                  
