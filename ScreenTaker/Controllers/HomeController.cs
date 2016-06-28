@@ -117,7 +117,7 @@ namespace ScreenTaker.Controllers
                         ViewBag.MessageContent= ex.Message;
                         ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
                         ViewBag.Localize = getLocale();
-                        return RedirectToAction("Message", "Home", new { lang = getLocale() });
+                        return View("Welcome", new { lang = getLocale() });
                     }
                 }
             }
