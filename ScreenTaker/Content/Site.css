@@ -513,7 +513,9 @@ textarea {
 
 @media(max-width:1199px) {
   
-
+    .footer-text{
+        font-size:12px;
+    }
 }
 
 @media(max-width:991px ) {
