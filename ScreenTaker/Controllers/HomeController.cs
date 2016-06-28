@@ -1206,12 +1206,8 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
-                    if (title.Length == 0)
-                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
+                {                   
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-                    if (user != null && _entities.Folders.Where(w => w.Name == title && w.OwnerId == user.Id).Any())
-                        throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);                    
                     var newolder = new Folder()
                     {
                         IsPublic = false,
@@ -1221,8 +1217,7 @@ namespace ScreenTaker.Controllers
                         CreationDate = DateTime.Now
                     };
                     _entities.Folders.Add(newolder);
-                    _entities.SaveChanges();
-                    transaction.Commit();
+                                    
                     var folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
                     ViewBag.Folders = folders;
                     ViewBag.BASE_URL = GetBaseUrl() + "";
@@ -1231,11 +1226,17 @@ namespace ScreenTaker.Controllers
                     var sharedLinks = folders.ToList().Select(f => GetSharedFolderLink(f.SharedCode)).ToList();
                     ViewBag.Count = folders.Count;
                     ViewBag.SharedLinks = sharedLinks;
+                    if (title.Length == 0)
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
+                    if (user != null && _entities.Folders.Where(w => w.Name == title && w.OwnerId == user.Id).Any())
+                        throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);
+                    _entities.SaveChanges();
+                    transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();                    
-                    TempData["MessageContent"] = ex.Message;
+                    ViewBag.MessageContent = ex.Message;
                 }
             }
             return PartialView("PartialFoldersChangeState");
