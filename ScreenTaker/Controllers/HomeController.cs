@@ -418,13 +418,13 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {                    
+                {
                     if (email.Length == 0)
                         throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     if (!IsValidEmail(email))
                         throw new Exception(Resources.Resource.ERR_EMAIL_NOT_VALID);                    
                     var person = _entities.People.FirstOrDefault(w => w.Email == email);
-                    if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId == person.Id) && w.ImageId == imageId))
+                    if (person!=null&&_entities.UserShares.Any(w => (w.Email == email || person!=null&&w.PersonId == person.Id) && w.ImageId == imageId))
                         throw new Exception(Resources.Resource.ERR_USER_ALREDY);
                     var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
 
@@ -441,7 +441,7 @@ namespace ScreenTaker.Controllers
                         var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
                         _entities.PersonFriends.Add(personFriend);
                     }
-                    if (person.Id != 0)
+                    if (person!=null&&person.Id != 0)
                     {
                         userManager.SendEmail(friend.Id, "ScreenTaker shared image",
                             String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ImageSharing.html")),
@@ -455,14 +455,14 @@ namespace ScreenTaker.Controllers
                         _entities.UserShares.Add(us);
                     }
                     _entities.SaveChanges();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    TempData["MessageContent"] = ex.Message;
-                }
+            transaction.Commit();
+        }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                TempData["MessageContent"] = ex.Message;
             }
+}
             return RedirectToAction("PartialImagesAccess", new { imageId = imageId });
         }
             
