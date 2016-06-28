@@ -264,22 +264,31 @@ namespace ScreenTaker.Controllers
                     {
                         UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
                         _entities.UserShares.Add(us);
-                        userManager.SendEmailAsync(friend.Id, "ScreenTaker shared folder",
-                            String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/FolderSharing.html")),
-                                GetSharedFolderLink(folder), user.Email, folder.Name));
                     }
                     else
                     {
                         UserShare us = new UserShare { FolderId = folderId, Email = email };
                         _entities.UserShares.Add(us);
                     }
-                    if(folder!=null)                   
+                    userManager.EmailService.SendAsync(new IdentityMessage()
+                    {
+                        Body = String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/FolderSharing.html")),
+                               GetSharedFolderLink(folder), user.Email, folder.Name),
+                        Subject = "ScreenTaker shared folder",
+                        Destination = email
+                    });
+
+                    if (folder != null)
+                    {
                         foreach (var i in folder.Images)
                         {
-                            var record = _entities.UserShares.FirstOrDefault(w => w.ImageId == i.Id && (w.Email == email || w.Person.Email == email));
+                            var record =
+                                _entities.UserShares.FirstOrDefault(
+                                    w => w.ImageId == i.Id && (w.Email == email || w.Person.Email == email));
                             if (record != null)
                                 _entities.UserShares.Remove(record);
-                        }                                                
+                        }
+                    }
                     _entities.SaveChanges();
                     transaction.Commit();
                 }
@@ -441,11 +450,8 @@ namespace ScreenTaker.Controllers
                         var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
                         _entities.PersonFriends.Add(personFriend);
                     }
-                    if (person.Id != 0)
+                    if (person != null)
                     {
-                        userManager.SendEmail(friend.Id, "ScreenTaker shared image",
-                            String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ImageSharing.html")),
-                                GetSharedImageLink(image), user.Email, image.Name));
                         UserShare us = new UserShare { PersonId = person.Id, ImageId = imageId };
                         _entities.UserShares.Add(us);
                     }
@@ -454,8 +460,17 @@ namespace ScreenTaker.Controllers
                         UserShare us = new UserShare { ImageId = imageId, Email = email };
                         _entities.UserShares.Add(us);
                     }
+                    
                     _entities.SaveChanges();
                     transaction.Commit();
+
+                    userManager.EmailService.SendAsync(new IdentityMessage()
+                    {
+                        Body = String.Format(System.IO.File.ReadAllText(HttpContext.Server.MapPath("~/Emails/ImageSharing.html")),
+                                GetSharedImageLink(image), user.Email, image.Name),
+                        Subject = "ScreenTaker shared image",
+                        Destination = email
+                    });
                 }
                 catch (Exception ex)
                 {
