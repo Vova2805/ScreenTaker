@@ -510,7 +510,7 @@
             </div>
             <hr />
             <p style="color: #E0E0E0">@Resources.Resource.SHARE_LINK</p>
-            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" disabled  onclick="selectText();copyToClipboard(document.getElementById('sharedLink'));" value="@ViewBag.FirstImageShLink" readonly />
+            <input class="form-control btn-not-rounded" id="sharedLink" style="width: 100%" type="text" placeholder="Sharing link" disabled onclick="this.select();" value="@ViewBag.FirstImageShLink" readonly />
             <br />
             <div>
                 <button type="button" class="btn btn-success btn-not-rounded" data-toggle="modal" data-target="#ImageManageAccess" disabled id="ManageAccessButton" style="width: 100%" onclick=

@@ -357,18 +357,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="For Database\screenTakerDB.erwin" />
-    <Content Include="img\2n7bU1DVQmy7aMm\2zD2DUldWIblr8C.png" />
-    <Content Include="img\2n7bU1DVQmy7aMm\2zD2DUldWIblr8C_compressed.png" />
-    <Content Include="img\2n7bU1DVQmy7aMm\bSuKYOCrV4Rkyfd.png" />
-    <Content Include="img\2n7bU1DVQmy7aMm\bSuKYOCrV4Rkyfd_compressed.png" />
-    <Content Include="img\2n7bU1DVQmy7aMm\Fmu2kyQq9gGofHz.png" />
-    <Content Include="img\2n7bU1DVQmy7aMm\Fmu2kyQq9gGofHz_compressed.png" />
-    <Content Include="img\2n7bU1DVQmy7aMm\X5Rhd09SGylcKiH.png" />
-    <Content Include="img\2n7bU1DVQmy7aMm\X5Rhd09SGylcKiH_compressed.png" />
-    <Content Include="img\ES75KXyqMx22wR3\lbbrZXdShL0GpqZ.png" />
-    <Content Include="img\ES75KXyqMx22wR3\lbbrZXdShL0GpqZ_compressed.png" />
-    <Content Include="img\ES75KXyqMx22wR3\whhxGNQG8OOo0iA.png" />
-    <Content Include="img\ES75KXyqMx22wR3\whhxGNQG8OOo0iA_compressed.png" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -380,7 +368,6 @@
     <Content Include="Models\ScreenTakerDataModel.edmx.diagram">
       <DependentUpon>ScreenTakerDataModel.edmx</DependentUpon>
     </Content>
-    <Content Include="img\Thumbs.db" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Models\ScreenTakerDataModel.Context.tt">
@@ -516,6 +503,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="img\2n7bU1DVQmy7aMm\" />
+    <Folder Include="img\ES75KXyqMx22wR3\" />
     <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
