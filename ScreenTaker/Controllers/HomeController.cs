@@ -117,7 +117,7 @@ namespace ScreenTaker.Controllers
                         ViewBag.MessageContent= ex.Message;
                         ViewBag.MessageTitle = Resources.Resource.ERR_TITLE;
                         ViewBag.Localize = getLocale();
-                        return RedirectToAction("Message", "Home", new { lang = getLocale() });
+                        return View("Welcome", new { lang = getLocale() });
                     }
                 }
             }
@@ -243,8 +243,8 @@ namespace ScreenTaker.Controllers
                         throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     if (!IsValidEmail(email))
                         throw new Exception(Resources.Resource.ERR_EMAIL_NOT_VALID);                    
-                    var personID = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
-                    if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId==personID)&&w.FolderId==folderId))
+                    var personId = _entities.People.Where(w => w.Email == email).Select(s => s.Id).FirstOrDefault();
+                    if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId==personId)&&w.FolderId==folderId))
                         throw new Exception(Resources.Resource.ERR_USER_ALREDY);
 
                     ApplicationUserManager userManager =
@@ -260,9 +260,9 @@ namespace ScreenTaker.Controllers
                         var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
                         _entities.PersonFriends.Add(personFriend);
                     }
-                    if (personID != 0)
+                    if (personId != 0)
                     {
-                        UserShare us = new UserShare { PersonId = personID, FolderId = folderId };
+                        UserShare us = new UserShare { PersonId = personId, FolderId = folderId };
                         _entities.UserShares.Add(us);
                     }
                     else
@@ -427,13 +427,13 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {                    
+                {
                     if (email.Length == 0)
                         throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
                     if (!IsValidEmail(email))
                         throw new Exception(Resources.Resource.ERR_EMAIL_NOT_VALID);                    
                     var person = _entities.People.FirstOrDefault(w => w.Email == email);
-                    if (_entities.UserShares.Any(w => (w.Email == email || w.PersonId == person.Id) && w.ImageId == imageId))
+                    if (person!=null && _entities.UserShares.Any(w => (w.Email == email || w.PersonId == person.Id) && w.ImageId == imageId))
                         throw new Exception(Resources.Resource.ERR_USER_ALREDY);
                     var image = _entities.Images.FirstOrDefault(w => w.Id == imageId);
 
@@ -450,7 +450,7 @@ namespace ScreenTaker.Controllers
                         var personFriend = new PersonFriend() { PersonId = user.Id, FriendId = friend.Id };
                         _entities.PersonFriends.Add(personFriend);
                     }
-                    if (person != null)
+                    if (person != null && person.Id != 0)
                     {
                         UserShare us = new UserShare { PersonId = person.Id, ImageId = imageId };
                         _entities.UserShares.Add(us);
@@ -477,6 +477,7 @@ namespace ScreenTaker.Controllers
                     transaction.Rollback();
                     TempData["MessageContent"] = ex.Message;
                 }
+
             }
             return RedirectToAction("PartialImagesAccess", new { imageId = imageId });
         }
@@ -1221,12 +1222,8 @@ namespace ScreenTaker.Controllers
             using (var transaction = _entities.Database.BeginTransaction())
             {
                 try
-                {
-                    if (title.Length == 0)
-                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
+                {                   
                     ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId<int>());
-                    if (user != null && _entities.Folders.Where(w => w.Name == title && w.OwnerId == user.Id).Any())
-                        throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);                    
                     var newolder = new Folder()
                     {
                         IsPublic = false,
@@ -1236,8 +1233,7 @@ namespace ScreenTaker.Controllers
                         CreationDate = DateTime.Now
                     };
                     _entities.Folders.Add(newolder);
-                    _entities.SaveChanges();
-                    transaction.Commit();
+                                    
                     var folders = _entities.Folders.ToList().Where(f => f.OwnerId == user.Id).ToList();
                     ViewBag.Folders = folders;
                     ViewBag.BASE_URL = GetBaseUrl() + "";
@@ -1246,11 +1242,17 @@ namespace ScreenTaker.Controllers
                     var sharedLinks = folders.ToList().Select(f => GetSharedFolderLink(f.SharedCode)).ToList();
                     ViewBag.Count = folders.Count;
                     ViewBag.SharedLinks = sharedLinks;
+                    if (title.Length == 0)
+                        throw new Exception(Resources.Resource.ERR_EMPTY_FIELD);
+                    if (user != null && _entities.Folders.Where(w => w.Name == title && w.OwnerId == user.Id).Any())
+                        throw new Exception(Resources.Resource.ERR_FOLDER_ALREDY);
+                    _entities.SaveChanges();
+                    transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();                    
-                    TempData["MessageContent"] = ex.Message;
+                    ViewBag.MessageContent = ex.Message;
                 }
             }
             return PartialView("PartialFoldersChangeState");

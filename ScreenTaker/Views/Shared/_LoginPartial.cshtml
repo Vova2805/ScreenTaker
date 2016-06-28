@@ -45,26 +45,33 @@
                         path = Server.MapPath("~/avatars/") + "user_50.png";
                     }
                     else
-                    {                       
+                    {
                         var email = User.Identity.GetUserName();
                         var people = ViewBag.PeopleForMaster;
                         string avatarFile = null;
-                        for (int i = 0; i < people.Count; i++)
-                        {
-                            if (people[i].Email == email)
-                            {
-                                avatarFile = people[i].AvatarFile;
-                            }
-                        }
-                        if (avatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + avatarFile + "_50.png"))
-                        {
-                            path = "~/avatars/" + avatarFile + "_50.png";
-                        }
-                        else
+                        if (people == null)
                         {
                             path = "~/avatars/user_50.png";
                         }
-                    }                    
+                        else
+                        {
+                            for (int i = 0; i < people.Count; i++)
+                            {
+                                if (people[i].Email == email)
+                                {
+                                    avatarFile = people[i].AvatarFile;
+                                }
+                            }
+                            if (avatarFile != null && System.IO.File.Exists(Server.MapPath("~/avatars/") + avatarFile + "_50.png"))
+                            {
+                                path = "~/avatars/" + avatarFile + "_50.png";
+                            }
+                            else
+                            {
+                                path = "~/avatars/user_50.png";
+                            }
+                        }
+                    }
                 }
                 <li>
                     <ul class="nav navbar-nav navbar-right">
